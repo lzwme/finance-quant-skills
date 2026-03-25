@@ -1,0 +1,32 @@
+{
+  "name": "finance-quant-skills",
+  "owner": {
+    "name": "renxia",
+    "email": "lzwy0820@qq.com"
+  },
+  "metadata": {
+    "description": "一个金融量化交易相关的技能库",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "quant-skills",
+      "description": "金融量化相关的技能库",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/pdf"
+      ]
+    },
+    {
+      "name": "quant-docs",
+      "description": "金融量化相关的框架文档",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/qmt-docs",
+        "./skills/webapp-testing"
+      ]
+    }
+  ]
+}
