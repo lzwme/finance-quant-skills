@@ -11,21 +11,25 @@
   "plugins": [
     {
       "name": "quant-skills",
-      "description": "金融量化相关的技能库",
+      "description": "金融量化框架",
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/pdf"
+        "./skills/akquant",
+        "./skills/qmt-docs",
+        "./skills/baostock"
       ]
     },
     {
       "name": "quant-docs",
-      "description": "金融量化相关的框架文档",
+      "description": "金融数据获取",
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/qmt-docs",
-        "./skills/webapp-testing"
+        "./skills/akshare-docs",
+        "./skills/backtrader",
+        "./skills/pywencai",
+        "./skills/rqalpha"
       ]
     }
   ]
