@@ -11,3 +11,6 @@ cache
 tmp
 release
 dist
+
+# python
+.venv
