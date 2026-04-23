@@ -36,6 +36,36 @@ metadata:
 - **[最佳实践](references/best-practices.md)** - 编码规范、性能优化
 - **[聚宽迁移](references/joinquant-migration.md)** - 聚宽策略移植指南
 
+### 📚 内置Python接口文档
+
+- [快速开始](references/python-innerApi/start_now.md)
+- [代码示例](references/python-innerApi/code_examples.md)
+- [回调函数](references/python-innerApi/callback_function.md)
+- [数据函数](references/python-innerApi/data_function.md)
+- [行情函数](references/python-innerApi/quote_function.md)
+- [系统函数](references/python-innerApi/system_function.md)
+- [交易函数](references/python-innerApi/trading_function.md)
+- [绘图函数](references/python-innerApi/drawing_function.md)
+- [变量约定](references/python-innerApi/variable_convention.md)
+- [数据结构](references/python-innerApi/data_structure.md)
+- [枚举常量](references/python-innerApi/enum_constants.md)
+- [界面操作](references/python-innerApi/interface_operation.md)
+- [用户注意事项](references/python-innerApi/user_attention.md)
+- [python接口常见问题](references/python-innerApi/question_answer.md)
+
+### 📚 数据字典
+
+- [股票数据](references/dict/stock.md)
+- [指数数据](references/dict/indexes.md)
+- [行业数据](references/dict/industry.md)
+- [迅投因子](references/dict/xuntou_factor.md)
+- [期权数据](references/dict/option.md)
+- [债券数据](references/dict/bond.md)
+- [分级基金](references/dict/floorfunds.md)
+- [期货数据](references/dict/future.md)
+- [场景示例](references/dict/scenario_based_example.md)
+- [数据字典常见问题](references/dict/question_answer.md)
+
 ### 代码示例
 | 示例 | 机制 | 文件 |
 |------|------|------|
