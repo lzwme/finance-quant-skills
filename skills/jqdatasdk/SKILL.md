@@ -17,7 +17,7 @@ dependency:
 
 ## 前置准备
 - 依赖说明:安装 jqdatasdk 库（已包含在 dependency 中）
-- 凭证配置:需配置聚宽账号 Token（环境变量: JQDATA_TOKEN）
+- 凭证配置:需配置聚宽账号 Token（环境变量: JQDATA_TOKEN）或登录用户名及密码（环境变量: JQDATA_USERNAME、JQDATA_PASSWORD）
 - 账号申请:访问 https://www.joinquant.com/ 注册账号并获取 API Token（详见 references/jqdatasdk_quickstart.md）
 
 ## 操作步骤
@@ -60,7 +60,7 @@ dependency:
   - [references/api.md](references/api.md) (何时读取:需要查看详细API参数说明时)
 
 ## 注意事项
-- 脚本执行需配置聚宽账号 Token，首次使用需先完成凭证配置
+- 脚本执行需配置聚宽账号 Token 或登录用户名及密码，首次使用需先完成凭证配置
 - 聚宽股票代码格式:上海市场为 XXXXXX.XSHG，深圳市场为 XXXXXX.XSHE
 - 部分数据（如财务数据）可能有延迟，建议在交易日9:30-15:00之外获取
 - 脚本返回 JSON 格式数据，智能体负责解析并转换为用户友好的展示
