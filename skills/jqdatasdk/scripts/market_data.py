@@ -11,6 +11,14 @@ import sys
 import os
 from datetime import datetime, timedelta
 
+# 添加脚本目录到 Python 路径，支持独立运行
+script_dir = os.path.dirname(os.path.abspath(__file__))
+if script_dir not in sys.path:
+    sys.path.insert(0, script_dir)
+
+# 导入认证模块
+from auth import auth_jq
+
 
 def main():
     parser = argparse.ArgumentParser(description='获取聚宽A股行情数据')
@@ -28,19 +36,8 @@ def main():
     args = parser.parse_args()
 
     try:
-        # 获取凭证
-        credential = os.getenv(f"JQDATA_TOKEN")
-        if not credential:
-            print(json.dumps({
-                'status': 'error',
-                'message': '缺少聚宽 Token 凭证配置，请先配置 JQDATA_TOKEN 凭证'
-            }, ensure_ascii=False))
-            sys.exit(1)
-
-        import jqdatasdk as jq
-
-        # 认证
-        jq.auth(credential, credential)
+        # 使用统一认证模块进行认证
+        jq = auth_jq()
 
         result = {
             'status': 'success',
