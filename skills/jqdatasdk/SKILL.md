@@ -57,7 +57,7 @@ dependency:
   - [scripts/factor_data.py](scripts/factor_data.py) (用途与参数:获取因子数据，支持 --code/--factor/--start/--end)
 - 参考:
   - [references/jqdatasdk_quickstart.md](references/jqdatasdk_quickstart.md) (何时读取:首次配置或认证失败时)
-  - [references/api.md](references/api.md) (何时读取:需要查看详细API参数说明时)
+  - [references/api.md](references/api.md) (何时读取：需要使用聚宽 Python API、查看详细API参数说明时)
 
 ## 注意事项
 - 脚本执行需配置聚宽账号 Token 或登录用户名及密码，首次使用需先完成凭证配置

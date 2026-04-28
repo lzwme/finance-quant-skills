@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "baostock>=0.9.1",
     "jqdatasdk>=1.9.8",
     "tushare>=1.4.29",
 ]
