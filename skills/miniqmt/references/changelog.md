@@ -1,0 +1,83 @@
+## 版本信息
+
+- 2020-09-01
+  - 初稿
+- 2020-09-07
+  - 添加获取除权数据的接口`get_divid_factors`，附录添加除权数据字段说明
+  - 获取合约信息、获取合约类型接口完善
+  - 获取交易日列表接口`get_trading_dates`支持指定日期范围
+- 2020-09-13
+  - 添加财务数据接口，调整获取和下载财务数据接口的说明，添加财务数据报表字段列表
+  - 将 “补充” 字样调整为 “下载”，“supply” 接口调整为 “download”
+- 2020-09-13
+  - 将`volumn`拼写错误修正为`volume`，影响范围：
+    - `tick`和`l2quote`周期行情数据 - 成交量字段
+    - 合约基础信息 - 总股本、流通股本
+- 2020-11-23
+  - 合约基础信息`CreateDate``OpenDate`字段类型由`int`调整为`str`
+  - 添加数据字典部分，添加level2数据字段枚举值说明
+- 2021-07-20
+  - 添加新版下载数据接口
+    - 下载行情数据 `download_history_data2`
+    - 下载财务数据 `download_financial_data2`
+- 2021-12-30
+  - 数据字典调整
+    - 委托方向、成交类型添加关于上交所、深交所撤单信息的区分说明
+- 2022-06-27
+  - 数据字典调整
+    - K线添加前收价、停牌标记字段
+- 2022-09-30
+  - 添加交易日历相关接口
+    - 获取节假日数据 `get_holidays`
+    - 获取交易日历 `get_trading_calendar`
+    - 获取交易时段 `get_trade_times`
+- 2023-01-04
+  - 添加千档行情获取
+- 2023-01-31
+  - 可转债基础信息的下载 `download_cb_data`
+  - 可转债基础信息的获取 `get_cb_info`
+- 2023-02-06
+  - 添加连接到指定ip端口的接口 `reconnect`
+- 2023-02-07
+  - 支持QMT的本地Python模式
+  - 优化多个QMT同时存在的场景，自动选择xtdata连接的端口
+- 2023-03-27
+  - 新股申购信息获取 `get_ipo_info`
+- 2023-04-13
+  - 本地python模式下运行VBA函数
+- 2023-07-27
+  - 文档部分描述修改
+- 2023-08-21
+  - 数据接口支持投研版特色数据
+    - 参考 `接口概述` - `常用类型说明` - `周期` - `投研版 - 特色数据`
+  - 获取合约基础信息 `get_instrument_detail` 返回字段调整
+    - 增加 `ExchangeCode``UniCode`
+  - 添加获取可用周期列表的接口 `get_period_list`
+- 2023-10-11
+  - `get_market_data_ex`支持获取ETF申赎清单数据
+  - 数据字典添加 现金替代标志
+- 2023-11-09
+  - `download_history_data`添加增量下载参数，支持指定起始时间的增量下载
+- 2023-11-22
+  - `get_trading_calendar`不再支持`tradetimes`参数
+- 2023-11-27
+  - ETF申赎清单信息下载 `download_etf_info`
+  - ETF申赎清单信息获取 `get_etf_info`
+- 2023-11-28
+  - 添加节假日下载`download_holiday_data`
+- 2023-12-27
+  - 获取板块成份股列表接口增加北交所板块
+- 2024-01-19
+  - `get_market_data_ex`支持获取期货历史主力合约数据
+  - `get_option_detail_data`支持获取商品期权品种的数据
+  - `get_market_data_ex`支持获取日线以上周期的K线数据
+    - 周线`1w`、月线`1mon`、季度线`1q`、半年线`1hy`、年线`1y`
+- 2024-01-22
+  - `get_trade_times`改名为`get_trading_time`
+  - `get_trading_time`更新实现逻辑
+- 2024-01-26
+  - 获取合约基础信息 `get_instrument_detail` 支持获取全部合约信息字段
+- 2024-05-15
+  - 获取最新交易日k线数据`get_full_kline`
+- 2024-05-27
+  - `get_stock_list_in_sector` 增加`real_timetag`参数

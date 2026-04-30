@@ -8,4 +8,5 @@ dependencies = [
     "baostock>=0.9.1",
     "jqdatasdk>=1.9.8",
     "tushare>=1.4.29",
+    "xtquant>=250516.1.1",
 ]

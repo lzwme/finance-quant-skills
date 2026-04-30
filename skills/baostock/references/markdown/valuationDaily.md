@@ -2,7 +2,7 @@
 
 ## 沪深A股估值指标(日频) 示例
 
-通过query_history_k_data_plus()获取沪深A股估值指标(日频)数据（指数未提供估值数据），未提供周、月估值数据。示例数据：[<button>下载</button>](helpdocs/csv/history_A_stock_valuation_indicator_data.xlsx)
+通过query_history_k_data_plus()获取沪深A股估值指标(日频)数据（指数未提供估值数据），未提供周、月估值数据。示例数据：[下载](https://www.baostock.com/helpdocs/csv/history_A_stock_valuation_indicator_data.xlsx)
 
 ```python
     import baostock as bs

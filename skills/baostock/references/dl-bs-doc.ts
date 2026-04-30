@@ -25,7 +25,7 @@ async function getMenu() {
   let menu: {menuTitle: string; markdownFileName: string; }[] = await request("https://www.baostock.com/helpdocs/api/menu");
   // console.log(menu, menu.length);
   // 过滤部分菜单
-  const filterMenu = ['goodArticle.md', 'default.md', 'modifyRecord.md'];
+  const filterMenu = ['goodArticle.md', 'default.md', 'modifyRecord.md', 'pythonDevRes.md'];
   menu = menu.filter(item => item.markdownFileName.endsWith('.md') && !filterMenu.some(d => d === item.markdownFileName));
   return menu;
 }
@@ -37,6 +37,8 @@ async function getMarkdown(fileName: string) {
 
   markdown = markdown
     .replaceAll('https://www.baostock.com/mainContent?file=', '') // 文件引用链接清理
+    .replaceAll('](helpdocs/', '](https://www.baostock.com/helpdocs/')
+    .replaceAll('<button>下载</button>', '下载')
     .replace(/<style>[\s\S]*?<\/style>/g, '') // 移除 <style> 标签
     .replace(/([a-z0-9]+)\\_/g, '$1_')  // \_ 不必要的转义符
     .replace(/<a id=[^>]+><\/a>/g, '')   // 锚点

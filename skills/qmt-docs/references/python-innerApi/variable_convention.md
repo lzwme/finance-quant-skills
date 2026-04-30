@@ -122,9 +122,7 @@ title: "变量约定 | 迅投知识库"
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.start # 回测开始时间属性
 ContextInfo.end # 回测结束时间属性
 ```
@@ -169,9 +167,7 @@ def handlebar(ContextInfo):
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.capital = 10000000 # 设定ContextInfo.capital 值为10000000
 ```
 
@@ -202,9 +198,7 @@ def handlebar(ContextInfo):
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.period
 ```
 
@@ -249,9 +243,7 @@ def handlebar(ContextInfo):
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.barpos
 ```
 
@@ -287,9 +279,7 @@ def handlebar(ContextInfo):
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.time_tick_size
 ```
 
@@ -325,9 +315,7 @@ def handlebar(ContextInfo):
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.stockcode
 ```
 
@@ -362,9 +350,7 @@ def handlebar(ContextInfo):
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.market
 ```
 
@@ -399,9 +385,7 @@ SH
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.dividend_type
 ```
 
@@ -446,9 +430,7 @@ front_ratio
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.benchmark
 ```
 
@@ -483,9 +465,7 @@ def handlebar(ContextInfo):
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.do_back_test
 ```
 

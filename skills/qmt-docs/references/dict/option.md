@@ -13,9 +13,7 @@ title: "期权数据 | 迅投知识库"
 
 **调用方法**
 
-内置python
-
-```
+```py
 #encoding:gbk
 def init(ContextInfo):
   pass
@@ -101,9 +99,7 @@ print(xtdata.get_option_undl_data("510300.SH"))
 
 **调用方法**
 
-内置python
-
-```
+```py
 #encoding:gbk
 def init(ContextInfo):
   pass
@@ -215,9 +211,7 @@ print(data)
 
 **调用方法**
 
-内置python
-
-```
+```py
 #encoding:gbk
 def init(ContextInfo):
   pass
@@ -355,9 +349,7 @@ print(xtdata.get_option_detail_data('10002235.SHO'))
 
 **调用方法**
 
-内置python
-
-```
+```py
 #encoding:gbk
 def init(ContextInfo):
   pass
@@ -420,9 +412,7 @@ def after_init(ContextInfo):
 
 **调用方法**
 
-内置python
-
-```
+```py
 #encoding:gbk
 def init(ContextInfo):
     pass
@@ -582,9 +572,7 @@ print(day_data)
 
 **调用方法**
 
-内置python
-
-```
+```py
 C.get_stock_list_in_sector(sector_name)
 ```
 

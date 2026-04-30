@@ -3,7 +3,6 @@
 - [平台介绍](home.md)
 - [Python API文档](pythonAPI.md)
 - [A股K线数据](stockKData.md)
-- [PY开发资源](pythonDevRes.md)
 - [指数数据](indexData.md)
 - [估值指标(日频)](valuationDaily.md)
 - [除权除息信息](dividInfo.md)

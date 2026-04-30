@@ -2,9 +2,9 @@
 
 ### 复权因子：query_adjust_factor()
 
-通过API接口获取复权因子信息数据。示例数据：[<button>下载</button>](helpdocs/csv/adjust_factor_data.xlsx)
+通过API接口获取复权因子信息数据。示例数据：[下载](https://www.baostock.com/helpdocs/csv/adjust_factor_data.xlsx)
 
-BaoStock提供的是**涨跌幅复权算法** 复权因子，具体介绍见：[媒体文件:BaoStock复权因子简介.pdf](helpdocs/pdf/BaoStock%E5%A4%8D%E6%9D%83%E5%9B%A0%E5%AD%90%E7%AE%80%E4%BB%8B.pdf "BaoStock复权因子简介.pdf")。
+BaoStock提供的是**涨跌幅复权算法** 复权因子，具体介绍见：[媒体文件:BaoStock复权因子简介.pdf](https://www.baostock.com/helpdocs/pdf/BaoStock%E5%A4%8D%E6%9D%83%E5%9B%A0%E5%AD%90%E7%AE%80%E4%BB%8B.pdf "BaoStock复权因子简介.pdf")。
 
 基于BaoStock复权因子与本地BaoStock日K线数据**生成复权行情**，具体介绍见：<a href="localdatafactorInfo.md" style="color:#000; font-weight:bold;">利用本地Baostock日K线数据手动计算复权价格</a>。
 

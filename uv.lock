@@ -162,6 +162,7 @@ dependencies = [
     { name = "baostock" },
     { name = "jqdatasdk" },
     { name = "tushare" },
+    { name = "xtquant" },
 ]
 
 [package.metadata]
@@ -169,6 +170,7 @@ requires-dist = [
     { name = "baostock", specifier = ">=0.9.1" },
     { name = "jqdatasdk", specifier = ">=1.9.8" },
     { name = "tushare", specifier = ">=1.4.29" },
+    { name = "xtquant", specifier = ">=250516.1.1" },
 ]
 
 [[package]]
@@ -797,4 +799,19 @@ source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
 sdist = { url = "https://mirrors.aliyun.com/pypi/packages/2c/41/aa4bf9664e4cda14c3b39865b12251e8e7d239f4cd0e3cc1b6c2ccde25c1/websocket_client-1.9.0.tar.gz", hash = "sha256:9e813624b6eb619999a97dc7958469217c3176312b3a16a4bd1bc7e08a46ec98" }
 wheels = [
     { url = "https://mirrors.aliyun.com/pypi/packages/34/db/b10e48aa8fff7407e67470363eac595018441cf32d5e1001567a7aeba5d2/websocket_client-1.9.0-py3-none-any.whl", hash = "sha256:af248a825037ef591efbf6ed20cc5faa03d3b47b9e5a2230a529eeee1c1fc3ef" },
+]
+
+[[package]]
+name = "xtquant"
+version = "250516.1.1"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
+dependencies = [
+    { name = "numpy" },
+    { name = "pandas" },
+    { name = "requests" },
+    { name = "tqdm" },
+]
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/74/51/73b6dcc51ae95cc82484956d80787adf98152b57b838586d4cae373e04c8/xtquant-250516.1.1.tar.gz", hash = "sha256:c243466c7af9c6c11074d1fd00f66445d5d105b70ab498e79a2c5bf7b00f3f4a" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/f4/23/3c8aa2d1130aa735285fb7e18a44d67ab71ba1162e545bd488b20457d57b/xtquant-250516.1.1-py3-none-any.whl", hash = "sha256:f8461b0a295fa9b13ead33acca8675f7961fe1b4488a319b5549853142a89014" },
 ]

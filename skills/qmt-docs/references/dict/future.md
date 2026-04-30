@@ -259,9 +259,7 @@ print(main_symbol)
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.get_main_contract(codemarket)
 ContextInfo.get_main_contract(codemarket,date="")
 ContextInfo.get_main_contract(codemarket,startDate="",endDate="")

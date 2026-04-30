@@ -11,7 +11,7 @@
 
 可查询不复权、**前复权**、**后复权**数据。
 
-示例数据：[<button>下载</button>](helpdocs/csv/history_A_stock_k_data.xlsx)
+示例数据：[下载](https://www.baostock.com/helpdocs/csv/history_A_stock_k_data.xlsx)
 
 日线使用示例：
 
@@ -102,7 +102,7 @@
 * start：开始日期（包含），格式“YYYY-MM-DD”，为空时取2015-01-01；
 * end：结束日期（包含），格式“YYYY-MM-DD”，为空时取最近一个交易日；
 * frequency：数据类型，默认为d，日k线；d=日k线、w=周、m=月、5=5分钟、15=15分钟、30=30分钟、60=60分钟k线数据，不区分大小写；指数没有分钟线数据；周线每周最后一个交易日才可以获取，月线每月最后一个交易日才可以获取。
-* adjustflag：**复权类型，默认不复权：3；1：后复权；2：前复权。已支持分钟线、日线、周线、月线前后复权。** BaoStock提供的是**涨跌幅复权算法**复权因子，具体介绍见[BaoStock复权因子简介](helpdocs/pdf/BaoStock%E5%A4%8D%E6%9D%83%E5%9B%A0%E5%AD%90%E7%AE%80%E4%BB%8B.pdf "BaoStock复权因子简介.pdf")。
+* adjustflag：**复权类型，默认不复权：3；1：后复权；2：前复权。已支持分钟线、日线、周线、月线前后复权。** BaoStock提供的是**涨跌幅复权算法**复权因子，具体介绍见[BaoStock复权因子简介](https://www.baostock.com/helpdocs/pdf/BaoStock%E5%A4%8D%E6%9D%83%E5%9B%A0%E5%AD%90%E7%AE%80%E4%BB%8B.pdf "BaoStock复权因子简介.pdf")。
 
 
 

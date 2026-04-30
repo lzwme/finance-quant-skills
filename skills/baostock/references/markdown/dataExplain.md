@@ -779,7 +779,7 @@
 
 2007至今季频总股本信息("证券代码","发布报告日期","统计日期","总股本","流通股本","每股净资产 (单位：元)")。
 
-  * 截止20180420，下载链接如下：[媒体文件:stocks_base_info_equity_20180420.csv](helpdocs/csv/Stocks_base_info_equity_20180420.csv "Stocks base info equity 20180420.csv")
+  * 截止20180420，下载链接如下：[媒体文件:stocks_base_info_equity_20180420.csv](https://www.baostock.com/helpdocs/csv/Stocks_base_info_equity_20180420.csv "Stocks base info equity 20180420.csv")
 
 ### 复权因子简介
 
@@ -793,7 +793,7 @@
 
 **前复权因子** = 当天的前收/前一天的收盘价，最近一次除权除息日后的交易日前复权因子为1。
 
-详细文档下载地址：[媒体文件:BaoStock复权因子简介.pdf](helpdocs/pdf/BaoStock%E5%A4%8D%E6%9D%83%E5%9B%A0%E5%AD%90%E7%AE%80%E4%BB%8B.pdf "BaoStock复权因子简介.pdf")
+详细文档下载地址：[媒体文件:BaoStock复权因子简介.pdf](https://www.baostock.com/helpdocs/pdf/BaoStock%E5%A4%8D%E6%9D%83%E5%9B%A0%E5%AD%90%E7%AE%80%E4%BB%8B.pdf "BaoStock复权因子简介.pdf")
 
 **名词解释**
 
@@ -841,7 +841,7 @@
 
 不复权第1、2行，日期分别为2017-05-25、2017-05-26，查找小于等于此日期的前复权因子（即2017-05-25的前复权因子）为1，则：前复权开盘价 = 不复权开盘价 * 1。
 
-[![Qfq_calculate_example.png](helpdocs/img/md/Qfq_calculate_example.png)](helpdocs/img/md/Qfq_calculate_example.png)
+[![Qfq_calculate_example.png](https://www.baostock.com/helpdocs/img/md/Qfq_calculate_example.png)](https://www.baostock.com/helpdocs/img/md/Qfq_calculate_example.png)
 
 浦发银行后复权数据
 
@@ -856,7 +856,7 @@
 不复权第0行，日期为2017-05-24，开盘价15.38，查找小于等于此日期（早于这个日期）的后复权因子（即2016-06-23的后复权因子）为7.128788，则前复权开盘价为：15.38*7.128788=109.64076；同样的收盘价、昨日收盘价也使用此计算。
 
 不复权第1、2行，日期分别为2017-05-25、2017-05-26，查找小于等于此日期的前复权因子（即2017-05-25的后复权因子）为9.385732，则：前复权开盘价 = 不复权开盘价 * 9.385732。
-[![Hfq_calculate_example.png](helpdocs/img/md/Hfq_calculate_example.png)](helpdocs/img/md/Hfq_calculate_example.png)
+[![Hfq_calculate_example.png](https://www.baostock.com/helpdocs/img/md/Hfq_calculate_example.png)](https://www.baostock.com/helpdocs/img/md/Hfq_calculate_example.png)
 
 **关于复权的常见问题**
 

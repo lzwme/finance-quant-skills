@@ -1,23 +1,4 @@
-<table style="border-collapse:collapse; margin:0 auto; border:none;">
-  <tr>
-    <td style="background:#fff; text-align:center; padding:2px; border:none;">
-      <img src="helpdocs/img/md/huodong.png" style="height:150px;" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='"/>
-    </td>
-    <td style="background:#fff; text-align:center; padding:2px; border:none;">
-      <img src="helpdocs/img/md/QQ.png" style="height:150px;" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='"/>
-    </td>
-  </tr>
-  <tr>
-    <td style="background:#fff; text-align:center; padding:2px; border:none;">
-      <strong style="font-size:17px;">Baostock和湘财证券业务交流群 (可咨询PTrade、QMT)</strong>
-    </td>
-    <td style="background:#fff; text-align:center; padding:2px; border:none;">
-      <strong style="font-size:17px;">Baostock官方技术服务QQ群:<b>1091604126</b> (问题解答 技术交流)</b></strong>
-    </td>
-  </tr>
-</table>
-
-<p style="margin:0;padding:0;line-height:1.2;"><strong style="font-size:24px;">平台介绍</strong></p>
+## 平台介绍
 
 **证券宝`www.baostock.com`**是一个**免费、开源**的**证券数据平台**（无需注册）。
 * 提供大量准确、完整的证券历史行情数据、上市公司财务数据等。

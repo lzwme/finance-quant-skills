@@ -1,6 +1,6 @@
 ## 利用本地Baostock日K线数据手动计算复权价格
 
-在量化策略回测中，复权数据是保证价格连续性的基础。为避免频繁请求BaoStock API，可通过BaoStock复权因子(<a href="factorInfo.md" style="color:#000; font-weight:bold;">BaoStock复权因子获取方法见：query_adjust_factor()</a>)与本地存储的原始日K线数据(<a href="stockKData.md" style="color:#000; font-weight:bold;">日K线获取方法见：query_history_k_data_plus()</a>)自行计算复权价格（分钟线同理）。[媒体文件:利用BaoStock本地日K线数据手动计算复权价格.pdf](helpdocs/pdf/BaoStock前复权日K线数据计算简介.pdf)
+在量化策略回测中，复权数据是保证价格连续性的基础。为避免频繁请求BaoStock API，可通过BaoStock复权因子(<a href="factorInfo.md">BaoStock复权因子获取方法见：query_adjust_factor()</a>)与本地存储的原始日K线数据(<a href="stockKData.md">日K线获取方法见：query_history_k_data_plus()</a>)自行计算复权价格（分钟线同理）。[媒体文件:利用BaoStock本地日K线数据手动计算复权价格.pdf](https://www.baostock.com/helpdocs/pdf/BaoStock前复权日K线数据计算简介.pdf)
 本文以浦发银行（sh.600000）为例，展示 2014-01-01 至 2020-01-01 区间内，基于BaoStock复权因子计算前复权日 K 线的完整流程（后复权方法类似）。
 
 ```python

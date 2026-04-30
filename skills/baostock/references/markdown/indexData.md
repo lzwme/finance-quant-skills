@@ -15,7 +15,7 @@
 
 ## 沪深指数K线数据 示例
 
-指数未提供分钟线数据。示例数据：[<button>下载</button>](helpdocs/csv/history_Index_k_data.xlsx)
+指数未提供分钟线数据。示例数据：[下载](https://www.baostock.com/helpdocs/csv/history_Index_k_data.xlsx)
 
 ```python
     import baostock as bs

@@ -2,7 +2,7 @@
 
 ### 除权除息信息：query_dividend_data()
 
-通过API接口获取除权除息信息数据（预披露、预案、正式都已通过）。示例数据：[<button>下载</button>](helpdocs/csv/history_Dividend_data.xlsx)
+通过API接口获取除权除息信息数据（预披露、预案、正式都已通过）。示例数据：[下载](https://www.baostock.com/helpdocs/csv/history_Dividend_data.xlsx)
 
 ```python
     import baostock as bs

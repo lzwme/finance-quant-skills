@@ -19,9 +19,7 @@ title: "股票数据 | 迅投知识库"
 
 **调用方法**
 
-内置python
-
-```
+```py
 
 ContextInfo.get_instrument_detail(stockcode)
 ```
@@ -267,9 +265,7 @@ xtdata.get_stock_list_in_sector("沪深A股")
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.get_his_st_data(stockcode)
 ```
 
@@ -366,8 +362,6 @@ xtdata.get_his_st_data('000004.SZ')
 
 交易类数据提供股票的交易行情数据，通过API接口调用即可获取相应的数据。
 
-具体请查看API, 数据获取部分行情相关接口 **[数据获取函数](http://docs.thinktrader.net/pages/36f5df/)**。
-
 | 名称 | 描述 |
 | --- | --- |
 | get_market_data | 获取历史数据与实时行情(包含tick数据)，可查询多个标的多个数据字段，返回数据格式为 {field：DataFrame} |
@@ -378,14 +372,11 @@ xtdata.get_his_st_data('000004.SZ')
 
 ### 获取历史行情与实时行情
 
-提示
+提示：
 
 1. 在gmd系列函数中，历史行情需要从本地读取，所以若想取历史行情，需要先将历史行情下载到本地，而实时行情是从服务器返回的
-
-2. 所以，若需要历史行情，请先使用`界面端`或者`download_history`函数进行下载；若需要最新行情，请向服务器进行`订阅`
-
-3. 特别的，对于xtdata.get_market_data_ex来说，由于没有subscribe参数，需要在参数外先进行订阅(`subscribe_quote`)才能获取最新行情
-
+2. 所以，若需要历史行情，请先使用`界面端`或者`download_history_data`函数进行下载；若需要最新行情，请向服务器进行`订阅`
+3. 特别的，对于`xtdata.get_market_data_ex`来说，由于没有subscribe参数，需要在参数外先进行订阅(`subscribe_quote`)才能获取最新行情
 4. 对于 **同时获取历史和实时行情** 的情况，gmd系列函数会 **自动进行拼接**
 
 
@@ -393,9 +384,7 @@ xtdata.get_his_st_data('000004.SZ')
 
 **调用方法**
 
-内置python
-
-```
+```py
 ContextInfo.get_market_data_ex(
     fields=[],
     stock_code=[],
@@ -1144,9 +1133,7 @@ print(data)
 
 **原型**
 
-内置python
-
-```
+```py
 # 逐笔成交统计日级
 C.get_market_data_ex([],stock_list,period="transactioncount1d",start_time = "", end_time = "")
 # 逐步成交统计1分钟级
@@ -2070,9 +2057,7 @@ print(data)
 
 **调用方法**
 
-内置python
-
-```
+```py
 get_trading_calendar(market,start_time='',end_time='')
 ```
 
@@ -2133,7 +2118,7 @@ result = xtdata.get_trading_calendar(market, start_time , end_time )
 
 示例返回值
 
-```
+```py
 # coding:utf-8
 from xtquant import xtdata
 import time
@@ -2156,9 +2141,7 @@ print(result)
 
 获取指定日期区间内的龙虎榜数据
 
-内置python
-
-```
+```py
 C.get_longhubang(stock_list, startTime, endTime)
 ```
 
@@ -2343,9 +2326,7 @@ data1 = xtdata.get_trading_dates(market = "HGT", start_time='', end_time='', cou
 
 获取对应周期的北向数据
 
-内置python
-
-```
+```py
 C.get_north_finance_change(period)
 ```
 
@@ -2485,9 +2466,7 @@ print(data)
 
 获取指定品种的持股明细
 
-内置python
-
-```
+```py
 C.get_hkt_details(stockcode)
 ```
 
@@ -2616,9 +2595,7 @@ time 证券                                       主题 摘要   格式
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.get_financial_data(fieldList, stockList, startDate, enDate, report_type = 'announce_time')
 ```
 
@@ -2687,9 +2664,7 @@ Minor_axis axis: total_capital to 净利润
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.get_financial_data(tabname, colname, market, code, report_type = 'report_time', barpos)
 ```
 
@@ -2741,9 +2716,7 @@ def handlebar(C):
 
 **原型**
 
-内置python
-
-```
+```py
 ContextInfo.get_raw_financial_data(fieldList,stockList,startDate,endDate,report_type='announce_time')
 ```
 
