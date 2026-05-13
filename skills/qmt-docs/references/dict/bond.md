@@ -16,9 +16,7 @@ title: "债券数据 | 迅投知识库"
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 下载转债信息
@@ -98,9 +96,9 @@ xtdata.get_cb_info(bond_code)
 
 **示例：**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 下载转债信息
@@ -175,9 +173,7 @@ print(cb_info)
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 xtdata.get_instrument_detail(stock_code)
@@ -214,15 +210,15 @@ xtdata.get_instrument_detail(stock_code)
 | VolumeMultiple | int | 合约乘数(对期货以外的品种，默认是1) |
 | MainContract | int | 主力合约标记，1、2、3分别表示第一主力合约，第二主力合约，第三主力合约 |
 | LastVolume | int | 昨日持仓量 |
-| InstrumentStatus | int | 合约已停牌日期（停牌第一天值为0，第二天为1，以此类推。注意，正常交易的股票该值也是0）获取股票停牌状态参考 [get\_full\_tick](http://docs.thinktrader.net/vip/pages/36f5df/#%E8%8E%B7%E5%8F%96%E5%85%A8%E6%8E%A8%E6%95%B0%E6%8D%AE) [openInt字段](http://docs.thinktrader.net/vip/pages/41b7c5/#tick-%E5%88%86%E7%AC%94%E6%95%B0%E6%8D%AE) |
+| InstrumentStatus | int | 合约已停牌日期（停牌第一天值为0，第二天为1，以此类推。注意，正常交易的股票该值也是0）获取股票停牌状态参考 [get_full_tick](http://docs.thinktrader.net/vip/pages/36f5df/#%E8%8E%B7%E5%8F%96%E5%85%A8%E6%8E%A8%E6%95%B0%E6%8D%AE) [openInt字段](http://docs.thinktrader.net/vip/pages/41b7c5/#tick-%E5%88%86%E7%AC%94%E6%95%B0%E6%8D%AE) |
 | IsTrading | bool | 合约是否可交易 |
 | IsRecent | bool | 是否是近月合约 |
 
 **示例：**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 code_detail = xtdata.get_instrument_detail('123219.SZ')
@@ -267,9 +263,7 @@ print(code_detail)
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 订阅指定合约最新行情
@@ -282,7 +276,7 @@ xtdata.get_market_data_ex(field_list = [], stock_list = [], period = '', start_t
 
 **参数**
 
-- xtdata.subscribe\_quote
+- xtdata.subscribe_quote
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
@@ -292,7 +286,7 @@ xtdata.get_market_data_ex(field_list = [], stock_list = [], period = '', start_t
 | `count` | `int` | `数量 -1全部/n: 从结束时间向前数n个` |
 | `period` | `str` | `周期 分笔"tick" 分钟线"1m"/"5m" 日线"1d"` |
 
-- xtdata.get\_market\_data\_ex
+- xtdata.get_market_data_ex
 
 | 参数名称 | 类型 | 描述 |
 | --- | --- | --- |
@@ -302,23 +296,23 @@ xtdata.get_market_data_ex(field_list = [], stock_list = [], period = '', start_t
 | `start_time` | `str` | 开始时间。为空时默认为最早时间。时间格式为'20201231'或'20201231093000' |
 | `end_time` | `str` | 结束时间。为空时默认为最新时间。时间格式为'20201231'或'20201231235959' |
 | `count` | `int` | 数据最大个数。-1表示不做个数限制 |
-| `dividend_type` | `str` | 复权方式，默认是当前主图复权方式。可选值包括： 'none' (不复权)， 'front'(前复权)， 'back' (后复权)， 'front\_ratio' (等比前复权)， 'back\_ratio' (等比后复权) |
+| `dividend_type` | `str` | 复权方式，默认是当前主图复权方式。可选值包括： 'none' (不复权)， 'front'(前复权)， 'back' (后复权)， 'front_ratio' (等比前复权)， 'back_ratio' (等比后复权) |
 | `fill_data` | `bool` | 停牌填充方式 |
 
 **返回值**
 
 - period为`1m``5m``1d`K线周期时
   - 返回dict { field1 : value1, field2 : value2, ... }
-  - value1, value2, ... ：pd.DataFrame 数据集，index为stock\_list，columns为time\_list
+  - value1, value2, ... ：pd.DataFrame 数据集，index为stock_list，columns为time_list
   - 各字段对应的DataFrame维度相同、索引相同
 - period为`tick`分笔周期时
   - 返回dict { stock1 : value1, stock2 : value2, ... }
   - stock1, stock2, ... ：合约代码
   - value1, value2, ... ：np.ndarray 数据集，按数据时间戳`time`增序排列
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 订阅指定合约最新行情

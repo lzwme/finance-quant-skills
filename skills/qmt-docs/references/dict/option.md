@@ -28,7 +28,7 @@ def after_init(ContextInfo):
 | --- | --- | --- |
 | `undl_code_ref` | `string` | `期权标的代码` |
 
-- undl\_code\_ref:期权标的代码,如'510300.SH'，传空字符串时获取全部标的数据
+- undl_code_ref:期权标的代码,如'510300.SH'，传空字符串时获取全部标的数据
 
 **返回**
 
@@ -37,9 +37,9 @@ def after_init(ContextInfo):
 - 指定期权标的返回的是 列表类型
 - 期权标的为空字符串返回的是 字典类型
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 
 def init(ContextInfo):
@@ -58,9 +58,7 @@ def after_init(ContextInfo):
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_option_undl_data(undl_code_ref)
 ```
@@ -71,7 +69,7 @@ xtdata.get_option_undl_data(undl_code_ref)
 | --- | --- | --- |
 | `undl_code_ref` | `string` | `期权标的代码` |
 
-- undl\_code\_ref:期权标的代码,如'510300.SH'，传空字符串时获取全部标的数据
+- undl_code_ref:期权标的代码,如'510300.SH'，传空字符串时获取全部标的数据
 
 **返回**
 
@@ -80,9 +78,9 @@ xtdata.get_option_undl_data(undl_code_ref)
 - 指定期权标的返回的是 列表类型
 - 期权标的为空字符串返回的是 字典类型
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdata
 print(xtdata.get_option_undl_data("510300.SH"))
 ```
@@ -125,9 +123,9 @@ def after_init(ContextInfo):
 
 获取历史期权需要下载过期合约列表
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 
 '''获取到期月份为202101的上交所510300ETF认购合约 '''
@@ -157,9 +155,7 @@ def after_init(ContextInfo):
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_option_list(undl_code,dedate,opttype,isavailable)
 ```
@@ -181,9 +177,9 @@ xtdata.get_option_list(undl_code,dedate,opttype,isavailable)
 
 获取历史期权需要下载过期合约列表
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdata
 
 # 获取到期月份为202101的上交所510300ETF认购合约
@@ -264,9 +260,9 @@ def after_init(ContextInfo):
 | EndDelivDate | - | 期权行权终止日 |
 | optType | str | 期权类型 |
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 def init(ContextInfo):
   pass
@@ -283,9 +279,7 @@ def after_init(ContextInfo):
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_option_detail_data(optioncode)
 ```
@@ -330,9 +324,9 @@ xtdata.get_option_detail_data(optioncode)
 | EndDelivDate | - | 期权行权终止日 |
 | optType | str | 期权类型 |
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdata
 print(xtdata.get_option_detail_data('10002235.SHO'))
 ```
@@ -378,9 +372,9 @@ def after_init(ContextInfo):
 - objectPrices为list时，返回list
 - 计算结果最小值0.0001，结果保留4位小数,输入非法参数返回nan
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 import numpy as np
 
@@ -437,9 +431,9 @@ def after_init(ContextInfo):
 
 `double`
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 import numpy as np
 
@@ -464,9 +458,7 @@ def after_init(ContextInfo):
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 下载指定合约历史行情
@@ -481,7 +473,7 @@ xtdata.get_market_data_ex(field_list = [], stock_list = [], period = '', start_t
 
 **参数**
 
-- xtdata.subscribe\_quote
+- xtdata.subscribe_quote
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
@@ -491,7 +483,7 @@ xtdata.get_market_data_ex(field_list = [], stock_list = [], period = '', start_t
 | `count` | `int` | `数量 -1全部/n: 从结束时间向前数n个` |
 | `period` | `str` | `周期 分笔"tick" 分钟线"1m"/"5m" 日线"1d"` |
 
-- xtdata.get\_market\_data\_ex
+- xtdata.get_market_data_ex
 
 | 参数名称 | 类型 | 描述 |
 | --- | --- | --- |
@@ -501,23 +493,23 @@ xtdata.get_market_data_ex(field_list = [], stock_list = [], period = '', start_t
 | `start_time` | `str` | 开始时间。为空时默认为最早时间。时间格式为'20201231'或'20201231093000' |
 | `end_time` | `str` | 结束时间。为空时默认为最新时间。时间格式为'20201231'或'20201231235959' |
 | `count` | `int` | 数据最大个数。-1表示不做个数限制 |
-| `dividend_type` | `str` | 复权方式，默认是当前主图复权方式。可选值包括： 'none' (不复权)， 'front'(前复权)， 'back' (后复权)， 'front\_ratio' (等比前复权)， 'back\_ratio' (等比后复权) |
+| `dividend_type` | `str` | 复权方式，默认是当前主图复权方式。可选值包括： 'none' (不复权)， 'front'(前复权)， 'back' (后复权)， 'front_ratio' (等比前复权)， 'back_ratio' (等比后复权) |
 | `fill_data` | `bool` | 停牌填充方式 |
 
 **返回值**
 
 - period为`1m``5m``1d`K线周期时
   - 返回dict { field1 : value1, field2 : value2, ... }
-  - value1, value2, ... ：pd.DataFrame 数据集，index为stock\_list，columns为time\_list
+  - value1, value2, ... ：pd.DataFrame 数据集，index为stock_list，columns为time_list
   - 各字段对应的DataFrame维度相同、索引相同
 - period为`tick`分笔周期时
   - 返回dict { stock1 : value1, stock2 : value2, ... }
   - stock1, stock2, ... ：合约代码
   - value1, value2, ... ：np.ndarray 数据集，按数据时间戳`time`增序排列
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 订阅指定合约最新行情
@@ -532,7 +524,7 @@ print(day_data)
 ```
 
 ```
-{'10005329.SHO':                    time   open   high    low  close  volume     amount  \
+{'10005329.SHO':                    time   open   high    low  close  volume     amount
  20231010  1696867200000  2.216  2.248  1.969  1.980     141   290131.0
  20231011  1696953600000  2.065  2.152  2.000  2.005     389   801904.0
  20231012  1697040000000  2.255  2.309  2.150  2.210     141   311402.0
@@ -588,9 +580,9 @@ C.get_stock_list_in_sector(sector_name)
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 
 import re
@@ -705,9 +697,7 @@ def get_option_code(C,market,data_type = 0):
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 xtdata.get_stock_list_in_sector(sector_name)
@@ -725,9 +715,9 @@ xtdata.get_stock_list_in_sector(sector_name)
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdata
 import re
 
@@ -841,9 +831,7 @@ if __name__ == "__main__":
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 xtdata.get_full_tick(code_list)
@@ -855,7 +843,7 @@ xtdata.get_full_tick(code_list)
 | --- | --- | --- |
 | `code_list` | `list` | `合约列表` |
 
-- code\_list:合约字符串格式, 例如 \['10005331.SHO', '10005332.SHO'\]
+- code_list:合约字符串格式, 例如 \['10005331.SHO', '10005332.SHO'\]
 
 **返回值**
 
@@ -880,9 +868,9 @@ xtdata.get_full_tick(code_list)
 | askVol | list | 多档委卖量 |
 | bidVol | list | 多档委买量 |
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 ret_full_tick = xtdata.get_full_tick(['10005331.SHO'])

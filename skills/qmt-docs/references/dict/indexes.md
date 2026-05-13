@@ -24,9 +24,7 @@ title: "指数数据 | 迅投知识库"
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 获取板块列表
@@ -45,7 +43,7 @@ xtdata.get_stock_list_in_sector(sector_name)
 
 - 列表，包含指定板块成分代码。
 
-示例返回值(板块列表)返回值(板块数据)
+示例与返回值(板块列表)返回值(板块数据)
 
 ```
 # coding=utf-8
@@ -74,9 +72,7 @@ print(f'获取板块合约: {ret_sector_data}')
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 下载权重相关信息
@@ -91,15 +87,15 @@ xtdata.get_index_weight(index_code)
 | --- | --- | --- |
 | `index_code` | `string` | `指数代码` |
 
-- index\_code:字符串格式,指数代码,例如 000300.SH
+- index_code:字符串格式,指数代码,例如 000300.SH
 
 **返回**
 
 - 字典, key为成分代码, value为权重
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 下载权重相关信息
@@ -119,9 +115,7 @@ print(ret_weight_data)
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 订阅指定合约最新行情
@@ -134,7 +128,7 @@ xtdata.get_market_data_ex(field_list = [], stock_list = [], period = '', start_t
 
 **参数**
 
-- xtdata.subscribe\_quote
+- xtdata.subscribe_quote
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
@@ -144,7 +138,7 @@ xtdata.get_market_data_ex(field_list = [], stock_list = [], period = '', start_t
 | `count` | `int` | `数量 -1全部/n: 从结束时间向前数n个` |
 | `period` | `str` | `周期 分笔"tick" 分钟线"1m"/"5m" 日线"1d"` |
 
-- xtdata.get\_market\_data\_ex
+- xtdata.get_market_data_ex
 
 | 参数名称 | 类型 | 描述 |
 | --- | --- | --- |
@@ -154,23 +148,23 @@ xtdata.get_market_data_ex(field_list = [], stock_list = [], period = '', start_t
 | `start_time` | `str` | 开始时间。为空时默认为最早时间。时间格式为'20201231'或'20201231093000' |
 | `end_time` | `str` | 结束时间。为空时默认为最新时间。时间格式为'20201231'或'20201231235959' |
 | `count` | `int` | 数据最大个数。-1表示不做个数限制 |
-| `dividend_type` | `str` | 复权方式，默认是当前主图复权方式。可选值包括： 'none' (不复权)， 'front'(前复权)， 'back' (后复权)， 'front\_ratio' (等比前复权)， 'back\_ratio' (等比后复权) |
+| `dividend_type` | `str` | 复权方式，默认是当前主图复权方式。可选值包括： 'none' (不复权)， 'front'(前复权)， 'back' (后复权)， 'front_ratio' (等比前复权)， 'back_ratio' (等比后复权) |
 | `fill_data` | `bool` | 停牌填充方式 |
 
 **返回值**
 
 - period为`1m``5m``1d`K线周期时
   - 返回dict { field1 : value1, field2 : value2, ... }
-  - value1, value2, ... ：pd.DataFrame 数据集，index为stock\_list，columns为time\_list
+  - value1, value2, ... ：pd.DataFrame 数据集，index为stock_list，columns为time_list
   - 各字段对应的DataFrame维度相同、索引相同
 - period为`tick`分笔周期时
   - 返回dict { stock1 : value1, stock2 : value2, ... }
   - stock1, stock2, ... ：合约代码
   - value1, value2, ... ：np.ndarray 数据集，按数据时间戳`time`增序排列
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 获取迅投板块指数代码列表
@@ -190,7 +184,7 @@ print(day_data)
 
 ```
 {'ExchangeID': 'BKZS', 'InstrumentID': '260992', 'InstrumentName': 'SW1农林牧渔加权', 'ProductID': '', 'ProductName': '', 'ExchangeCode': '260992', 'UniCode': '260992', 'CreateDate': '0', 'OpenDate': '0', 'ExpireDate': 0, 'PreClose': 26232.32, 'SettlementPrice': 1.7976931348623157e+308, 'UpStopPrice': 1.7976931348623157e+308, 'DownStopPrice': 1.7976931348623157e+308, 'FloatVolume': 1.7976931348623157e+308, 'TotalVolume': 1.7976931348623157e+308, 'LongMarginRatio': 1.7976931348623157e+308, 'ShortMarginRatio': 1.7976931348623157e+308, 'PriceTick': 0.01, 'VolumeMultiple': 1, 'MainContract': 2147483647, 'LastVolume': 2147483647, 'InstrumentStatus': 2147483647, 'IsTrading': False, 'IsRecent': False, 'ProductTradeQuota': None, 'ContractTradeQuota': None, 'ProductOpenInterestQuota': None, 'ContractOpenInterestQuota': None}
-{'260992.BKZS':                    time      open      high       low     close    volume  \
+{'260992.BKZS':                    time      open      high       low     close    volume
 20231020  1697731200000  24602.81  24703.36  24401.10  24472.14  11904789
 20231023  1697990400000  24403.87  24668.01  24071.37  24185.03  12184223
 20231024  1698076800000  24197.98  24566.55  24095.19  24539.91  11494663
@@ -211,9 +205,7 @@ print(day_data)
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 xtdata.get_full_tick(code_list)
@@ -225,7 +217,7 @@ xtdata.get_full_tick(code_list)
 | --- | --- | --- |
 | `code_list` | `list` | `合约列表` |
 
-- code\_list:字符串格式, 例如 \['000001.SH', '000300.SH'\]
+- code_list:字符串格式, 例如 \['000001.SH', '000300.SH'\]
 
 **返回值**
 
@@ -250,9 +242,9 @@ xtdata.get_full_tick(code_list)
 | askVol | list | 多档委卖量 |
 | bidVol | list | 多档委买量 |
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 
@@ -295,9 +287,7 @@ print(ret_full_tick)
 
 **调用方法**
 
-python
-
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 # 下载合约
@@ -316,16 +306,16 @@ xtdata.get_market_data_ex([],[stock_code],period='1d')
 
 - period为`1m``5m``1d`K线周期时
   - 返回dict { field1 : value1, field2 : value2, ... }
-  - value1, value2, ... ：pd.DataFrame 数据集，index为stock\_list，columns为time\_list
+  - value1, value2, ... ：pd.DataFrame 数据集，index为stock_list，columns为time_list
   - 各字段对应的DataFrame维度相同、索引相同
 - period为`tick`分笔周期时
   - 返回dict { stock1 : value1, stock2 : value2, ... }
   - stock1, stock2, ... ：合约代码
   - value1, value2, ... ：np.ndarray 数据集，按数据时间戳`time`增序排列
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding=utf-8
 from xtquant import xtdata
 xtdata.download_history_data('290000.BKZS',period = "1d")
@@ -334,7 +324,7 @@ xtdata.get_market_data_ex([],['290000.BKZS'],period='1d')
 ```
 
 ```
-{'290000.BKZS':                    time    open    high     low   close    volume  \
+{'290000.BKZS':                    time    open    high     low   close    volume
  19960102   820512000000  138.55  138.55  138.55  138.55         0
  19960103   820598400000  137.86  137.86  137.86  137.86         0
  19960104   820684800000  137.86  137.86  137.86  137.86         0

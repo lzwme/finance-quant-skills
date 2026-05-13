@@ -13,14 +13,14 @@ title: "变量约定 | 迅投知识库"
 - 'FUTURE' - 期货账号
 - 'STOCK' - 股票账号
 - 'CREDIT' - 信用账号
-- 'FUTURE\_OPTION' - 期货期权
-- 'STOCK\_OPTION' - 股票期权
+- 'FUTURE_OPTION' - 期货期权
+- 'STOCK_OPTION' - 股票期权
 - 'HUGANGTONG' - 沪港通
 - 'SHENGANGTONG' - 深港通
 
-## symbol\_code - 代码表示
+## symbol_code - 代码表示
 
-迅投代码(symbol\_code)是迅投平台统一用于表示交易标的的代码 其格式为: **交易标的代码.交易所代码**,例如深圳证券交易所的平安银行,迅投代码为`000001.SZ`(不区分大小写)。代码表示可以在迅投研终端的行情列表或者按键精灵中查询。
+迅投代码(symbol_code)是迅投平台统一用于表示交易标的的代码 其格式为: **交易标的代码.交易所代码**,例如深圳证券交易所的平安银行,迅投代码为`000001.SZ`(不区分大小写)。代码表示可以在迅投研终端的行情列表或者按键精灵中查询。
 
 ![迅投研终端示例](https://dict.thinktrader.net/assets/%E5%86%85%E7%BD%AEAPI_%E4%BA%A4%E6%98%93%E4%BB%A3%E7%A0%81%E6%9F%A5%E8%AF%A2%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B-e39483ea.png)
 
@@ -177,7 +177,7 @@ ContextInfo.capital = 10000000 # 设定ContextInfo.capital 值为10000000
 
 内置python输出值
 
- ```py
+```py
 # coding:gbk
 def init(ContextInfo):
     ContextInfo.capital = 10000000
@@ -221,9 +221,7 @@ ContextInfo.period
 
 **示例**
 
-内置python返回值
-
- ```py
+```py
 # coding:gbk
 def init(ContextInfo):
     pass
@@ -231,6 +229,7 @@ def handlebar(ContextInfo):
     print(ContextInfo.period)
 ```
 
+结果示例：
 ```
 1d
 ```
@@ -251,16 +250,14 @@ ContextInfo.barpos
 
 **示例**
 
-内置python返回值
-
- ```py
+```py
 # coding:gbk
 def init(ContextInfo):
     pass
 def handlebar(ContextInfo):
     print(ContextInfo.barpos)
 ```
-
+结果示例：
 ```
 0
 1
@@ -271,7 +268,7 @@ def handlebar(ContextInfo):
 ...
 ```
 
-### ContextInfo.time\_tick\_size - 获取当前图 K 线数目
+### ContextInfo.time_tick_size - 获取当前图 K 线数目
 
 **释义**
 
@@ -287,16 +284,14 @@ ContextInfo.time_tick_size
 
 **示例**
 
-内置python返回值
-
- ```py
+```py
 # coding:gbk
 def init(ContextInfo):
     pass
 def handlebar(ContextInfo):
     print(ContextInfo.time_tick_size)
 ```
-
+结果示例：
 ```
 5297
 5297
@@ -323,16 +318,14 @@ ContextInfo.stockcode
 
 **示例**
 
-内置python返回值
-
- ```py
+```py
 # coding:gbk
 def init(ContextInfo):
     pass
 def handlebar(ContextInfo):
     print(ContextInfo.stockcode)
 ```
-
+结果示例：
 ```
 000300
 000300
@@ -358,16 +351,14 @@ ContextInfo.market
 
 **示例**
 
-内置python返回值
-
- ```py
+```py
 # coding:gbk
 def init(ContextInfo):
     pass
 def handlebar(ContextInfo):
     print(ContextInfo.market)
 ```
-
+结果示例：
 ```
 SH
 SH
@@ -377,7 +368,7 @@ SH
 ...
 ```
 
-### ContextInfo.dividend\_type - 获取当前主图复权处理方式
+### ContextInfo.dividend_type - 获取当前主图复权处理方式
 
 **释义**
 
@@ -396,21 +387,19 @@ ContextInfo.dividend_type
 | 'none' | 不复权 |
 | 'front' | 向前复权 |
 | 'back' | 向后复权 |
-| 'front\_ratio' | 等比向前复权 |
-| 'back\_ratio' | 等比向后复权 |
+| 'front_ratio' | 等比向前复权 |
+| 'back_ratio' | 等比向后复权 |
 
 **示例**
 
-内置python返回值
-
- ```py
+```py
 # coding:gbk
 def init(ContextInfo):
     pass
 def handlebar(ContextInfo):
     print(ContextInfo.dividend_type)
 ```
-
+结果示例：
 ```
 front_ratio
 front_ratio
@@ -438,16 +427,14 @@ ContextInfo.benchmark
 
 **示例**
 
-内置python返回值
-
- ```py
+```py
 # coding:gbk
 def init(ContextInfo):
     pass
 def handlebar(ContextInfo):
     print(ContextInfo.benchmark)
 ```
-
+结果示例：
 ```
 000300.SH
 000300.SH
@@ -457,7 +444,7 @@ def handlebar(ContextInfo):
 ...
 ```
 
-### ContextInfo.do\_back\_test - 表示当前是否为回测模式
+### ContextInfo.do_back_test - 表示当前是否为回测模式
 
 **释义**
 

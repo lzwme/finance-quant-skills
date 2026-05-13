@@ -187,7 +187,7 @@ title: "枚举常量 | 迅投知识库"
 
 | 数值 | 描述 |
 | --- | --- |
-| -1 | 无效(只对于algo\_passorder起作用) |
+| -1 | 无效(只对于algo_passorder起作用) |
 | 0 | 卖5价 |
 | 1 | 卖4价 |
 | 2 | 卖3价 |
@@ -261,9 +261,9 @@ title: "枚举常量 | 迅投知识库"
 
 `quickTrade`参数设置为`2`时，不判断 bar 状态，只要策略模型中调用到就触发下单交易，历史 bar 上也能触发下单，请谨慎使用。
 
-## enum\_ - 对象属性状态字段释义
+## enum_ - 对象属性状态字段释义
 
-### enum\_EEntrustBS - 买卖方向
+### enum_EEntrustBS - 买卖方向
 
 | 变量 | 数值 | 描述 |
 | --- | --- | --- |
@@ -284,37 +284,37 @@ title: "枚举常量 | 迅投知识库"
 | 53 | 撤单已经被拒绝 |
 | 54 | 改单已经被拒绝 |
 
-### enum\_EEntrustTypes - 委托类型
+### enum_EEntrustTypes - 委托类型
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
-| ENTRUST\_BUY\_SELL | 48 | 买卖 |
-| ENTRUST\_QUERY | 49 | 查询 |
-| ENTRUST\_CANCE | 50 | 撤单 |
-| ENTRUST\_APPEND | 51 | 补单 |
-| ENTRUST\_COMFIRM | 52 | 确认 |
-| ENTRUST\_BIG | 53 | 大宗 |
-| ENTRUST\_FIN | 54 | 融资委托 |
-| ENTRUST\_SLO | 55 | 融券委托 |
-| ENTRUST\_CLOSE | 56 | 信用平仓 |
-| ENTRUST\_CREDIT\_NORMAL | 57 | 信用普通委托 |
-| ENTRUST\_CANCEL\_OPEN | 58 | 撤单补单 |
-| ENTRUST\_TYPE\_OPTION\_EXERCISE | 59 | 行权 |
-| ENTRUST\_TYPE\_OPTION\_SECU\_LOCK | 60 | 锁定 |
-| ENTRUST\_TYPE\_OPTION\_SECU\_UNLOCK | 61 | 解锁 |
-| ENTRUST\_QUOTATION\_REPURCHASE | 62 | 报价回购 |
-| ENTRUST\_TYPE\_OPTION\_ABANDON | 63 | 放弃行权 |
-| ENTRUST\_AGREEMENT\_REPURCHASE | 64 | 协议回购 |
-| ENTRUST\_TYPE\_OPTION\_COMB\_EXERCISE | 65 | 组合行权 |
-| ENTRUST\_TYPE\_OPTION\_BUILD\_COMB\_STRATEGY | 66 | 构建组合策略持仓 |
-| ENTRUST\_TYPE\_OPTION\_RELEASE\_COMB\_STRATEGY | 67 | 解除组合策略持仓 |
-| ENTRUST\_TYPE\_LMT\_LOAN | 68 | 转融通出借 |
-| ENTRUST\_TYPE\_LMT\_LOAN\_DEFER | 69 | 转融通出借展期 |
-| ENTRUST\_TYPE\_LMT\_LOAN\_FINISH\_AHEAD | 70 | 转融通出借提前了结 |
-| ENTRUST\_CROSS\_MARKET\_IN | 71 | 跨市场场内 |
-| ENTRUST\_CROSS\_MARKET\_OUT | 72 | 跨市场场外 |
+| ENTRUST_BUY_SELL | 48 | 买卖 |
+| ENTRUST_QUERY | 49 | 查询 |
+| ENTRUST_CANCE | 50 | 撤单 |
+| ENTRUST_APPEND | 51 | 补单 |
+| ENTRUST_COMFIRM | 52 | 确认 |
+| ENTRUST_BIG | 53 | 大宗 |
+| ENTRUST_FIN | 54 | 融资委托 |
+| ENTRUST_SLO | 55 | 融券委托 |
+| ENTRUST_CLOSE | 56 | 信用平仓 |
+| ENTRUST_CREDIT_NORMAL | 57 | 信用普通委托 |
+| ENTRUST_CANCEL_OPEN | 58 | 撤单补单 |
+| ENTRUST_TYPE_OPTION_EXERCISE | 59 | 行权 |
+| ENTRUST_TYPE_OPTION_SECU_LOCK | 60 | 锁定 |
+| ENTRUST_TYPE_OPTION_SECU_UNLOCK | 61 | 解锁 |
+| ENTRUST_QUOTATION_REPURCHASE | 62 | 报价回购 |
+| ENTRUST_TYPE_OPTION_ABANDON | 63 | 放弃行权 |
+| ENTRUST_AGREEMENT_REPURCHASE | 64 | 协议回购 |
+| ENTRUST_TYPE_OPTION_COMB_EXERCISE | 65 | 组合行权 |
+| ENTRUST_TYPE_OPTION_BUILD_COMB_STRATEGY | 66 | 构建组合策略持仓 |
+| ENTRUST_TYPE_OPTION_RELEASE_COMB_STRATEGY | 67 | 解除组合策略持仓 |
+| ENTRUST_TYPE_LMT_LOAN | 68 | 转融通出借 |
+| ENTRUST_TYPE_LMT_LOAN_DEFER | 69 | 转融通出借展期 |
+| ENTRUST_TYPE_LMT_LOAN_FINISH_AHEAD | 70 | 转融通出借提前了结 |
+| ENTRUST_CROSS_MARKET_IN | 71 | 跨市场场内 |
+| ENTRUST_CROSS_MARKET_OUT | 72 | 跨市场场外 |
 
-### enum\_EEntrustStatus - 委托状态
+### enum_EEntrustStatus - 委托状态
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -330,7 +330,7 @@ title: "枚举常量 | 迅投知识库"
 
 ![委托状态流程](https://dict.thinktrader.net/assets/%E5%A7%94%E6%89%98%E7%8A%B6%E6%80%81%E5%8F%98%E5%8A%A8-c15208aa.png)
 
-### enum\_EHedge\_Flag\_Type - 投保类型
+### enum_EHedge_Flag_Type - 投保类型
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -338,7 +338,7 @@ title: "枚举常量 | 迅投知识库"
 | `HEDGE_FLAG_ARBITRAGE` | 50 | 套利 |
 | `HEDGE_FLAG_HEDGE` | 51 | 套保 |
 
-### enum\_EFutureTradeType - 成交类型
+### enum_EFutureTradeType - 成交类型
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -348,7 +348,7 @@ title: "枚举常量 | 迅投知识库"
 | `FUTURE_TRADE_TYPE_EFPDIRVED` | 51 | 期转现衍生成交 |
 | `FUTURE_TRADE_TYPE_COMBINATION_DERIVED` | 52 | 组合衍生成交 |
 
-### enum\_EBrokerPriceType - 价格类型
+### enum_EBrokerPriceType - 价格类型
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -397,7 +397,7 @@ title: "枚举常量 | 迅投知识库"
 | `BROKER_PRICE_PROP_NEEQ_MUTUAL_MATCH_CONFIRM` | 'y' | 互报成交确认（全国股转 \- 挂牌公司交易 \- 协议转让） |
 | `BROKER_PRICE_PROP_NEEQ_LIMIT` | 'z' | 限价（用于挂牌公司交易 \- 做市转让 \- 限价买卖和两网及退市交易-限价买卖） |
 
-### enum\_EOffset\_Flag\_Type - 操作类型
+### enum_EOffset_Flag_Type - 操作类型
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -413,7 +413,7 @@ title: "枚举常量 | 迅投知识库"
 | `EOFF_THOST_FTDC_OF_PLEDGE_OUT` | 66 | 质押出库 |
 | `EOFF_THOST_FTDC_OF_ALLOTMENT` | 67 | 股票配股 |
 
-### enum\_EXTSubjectsStatus - 融资融券状态
+### enum_EXTSubjectsStatus - 融资融券状态
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -421,7 +421,7 @@ title: "枚举常量 | 迅投知识库"
 | `SUBJECTS_STATUS_PAUSE` | 49 | 暂停 |
 | `SUBJECTS_STATUS_NOT` | 50 | 作废 |
 
-### enum\_EXTCreditFundCtl - 融资交易控制
+### enum_EXTCreditFundCtl - 融资交易控制
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -430,7 +430,7 @@ title: "枚举常量 | 迅投知识库"
 | `FUND_CTL_ALL` | 50 | 既允许融资买入又允许卖券还款 |
 | `FUND_CTL_NONE` | 51 | 既不允许融资买入又不允许卖券还款 |
 
-### enum\_EXTCreditStkCtl - 融券交易控制
+### enum_EXTCreditStkCtl - 融券交易控制
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -439,14 +439,14 @@ title: "枚举常量 | 迅投知识库"
 | `STK_CTL_ALL` | 50 | 既允许融券卖出又允许买券还券 |
 | `STK_CTL_NONE` | 51 | 既不允许融券卖出又不允许买券还券 |
 
-### enum\_EXTSloTypeQueryMode - 查询类型
+### enum_EXTSloTypeQueryMode - 查询类型
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
 | `XT_SLOTYPE_QUERYMODE_NOMARL` | 48 | 普通 |
 | `XT_SLOTYPE_QUERYMODE_SPECIAL` | 49 | 专项 |
 
-### enum\_EXTCompactType - 合约类型
+### enum_EXTCompactType - 合约类型
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -454,7 +454,7 @@ title: "枚举常量 | 迅投知识库"
 | `COMPACT_TYPE_FIN` | 48 | 融资 |
 | `COMPACT_TYPE_SLO` | 49 | 融券 |
 
-### enum\_EXTCompactStatus - 合约状态
+### enum_EXTCompactStatus - 合约状态
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -467,7 +467,7 @@ title: "枚举常量 | 迅投知识库"
 | `COMPACT_STATUS_NOT_DEBT` | 53 | 未形成负债 |
 | `COMPACT_STATUS_EXPIRY` | 54 | 合约已过期 |
 
-### enum\_EXTCompactBrushSource - 头寸来源
+### enum_EXTCompactBrushSource - 头寸来源
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -475,14 +475,14 @@ title: "枚举常量 | 迅投知识库"
 | `XT_COMPACT_BRUSH_SOURCE_NORMAL` | 48 | 普通头寸 |
 | `XT_COMPACT_BRUSH_SOURCE_SPECIAL` | 49 | 专项头寸 |
 
-### enum\_EXTSpecialAssure - 是否可以用融券资金买入
+### enum_EXTSpecialAssure - 是否可以用融券资金买入
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
 | `ASSURE_USE_SLO_CASH_DISABLE` | 48 | 担保品买入不允许使用融券资金 |
 | `ASSURE_USE_SLO_CASH_ENABLE` | 49 | 担保品买入允许使用融券资金 |
 
-### enum\_EOperationType - 下单操作类型/主要交易类型
+### enum_EOperationType - 下单操作类型/主要交易类型
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -732,7 +732,7 @@ title: "枚举常量 | 迅投知识库"
 | `OPT_FUND_TRANSFER_IN` | 1156 | 资金划入 |
 | `OPT_FUND_TRANSFER_OUT` | 1157 | 资金划出 |
 
-### enum\_EOrderType - 算法交易、普通交易类型
+### enum_EOrderType - 算法交易、普通交易类型
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -756,7 +756,7 @@ title: "枚举常量 | 迅投知识库"
 | `OPT_EXTERN` | 17 | 主动算法 |
 | `OTP_GUANGFA` | 18 | 广发算法 |
 
-### enum\_EPriceType - 价格类型
+### enum_EPriceType - 价格类型
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |
@@ -772,19 +772,19 @@ title: "枚举常量 | 迅投知识库"
 | `PRTP_BUY4` | 9 | 买4 |
 | `PRTP_BUY5` | 10 | 买5 |
 | `PRTP_FIX` | 11 | 指定价 |
-| `PRTP_MARKET` | 12 | 市价\_涨跌停价 |
+| `PRTP_MARKET` | 12 | 市价_涨跌停价 |
 | `PRTP_HANG` | 13 | 挂单价 |
 | `PRTP_COMPETE` | 14 | 对手价 |
 | `PRTP_AUTO` | 15 | 自动盘口 |
 | `PRTP_CLOSE` | 16 | 昨收价 |
 | `PRTP_AVERAGE` | 17 | 大宗加权平均价 |
-| `PRTP_MARKET_BEST` | 18 | 市价\_最优价 |
-| `PRTP_MARKET_CANCEL` | 19 | 市价\_即成剩撤 |
-| `PRTP_MARKET_CANCEL_ALL` | 20 | 市价\_全额成交或撤 |
-| `PRTP_MARKET_CANCEL_1` | 21 | 市价\_最优1档即成剩撤 |
-| `PRTP_MARKET_CANCEL_5` | 22 | 市价\_最优5档即成剩撤 |
-| `PRTP_MARKET_CONVERT_1` | 23 | 市价\_最优1档即成剩转 |
-| `PRTP_MARKET_CONVERT_5` | 24 | 市价\_最优5档即成剩转 |
+| `PRTP_MARKET_BEST` | 18 | 市价_最优价 |
+| `PRTP_MARKET_CANCEL` | 19 | 市价_即成剩撤 |
+| `PRTP_MARKET_CANCEL_ALL` | 20 | 市价_全额成交或撤 |
+| `PRTP_MARKET_CANCEL_1` | 21 | 市价_最优1档即成剩撤 |
+| `PRTP_MARKET_CANCEL_5` | 22 | 市价_最优5档即成剩撤 |
+| `PRTP_MARKET_CONVERT_1` | 23 | 市价_最优1档即成剩转 |
+| `PRTP_MARKET_CONVERT_5` | 24 | 市价_最优5档即成剩转 |
 | `PRTP_STK_OPTION_ASK` | 25 | 询价 |
 | `PRTP_STK_OPTION_FIX_CANCEL_ALL` | 26 | 限价即时全部成交否则撤单 |
 | `PRTP_STK_OPTION_MARKET_CACEL_LEFT` | 27 | 市价即时成交剩余撤单 |
@@ -811,7 +811,7 @@ title: "枚举常量 | 迅投知识库"
 | `PRTP_MARKET_SZ_FULL_REAL_CANCEL` | 48 | 全额成交或撤销委托 |
 | `PRTP_AFTER_FIX_PRICE` | 49 | 盘后定价申报 |
 
-### enum\_ETaskStatus - 任务状态
+### enum_ETaskStatus - 任务状态
 
 | 变量名称 | 数值 | 描述 |
 | --- | --- | --- |

@@ -9,7 +9,7 @@ title: "数据结构 | 迅投知识库"
 
 行情快照数据
 
-#### get\_market\_data\_ex/get\_full\_tick返回对象：
+#### get_market_data_ex/get_full_tick返回对象：
 
 | 字段名 | 数据类型 | 含义 |
 | --- | --- | --- |
@@ -33,7 +33,7 @@ title: "数据结构 | 迅投知识库"
 | `bidPrice` | `list[float]` | `多档委买价` |
 | `bidVol` | `list[int]` | `多档委买量` |
 
-#### get\_market\_data返回对象：
+#### get_market_data返回对象：
 
 | 字段 | 数据类型 | 含义 |
 | --- | --- | --- |
@@ -56,7 +56,7 @@ title: "数据结构 | 迅投知识库"
 | `bidVol` | `list` | `委买量` |
 | `settlementPrice` | `float` | `今结算价` |
 
-#### subscribe\_quote/subscribe\_whole\_quote回调对象：
+#### subscribe_quote/subscribe_whole_quote回调对象：
 
 同 `get_full_tick` 返回结构
 
@@ -356,8 +356,8 @@ bar数据是指各种频率的行情数据
 | m_strOrderRef | str | 内部委托号，下单引用等于股票的内部委托号 |
 | m_nOrderPriceType | int | [EBrokerPriceType 类型，例如市价单、限价单](enum_constants.md#enum-ebrokerpricetype-%E4%BB%B7%E6%A0%BC%E7%B1%BB%E5%9E%8B) |
 | m_nDirection | int | [EEntrustBS 类型，操作，多空，期货多空，股票买卖永远是 48，其他的 dir 同理](enum_constants.md#enum-eentrustbs-%E4%B9%B0%E5%8D%96%E6%96%B9%E5%90%91) |
-| m_nOffsetFlag | int | [EOffset\_Flag\_Type类型，买卖/开平，用此字段区分股票买卖，期货开、平仓，期权买卖等](enum_constants.md#enum-eoffset-flag-type-%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B) |
-| m_nHedgeFlag | int | [EHedge\_Flag\_Type 类型，投保](enum_constants.md#enum-ehedge-flag-type) |
+| m_nOffsetFlag | int | [EOffset_Flag_Type类型，买卖/开平，用此字段区分股票买卖，期货开、平仓，期权买卖等](enum_constants.md#enum-eoffset-flag-type-%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B) |
+| m_nHedgeFlag | int | [EHedge_Flag_Type 类型，投保](enum_constants.md#enum-ehedge-flag-type) |
 | m_dLimitPrice | float | 委托价格，限价单的限价，即报价 |
 | m_nVolumeTotalOriginal | int | 委托数量，最初的委托数量 |
 | m_nOrderSubmitStatus | int | [EEntrustSubmitStatus 类型，报单状态，提交状态，股票中不需要报单状态](enum_constants.md#eentrustsubmitstatus-%E6%8A%A5%E5%8D%95%E7%8A%B6%E6%80%81) |
@@ -405,8 +405,8 @@ bar数据是指各种频率的行情数据
 | m_strOrderRef | str | 下单引用，等于股票的内部委托号 |
 | m_strOrderSysID | str | 合同编号，报单编号，委托号 |
 | m_nDirection | int | [EEntrustBS，买卖方向 对于股票该值始终是48](enum_constants.md#enum-eentrustbs-%E4%B9%B0%E5%8D%96%E6%96%B9%E5%90%91) |
-| m_nOffsetFlag | int | [EOffset\_Flag\_Type，买卖/开平，用此字段区分股票买卖，期货开、平仓，期权买卖等](enum_constants.md#enum-eoffset-flag-type-%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B) |
-| m_nHedgeFlag | int | [EHedge\_Flag\_Type 类型，投保](enum_constants.md#enum-ehedge-flag-type) |
+| m_nOffsetFlag | int | [EOffset_Flag_Type，买卖/开平，用此字段区分股票买卖，期货开、平仓，期权买卖等](enum_constants.md#enum-eoffset-flag-type-%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B) |
+| m_nHedgeFlag | int | [EHedge_Flag_Type 类型，投保](enum_constants.md#enum-ehedge-flag-type) |
 | m_dPrice | float | 成交均价 |
 | m_nVolume | int | 成交量，期货单位手，股票做到股 |
 | m_strTradeDate | str | 成交日期 |
@@ -418,7 +418,7 @@ bar数据是指各种频率的行情数据
 | m_strOptName | str | 买卖标记，展示委托属性的中文 |
 | m_eEntrustType | int | [EEntrustTypes，委托类别](enum_constants.md#enum-eentrusttypes-%E5%A7%94%E6%89%98%E7%B1%BB%E5%9E%8B) |
 | m_eFutureTradeType | int | [EFutureTradeType 类型，成交类型](enum_constants.md#enum-efuturetradetype-%E6%88%90%E4%BA%A4%E7%B1%BB%E5%9E%8B) |
-| m_nRealOffsetFlag | int | [EOffset\_Flag\_Type 类型，实际开平，主要是区分平今和平昨](enum_constants.md#enum-eoffset-flag-type-%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B) |
+| m_nRealOffsetFlag | int | [EOffset_Flag_Type 类型，实际开平，主要是区分平今和平昨](enum_constants.md#enum-eoffset-flag-type-%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B) |
 | m_eCoveredFlag | int | ECoveredFlag类型，备兑标记 '0' - 非备兑，'1' - 备兑 |
 | m_nCloseTodayVolume | int | 平今量，不显示 |
 | m_dOrderPriceRMB | float | 委托价格（人民币），目前用于港股通 |
@@ -443,7 +443,7 @@ bar数据是指各种频率的行情数据
 | m_strProductName | string | 品种名称 |
 | m_strInstrumentID | string | 证券代码 |
 | m_strInstrumentName | string | 证券名称 |
-| m_nHedgeFlag | int | [EHedge\_Flag\_Type 类型，投保 ，股票不适用](enum_constants.md#enum-ehedge-flag-type) |
+| m_nHedgeFlag | int | [EHedge_Flag_Type 类型，投保 ，股票不适用](enum_constants.md#enum-ehedge-flag-type) |
 | m_nDirection | int | [EEntrustBS，买卖方向 对于股票该值始终是48](enum_constants.md#enum-eentrustbs-%E4%B9%B0%E5%8D%96%E6%96%B9%E5%90%91) |
 | m_strOpenDate | string | 开仓日期 股票此字段无效 |
 | m_strTradeID | string | 成交号，最初开仓位的成交 |
@@ -685,7 +685,7 @@ bar数据是指各种频率的行情数据
 
 提示
 
-由于字段m\_dSloRatio、m\_dSloStatus提供来源和取担保品明细 **get\_assure\_contract** 重复，字段在2021年9月移除，后续用担保品明细接口获取,具体见 [担保标的对象字段说明](data_structure.md?id=null#stksubjects-%E6%8B%85%E4%BF%9D%E6%A0%87%E7%9A%84%E5%AF%B9%E8%B1%A1)
+由于字段m_dSloRatio、m_dSloStatus提供来源和取担保品明细 **get_assure_contract** 重复，字段在2021年9月移除，后续用担保品明细接口获取,具体见 [担保标的对象字段说明](data_structure.md?id=null#stksubjects-%E6%8B%85%E4%BF%9D%E6%A0%87%E7%9A%84%E5%AF%B9%E8%B1%A1)
 
 | 字段名 | 数据类型 | 解释 |
 | --- | --- | --- |
@@ -771,7 +771,7 @@ bar数据是指各种频率的行情数据
 | prType | int | passorder的prType，价格类型 |
 | modelPrice | float | 下单价格 |
 | modelVolume | int | 下单量（手数或股数） |
-| strategyName | string | 策略名 \_ &&& \_ 投资备注 |
+| strategyName | string | 策略名 _ &&& _ 投资备注 |
 
 ### CTaskDetail - 任务对象
 
