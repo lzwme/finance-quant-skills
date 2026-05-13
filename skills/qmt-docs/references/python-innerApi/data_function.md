@@ -9,7 +9,7 @@ title: "行情函数 | 迅投知识库"
 
 提示
 
-QMT提供的行情数据中，基础周期包含 tick 1m 5m 1d，这些是实际用于存储的周期 其他周期为合成周期，以基础周期合成得到
+QMT提供的行情数据中，基础周期包含 tick、1m、5m、1d，这些是实际用于存储的周期。其他周期为合成周期，以基础周期合成得到
 
 合成周期
 
@@ -52,7 +52,7 @@ download_history_data(stockcode,period,startTime,endTime)
 
 示例
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	download_history_data("000001.SZ","1d","20230101","") # 下载000001.SZ,从20230101至今的日线数据
@@ -154,7 +154,7 @@ ContextInfo.get_market_data_ex(
 
 **示例**
 
- ```py
+```py
 # coding:gbk
 import pandas as pd
 import numpy as np
@@ -271,9 +271,9 @@ ContextInfo.subscribe_quote(
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def call_back(data):
 	print(data)
@@ -322,9 +322,9 @@ ContextInfo.subscribe_whole_quote(code_list,callback=None)
 
 **返回值**`int`，订阅号，可用`ContextInfo.unsubscribe_quote`做反订阅
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def call_back(data):
 	print(data)
@@ -371,7 +371,7 @@ ContextInfo.unsubscribe_quote(subId)
 
 示例
 
- ```py
+```py
 # coding:gbk
 def call_back(data):
 	print(data)
@@ -600,9 +600,9 @@ ContextInfo.get_svol(stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -640,9 +640,9 @@ ContextInfo.get_bvol(stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -688,9 +688,9 @@ ContextInfo.get_turnover_rate(stock_list,startTime,endTime)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -789,9 +789,9 @@ ContextInfo.get_longhubang(stock_list, startTime, endTime)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 
 def init(C):
@@ -909,9 +909,9 @@ ContextInfo.get_north_finance_change(period)
 
 **示例：**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding = gbk
 def init(C):
     return
@@ -962,9 +962,9 @@ ContextInfo.get_hkt_details(stockcode)
 
 **示例：**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding = gbk
 def init(C):
     return
@@ -1011,9 +1011,9 @@ ContextInfo.get_hkt_statistics(stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -1051,9 +1051,9 @@ get_etf_info(stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
     pass
@@ -1091,9 +1091,9 @@ get_etf_iopv(stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -1177,9 +1177,9 @@ ContextInfo.get_local_data(
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -1229,9 +1229,9 @@ ContextInfo.get_history_data(
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding = gbk
 def init(C):
 	C.stock_list = ["000001.SZ","600519.SH", "510050.SH"]
@@ -1420,9 +1420,9 @@ ContextInfo.get_financial_data(fieldList, stockList, startDate, enDate, report_t
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
   pass
@@ -1477,9 +1477,9 @@ ContextInfo.get_financial_data(tabname, colname, market, code, report_type = 're
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
   pass
@@ -1533,9 +1533,9 @@ ContextInfo.get_raw_financial_data(fieldList,stockList,startDate,endDate,report_
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 '''
 获取财务数据
@@ -1677,9 +1677,9 @@ ContextInfo.get_last_volume(stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -1717,9 +1717,9 @@ ContextInfo.get_total_share(stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -1938,14 +1938,11 @@ def handlebar(C):
 
 ### ContextInfo.get_instrument_detail - 根据代码获取合约详细信息
 
-提示
-
-旧版本客户端中，函数名为ContextInfo.get_instrumentdetail；不支持iscomplete参数
+提示：在旧版本客户端中，函数名为`ContextInfo.get_instrumentdetail`，且不支持 `iscomplete` 参数
 
 **原型**
 
 ```py
-
 ContextInfo.get_instrument_detail(stockcode,iscomplete = Fasle)
 ```
 
@@ -2014,9 +2011,9 @@ ContextInfo.get_instrument_detail(stockcode,iscomplete = Fasle)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2060,9 +2057,9 @@ st范围字典 格式 {'ST': [['20210520', '20380119']], '*ST': [['20070427', '2
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2103,9 +2100,9 @@ ContextInfo.get_his_st_data(stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2152,9 +2149,9 @@ ContextInfo.get_main_contract(codemarket,startDate="",endDate="")
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2203,9 +2200,9 @@ ContextInfo.get_contract_multiplier(contractcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2241,9 +2238,9 @@ ContextInfo.get_contract_expire_date(codemarket)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2282,9 +2279,9 @@ ContextInfo.get_his_contract_list(market)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2352,9 +2349,9 @@ ContextInfo.get_option_detail_data(optioncode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 def init(ContextInfo):
   pass
@@ -2396,7 +2393,7 @@ ContextInfo.get_option_list(undl_code,dedate,opttype,isavailable)
 
 示例data1返回值data2返回值data3返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2450,9 +2447,9 @@ ContextInfo.get_option_undl_data(undl_code_ref)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2498,9 +2495,9 @@ ContextInfo.bsm_price(optionType,objectPrices,strikePrice,riskFree,sigma,days,di
 - objectPrices为list时，返回list
 - 计算结果最小值0.0001，结果保留4位小数,输入非法参数返回nan
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 import numpy as np
 
@@ -2550,9 +2547,9 @@ ContextInfo.bsm_iv(optionType,objectPrices,strikePrice,optionPrice,riskFree,days
 
 `double`
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 import numpy as np
 
@@ -2601,9 +2598,9 @@ value:list[每股红利,每股送转,每股转赠,配股,配股价,是否股改,
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2644,9 +2641,9 @@ ContextInfo.get_weight_in_index(indexcode, stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2687,9 +2684,9 @@ list：内含成份股代码，代码形式为 'stockcode.market'，如 '000002.
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -2731,9 +2728,9 @@ list:K线周期（交易日）列表 period为日线时返回如['20170101','201
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass

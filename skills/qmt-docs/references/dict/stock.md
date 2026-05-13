@@ -13,14 +13,11 @@ title: "股票数据 | 迅投知识库"
 
 #### 内置Python
 
-提示
-
-旧版本客户端中，函数名为ContextInfo.get_instrumentdetail
+提示：在旧版本客户端中，函数名为`ContextInfo.get_instrumentdetail`，且不支持 `iscomplete` 参数
 
 **调用方法**
 
 ```py
-
 ContextInfo.get_instrument_detail(stockcode)
 ```
 
@@ -77,15 +74,15 @@ ContextInfo.get_instrument_detail(stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
 
 def handlebar(C):
-	data = C.get_instrumentdetail("000001.SZ")
+	data = C.get_instrument_detail("000001.SZ")
 	print(data)
 ```
 
@@ -97,9 +94,7 @@ def handlebar(C):
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_instrument_detail(stock_code)
 ```
@@ -153,9 +148,9 @@ xtdata.get_instrument_detail(stock_code)
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdata
 
 # 输出平安银行信息的中文名称
@@ -198,9 +193,7 @@ xtdata.get_instrument_detail("000001.SZ")
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_stock_list_in_sector(sector_name)
 ```
@@ -217,9 +210,9 @@ xtdata.get_stock_list_in_sector(sector_name)
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdata
 # 获取沪深A股全部股票的代码
 xtdata.get_stock_list_in_sector("沪深A股")
@@ -285,9 +278,9 @@ ContextInfo.get_his_st_data(stockcode)
 
 **示例**
 
-示例返回值
+示例与返回值
 
- ```py
+```py
 # coding:gbk
 def init(C):
 	pass
@@ -309,9 +302,7 @@ def handlebar(C):
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_his_st_data(stock_code)
 ```
@@ -334,9 +325,9 @@ xtdata.get_his_st_data(stock_code)
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdata
 import time
 # 下载市场历史ST情况
@@ -465,7 +456,7 @@ ContextInfo.get_market_data_ex(
 
 获取行情示例仅获取历史行情仅获取最新行情获取历史行情+最新行情
 
- ```py
+```py
 # coding:gbk
 
 def init(C):
@@ -562,7 +553,6 @@ stime
 ```
 
 ```
-
 start simulation mode
                 amount  close   high    low   open  openInterest  preClose
 stime
@@ -585,9 +575,7 @@ stime
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_market_data_ex(
     field_list=[],# 字段
@@ -663,10 +651,9 @@ xtdata.get_market_data_ex(
 
 **示例**
 
-示例仅获取历史行情仅获取最新行情获取历史行情+最新行情
+示例：仅获取历史行情仅获取最新行情获取历史行情+最新行情
 
-```
-
+```py
 from xtquant import xtdata
 import time
 
@@ -804,7 +791,7 @@ stime
 
 **调用方法**
 
-```
+```py
 get_market_data_ex([],stock_list,period="stoppricedata",start_time = "", end_time = "")
 ```
 
@@ -825,10 +812,7 @@ get_market_data_ex([],stock_list,period="stoppricedata",start_time = "", end_tim
 
 **示例**
 
-python返回值
-
-```
-
+```py
 from xtquant import xtdata
 
 stock_list = xtdata.get_stock_list_in_sector("沪深A股")[:5]
@@ -931,7 +915,7 @@ print(data)
 
 **调用方法**
 
-```
+```py
 xtdata.get_market_data_ex([],stock_list,period="snapshotindex",start_time = "", end_time = "")
 ```
 
@@ -949,9 +933,7 @@ xtdata.get_market_data_ex([],stock_list,period="snapshotindex",start_time = "", 
 
 **示例**
 
-python返回值
-
-```
+```py
 from xtquant import xtdata
 
 def f(data):
@@ -1011,7 +993,7 @@ print(data)
 
 **调用方法**
 
-```
+```py
 xtdata.get_market_data_ex([],stock_list,period="limitupperformance",start_time = "", end_time = "")
 ```
 
@@ -1041,9 +1023,7 @@ xtdata.get_market_data_ex([],stock_list,period="limitupperformance",start_time =
 
 **示例**
 
-python返回值
-
-```
+```py
 from xtquant import xtdata
 
 def f(data):
@@ -1124,9 +1104,7 @@ print(data)
 提示
 
 1.该数据通过`get_market_data`和`get_market_data_ex`接口获取，period参数选择`transactioncount1d` 或者 `transactioncount1m`
-
 2.获取历史数据前需要先用`download_history_data`下载历史数据
-
 3. [VIP 权限数据](https://xuntou.net/#/productvip)
 
 ### 内置python
@@ -1151,13 +1129,10 @@ C.get_market_data_ex([],stock_list,period="transactioncount1m",start_time = "", 
 
 提示
 
-特大单：成交金额大于或等于100万元或成交量大于或等于5000手
-
-大单：成交金额大于或等于20万元或成交量大于或等于1000手
-
-中单：成交金额大于或等于4万元或成交量大于或等于200手
-
-小单：其它为小单
+- 特大单：成交金额大于或等于100万元或成交量大于或等于5000手
+- 大单：成交金额大于或等于20万元或成交量大于或等于1000手
+- 中单：成交金额大于或等于4万元或成交量大于或等于200手
+- 小单：其它为小单
 
 | 字段名 | 数据类型 | 解释 |
 | --- | --- | --- |
@@ -1273,9 +1248,7 @@ C.get_market_data_ex([],stock_list,period="transactioncount1m",start_time = "", 
 
 **示例**
 
-python返回值
-
- ```py
+```py
 # coding:gbk
 
 def init(C):
@@ -1297,8 +1270,8 @@ def after_init(C):
     pass
 ```
 
+结果示例：
 ```
-
 start simulation mode
 {'000001.SZ':                    time     stime  bidNumber  offNumber   ddx  ...
 stime                                                          ...
@@ -1376,9 +1349,7 @@ stime
 
 **原型**
 
-原生python
-
-```
+```py
 # 逐笔成交统计日级
 get_market_data_ex([],stock_list,period="transactioncount1d",start_time = "", end_time = "")
 # 逐步成交统计1分钟级
@@ -1530,7 +1501,7 @@ get_market_data_ex([],stock_list,period="transactioncount1m",start_time = "", en
 
 示例data1返回值data2返回值data3返回值
 
-```
+```py
 from xtquant import xtdata
 
 # 获取历史数据前，请确保已经下载历史数据
@@ -1760,9 +1731,7 @@ data3 = xtdata.get_market_data_ex([],["000001.SZ","000582.SZ"],period="transacti
 
 **原型**
 
-python
-
-```
+```py
 
 # 一分钟订单流
 C.get_market_data_ex([],stock_list,period="orderflow1m",start_time = "", end_time = "")
@@ -1779,9 +1748,7 @@ C.get_market_data_ex([],stock_list,period="orderflow1d",start_time = "", end_tim
 
 **示例**
 
-python返回值
-
-```
+```py
 
 # coding:gbk
 def init(C):
@@ -1821,9 +1788,7 @@ Name: 20240315150000, dtype: object
 
 ### 原生pytrhon
 
-python
-
-```
+```py
 from xtquant import xtdata
 # 订单流数据仅提供1m周期数据下载，其他周期的订单流数据都是通过1m周期合成的
 period = "orderflow1m"
@@ -1979,9 +1944,7 @@ print(data4)
 
 ### 原生python
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_market_data_ex(field_list,stock_list,period='interactiveqa')
 ```
@@ -1996,9 +1959,9 @@ xtdata.get_market_data_ex(field_list,stock_list,period='interactiveqa')
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 
 from xtquant import xtdata
 xtdata.download_history_data("000001.SZ",period="interactiveqa")
@@ -2075,9 +2038,9 @@ get_trading_calendar(market,start_time='',end_time='')
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding:gbk
 def init(C):
     return
@@ -2093,9 +2056,7 @@ def after_init(C):
 
 **调用方法**
 
-原生python
-
-```
+```py
 # 下载交易日历数据
 xtdata.download_holiday_data()
 # 返回获取的交易日历
@@ -2116,7 +2077,7 @@ result = xtdata.get_trading_calendar(market, start_time , end_time )
 
 **示例**
 
-示例返回值
+示例与返回值
 
 ```py
 # coding:utf-8
@@ -2182,9 +2143,9 @@ C.get_longhubang(stock_list, startTime, endTime)
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding:gbk
 
 def init(C):
@@ -2265,9 +2226,7 @@ def handlebar(C):
 
 获取交易日列表
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_trading_dates(market, start_time='', end_time='', count=-1)
 ```
@@ -2287,9 +2246,9 @@ xtdata.get_trading_dates(market, start_time='', end_time='', count=-1)
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdata
 
 # 获取沪港通最近十五天交易日历
@@ -2361,9 +2320,9 @@ C.get_north_finance_change(period)
 
 **示例1 通过内置python获取：**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding = gbk
 def init(C):
     return
@@ -2383,9 +2342,7 @@ def handlebar(C):
 
 #### 方式2：原生python
 
-原生python
-
-```
+```py
 xtdata.get_market_data_ex(
     fields=[],
     stock_code=[],
@@ -2419,9 +2376,9 @@ xtdata.get_market_data_ex(
 
 **示例2 通过原生python获取：**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # 该示例演示token获取数据方式
 from xtquant import xtdatacenter as xtdc
 
@@ -2491,9 +2448,9 @@ C.get_hkt_details(stockcode)
 
 **示例：**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding = gbk
 def init(C):
     return
@@ -2523,7 +2480,7 @@ def handlebar(C):
 
 **调用方法**
 
-```
+```py
 get_market_data_ex([],stock_list,period="announcement",start_time = "", end_time = "")
 ```
 
@@ -2544,9 +2501,7 @@ get_market_data_ex([],stock_list,period="announcement",start_time = "", end_time
 
 **示例**
 
-原生python返回值
-
-```
+原生```py
 from xtquant import xtdata
 xtdata.download_history_data('600050.SH','announcement')
 
@@ -2634,9 +2589,9 @@ ContextInfo.get_financial_data(fieldList, stockList, startDate, enDate, report_t
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding:gbk
 def init(C):
   pass
@@ -2691,9 +2646,9 @@ ContextInfo.get_financial_data(tabname, colname, market, code, report_type = 're
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # coding:gbk
 def init(C):
   pass
@@ -2747,9 +2702,9 @@ ContextInfo.get_raw_financial_data(fieldList,stockList,startDate,endDate,report_
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 #encoding:gbk
 '''
 获取财务数据
@@ -2869,9 +2824,7 @@ ASHAREINCOME.revenue 20230930 1276亿3400万
 
 ### 原生python
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_financial_data(stock_list, table_list=[], start_time='', end_time='', report_type='report_time')
 ```
@@ -2902,9 +2855,9 @@ xtdata.get_financial_data(stock_list, table_list=[], start_time='', end_time='',
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdata
 # 取数据前请确保已下载所需要的财务数据
 xtdata.download_financial_data(["000001.SZ","600519.SH","430017.BJ"], table_list=["Balance","Income"])

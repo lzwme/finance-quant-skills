@@ -58,7 +58,7 @@ QMT Python API 提供基于 `Python 3.6` 规范的标准量化投资策略应用
 | Patsy | 一个线性模型分析和构建工具库。 |
 | SciPy | SciPy 函数库在 NumPy 库的基础上增加了众多的数学、科学以及工程计算中常用的库函数。例如线性代数、常微分方程数值求解、信号处理、图像处理、稀疏矩阵等等。 |
 | Statsmodels | Python 的统计建模和计量经济学工具包，包括一些描述统计、统计模型估计和推断。 |
-| TA\_Lib | 称作技术分析库，是一种广泛用在程序化交易中进行金融市场数据的技术分析的函数库。它提供了多种技术分析的函数，可以大大方便我们量化投资中编程工作，内容包括：多种指标，如 ADX, MACD, RSI, 布林轨道等；K 线形态识别，如黄昏之星，锤形线等等。 |
+| TA_Lib | 称作技术分析库，是一种广泛用在程序化交易中进行金融市场数据的技术分析的函数库。它提供了多种技术分析的函数，可以大大方便我们量化投资中编程工作，内容包括：多种指标，如 ADX, MACD, RSI, 布林轨道等；K 线形态识别，如黄昏之星，锤形线等等。 |
 
 ### 第三方库导入指引
 
@@ -166,7 +166,7 @@ QMT Python API 提供基于 `Python 3.6` 规范的标准量化投资策略应用
 
 1. 为保证以尽快的速度执行交易信号, qmt 客户端提供的交易接口是异步的, 以快速交易参数填`2`的`passorder`函数为例，调用后会立刻发出委托, 然后返回。不会等待委托回报, 也不会阻塞python线程的运行。
 
-2. 委托/成交/持仓/账号信息的更新, 是在客户端后台进行的, python策略中无法手动控制。python提供的取账号信息接口 `get_trade_detail_data`， 与四种交易回调函数, 都是从客户端本地缓存中读取数据 / 触发调用，不是调用时查询柜台再返回。客户端本地缓存状态定期接收柜台推送刷新，有交易主推的柜台50ms一次，没有交易主推的柜台1-6秒一次。 不能认为get\_trade\_detail\_data查到的状态是与柜台完全一致的, 比如卖出委托后立刻查询, 不会查到对应委托, 可用资金也不会变多。
+2. 委托/成交/持仓/账号信息的更新, 是在客户端后台进行的, python策略中无法手动控制。python提供的取账号信息接口 `get_trade_detail_data`， 与四种交易回调函数, 都是从客户端本地缓存中读取数据 / 触发调用，不是调用时查询柜台再返回。客户端本地缓存状态定期接收柜台推送刷新，有交易主推的柜台50ms一次，没有交易主推的柜台1-6秒一次。 不能认为get_trade_detail_data查到的状态是与柜台完全一致的, 比如卖出委托后立刻查询, 不会查到对应委托, 可用资金也不会变多。
 
 3. 实盘策略需要设计盘中保存/更新委托状态的机制。常见的做法是用全局变量字典保存委托状态, 给每一笔委托独立的投资备注作为字典的`key`，委托状态作为字典的`value`, 下单后默认设置为待报, 之后查到委托后更新状态。如果某品种股票存在待报状态委托, 暂停该品种后续报单, 防止发生超单的情况。(实现可以参考实盘示例7-调整至目标持仓Demo)
 
@@ -177,7 +177,7 @@ QMT Python API 提供基于 `Python 3.6` 规范的标准量化投资策略应用
 
 1. 检查是否是在模型交易界面，实盘模式运行的策略。模拟模式只显示策略信号，不发出委托。
 
-2. 如运行到交易函数，未看到策略信号，检查交易函数是否使用了快速下单参数(`quickTrade`)，默认为`0`，只会在k线结束发出委托，日线及以上周期等于全天不会委托。传`1`时，非历史bar上执行时（ContextInfo.is\_last\_bar()为True），只要策略模型中调用到就触发下单交易。传`2`，无论是否是历史bar，运行到交易函数时立刻发出委托。
+2. 如运行到交易函数，未看到策略信号，检查交易函数是否使用了快速下单参数(`quickTrade`)，默认为`0`，只会在k线结束发出委托，日线及以上周期等于全天不会委托。传`1`时，非历史bar上执行时（ContextInfo.is_last_bar()为True），只要策略模型中调用到就触发下单交易。传`2`，无论是否是历史bar，运行到交易函数时立刻发出委托。
 
 
 如果希望盘中出现信号立即下单，建议传`1`，这种情况下会有策略信号闪烁的风险，需要自己处理；如果希望K线结束下单（信号不闪烁），建议传`0`， **通常情况下不建议传`2`**
@@ -188,7 +188,7 @@ QMT Python API 提供基于 `Python 3.6` 规范的标准量化投资策略应用
 
 1. handlebar逐k线下单, 每次k线结束的分笔生效一次, 传0;
 2. 需要在handlebar盘中触发立刻下单, 传1;
-3. 定时器/init/after\_init与交易回调函数, 行情回调函数内下单, 传2.
+3. 定时器/init/after_init与交易回调函数, 行情回调函数内下单, 传2.
 
 3. 如看到实盘的策略信号，未找到对应委托，检查客户端左下角消息提示是否有报错，如有，请根据消息提示的描述修改下单参数
 
@@ -198,11 +198,11 @@ QMT Python API 提供基于 `Python 3.6` 规范的标准量化投资策略应用
 
 QMT行情数据主要分为三种，包括 **本地数据**， **全推数据**， **订阅数据**。
 
-1. **本地数据：** 指下载到本地的行情数据加密文件。包括历史数据，适合回测模式使用，对应python接口为 [get\_market\_data\_ex(subscribe=False) ](data_function.md#contextinfo-get-market-data-ex-%E8%8E%B7%E5%8F%96%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE)
+1. **本地数据：** 指下载到本地的行情数据加密文件。包括历史数据，适合回测模式使用，对应python接口为 [get_market_data_ex(subscribe=False) ](data_function.md#contextinfo-get-market-data-ex-%E8%8E%B7%E5%8F%96%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE)
 
-2. **全推数据：** 指客户端启动后, 自动接收，更新的全市场最新数据快照， 包括日线的开高低收,成交量成交额，与五档盘口（在行情界面选择了五档行情时可用五档 具体见行情常规问题3）。支持取全市场品种, 只有最新值，没有历史值， **服务器对交易所下发的数据即时转发，打包增量部分发送给下游客户端**。可以用`get_full_tick`一次性取出当前最新值，也可以用`subscribe_whole_quote`注册回调函数，每次处理增量的部分。 对应python接口为 [get\_full\_tick](data_function.md#contextinfo-get-full-tick-%E8%8E%B7%E5%8F%96%E5%85%A8%E6%8E%A8%E6%95%B0%E6%8D%AE)， [subscribe\_whole\_quote](data_function.md#contextinfo-subscribe-whole-quote-%E8%AE%A2%E9%98%85%E5%85%A8%E6%8E%A8%E6%95%B0%E6%8D%AE)
+2. **全推数据：** 指客户端启动后, 自动接收，更新的全市场最新数据快照， 包括日线的开高低收,成交量成交额，与五档盘口（在行情界面选择了五档行情时可用五档 具体见行情常规问题3）。支持取全市场品种, 只有最新值，没有历史值， **服务器对交易所下发的数据即时转发，打包增量部分发送给下游客户端**。可以用`get_full_tick`一次性取出当前最新值，也可以用`subscribe_whole_quote`注册回调函数，每次处理增量的部分。 对应python接口为 [get_full_tick](data_function.md#contextinfo-get-full-tick-%E8%8E%B7%E5%8F%96%E5%85%A8%E6%8E%A8%E6%95%B0%E6%8D%AE)， [subscribe_whole_quote](data_function.md#contextinfo-subscribe-whole-quote-%E8%AE%A2%E9%98%85%E5%85%A8%E6%8E%A8%E6%95%B0%E6%8D%AE)
 
-3. **订阅：指向行情服务器订阅指定品种行情, 共有四种周期(分笔 1分钟 5分钟 日线)，可以订阅当日数据，当天以前的需要用 `down_history_data`下. 订阅有最大数量限制(例如：假设最大数量限制为300个，则可以单独订阅日线300个，若同时订阅日线和五分钟 则各150个)，如需订阅超过定义上限，可以在页面右上角，选购行情vip服务**。对应python接口为 [subscribe\_quote](data_function.html#contextinfo-subscribe-quote-%E8%AE%A2%E9%98%85%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE) 和 [get\_market\_data\_ex(subscribe=True,)](data_function.md#contextinfo-get-market-data-ex-%E8%8E%B7%E5%8F%96%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE) 其中，使用`get_market_data`或`get_market_data_ex(subscribe=True,)`时客户端会自动订阅传入的品种，不需要额外调用`subscibe_quote`,但这种方式订阅的品种没有订阅号，无法手动反订阅，只能通过停止策略释放可订阅数。
+3. **订阅：指向行情服务器订阅指定品种行情, 共有四种周期(分笔 1分钟 5分钟 日线)，可以订阅当日数据，当天以前的需要用 `down_history_data`下. 订阅有最大数量限制(例如：假设最大数量限制为300个，则可以单独订阅日线300个，若同时订阅日线和五分钟 则各150个)，如需订阅超过定义上限，可以在页面右上角，选购行情vip服务**。对应python接口为 [subscribe_quote](data_function.html#contextinfo-subscribe-quote-%E8%AE%A2%E9%98%85%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE) 和 [get_market_data_ex(subscribe=True,)](data_function.md#contextinfo-get-market-data-ex-%E8%8E%B7%E5%8F%96%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE) 其中，使用`get_market_data`或`get_market_data_ex(subscribe=True,)`时客户端会自动订阅传入的品种，不需要额外调用`subscibe_quote`,但这种方式订阅的品种没有订阅号，无法手动反订阅，只能通过停止策略释放可订阅数。
 
 
 警告
@@ -274,7 +274,7 @@ passorder参数`prType`填写`14`(对手价下单)时，委托价格有误，或
 
 **解决方法**
 
-1. 使用 [定时器(run\_time)](start_now.md#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-run-time-%E5%AE%9A%E6%97%B6%E8%BF%90%E8%A1%8C) 进行计算
+1. 使用 [定时器(run_time)](start_now.md#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-run-time-%E5%AE%9A%E6%97%B6%E8%BF%90%E8%A1%8C) 进行计算
 
 2. 使用 [订阅推送(subscribe)](start_now.md#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8-subscribe-%E8%AE%A2%E9%98%85%E6%8E%A8%E9%80%81),在回调函数中进行计算
 
@@ -332,32 +332,32 @@ Log文件通常在安装目录下的`.\userdata\log`文件夹中，在 `.\userda
 
 说明
 
-XtClient\_20210922.log - 客户端常规日志
+XtClient_20210922.log - 客户端常规日志
 
-XtClient\_datasource\_20210922.log - 行情数据日志
+XtClient_datasource_20210922.log - 行情数据日志
 
-XtClient\_Formula\_20210922.log - 策略运行日志
+XtClient_Formula_20210922.log - 策略运行日志
 
-XtClient\_FormulaOutput.log - 策略输出日志
+XtClient_FormulaOutput.log - 策略输出日志
 
 QMT：{安装目录}\\userdata\\log
 
 说明
 
-XtClient\_20210922.log - 客户端常规日志
+XtClient_20210922.log - 客户端常规日志
 
-XtClient\_Formula\_20210922.log - 策略运行日志
+XtClient_Formula_20210922.log - 策略运行日志
 
-XtClient\_FormulaOutput.log - 策略输出日志
+XtClient_FormulaOutput.log - 策略输出日志
 
-XtClient\_PerformanceFile\_20210922.log - 客户端流程节点日志
+XtClient_PerformanceFile_20210922.log - 客户端流程节点日志
 
-极简模式：{安装目录}\\userdata\_mini\\log
+极简模式：{安装目录}\\userdata_mini\\log
 
 说明
 
-XtMiniQuote\_20210917.log - 行情策略模块日志
+XtMiniQuote_20210917.log - 行情策略模块日志
 
-XtMiniQmt\_20210917.log - 客户端常规日志
+XtMiniQmt_20210917.log - 客户端常规日志
 
-XtMiniQmt\_perform\_20210917.log - 客户端流程节点日志
+XtMiniQmt_perform_20210917.log - 客户端流程节点日志

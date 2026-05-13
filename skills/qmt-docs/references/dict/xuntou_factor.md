@@ -5,7 +5,7 @@ title: "迅投因子 | 迅投知识库"
 
 ### 因子数据下载
 
-```
+```py
 from xtquant import xtdata
 
 xtdata.download_metatable_data() # 更新因子列表

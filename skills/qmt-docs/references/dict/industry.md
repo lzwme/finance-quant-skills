@@ -15,9 +15,7 @@ title: "行业概念数据 | 迅投知识库"
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.download_sector_data()
 ```
@@ -34,7 +32,7 @@ xtdata.download_sector_data()
 
 示例
 
-```
+```py
 from xtquant import xtdata
 xtdata.download_sector_data()
 ```
@@ -43,9 +41,7 @@ xtdata.download_sector_data()
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.download_history_contracts()
 ```
@@ -62,7 +58,7 @@ xtdata.download_history_contracts()
 
 示例
 
-```
+```py
 from xtquant import xtdatacenter as xtdc
 
 xtdc.set_token("这里输入token")
@@ -78,9 +74,7 @@ xtdata.download_history_contracts()
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_sector_list()
 ```
@@ -95,27 +89,27 @@ xtdata.get_sector_list()
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdata
 sector_list = xtdata.get_sector_list()
 ```
 
 ```
-[ '1000SW1交通运输',\
- '1000SW1传媒',\
- '1000SW1公用事业',\
- '1000SW1农林牧渔',\
- '1000SW1医药生物',\
- '1000SW1商贸零售',\
- '1000SW1国防军工',\
- '1000SW1基础化工',\
- '1000SW1家用电器',\
- '1000SW1建筑材料',\
- '1000SW1建筑装饰',\
- '1000SW1房地产',\
- '1000SW1有色金属',\
+[ '1000SW1交通运输',
+ '1000SW1传媒',
+ '1000SW1公用事业',
+ '1000SW1农林牧渔',
+ '1000SW1医药生物',
+ '1000SW1商贸零售',
+ '1000SW1国防军工',
+ '1000SW1基础化工',
+ '1000SW1家用电器',
+ '1000SW1建筑材料',
+ '1000SW1建筑装饰',
+ '1000SW1房地产',
+ '1000SW1有色金属',
  '1000SW1机械设备',...]
 ```
 
@@ -123,9 +117,7 @@ sector_list = xtdata.get_sector_list()
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_stock_list_in_sector(sector_name)
 ```
@@ -142,9 +134,9 @@ xtdata.get_stock_list_in_sector(sector_name)
 
 **示例1:获取当最新板块数据**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # 获取沪深300的板块成分股
 from xtquant import xtdata
 sector = xtdata.get_stock_list_in_sector('沪深300')
@@ -157,9 +149,9 @@ print(sector)
 
 **示例2:获取板块退市股票数据**
 
-示例返回值
+示例与返回值
 
-```
+```py
 from xtquant import xtdatacenter as xtdc
 
 xtdc.set_token("这里输入token")
@@ -187,9 +179,7 @@ print(xtdata.get_stock_list_in_sector('过期上证A股'))
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_stock_list_in_sector(sector_name)
 ```
@@ -206,9 +196,9 @@ xtdata.get_stock_list_in_sector(sector_name)
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # 获取GN上海的板块成分股
 from xtquant import xtdata
 sector = xtdata.get_stock_list_in_sector('GN上海')
@@ -223,9 +213,7 @@ print(sector)
 
 **调用方法**
 
-python
-
-```
+```py
 from xtquant import xtdata
 xtdata.get_stock_list_in_sector(sector_name)
 ```
@@ -242,9 +230,9 @@ xtdata.get_stock_list_in_sector(sector_name)
 
 **示例**
 
-示例返回值
+示例与返回值
 
-```
+```py
 # 获取SW1汽车行业的成分股
 from xtquant import xtdata
 

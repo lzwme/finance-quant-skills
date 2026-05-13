@@ -35,7 +35,7 @@ title: "常见问题 | 迅投知识库"
 
 提示
 
-如果是`get_market_data_ex`获取K线可以用fill\_data=True来填充。
+如果是`get_market_data_ex`获取K线可以用fill_data=True来填充。
 
 这个填充现在只对 k 线这种标准的数据做了，其他的特色数据没有处理填充的操作。
 

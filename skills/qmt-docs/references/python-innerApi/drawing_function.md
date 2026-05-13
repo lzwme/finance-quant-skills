@@ -7,7 +7,7 @@ title: "绘图函数 | 迅投知识库"
 
 在界面上画图
 
-**调用方法：** ContextInfo.paint(name, value, index, line\_style, color = 'white', limit = '')
+**调用方法：** ContextInfo.paint(name, value, index, line_style, color = 'white', limit = '')
 
 **参数：**
 
@@ -24,16 +24,14 @@ title: "绘图函数 | 迅投知识库"
 
 **示例：**
 
-python
-
-```
+```py
 def init(ContextInfo):
     realtimetag = ContextInfo.get_bar_timetag(ContextInfo.barpos)
     value = ContextInfo.get_close_price('', '', realtimetag)
     ContextInfo.paint('close', value, -1, 0, 'white','noaxis')
 ```
 
-## ContextInfo.draw\_text - 在图形上显示文字
+## ContextInfo.draw_text - 在图形上显示文字
 
 在图形上显示数字   **调用方法：**`ContextInfo.draw_text(condition, position, text)`
 
@@ -54,7 +52,7 @@ def init(ContextInfo):
     ContextInfo.draw_text(1, 10, '文字')
 ```
 
-## ContextInfo.draw\_number - 在图形上显示数字
+## ContextInfo.draw_number - 在图形上显示数字
 
 在图形上显示数字
 
@@ -79,7 +77,7 @@ def init(ContextInfo):
     ContextInfo.draw_number(1 > 0, close, 66, 1)
 ```
 
-## ContextInfo.draw\_vertline - 在数字 1 和数字 2 之间绘垂直线
+## ContextInfo.draw_vertline - 在数字 1 和数字 2 之间绘垂直线
 
 在数字1和数字2之间绘垂直线
 
@@ -106,7 +104,7 @@ def init(ContextInfo):
     ContextInfo.draw_vertline(1 > 0, close, open, 'cyan')
 ```
 
-## ContextInfo.draw\_icon - 在图形上绘制小图标
+## ContextInfo.draw_icon - 在图形上绘制小图标
 
 在图形上绘制小图标
 

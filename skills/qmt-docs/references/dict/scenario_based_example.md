@@ -39,7 +39,7 @@ xtdata.run()
 
 ### 盘前数据准备
 
-```
+```py
 from xtquant import xtdata
 from datetime import datetime,timedelta
 import time

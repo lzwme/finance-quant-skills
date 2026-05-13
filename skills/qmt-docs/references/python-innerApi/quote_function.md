@@ -3,7 +3,7 @@ url: "https://dict.thinktrader.net/innerApi/quote_function.html"
 title: "引用函数 | 迅投知识库"
 ---
 
-## ext\_data - 获取扩展数据
+## ext_data - 获取扩展数据
 
 获取扩展数据
 
@@ -22,13 +22,13 @@ title: "引用函数 | 迅投知识库"
 
 \\*\\* 示例：\*\*
 
- ```py
+```py
 #coding:gbk
 def init(ContextInfo):
 	print(ext_data('CR', '600000.SH', 0, ContextInfo))
 ```
 
-## ext\_data\_rank - 获取引用的扩展数据的数值在所有品种中的排名
+## ext_data_rank - 获取引用的扩展数据的数值在所有品种中的排名
 
 获取引用的扩展数据的数值在所有品种中的排名
 
@@ -47,13 +47,13 @@ def init(ContextInfo):
 
 \\*\\* 示例：\*\*
 
- ```py
+```py
 #coding:gbk
 def init(ContextInfo):
 	print(ext_data_rank('mycci', '600000.SH', 0, ContextInfo))
 ```
 
-## ext\_data\_rank\_range - 获取引用的扩展数据的数值在指定时间区间内所有品种中的排名
+## ext_data_rank_range - 获取引用的扩展数据的数值在指定时间区间内所有品种中的排名
 
 获取引用的扩展数据的数值在指定时间区间内所有品种中的排名
 
@@ -73,13 +73,13 @@ def init(ContextInfo):
 
 \\*\\* 示例：\*\*
 
- ```py
+```py
 #coding:gbk
 def init(ContextInfo):
 	print(ext_data_rank_range('mycci', '600000.SH','2022-08-02 12:12:30', '2023-08-02 12:12:30', ContextInfo))
 ```
 
-## ext\_data\_range - 获取扩展数据在指定时间区间内的值
+## ext_data_range - 获取扩展数据在指定时间区间内的值
 
 获取扩展数据在指定时间区间内的值
 
@@ -99,13 +99,13 @@ def init(ContextInfo):
 
 **示例：**
 
- ```py
+```py
 #coding:gbk
 def init(ContextInfo):
 	print(ext_data_range('mycci', '600000.SH','2022-08-02 12:12:30', '2023-08-02 12:12:30', ContextInfo))
 ```
 
-## get\_factor\_value - 获取因子数据
+## get_factor_value - 获取因子数据
 
 获取因子数据
 
@@ -124,13 +124,13 @@ def init(ContextInfo):
 
 **示例：**
 
- ```py
+```py
 #coding:gbk
 def init(ContextInfo):
 	print(get_factor_value('zzz', '600000.SH', 0, ContextInfo))
 ```
 
-## get\_factor\_rank - 获取引用的因子数据的数值在所有品种中排名
+## get_factor_rank - 获取引用的因子数据的数值在所有品种中排名
 
 获取引用的因子数据的数值在所有品种中排名
 
@@ -147,18 +147,18 @@ def init(ContextInfo):
 
 **示例：**
 
- ```py
+```py
 #coding:gbk
 def init(ContextInfo):
 	print(get_factor_rank('zzz', '600000.SH', 0, ContextInfo))
 ```
 
-## （不推荐）call\_vba - 获取引用的 VBA 模型运行的结果
+## （不推荐）call_vba - 获取引用的 VBA 模型运行的结果
 
 更推荐函数：
 
-- 获取历史数据 [call\_formula](data_function.md?id=e2M5nZ#call-formula-%E8%B0%83%E7%94%A8%E6%A8%A1%E5%9E%8B)
-- 订阅实时数据 [subscribe\_formula](data_function.html?id=e2M5nZ#subscribe-formula-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%9E%8B) 更多实时和历史数据调用的示例: [Python调用VBA因子公式的案例](https://dict.thinktrader.net/codeExample/python%E8%B0%83%E7%94%A8VBA.md?id=e2M5nZ)
+- 获取历史数据 [call_formula](data_function.md?id=e2M5nZ#call-formula-%E8%B0%83%E7%94%A8%E6%A8%A1%E5%9E%8B)
+- 订阅实时数据 [subscribe_formula](data_function.html?id=e2M5nZ#subscribe-formula-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%9E%8B) 更多实时和历史数据调用的示例: [Python调用VBA因子公式的案例](https://dict.thinktrader.net/codeExample/python%E8%B0%83%E7%94%A8VBA.md?id=e2M5nZ)
 
 获取引用的 VBA 模型运行的结果
 
@@ -186,25 +186,23 @@ def init(ContextInfo):
 
 > 'tick'：分笔线 '1d'：日线 '1m'：1分钟线 '3m'：3分钟线 '5m'：5分钟线 '15m'：15分钟线 '30m'：30分钟线 '1h'：小时线 '1w'：周线 '1mon'：月线 '1q'：季线 '1hy'：半年线 '1y'：年线
 
-- dividend\_type 可选值：
+- dividend_type 可选值：
 
 
-> 'none'：不复权 'front'：向前复权 'back'：向后复权 'front\_ratio'：等比向前复权 'back\_ratio'：等比向后复权
+> 'none'：不复权 'front'：向前复权 'back'：向后复权 'front_ratio'：等比向前复权 'back_ratio'：等比向后复权
 
 
 **返回：** number
 
 **示例：**
 
-python
-
- ```py
+```py
 #coding:gbk
 def init(ContextInfo):
 	print(call_vba('MA.ma1', '600036.SH', ContextInfo))
 ```
 
-@ tab 返回值
+返回值示例
 
 ```
 -1.0

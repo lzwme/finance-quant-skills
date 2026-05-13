@@ -11,9 +11,7 @@ title: "完整示例 | 迅投知识库"
 
 ##### 获取融资融券账户可融资买入标的
 
-python
-
- ```py
+```py
 #coding:gbk
 def init(C):
 
@@ -35,9 +33,7 @@ def init(C):
 
 订阅全市场1m周期K线
 
-python
-
- ```py
+```py
 #coding:gbk
 
 import pandas as pd
@@ -66,9 +62,7 @@ def call_back(data):
 3. 5m以上，1d以下的数据，是通过5m数据合成的
 4. 1d以上的数据，是通过1d的数据合成的
 
-python
-
- ```py
+```py
 #coding:gbk
 
 import pandas as pd
@@ -93,7 +87,7 @@ def init(C):
 	data = C.get_market_data_ex([],code_list,period = period, start_time = start_date, end_time = end_date,dividend_type = "back_ratio")
 
 	print(data)# 行情数据查看
-	print(C.get_instrumentdetail(code_list[0])) # 合约信息查看
+	print(C.get_instrument_detail(code_list[0])) # 合约信息查看
 
 def hanldebar(C):
 	return
@@ -128,9 +122,7 @@ def my_download(stock_list,period,start_date = '', end_date = ''):
 
 本示例用于说明如何通过函数获取行情数据。
 
-python
-
- ```py
+```py
 #coding:gbk
 # get_market_data_ex(subscribe=True)有订阅股票数量限制
 # 即stock_list参数的数量不能超过500
@@ -172,9 +164,9 @@ def handlebar(C):
 
 使用该函数后，会定期查询最新数据，并进行数据返回。
 
-python返回值
+使用示例：
 
- ```py
+```py
 #coding:gbk
 def init(C):
 	C.sub_nums  = []
@@ -194,28 +186,28 @@ def handlebar(C):
 	price_dict = price.to_dict('index')
 	print(price_dict)
 	for pos, t in enumerate(price_dict):
-		print(f" 逐笔成交:{pos+1} 时间:{price_dict[t]['stime']}, 时间戳:{price_dict[t]['time']}, 成交价:{price_dict[t]['price']}, \
-成交量:{price_dict[t]['volume']}, 成交额:{price_dict[t]['amount']} \
-成交记录号:{price_dict[t]['tradeIndex']}, 买方委托号:{price_dict[t]['buyNo']},\
-卖方委托号:{price_dict[t]['sellNo']}, 成交类型:{price_dict[t]['tradeType']}, \
+		print(f" 逐笔成交:{pos+1} 时间:{price_dict[t]['stime']}, 时间戳:{price_dict[t]['time']}, 成交价:{price_dict[t]['price']},
+成交量:{price_dict[t]['volume']}, 成交额:{price_dict[t]['amount']}
+成交记录号:{price_dict[t]['tradeIndex']}, 买方委托号:{price_dict[t]['buyNo']},
+卖方委托号:{price_dict[t]['sellNo']}, 成交类型:{price_dict[t]['tradeType']},
 成交标志:{price_dict[t]['tradeFlag']}, ")
 
 	price = C.get_market_data_ex([],[C.stock],period='l2quote',count=10)[C.stock]
 	price_dict = price.to_dict('index')
 	print(price_dict)
 	for pos, t in enumerate(price_dict):
-		print(f" 十档快照:{pos+1} 时间:{price_dict[t]['stime']}, 时间戳:{price_dict[t]['time']}, 最新价:{price_dict[t]['lastPrice']}, \
-开盘价:{price_dict[t]['open']}, 最高价:{price_dict[t]['high']} 最低价:{price_dict[t]['low']}, 成交额:{price_dict[t]['amount']},\
-成交总量:{price_dict[t]['volume']}, 原始成交总量:{price_dict[t]['pvolume']}, 证券状态:{price_dict[t]['stockStatus']}, 持仓量:{price_dict[t]['openInt']},\
-成交笔数:{price_dict[t]['transactionNum']},前收盘价:{price_dict[t]['lastClose']},多档委卖价:{price_dict[t]['askPrice']},多档委卖量:{price_dict[t]['askVol']},\
+		print(f" 十档快照:{pos+1} 时间:{price_dict[t]['stime']}, 时间戳:{price_dict[t]['time']}, 最新价:{price_dict[t]['lastPrice']},
+开盘价:{price_dict[t]['open']}, 最高价:{price_dict[t]['high']} 最低价:{price_dict[t]['low']}, 成交额:{price_dict[t]['amount']},
+成交总量:{price_dict[t]['volume']}, 原始成交总量:{price_dict[t]['pvolume']}, 证券状态:{price_dict[t]['stockStatus']}, 持仓量:{price_dict[t]['openInt']},
+成交笔数:{price_dict[t]['transactionNum']},前收盘价:{price_dict[t]['lastClose']},多档委卖价:{price_dict[t]['askPrice']},多档委卖量:{price_dict[t]['askVol']},
 多档委买价:{price_dict[t]['bidPrice']},多档委买量:{price_dict[t]['bidVol']}")
 
 	price = C.get_market_data_ex([],[C.stock],period='l2order',count=10)[C.stock]
 	price_dict = price.to_dict('index')
 	for pos, t in enumerate(price_dict):
-		print(f" 逐笔委托:{pos+1} 时间:{price_dict[t]['stime']}, 时间戳:{price_dict[t]['time']}, 委托价:{price_dict[t]['price']}, \
-委托量:{price_dict[t]['volume']}, 委托号:{price_dict[t]['entrustNo']} \
-委托类型:{price_dict[t]['entrustType']}, 委托方向:{price_dict[t]['entrustDirection']},\
+		print(f" 逐笔委托:{pos+1} 时间:{price_dict[t]['stime']}, 时间戳:{price_dict[t]['time']}, 委托价:{price_dict[t]['price']},
+委托量:{price_dict[t]['volume']}, 委托号:{price_dict[t]['entrustNo']}
+委托类型:{price_dict[t]['entrustType']}, 委托方向:{price_dict[t]['entrustDirection']},
 ")
 # 委托类型: 0：未知 1: 买入,2: 卖出,3: 撤单
 
@@ -228,7 +220,7 @@ def stop(C):
 	for num in C.sub_nums:
 		C.unsubscribe_quote(num)
 ```
-
+结果示例：
 ```
 {'20240220150000.000': {'amount': 2946.0, 'buyNo': 33949158, 'price': 9.82, 'sellNo': 33860170, 'seq': 33952658, 'stime': '20240220150000.000', 'time': 1708412400000, 'tradeFlag': 1, 'tradeIndex': 33952658, 'tradeType': 0, 'volume': 300}}
  逐笔成交:1 时间:20240220150000.000, 时间戳:1708412400000, 成交价:9.82, 成交量:300, 成交额:2946.0 成交记录号:33952658, 买方委托号:33949158,卖方委托号:33860170, 成交类型:0, 成交标志:1,
@@ -267,11 +259,11 @@ def stop(C):
 
 ##### 方法2 - 订阅LV2数据
 
-此方法在发起订阅后，会自动收到所订阅数据，订阅方需要记录订阅函数返回的订阅号，并在不需要订阅时调用unsubscribe\_quote反订阅数据，释放资源。
+此方法在发起订阅后，会自动收到所订阅数据，订阅方需要记录订阅函数返回的订阅号，并在不需要订阅时调用unsubscribe_quote反订阅数据，释放资源。
 
-python返回值
+使用示例：
 
- ```py
+```py
 #coding:gbk
 
 def l2_quote_callback(data):
@@ -317,7 +309,7 @@ def init(C):
 def handlebar(C):
 	return
 ```
-
+结果示例：
 ```
 行情快照补充 000001.SZ {'time': 1708412400000, 'stime': '20240220150000.000', 'avgBidPrice': 9.59, 'totalBidQuantity': 109458, 'avgOffPrice': 10.22, 'totalOffQuantity': 246790, 'withdrawBidQuantity': 0, 'withdrawBidAmount': 0.0, 'withdrawOffQuantity': 0, 'withdrawOffAmount': 0.0}
 lv2快照: 000001.SZ {'time': 1708412400000, 'stime': '20240220150000.000', 'lastPrice': 9.82, 'amount': 1098987813.26, 'volume': 1123564, 'pvolume': 112356398, 'openInt': 15, 'stockStatus': 5, 'lastSettlementPrice': 0.0, 'open': 9.790000000000001, 'high': 9.84, 'low': 9.73, 'settlementPrice': 0.0, 'lastClose': 9.81, 'transactionNum': 52729, 'askPrice': [9.82, 9.83, 9.84, 9.85, 9.86, 9.87, 9.879999999999999, 9.889999999999999, 9.899999999999999, 9.909999999999998], 'bidPrice': [9.81, 9.8, 9.790000000000001, 9.780000000000001, 9.770000000000001, 9.760000000000002, 9.750000000000002, 9.740000000000002, 9.730000000000002, 9.720000000000002], 'askVol': [5810, 13718, 16260, 14328, 5391, 7251, 11538, 5153, 5390, 1508], 'bidVol': [2123, 6962, 8252, 3011, 3118, 2448, 5289, 3242, 9223, 6510]}
@@ -327,9 +319,7 @@ lv2快照: 000001.SZ {'time': 1708412400000, 'stime': '20240220150000.000', 'las
 
 #### 使用 Lv1 全推数据计算全市场涨幅
 
-python
-
- ```py
+```py
 #coding:gbk
 
 import time
@@ -393,13 +383,11 @@ def f(C):
 
 #### 在行情回调函数里处理动态行情
 
-[ContextInfo.subscribe\_quote - 订阅行情函数说明](data_function.md#contextinfosubscribe_quote---%E8%AE%A2%E9%98%85%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE)
+[ContextInfo.subscribe_quote - 订阅行情函数说明](data_function.md#contextinfosubscribe_quote---%E8%AE%A2%E9%98%85%E8%A1%8C%E6%83%85%E6%95%B0%E6%8D%AE)
 
 [行情回调函数字段说明](data_structure.md#%E4%BA%A4%E6%98%93%E7%B1%BB)
 
-python
-
- ```py
+```py
 #coding:gbk
 
 sub_nums = []
@@ -430,9 +418,7 @@ def stop(C):
 
 #### python写入扩展数据
 
-python
-
- ```py
+```py
 # coding:gbk
 '''
 python写扩展数据，投研接口
@@ -469,7 +455,7 @@ def handlebar(C):
 
 示例
 
- ```py
+```py
 # coding:gbk
 import datetime as dt
 def on_timer(ContextInfo):
@@ -500,9 +486,7 @@ def init(ContextInfo):
 
 #### 股票
 
-python
-
- ```py
+```py
 #coding:gbk
 def handlebar(ContextInfo):
     if not ContextInfo.is_last_bar():
@@ -523,9 +507,7 @@ def handlebar(ContextInfo):
 
 #### 基金
 
-python
-
-```
+```py
 def handlebar(ContextInfo):
     if not ContextInfo.is_last_bar():
         return
@@ -539,9 +521,7 @@ def handlebar(ContextInfo):
 
 #### 两融
 
-python
-
- ```py
+```py
 #coding:gbk
 def handlebar(ContextInfo):
     if not ContextInfo.is_last_bar():
@@ -555,9 +535,7 @@ def handlebar(ContextInfo):
 
 #### 期货
 
-python
-
- ```py
+```py
 #coding:gbk
 def handlebar(ContextInfo):
     if not ContextInfo.is_last_bar():
@@ -580,9 +558,7 @@ def handlebar(ContextInfo):
 
 #### 期权
 
-python
-
- ```py
+```py
 #coding:gbk
 def handlebar(ContextInfo):
     if not ContextInfo.is_last_bar():
@@ -598,9 +574,7 @@ def handlebar(ContextInfo):
 
 #### 新股申购
 
-python
-
- ```py
+```py
 #coding:gbk
 def init(C):
 	ipoStock=get_ipo_data("STOCK")#返回新股信息
@@ -614,9 +588,7 @@ def init(C):
 
 #### 债券
 
-python
-
- ```py
+```py
 #coding:gbk
 def handlebar(ContextInfo):
     if not ContextInfo.is_last_bar():
@@ -628,9 +600,7 @@ def handlebar(ContextInfo):
 
 #### ETF
 
-python
-
- ```py
+```py
 #coding:gbk
 def handlebar(ContextInfo):
     if not ContextInfo.is_last_bar():
@@ -648,16 +618,14 @@ def handlebar(ContextInfo):
 
 **代码示例：**
 
-python
-
- ```py
+```py
 #coding:gbk
 
 def init(C):
 
-	table=[\
-			{'stock':'600000.SH','weight':0.11,'quantity':100,'optType':23},\
-			{'stock':'600028.SH','weight':0.11,'quantity':200,'optType':24},\
+	table=[
+			{'stock':'600000.SH','weight':0.11,'quantity':100,'optType':23},
+			{'stock':'600028.SH','weight':0.11,'quantity':200,'optType':24},
 		]
 	basket={'name':'basket1','stocks':table}
 	set_basket(basket)
@@ -673,9 +641,9 @@ def init(C):
 			'',2,'strReMark',C)
 
 	# 按篮子权重下单
-	table=[\
-			{'stock':'600000.SH','weight':0.4,'quantity':0,'optType':23}, # 40%\
-			{'stock':'600028.SH','weight':0.6,'quantity':0,'optType':24}, # 60%\
+	table=[
+			{'stock':'600000.SH','weight':0.4,'quantity':0,'optType':23}, # 40%
+			{'stock':'600028.SH','weight':0.6,'quantity':0,'optType':24}, # 60%
 		]
 	basket={'name':'basket2','stocks':table}
 	set_basket(basket)
@@ -714,9 +682,7 @@ def init(C):
 
 **示例**
 
-python返回值
-
-```
+```py
 
 ```
 
@@ -730,9 +696,7 @@ python返回值
 
 本示例用于演示K线走完下单及立即下单的参数写法差异，旨在帮助您了解如何快速实现下单操作。
 
-python
-
- ```py
+```py
 #coding:gbk
 c = 0
 s = '000001.SZ'
@@ -762,9 +726,7 @@ def handlebar(ContextInfo):
 
 本示例演示了利用定时器函数和passorder下单函数在集合竞价期间以指定价买入平安银行100股。
 
-python
-
- ```py
+```py
 #coding:gbk
 
 import time
@@ -787,9 +749,7 @@ def handlebar(ContextInfo):
 
 #### 止盈止损示例
 
-python
-
-```
+```py
 
 #coding:gbk
 
@@ -847,9 +807,7 @@ def handlebar(C):
 
 本示例由于演示如何下达算法单，具体算法参数请参考迅投投研平台客户端参数说明。
 
-python
-
- ```py
+```py
 #coding:gbk
 import time
 
@@ -880,11 +838,9 @@ def handlebar(C):
 
 #### 如何使用投资备注
 
-投资备注功能是模型下单时指定的任意字符串(长度小于24)，即passorder的userOrderId参数，可以用于匹配委托或成交。有且只有passorder， algo\_passorder, smart\_algo\_passorder下单函数支持投资备注功能。
+投资备注功能是模型下单时指定的任意字符串(长度小于24)，即passorder的userOrderId参数，可以用于匹配委托或成交。有且只有passorder， algo_passorder, smart_algo_passorder下单函数支持投资备注功能。
 
-python
-
-```
+```py
 # encoding:gbk
 
 note = 0
@@ -918,9 +874,7 @@ def deal_callback(C, D):
 
 本示例用于演示如何通过函数获取指定账户的委托、持仓、资金数据。
 
-python
-
- ```py
+```py
 #coding:gbk
 
 def to_dict(obj):
@@ -970,9 +924,7 @@ def query_info(C):
 
 本例展示如何使用快速交易参数(quickTrade)立刻进行委托。
 
-python
-
- ```py
+```py
 #coding:gbk
 
 def after_init(C):
@@ -986,9 +938,7 @@ def after_init(C):
 
 本示例由于演示如何调仓。
 
-python
-
-```
+```py
 #encoding:gbk
 
 '''
@@ -1155,9 +1105,7 @@ def refresh_waiting_dict(C):
 
 #### 获取融资融券账户可融资买入标的
 
-python
-
- ```py
+```py
 #coding:gbk
 def init(C):
 
@@ -1171,9 +1119,7 @@ def init(C):
 
 #### 获取两融账号信息示例
 
-python
-
- ```py
+```py
 #coding:gbk
 
 def init(C):
@@ -1188,9 +1134,7 @@ def credit_account_callback(C,seq,result):
 
 该示例演示使用python进行融资融券账户的还款操作。
 
-python
-
- ```py
+```py
 #coding:gbk
 
 def init(ContextInfo):
@@ -1205,9 +1149,7 @@ def init(ContextInfo):
 
 ### 交易数据查询示例
 
-python
-
- ```py
+```py
 #coding:gbk
 
 def to_dict(obj):
