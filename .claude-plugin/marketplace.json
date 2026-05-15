@@ -16,8 +16,9 @@
       "strict": false,
       "skills": [
         "./skills/akquant",
-        "./skills/qmt-docs",
-        "./skills/baostock"
+        "./skills/backtrader",
+        "./skills/rqalpha",
+        "./skills/qmt-docs"
       ]
     },
     {
@@ -27,9 +28,12 @@
       "strict": false,
       "skills": [
         "./skills/akshare-docs",
-        "./skills/backtrader",
-        "./skills/pywencai",
-        "./skills/rqalpha"
+        "./skills/baostock",
+        "./skills/miniqmt",
+        "./skills/tushare",
+        "./skills/tdxquant",
+        "./skills/jqdatasdk",
+        "./skills/pywencai"
       ]
     }
   ]
