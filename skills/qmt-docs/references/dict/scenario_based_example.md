@@ -7,7 +7,7 @@ title: "场景化示例 | 迅投知识库"
 
 ### 判断市场状态，获取市场最新分钟K线
 
-```
+```py
 import pandas as pd
 from xtquant import xtdata
 

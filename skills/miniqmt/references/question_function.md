@@ -5,26 +5,22 @@ title: "常见问题 | 迅投知识库"
 
 ### 导入xtquant库时提示 `NO module named 'xtquant.IPythonAPiClient'`
 
-1、目前xtquant支持的python版本为 64位python3.6----3.11，请使用支持的python版本重试
+目前xtquant支持的python版本为 64 位 python3.6-3.11，请使用支持的 python 版本重试
 
 ### 连接 xtquant 时失败，返回-1及解决方法
 
 1. 客户端是否以极简模式登录（登录qmt系统时需要勾选极简模式）
 2. 检查路径是否正确
-
 - `miniqmt`：路径指定到安装目录下`\userdata_mini`文件夹
 - `投研端`：路径指定到安装目录下`\userdata`文件夹
 
 3. 客户端安装在C盘的话，每次都需要用管理员权限运行策略，才能正常连接，否则有权限问题。
 
-提示
-
 不建议安装在C盘。
 
-可以通过以下测试来验证是否有写入权限
+可以通过以下测试来验证是否有写入权限：
 
-```
-
+```py
 file_path = r"d:\qmt\userdata_mini\example.txt"  # 设置文件路径和名称
 
 # 使用open函数创建文件，并指定写入模式("w"表示写入模式)
@@ -35,8 +31,6 @@ with open(file_path, "w") as file:
 如果出现`PermissionError`，则说明存在文件权限问题
 
 4. 路径正确时换个`session`（任意整数即可）
-
-提示
 
 由于机制限制，同一个session的两次python进程 connect之间必须超过3秒钟
 

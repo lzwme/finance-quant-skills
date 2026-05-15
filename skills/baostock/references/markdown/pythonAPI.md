@@ -166,8 +166,7 @@ bs.logout()
 
 分钟线使用示例：
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -344,8 +343,7 @@ BaoStock使用“涨跌幅复权法”进行复权，详细说明参考上文“
 
 通过API接口获取除权除息信息数据（预披露、预案、正式都已通过）。示例数据：[下载](https://www.baostock.com/helpdocs/csv/history_Dividend_data.xlsx)
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -433,8 +431,7 @@ bs.logout()
 
 BaoStock提供的是**涨跌幅复权算法**复权因子，具体介绍见： [媒体文件:BaoStock复权因子简介.pdf](https://www.baostock.com/helpdocs/pdf/BaoStock%E5%A4%8D%E6%9D%83%E5%9B%A0%E5%AD%90%E7%AE%80%E4%BB%8B.pdf "BaoStock复权因子简介.pdf")。
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -495,8 +492,7 @@ bs.logout()
 
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -558,8 +554,7 @@ bs.logout()
 
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -617,8 +612,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -675,8 +669,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -734,8 +727,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -794,8 +786,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -865,8 +856,7 @@ bs.logout()
 
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -941,8 +931,7 @@ bs.logout()
 
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1012,8 +1001,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1075,8 +1063,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1137,8 +1124,7 @@ bs.logout()
 
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1197,8 +1183,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1269,8 +1254,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1338,8 +1322,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1406,8 +1389,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1478,8 +1460,7 @@ bs.logout()
 返回类型：pandas的DataFrame类型。
 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1539,8 +1520,7 @@ bs.logout()
 
 方法说明：通过API接口获取行业分类信息，更新频率：每周一更新。返回类型：pandas的DataFrame类型。 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1597,8 +1577,7 @@ bs.logout()
 
 方法说明：通过API接口获取上证50成分股信息，更新频率：每周一更新。返回类型：pandas的DataFrame类型。 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1651,8 +1630,7 @@ bs.logout()
 
 方法说明：通过API接口获取沪深300成分股信息，更新频率：每周一更新。返回类型：pandas的DataFrame类型。 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1705,8 +1683,7 @@ bs.logout()
 
 方法说明：通过API接口获取中证500成分股信息，更新频率：每周一更新。返回类型：pandas的DataFrame类型。 使用示例
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1733,7 +1710,6 @@ print(result)
 
 # 登出系统
 bs.logout()
-
 ```
 
 参数含义：
@@ -1761,8 +1737,7 @@ bs.logout()
 
 示例代码如下：
 
-```
-
+```py
 import baostock as bs
 import pandas as pd
 
@@ -1784,3 +1759,4 @@ def download_data(date):
 if __name__ == '__main__':
     # 获取指定日期全部股票的日K线数据
     download_data("2019-02-25")
+```

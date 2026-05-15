@@ -234,11 +234,8 @@ def handlebar(C):
 提示
 
 1. 该函数属于订阅函数，非VIP用户限制订阅数量
-
 2. VIP用户支持全推市场指定周期K线
-
 3. VIP用户权限请参考 [vip-行情用户优势对比](https://dict.thinktrader.net/dictionary/#vip-%E8%A1%8C%E6%83%85%E7%94%A8%E6%88%B7%E4%BC%98%E5%8A%BF%E5%AF%B9%E6%AF%94)
-
 
 **原型**
 
@@ -271,8 +268,6 @@ ContextInfo.subscribe_quote(
 
 **示例**
 
-示例与返回值
-
 ```py
 # coding:gbk
 def call_back(data):
@@ -283,9 +278,8 @@ def init(C):
 def handlebar(C):
 	print("============================")
 	print("C.subID: ",C.subID)
-
 ```
-
+返回值
 ```
 {'000001.SZ':                amount  close   high    low   open  openInterest  preClose
 stime
@@ -322,7 +316,7 @@ ContextInfo.subscribe_whole_quote(code_list,callback=None)
 
 **返回值**`int`，订阅号，可用`ContextInfo.unsubscribe_quote`做反订阅
 
-示例与返回值
+示例：
 
 ```py
 # coding:gbk
@@ -336,7 +330,7 @@ def handlebar(C):
 	print("============================")
 	print("C.subID: ",C.subID)
 ```
-
+返回值：
 ```
 C.subID:  2
 {'000001.SZ': {'time': 1699326201000, 'stime': '20231107110321.000', 'lastPrice': 10.620000000000001, 'amount': 310826160.0, 'volume': 292680, 'pvolume': 292680, 'openInt': 13, 'stockStatus': 3, 'lastSettlementPrice': 0.0, 'open': 10.66, 'high': 10.66, 'low': 10.58, 'settlementPrice': 0.0, 'lastClose': 10.69, 'transactionNum': 0, 'askPrice': [10.63, 10.64, 10.65, 10.66, 10.67], 'bidPrice': [10.620000000000001, 10.61, 10.6, 10.59, 10.58], 'askVol': [3284, 4654, 6762, 8346, 1431], 'bidVol': [574, 5275, 13643, 8898, 14521]}}
@@ -426,9 +420,7 @@ subscribe_formula(
 
 **示例**
 
-示例
-
-```
+```py
 #encoding=gbk
 def callback(data):
     print(data)
@@ -470,9 +462,7 @@ unsubscribe_formula(subID)
 
 **示例**
 
-示例
-
-```
+```py
 #encoding=gbk
 def callback(data):
     print(data)

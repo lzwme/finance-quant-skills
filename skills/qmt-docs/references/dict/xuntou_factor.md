@@ -23,7 +23,7 @@ xtdata.download_history_data('XXXXXX.XX', metainfo_rev[zn_factor_name], '', '', 
 
 #### 在python中获取
 
-```
+```py
 import pandas as pd
 import os
 path = "{安装目录}\\datadir\\EP"

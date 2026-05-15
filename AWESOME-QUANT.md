@@ -15,6 +15,7 @@
 - [jqdatasdk](https://github.com/JoinQuant/jqdatasdk) 聚宽数据，简单易用的量化金融数据包。
 - [tdxquant](https://help.tdx.com.cn/quant/) TdxQuant 是一套基于通达信金融终端构建的 Python 量化策略运行框架。该框架通过 API 接口形式，为策略交易提供所需的行情数据获取与交易指令执行功能。
 - [pytdx](https://rainx.gitbooks.io/pytdx/content/) 第三方封装的通达信 Python API。最近更新是 2019 年。当前内置的 IP 基本已失效，需自行测试获取可用的行情服务器 IP。
+- [mootdx](https://github.com/mootdx/mootdx)基于 pytdx 二次封装的第三方库，旨在于简化数据获取。
 - [tdx-api](https://github.com/oficcejo/tdx-api) 第三方开发的tdx通达信实时数据查询及api接口，支持docker本地部署，支持32个接口
 - [XtQuant/miniqmt](https://dict.thinktrader.net/nativeApi/start_now.html?id=1L5eYT) XtQuant是基于迅投MiniQMT衍生出来的一套完善的Python策略运行框架，对外以Python库的形式提供策略交易所需要的行情和交易相关的API接口。需要购买，或使用QMT券商版并且支持 miniQMT
 - [efinance](https://github.com/Micro-sheep/efinance) 一个可以快速获取基金、股票、债券、期货数据的 Python 库。通过模拟浏览器形式访问东方财富网站API的数据。
@@ -25,11 +26,10 @@
 - [tushare](https://tushare.pro) 提供股票、期货、期权、港股、美股、加密货币等数据。**付费积分模式，不同等级积分权限不同。免费用户可访问日线行情。**
 - [INSIGHT](https://findata-insight.htsc.com:9151/insight_help/) INSIGHT是华泰证券依托大数据存储、实时分析等领域的技术积累，整合接入国内多家交易所高频行情数据，为投资者提供集行情接入、推送、回测、计算及分析等功能于一体的行情数据服务解决方案。需要有 INSIGHT 经纪账户。
 - [米筐 RQData](https://www.ricequant.com/doc/rqdata/python/manual)  RQData 是米筐提供的一个基于 Python 的金融数据工具包。个人可申请免费使用，企业版支持付费私有化部署服务端。
-- 恒生UData
+- [同花顺iFinD](https://ft.10jqka.com.cn)
+- [天勤TQSDK](https://www.shinnytech.com/products/tqsdk)
 - 万得Wind
 - 天软 Tinysoft
-- [同花顺iFinD](https://ft.10jqka.com.cn)
-- 天勤TQSDK
 
 
 ## 量化交易框架
