@@ -5,8 +5,13 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "akshare>=1.18.60",
     "baostock>=0.9.1",
     "jqdatasdk>=1.9.8",
     "tushare>=1.4.29",
     "xtquant>=250516.1.1",
 ]
+
+[[tool.uv.index]]
+url = "https://pypi.gf.com.cn/simple"
+default = true
