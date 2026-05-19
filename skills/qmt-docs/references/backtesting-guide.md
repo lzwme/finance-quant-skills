@@ -591,7 +591,8 @@ account_id = 'backtest'
 
 - ✅ [系统概述](./overview.md) - QMT基础概念
 - ✅ [运行机制](./execution-mechanisms.md) - handlebar详解
-- ✅ [市场数据API](./market-data-api.md) - 行情函数文档
-- ✅ [交易API](./trading-api.md) - 下单函数文档
+- ✅ [常用API速查](./quick-reference.md) - 行情和交易函数速查
+- ✅ [行情函数完整文档](./python-innerApi/data_function.md) - 数据获取 API
+- ✅ [交易函数完整文档](./python-innerApi/trading_function.md) - 下单和查询 API
 - ✅ [代码示例](./examples/backtest.md) - 完整回测示例
 

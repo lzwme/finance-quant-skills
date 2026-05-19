@@ -245,5 +245,6 @@ get_option_list(date, underlying)
 **相关文档：**
 - [QMT 系统概述](overview.md)
 - [回测完全指南](backtesting-guide.md)
-- [交易 API](trading-api.md)
+- [常用API速查](quick-reference.md)
+- [交易函数完整文档](python-innerApi/trading_function.md)
 - [最佳实践](best-practices.md)

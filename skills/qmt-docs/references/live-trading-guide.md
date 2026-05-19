@@ -664,7 +664,7 @@ def evaluate_trades(deals):
 
 - ✅ [系统概述](./overview.md) - QMT基础
 - ✅ [运行机制](./execution-mechanisms.md) - handlebar详解
-- ✅ [市场数据API](./market-data-api.md) - 行情函数
-- ✅ [交易API](./trading-api.md) - 下单函数  
+- ✅ [常用API速查](./quick-reference.md) - 行情和交易函数速查
+- ✅ [交易函数完整文档](./python-innerApi/trading_function.md) - 下单和查询 API
 - ✅ [实盘示例](./examples/live-trading.md) - 完整示例
 

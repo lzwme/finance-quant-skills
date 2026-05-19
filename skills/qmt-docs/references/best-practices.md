@@ -601,5 +601,6 @@ if signal > 0 and validate_signal(signal):
 - ✅ [系统概述](./overview.md) - QMT基础
 - ✅ [回测模型指南](./backtesting-guide.md) - 回测实践
 - ✅ [实盘交易指南](./live-trading-guide.md) - 实盘实践
+- ✅ [常用API速查](./quick-reference.md) - 关键函数速查
 - ✅ [代码示例](./examples/) - 完整示例代码
 

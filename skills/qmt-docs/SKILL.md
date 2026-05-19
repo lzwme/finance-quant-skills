@@ -1,8 +1,8 @@
 ---
 name: "qmt-docs"
 type: skill
-description: "QMT完整的策略开发指南、API参考和代码示例。当需要开发QMT策略时，请参考本指南。"
-tags: ["QMT", "策略开发", "Python", "回测", "实盘交易", "量化交易"]
+description: "QMT（迅投极速策略交易系统）Python 策略开发完整指南。涵盖策略编写、回测、实盘交易、API参考和代码示例。当需要开发QMT量化策略或查询QMT API时使用本技能。"
+tags: ["QMT", "迅投", "策略开发", "Python", "回测", "实盘交易", "量化交易"]
 metadata:
   {
     "openclaw": {
@@ -14,71 +14,85 @@ metadata:
   }
 ---
 
-# QMT Python策略开发知识库
+# QMT Python 策略开发知识库
 
-完整的 QMT（迅投极速策略交易系统）Python 开发指南，包含系统概述、执行机制、回测实盘指南、API 参考和代码示例。
+为 QMT（迅投极速策略交易系统）提供完整的 Python 开发参考，分为**教程指南**和 **API 参考**两层。
 
-## 📚 模块导航
+## 📖 文档结构
 
-### 基础
-- **[系统概述](references/overview.md)** - QMT 架构、两种交易模式、场景选择
-- **[执行机制](references/execution-mechanisms.md)** - handlebar、subscribe、run_time
+```
+教程/指南（实践导向）
+├── overview.md              系统概述、模式选择、入门路径
+├── execution-mechanisms.md  三种运行机制详解（含流程图和代码模板）
+├── backtesting-guide.md     回测完整流程（数据准备→参数设置→运行→分析）
+├── live-trading-guide.md    实盘交易指南（账号配置→委托管理→风险控制）
+├── quick-reference.md       ★ 常用 API 速查卡片
+├── best-practices.md        编码规范、性能优化、风险管理、调试技巧
+├── joinquant-migration.md   聚宽策略迁移至 QMT 指南
+└── examples/                代码示例（backtest / live-trading / subscribe / run-time）
 
-### 指南
-- **[回测指南](references/backtesting-guide.md)** - 历史数据回测完整流程
-- **[实盘指南](references/live-trading-guide.md)** - 实时交易部署与风险管理
+API 参考（官方完整文档）
+└── python-innerApi/
+    ├── start_now.md          快速开始（回测/实盘概览 + 三种机制示例）
+    ├── data_function.md      行情与数据函数（get_market_data_ex 等完整参数）
+    ├── trading_function.md   交易函数（passorder、get_trade_detail_data 等）
+    ├── system_function.md    系统函数（ContextInfo 方法、定时器等）
+    ├── callback_function.md  回调函数（account/order/deal/position 主推）
+    ├── quote_function.md     引用函数（扩展数据、因子、VBA调用）
+    ├── drawing_function.md   绘图函数
+    ├── interface_operation.md 界面操作说明
+    ├── data_structure.md     数据结构定义（Bar/Tick/Order/Position 等对象字段）
+    ├── enum_constants.md     枚举常量（opType、orderType、委托状态等）
+    ├── variable_convention.md 变量约定
+    ├── code_examples.md      完整代码示例合集
+    ├── user_attention.md     用户注意事项
+    └── question_answer.md    常见问题
 
-### API 参考
-- **[行情数据 API](references/market-data-api.md)** - 数据获取函数
-- **[交易 API](references/trading-api.md)** - 下单、查询函数
+数据字典
+└── dict/                    各品种数据字段（stock / indexes / future / option 等）
+```
 
-### 其他
-- **[最佳实践](references/best-practices.md)** - 编码规范、性能优化
-- **[聚宽迁移](references/joinquant-migration.md)** - 聚宽策略移植指南
+## 🚀 使用引导
 
-### 📚 内置Python接口文档
+### 按场景选择入口
 
-- [快速开始](references/python-innerApi/start_now.md)
-- [代码示例](references/python-innerApi/code_examples.md)
-- [变量约定](references/python-innerApi/variable_convention.md)
-- [数据结构](references/python-innerApi/data_structure.md)
-- [枚举常量](references/python-innerApi/enum_constants.md)
-- [回调函数](references/python-innerApi/callback_function.md)
-- [数据函数](references/python-innerApi/data_function.md)
-- [行情函数](references/python-innerApi/quote_function.md)
-- [系统函数](references/python-innerApi/system_function.md)
-- [交易函数](references/python-innerApi/trading_function.md)
-- [绘图函数](references/python-innerApi/drawing_function.md)
-- [界面操作](references/python-innerApi/interface_operation.md)
-- [用户注意事项](references/python-innerApi/user_attention.md)
-- [python接口常见问题](references/python-innerApi/question_answer.md)
+| 场景 | 首先阅读 | 然后查阅 |
+|------|---------|---------|
+| **新手入门** | `overview.md` → `execution-mechanisms.md` | `quick-reference.md` |
+| **编写回测策略** | `backtesting-guide.md` | `examples/backtest.md` |
+| **编写实盘策略** | `live-trading-guide.md` | `examples/live-trading.md` |
+| **查询 API 用法** | `quick-reference.md`（速查） | `python-innerApi/data_function.md` 等（完整参数） |
+| **从聚宽迁移** | `joinquant-migration.md` | `overview.md` |
+| **代码质量优化** | `best-practices.md` | `examples/` |
+| **数据结构查询** | `python-innerApi/data_structure.md` | `python-innerApi/enum_constants.md` |
 
-### 📚 数据字典
+### 快速查找路径
 
-- [股票数据](references/dict/stock.md)
-- [指数数据](references/dict/indexes.md)
-- [行业数据](references/dict/industry.md)
-- [迅投因子](references/dict/xuntou_factor.md)
-- [期权数据](references/dict/option.md)
-- [债券数据](references/dict/bond.md)
-- [分级基金](references/dict/floorfunds.md)
-- [期货数据](references/dict/future.md)
-- [场景示例](references/dict/scenario_based_example.md)
-- [数据字典常见问题](references/dict/question_answer.md)
+```
+需要看函数怎么用？
+  → quick-reference.md（常用函数精简版）
+  → python-innerApi/data_function.md（数据获取类完整文档）
+  → python-innerApi/trading_function.md（交易类完整文档）
+  → python-innerApi/system_function.md（系统/ContextInfo 方法）
 
-### 代码示例
-| 示例 | 机制 | 文件 |
-|------|------|------|
-| 双均线回测 | handlebar | [examples/backtest.md](references/examples/backtest.md) |
-| 双均线实盘 | handlebar | [examples/live-trading.md](references/examples/live-trading.md) |
-| 事件驱动 | subscribe | [examples/subscribe.md](references/examples/subscribe.md) |
-| 定时任务 | run_time | [examples/run-time.md](references/examples/run-time.md) |
+需要看完整代码？
+  → python-innerApi/code_examples.md（官方示例合集）
+  → examples/（精选示例）
+
+需要查字段含义？
+  → python-innerApi/data_structure.md（数据结构定义）
+  → dict/（各品种数据字典）
+
+遇到报错/问题？
+  → python-innerApi/question_answer.md（官方FAQ）
+  → python-innerApi/user_attention.md（注意事项）
+```
 
 ## 🔧 关键速查
 
 ### 编码规范
 ```python
-#coding:gbk  # 必须在第一行
+#coding:gbk  # 必须在文件第一行
 ```
 
 ### 核心概念
@@ -87,24 +101,41 @@ metadata:
 | handlebar | K线驱动（回测推荐） |
 | subscribe | 事件驱动（仅实盘，高频） |
 | run_time | 定时触发（监控场景） |
-| quicktrade | 0=等待K线完成, 2=立即执行 |
+| quicktrade=0 | 等待K线完成再下单（逐K线模式） |
+| quicktrade=2 | 立即下单（不需要等待） |
 | 最小单位 | 100 股 |
 
-### 常用代码
+### 最常用代码
 ```python
-# 获取数据
-data = C.get_market_data_ex(['close'], [stock], count=100, subscribe=False)
+# 获取历史行情数据（回测用 subscribe=False，实盘用 subscribe=True）
+data = C.get_market_data_ex(['close'], [stock], end_time=bar_date,
+                              period='1d', count=100, subscribe=False)
+close_list = list(data[stock].iloc[:, 0])
 
-# 下单买入
+# 获取全推实时行情
+tick = C.get_full_tick(['600000.SH'])
+price = tick['600000.SH']['lastPrice']
+
+# 下单买入（23=买入, 1101=按股数, quicktrade=0 逐K线模式）
 passorder(23, 1101, account, stock, 5, -1, 100, C)
+
+# 下单买入（quicktrade=2 立即下单模式）
+passorder(23, 1101, account, stock, 5, -1, 100, '策略名', 2, '备注', C)
 
 # 查询持仓
 holds = get_trade_detail_data(account, 'stock', 'position')
+holds_dict = {f'{p.m_strInstrumentID}.{p.m_strExchangeID}': p.m_nVolume for p in holds}
+
+# 查询账户可用资金（单位：分）
+cash = get_trade_detail_data(account, 'stock', 'account')[0].m_dAvailable
 ```
 
-## 📖 使用建议
+## ⚠️ 使用注意事项
 
-1. **新手**：从 [overview.md](references/overview.md) 开始
-2. **查找**：使用 [INDEX.md](references/INDEX.md) 导航
-3. **回测**：阅读 [backtesting-guide.md](references/backtesting-guide.md)
-4. **实盘**：阅读 [live-trading-guide.md](references/live-trading-guide.md)
+1. **编码声明**：文件首行必须是 `#coding:gbk`，不可省略
+2. **位置参数**：`get_market_data_ex` 的前两个参数 `fields` 和 `stocks` 必须用位置参数，不能用 `fields=` 或 `stocks=`
+3. **subscribe 参数**：回测必须 `False`，实盘使用 `True`
+4. **账号类型**：`get_trade_detail_data` 的第二个参数：股票用 `'stock'`，两融用 `'credit'`
+5. **金额单位**：`m_dAvailable` 等金额字段单位是**分**，需 `/100` 转换为元
+6. **数量单位**：股票交易必须是 100 的整数倍
+7. **实盘限制**：`subscribe` 和 `run_time` 仅支持实盘，不支持回测
