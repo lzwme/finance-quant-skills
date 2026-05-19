@@ -437,7 +437,7 @@ ContextInfo.get_market_data_ex(
 | `volume` | `int` | `成交总量（手）` |
 | `pvolume` | `int` | `原始成交总量(未经过股手转换的成交总量)【不推荐使用】` |
 | `stockStatus` | `int` | `证券状态` |
-| `openInterest` | `int` | `若是股票，则openInt含义为股票状态，非股票则是持仓量` [openInt字段说明](data_structure.md#openint-%E8%AF%81%E5%88%B8%E7%8A%B6%E6%80%81) |
+| `openInterest` | `int` | `若是股票，则openInt含义为股票状态，非股票则是持仓量` [openInt字段说明](../python-innerApi/data_structure.md#openint-%E8%AF%81%E5%88%B8%E7%8A%B6%E6%80%81) |
 | `transactionNum` | `float` | `成交笔数(期货没有，单独计算)` |
 | `lastSettlementPrice` | `float` | `前结算(股票为0)` |
 | `settlementPrice` | `float` | `今结算(股票为0)` |
@@ -449,7 +449,7 @@ ContextInfo.get_market_data_ex(
 **返回值**
 
 - 返回dict { stock_code1 : value1, stock_code2 : value2, ... }
-- value1, value2, ... ：pd.DataFrame 数据集，index为time_list，columns为fields,可参考 [Bar字段](data_structure.md#bar-bar%E5%AF%B9%E8%B1%A1)
+- value1, value2, ... ：pd.DataFrame 数据集，index为time_list，columns为fields,可参考 [Bar字段](../python-innerApi/data_structure.md#bar-bar%E5%AF%B9%E8%B1%A1)
 - 各标的对应的DataFrame维度相同、索引相同
 
 **示例**
@@ -633,7 +633,7 @@ xtdata.get_market_data_ex(
 | `volume` | `int` | `成交总量（手）` |
 | `pvolume` | `int` | `原始成交总量(未经过股手转换的成交总量)【不推荐使用】` |
 | `stockStatus` | `int` | `证券状态` |
-| `openInterest` | `int` | `若是股票，则openInt含义为股票状态，非股票则是持仓量` [openInt字段说明](data_structure.md#openint-%E8%AF%81%E5%88%B8%E7%8A%B6%E6%80%81) |
+| `openInterest` | `int` | `若是股票，则openInt含义为股票状态，非股票则是持仓量` [openInt字段说明](../python-innerApi/data_structure.md#openint-%E8%AF%81%E5%88%B8%E7%8A%B6%E6%80%81) |
 | `transactionNum` | `float` | `成交笔数(期货没有，单独计算)` |
 | `lastSettlementPrice` | `float` | `前结算(股票为0)` |
 | `settlementPrice` | `float` | `今结算(股票为0)` |

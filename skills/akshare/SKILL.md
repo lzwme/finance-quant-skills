@@ -1,5 +1,5 @@
 ---
-name: akshare-docs
+name: akshare
 description: AKShare 开源金融数据接口库，提供股票、期货、期权、基金、外汇、债券、指数、加密货币等全品类金融数据；当用户需要获取各类金融市场数据时使用
 metadata:
   {
