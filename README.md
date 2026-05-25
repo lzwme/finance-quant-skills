@@ -7,7 +7,7 @@
 本仓库维护金融量化交易相关的 Skills，涵盖量化策略开发、金融数据分析、交易框架文档查询等场景。每个 Skill 位于独立文件夹中，包含 `SKILL.md` 指令等文件。
 
 ```
-quant-finance-skills/
+finance-quant-skills/
 ├── skills/              # 量化交易相关的 Skills 集合
 │   ├── akquant/         # AKQuant 框架量化策略开发（事件驱动、风控与优化）
 │   ├── akshare-docs/    # AKShare 开源金融数据接口（股票/期货/基金/加密货币等）
@@ -32,16 +32,16 @@ quant-finance-skills/
 
 以对话的形式告诉 Agent 智能体，如 `OpenClaw`：
 
-> 帮我安装这个 skills 仓库中的所有技能: https://github.com/lzwme/quant-finance-skills
+> 帮我安装这个 skills 仓库中的所有技能: https://github.com/lzwme/finance-quant-skills
 >
-> 帮我安装这个 skills 仓库中的 qmt-docs 技能: https://github.com/lzwme/quant-finance-skills
+> 帮我安装这个 skills 仓库中的 qmt-docs 技能: https://github.com/lzwme/finance-quant-skills
 
 ### 方式二：在 Claude Code 中安装使用
 
 将该仓库注册为 Claude Code Plugin marketplace：
 
 ```bash
-/plugin marketplace add lzwme/quant-finance-skills
+/plugin marketplace add lzwme/finance-quant-skills
 ```
 
 然后安装指定的 Skills 插件：
@@ -69,7 +69,7 @@ npx skills list -g
 npx skills update
 
 # 安装当前仓库技能
-npx skills add lzwme/quant-finance-skills
+npx skills add lzwme/finance-quant-skills
 ```
 
 ### 安装技巧：以软连接形式安装支持多编程智能体工具
