@@ -10,10 +10,11 @@
 finance-quant-skills/
 ├── skills/              # 量化交易相关的 Skills 集合
 │   ├── akquant/         # AKQuant 框架量化策略开发（事件驱动、风控与优化）
-│   ├── akshare-docs/    # AKShare 开源金融数据接口（股票/期货/基金/加密货币等）
+│   ├── akshare/    # AKShare 开源金融数据接口（股票/期货/基金/加密货币等）
 │   ├── backtrader/      # Backtrader 开源量化回测框架
 │   ├── baostock/        # BaoStock A股数据平台（免费行情、K线、财务数据）
 │   ├── jqdatasdk/       # 聚宽数据接口（A股行情、财务、因子数据）
+│   ├── joinquant-docs/  # 聚宽官网策略开发文档（回测/模拟/API/因子/技术指标）
 │   ├── miniqmt/         # MiniQMT 迅投量化交易接口（XtQuant，支持交易下单）
 │   ├── pywencai/        # 同花顺问财数据查询（中文自然语言查询）
 │   ├── qmt-docs/        # QMT 策略开发指南与 API 参考文档
@@ -105,7 +106,7 @@ New-Item -ItemType Junction -Path .cursor/skills -Target <绝对路径>/agents/s
 
 ## 三、Skills 使用示例
 
-本项目共包含 **11 个 Skills**，按功能分为三大类：**数据获取**、**回测框架**、**策略开发与文档**。安装后，直接向 AI 助手描述需求即可自动触发对应 Skill。
+本项目共包含 **12 个 Skills**，按功能分为三大类：**数据获取**、**回测框架**、**策略开发与文档**。安装后，直接向 AI 助手描述需求即可自动触发对应 Skill。
 
 ### 📈 3.1 数据获取
 
@@ -154,9 +155,10 @@ New-Item -ItemType Junction -Path .cursor/skills -Target <绝对路径>/agents/s
 
 > 帮我用聚宽获取招商银行 2025 年的财务指标和估值因子
 
-- **适用场景**：A 股行情、财务指标、因子数据（估值/动量/质量等）
+- **适用场景**：本地 Python 环境获取 A 股行情、财务指标、因子数据（估值/动量/质量等）
 - **前置要求**：需注册聚宽账号并配置 Token（环境变量 `JQDATA_TOKEN`）
 - **关键参数**：代码格式 `600036.XSHG`（上海）/ `000001.XSHE`（深圳）
+- **与 joinquant-docs 的区别**：`jqdatasdk` 用于财经数据拉取；`joinquant-docs` 用于官网策略编写与 API 查阅
 
 #### 7. Tushare 数据（需 Token）
 
@@ -207,6 +209,16 @@ New-Item -ItemType Junction -Path .cursor/skills -Target <绝对路径>/agents/s
 - **核心内容**：系统概述、回测/实盘指南、行情/交易 API、数据字典、聚宽迁移指南
 - **执行机制**：handlebar（K 线驱动）、subscribe（事件驱动）、run_time（定时触发）
 
+#### 12. 聚宽策略开发文档
+
+> 帮我用聚宽写一个沪深 300 成分股均线轮动策略
+> 帮我查聚宽 get_fundamentals 怎么按市盈率筛选股票
+
+- **适用场景**：聚宽官网策略编写、回测、模拟交易、API 与数据字典查阅
+- **核心内容**：策略骨架（initialize/run_daily）、交易函数、财务查询、行业/概念选股、Alpha 因子、技术指标
+- **文档来源**：离线同步聚宽官方 API 文档（`api.md`、`data/*.md`、`faq.md` 等）
+- **关键参数**：代码格式 `600519.XSHG` / `000001.XSHE`，建议 `set_option('use_real_price', True)`
+
 ---
 
 ### 💡 3.4 典型组合使用场景
@@ -215,6 +227,8 @@ New-Item -ItemType Junction -Path .cursor/skills -Target <绝对路径>/agents/s
 |------|----------------|
 | **数据获取 + 回测研究** | baostock / akshare → backtrader / rqalpha |
 | **数据获取 + QMT 实盘** | baostock / akshare → qmt-docs（策略开发）→ miniqmt（实盘交易） |
+| **聚宽策略开发** | joinquant-docs（API/策略编写）→ jqdatasdk（本地数据验证） |
+| **聚宽迁移至 QMT** | joinquant-docs（理解聚宽 API）→ qmt-docs（joinquant-migration 迁移指南） |
 | **选股 + 回测验证** | pywencai（筛选标的）→ backtrader（回测策略） |
 | **通达信公式 + 实盘交易** | tdxquant（公式计算/选股）→ miniqmt / QMT（下单） |
 | **全品类数据采集** | akshare（股票/期货/加密货币/宏观） |
@@ -265,9 +279,10 @@ Frontmatter 必填字段：
 - 东方财富妙想：
     - https://ai.eastmoney.com/mxClaw
     - https://clawhub.ai/u/Financial-AI-Analyst
-- 量化相关集合：
+- 量化相关 Skill 集合：
     - https://github.com/openclaw/skills/tree/main/skills/coderwpf
     - https://clawhub.ai/u/coderwpf
+- 聚宽策略开发 Skill：https://clawhub.ai/daidaotian/joinquant-strategy
 - 基于富途 OpenAPI 的股票行情 Skill：https://clawhub.ai/shuizhengqi1/futu-stock
 
 **优质 Skills 资源：**

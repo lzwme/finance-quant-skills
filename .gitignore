@@ -8,9 +8,12 @@ __pycache__/
 
 # local dirs
 cache
+.cache
 tmp
 release
 dist
+node_modules
+local
 
 # python
 .venv

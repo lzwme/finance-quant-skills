@@ -18,16 +18,17 @@
         "./skills/akquant",
         "./skills/backtrader",
         "./skills/rqalpha",
+        "./skills/joinquant-docs",
         "./skills/qmt-docs"
       ]
     },
     {
-      "name": "quant-docs",
+      "name": "quant-data-api",
       "description": "金融数据获取",
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/akshare-docs",
+        "./skills/akshare",
         "./skills/baostock",
         "./skills/miniqmt",
         "./skills/tushare",
