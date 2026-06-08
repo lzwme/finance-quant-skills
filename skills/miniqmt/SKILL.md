@@ -1,11 +1,7 @@
 ---
 name: miniqmt
-description: MiniQMT 迅投量化交易接口，基于 XtQuant Python 库，支持 A 股/期货/期权的行情数据获取（K线、分笔、财务数据等）和交易下单（报单、撤单、查询资产/委托/持仓）。当用户需要获取miniqmt实时/历史行情、进行量化交易、回测数据时使用
-dependency:
-  python:
-    - xtquant>=20240126
-  system:
-    - MiniQMT 客户端（需已安装并运行）
+description: MiniQMT 迅投量化交易接口，基于 XtQuant Python 库，支持 A 股/期货/期权的行情数据获取（K线、分笔、财务数据等）和交易下单（报单、撤单、查询资产/委托/持仓）。当用户提及 miniqmt、xtquant、迅投、获取实时行情、量化交易下单、回测数据获取，或需要连接 MiniQMT 客户端进行程序化交易时使用
+metadata: {"openclaw":{"emoji":"📈","requires":{"bins":["python3"]}}}
 ---
 
 # MiniQMT 量化交易技能

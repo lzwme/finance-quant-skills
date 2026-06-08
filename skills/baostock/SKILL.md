@@ -1,11 +1,7 @@
 ---
 name: baostock
-description: BaoStock A股数据平台，免费开源，支持股票行情、K线、财务数据、行业分类、指数成分股查询；当用户需要获取A股历史行情、财务报表、交易日历等数据时使用
-dependency:
-  python:
-    - baostock>=0.8.8
-    - pandas>=1.3.0
-  system: []
+description: BaoStock 免费开源 A 股数据平台，无需注册、无需 API Key，支持股票行情、K线、财务数据、行业分类、指数成分股查询。当用户提及 baostock、需要获取A股历史行情、财务报表、交易日历，或需要**免费、免注册**的A股数据时使用。与 tushare（数据更全但需注册）和 jqdatasdk（聚宽数据）不同，baostock 完全免费无限制，适合快速入门和低成本数据需求。
+metadata: {"openclaw":{"emoji":"📈","requires":{"bins":["python3"]}}}
 ---
 
 # baostock A股数据获取
@@ -56,6 +52,48 @@ dependency:
   - 场景/输入：用户说"下载茅台、平安、招行的2024年日K线数据"
   - 预期产出：返回多只股票的 K 线数据并保存为 CSV
   - 关键要点：调用 `python scripts/market_data.py --type kline --code sh.600519,sz.000001,sh.600036 --start 2024-01-01 --end 2024-12-31 --output stocks.csv`
+
+## 快速参考
+
+### 常用代码示例
+
+```python
+import baostock as bs
+import pandas as pd
+
+# 登录系统
+lg = bs.login()
+
+# 获取日K线数据
+rs = bs.query_history_k_data_plus(
+    "sh.600519",
+    "date,code,open,high,low,close,volume,amount",
+    start_date='2024-01-01', end_date='2024-12-31',
+    frequency="d", adjustflag="2"
+)
+
+# 转换为 DataFrame
+data_list = []
+while (rs.error_code == '0') & rs.next():
+    data_list.append(rs.get_row_data())
+df = pd.DataFrame(data_list, columns=rs.fields)
+
+# 登出系统
+bs.logout()
+```
+
+### 与其他数据源对比
+
+| 特性 | baostock | tushare | jqdatasdk | akshare |
+|------|----------|---------|-----------|---------|
+| 费用 | 免费 | 免费/付费 | 需注册积分 | 免费 |
+| 注册要求 | ❌ 不需要 | ✅ 需要 | ✅ 需要 | ❌ 不需要 |
+| 数据范围 | A股为主 | 全面（含宏观） | A股+因子 | 全面（含加密货币） |
+| K线数据 | ✅ | ✅ | ✅ | ✅ |
+| 财务数据 | ✅ | ✅ | ✅ | ✅ |
+| 分钟线 | ✅ | ✅ | ✅ | ✅ |
+| 实时行情 | ❌ | ❌ | ❌ | ✅ |
+| 特色数据 | 交易日历 | 宏观/Shibor | 因子数据 | 龙虎榜/北向/加密货币 |
 
 ## 资源索引
 ### 脚本：

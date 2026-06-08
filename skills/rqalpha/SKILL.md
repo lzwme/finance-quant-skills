@@ -1,7 +1,7 @@
 ---
 name: rqalpha
-description: RQAlpha 米筐开源事件驱动回测框架。支持A股和期货，模块化架构，可自由扩展；当用户需要使用 rqalpha 进行策略回测、模拟交易或Mod插件开发时使用。
-metadata: {"clawdbot":{"emoji":"📈","requires":{"bins":["python3"]}}}
+description: RQAlpha 米筐开源事件驱动回测框架。支持A股和期货，模块化架构，可自由扩展；当用户需要快速回测A股/期货策略、使用内置数据（download-bundle）、开发Mod插件，或提及 rqalpha、米筐时使用。与 backtrader 相比，rqalpha 内置A股日线数据、安装更简便，适合快速验证；backtrader 更灵活、社区更大。若用户仅需数据获取而无回测需求，引导使用 baostock/akshare/tushare 等数据 Skill。
+metadata: {"openclaw":{"emoji":"📈","requires":{"bins":["python3"]}}}
 ---
 
 # RQAlpha（米筐开源回测框架）
@@ -245,185 +245,7 @@ config = {
 
 ## 进阶示例
 
-### 双均线交叉策略
-
-```python
-import numpy as np
-from rqalpha.api import *
-
-def init(context):
-    context.stock = '600000.XSHG'
-    context.fast = 5
-    context.slow = 20
-    scheduler.run_daily(trade_logic, time_rule=market_open(minute=5))
-
-def trade_logic(context, bar_dict):
-    prices = history_bars(context.stock, context.slow + 1, '1d', fields=['close'])
-    if len(prices) < context.slow:
-        return
-
-    closes = prices['close']
-    fast_ma = np.mean(closes[-context.fast:])
-    slow_ma = np.mean(closes[-context.slow:])
-
-    pos = context.portfolio.positions.get(context.stock)
-    has_position = pos is not None and pos.quantity > 0
-
-    if fast_ma > slow_ma and not has_position:
-        order_target_percent(context.stock, 0.9)
-        logger.info(f'买入: 快线={fast_ma:.2f} > 慢线={slow_ma:.2f}')
-    elif fast_ma < slow_ma and has_position:
-        order_target_percent(context.stock, 0)
-        logger.info(f'卖出: 快线={fast_ma:.2f} < 慢线={slow_ma:.2f}')
-
-def handle_bar(context, bar_dict):
-    pass
-```
-
-### 多股等权重调仓
-
-```python
-from rqalpha.api import *
-
-def init(context):
-    context.stocks = ['600000.XSHG', '000001.XSHE', '601318.XSHG',
-                       '600036.XSHG', '000858.XSHE']
-    scheduler.run_monthly(rebalance, tradingday=1, time_rule=market_open(minute=30))
-
-def rebalance(context, bar_dict):
-    # 卖出不在目标列表中的股票
-    for stock in list(context.portfolio.positions.keys()):
-        if stock not in context.stocks:
-            order_target_percent(stock, 0)
-
-    # 等权分配
-    weight = 0.95 / len(context.stocks)
-    for stock in context.stocks:
-        if not is_suspended(stock):
-            order_target_percent(stock, weight)
-            logger.info(f'调仓: {stock} -> {weight:.1%}')
-
-def handle_bar(context, bar_dict):
-    pass
-```
-
-### RSI均值回归策略
-
-```python
-import numpy as np
-from rqalpha.api import *
-
-def init(context):
-    context.stock = '000001.XSHE'
-    context.rsi_period = 14
-    context.oversold = 30
-    context.overbought = 70
-
-def handle_bar(context, bar_dict):
-    prices = history_bars(context.stock, context.rsi_period + 2, '1d', fields=['close'])
-    if len(prices) < context.rsi_period + 1:
-        return
-
-    closes = prices['close']
-    deltas = np.diff(closes)
-    gains = np.where(deltas > 0, deltas, 0)
-    losses = np.where(deltas < 0, -deltas, 0)
-    avg_gain = np.mean(gains[-context.rsi_period:])
-    avg_loss = np.mean(losses[-context.rsi_period:])
-
-    if avg_loss == 0:
-        rsi = 100
-    else:
-        rsi = 100 - 100 / (1 + avg_gain / avg_loss)
-
-    pos = context.portfolio.positions.get(context.stock)
-    has_pos = pos is not None and pos.quantity > 0
-
-    if rsi < context.oversold and not has_pos:
-        order_target_percent(context.stock, 0.9)
-        logger.info(f'RSI={rsi:.1f} 超卖买入')
-    elif rsi > context.overbought and has_pos:
-        order_target_percent(context.stock, 0)
-        logger.info(f'RSI={rsi:.1f} 超买卖出')
-```
-
-### 止损止盈策略
-
-```python
-from rqalpha.api import *
-import numpy as np
-
-def init(context):
-    context.stock = '600519.XSHG'
-    context.entry_price = 0
-    context.stop_loss = 0.05
-    context.take_profit = 0.15
-    scheduler.run_daily(trade, time_rule=market_open(minute=5))
-
-def trade(context, bar_dict):
-    bar = bar_dict[context.stock]
-    price = bar.close
-    prices = history_bars(context.stock, 21, '1d', fields=['close'])
-    ma20 = np.mean(prices['close'][-20:])
-
-    pos = context.portfolio.positions.get(context.stock)
-    has_pos = pos is not None and pos.quantity > 0
-
-    if not has_pos:
-        if price > ma20:
-            order_target_percent(context.stock, 0.9)
-            context.entry_price = price
-            logger.info(f'买入: 价格={price:.2f}, 均线={ma20:.2f}')
-    else:
-        if context.entry_price > 0:
-            pnl = (price - context.entry_price) / context.entry_price
-            if pnl <= -context.stop_loss:
-                order_target_percent(context.stock, 0)
-                logger.info(f'止损: 收益率={pnl:.2%}')
-                context.entry_price = 0
-            elif pnl >= context.take_profit:
-                order_target_percent(context.stock, 0)
-                logger.info(f'止盈: 收益率={pnl:.2%}')
-                context.entry_price = 0
-
-def handle_bar(context, bar_dict):
-    pass
-```
-
-### 期货双均线CTA策略
-
-```python
-import numpy as np
-from rqalpha.api import *
-
-def init(context):
-    context.symbol = 'IF2401.CCFX'
-    context.fast = 5
-    context.slow = 20
-
-def handle_bar(context, bar_dict):
-    prices = history_bars(context.symbol, context.slow + 1, '1d', fields=['close'])
-    if len(prices) < context.slow:
-        return
-
-    closes = prices['close']
-    fast_ma = np.mean(closes[-context.fast:])
-    slow_ma = np.mean(closes[-context.slow:])
-    prev_fast = np.mean(closes[-context.fast-1:-1])
-    prev_slow = np.mean(closes[-context.slow-1:-1])
-
-    pos = context.portfolio.positions.get(context.symbol)
-    long_qty = pos.buy_quantity if pos else 0
-
-    if prev_fast <= prev_slow and fast_ma > slow_ma and long_qty == 0:
-        buy_open(context.symbol, 1)
-        logger.info(f'开多: 快线={fast_ma:.2f} > 慢线={slow_ma:.2f}')
-    elif prev_fast >= prev_slow and fast_ma < slow_ma and long_qty > 0:
-        sell_close(context.symbol, long_qty)
-        logger.info(f'平多: 快线={fast_ma:.2f} < 慢线={slow_ma:.2f}')
-```
-
----
+更多完整策略示例（双均线、多股等权、RSI均值回归、止损止盈、期货CTA）见 [references/advanced-strategies.md](references/advanced-strategies.md)。
 
 ## 绩效分析输出
 
@@ -461,6 +283,10 @@ def handle_bar(context, bar_dict):
 - 实盘交易可通过 `rqalpha-mod-vnpy` 连接 vn.py 的券商网关。
 - 支持日线和分钟级回测。
 - 文档：https://rqalpha.readthedocs.io/
+
+## 资源索引
+
+- [references/advanced-strategies.md](references/advanced-strategies.md) — 完整策略示例（双均线、多股等权、RSI均值回归、止损止盈、期货CTA）。需要参考进阶策略实现时读取。
 
 ## 规则
 

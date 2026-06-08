@@ -1,7 +1,7 @@
 ---
 name: akquant
-description: 生成 akquant 框架的可执行量化策略代码，涵盖数据接口、事件驱动、风控与优化；当用户需要开发 akquant量化策略 时使用
-metadata: {"clawdbot":{"emoji":"📈","requires":{"bins":["python", "uv"],"os":"win32"}}}
+description: 生成 akquant 框架的可执行量化策略代码，涵盖数据接口、事件驱动、风控与优化。当用户需要开发量化策略、配置回测环境、设置风控规则、进行参数优化、实现横截面轮动策略，或提及 akquant 时使用
+metadata: {"openclaw":{"emoji":"📈","requires":{"bins":["python", "uv"],"os":"win32"}}}
 ---
 
 # AKQuant 量化策略开发指南

@@ -1,17 +1,9 @@
 ---
 name: "qmt-docs"
 type: skill
-description: "QMT（迅投极速策略交易系统）Python 策略开发完整指南。涵盖策略编写、回测、实盘交易、API参考和代码示例。当需要开发QMT量化策略或查询QMT API时使用本技能。"
+description: "QMT（迅投极速策略交易系统）Python 策略开发完整指南。涵盖策略编写、回测、实盘交易、API参考和代码示例。当用户需要开发 QMT 量化策略、查询 QMT API、从聚宽迁移至 QMT、编写实盘交易程序，或提及 QMT、迅投策略、QMT 回测时使用。"
 tags: ["QMT", "迅投", "策略开发", "Python", "回测", "实盘交易", "量化交易"]
-metadata:
-  {
-    "openclaw": {
-      "emoji": "📚",
-      "requires": {
-        "bins": ["python3", "pip3"]
-      }
-    }
-  }
+metadata: {"openclaw":{"emoji":"📚","requires":{"bins":["python3"]}}}
 ---
 
 # QMT Python 策略开发知识库

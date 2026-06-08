@@ -1,11 +1,7 @@
 ---
 name: tushare
-description: A股行情、历史K线、财务数据、宏观数据等证券财经信息获取；当用户提及Tushare或需要获取A股数据时使用
-dependency:
-  python:
-    - tushare>=1.2.60
-    - pandas>=1.3.0
-  system: []
+description: Tushare 专业金融数据平台，提供A股行情、历史K线、财务数据、宏观数据、指数数据等，覆盖全面、数据质量高。当用户提及 Tushare、获取A股数据、查询财务报表、下载宏观数据，或需要高质量、多维度金融数据时使用。与 baostock（免费但功能有限）和 jqdatasdk（需注册但有积分门槛）不同，tushare 数据最全但需注册获取 Token。免费替代方案可用 baostock 或 akshare。
+metadata: {"openclaw":{"emoji":"📈","requires":{"bins":["python3"]}}}
 ---
 
 # Tushare 数据获取
@@ -48,6 +44,38 @@ dependency:
   - 场景/输入:用户说"查询上证指数最近的走势"
   - 预期产出:返回上证指数的日期、收盘价、成交量等数据
   - 关键要点:调用 `python scripts/macro_index_data.py --type index_daily --ts_code 000001.SH --start_date 20240301 --end_date 20240331`
+
+## 快速参考
+
+### 常用代码示例
+
+```python
+import tushare as ts
+import pandas as pd
+
+# 设置 Token（需先设置环境变量 TUSHARE_TOKEN）
+ts.set_token(os.environ.get('TUSHARE_TOKEN', ''))
+pro = ts.pro_api()
+
+# 获取日K线数据
+df = pro.daily(ts_code='000001.SZ', start_date='20240101', end_date='20241231')
+
+# 获取财务指标
+df = pro.fina_indicator(ts_code='600036.SH', period='2023')
+
+# 获取指数数据
+df = pro.index_daily(ts_code='000001.SH', start_date='20240101', end_date='20241231')
+```
+
+### 与其他数据源对比
+
+| 特性 | tushare | jqdatasdk | baostock | akshare |
+|------|---------|-----------|----------|---------|
+| 费用 | 免费/付费 | 需注册积分 | 免费 | 免费 |
+| 注册要求 | ✅ 需要 | ✅ 需要 | ❌ 不需要 | ❌ 不需要 |
+| 数据范围 | 全面（含宏观） | A股+因子 | A股为主 | 全面 |
+| 宏观数据 | ✅ 丰富 | ❌ | ❌ | ✅ |
+| 调用频率 | 免费有限制 | 有 | 无限制 | 无限制 |
 
 ## 资源索引
 - 脚本:

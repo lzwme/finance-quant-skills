@@ -1,8 +1,13 @@
 
+/**
+ * 从baostock官方文档下载markdown文件
+ */
+
 import { resolve } from 'node:path';
 import fs from 'node:fs';
 
-const markdownDir = resolve(__dirname, './markdown');
+const rootDir = resolve(__dirname, '../skills/baostock');
+const markdownDir = resolve(rootDir, 'markdown');
 
 async function request(url: string, options = {}) {
   options = Object.assign({ method: "POST", "Referer": "https://www.baostock.com/mainContent?file=home.md", }, options);

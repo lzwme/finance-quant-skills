@@ -1,7 +1,7 @@
 ---
 name: backtrader
-description: Backtrader 开源量化回测框架，支持多数据源、多策略、多周期回测与实盘交易，纯Python实现。当用户明确提及backtrader相关策略开发时使用。
-metadata: {"clawdbot":{"emoji":"📈","requires":{"bins":["python3"]}}}
+description: Backtrader 开源量化回测框架，支持多数据源、多策略、多周期回测与实盘交易，纯Python实现。当用户需要开发量化策略、进行回测分析、编写交易逻辑、回测参数优化，或提及 backtrader、量化回测框架时使用。若用户仅需数据获取而无回测需求，引导使用 baostock/akshare/tushare 等数据 Skill。
+metadata: {"openclaw":{"emoji":"📈","requires":{"bins":["python3"]}}}
 ---
 
 # Backtrader（开源量化回测框架）
@@ -366,176 +366,7 @@ print(f'最优夏普: {best_sharpe:.2f}')
 
 ## 进阶示例
 
-### MACD + 布林带组合策略
-
-```python
-import backtrader as bt
-
-class MACDBollStrategy(bt.Strategy):
-    """MACD金叉 + 布林带下轨支撑组合买入策略"""
-    params = (
-        ('macd_fast', 12),
-        ('macd_slow', 26),
-        ('macd_signal', 9),
-        ('boll_period', 20),
-        ('boll_dev', 2.0),
-        ('stake', 100),
-    )
-
-    def __init__(self):
-        self.macd = bt.indicators.MACD(
-            self.data.close,
-            period_me1=self.p.macd_fast,
-            period_me2=self.p.macd_slow,
-            period_signal=self.p.macd_signal
-        )
-        self.boll = bt.indicators.BollingerBands(
-            self.data.close, period=self.p.boll_period, devfactor=self.p.boll_dev
-        )
-        # MACD金叉信号
-        self.macd_cross = bt.indicators.CrossOver(self.macd.macd, self.macd.signal)
-
-    def next(self):
-        if not self.position:
-            # 买入条件：MACD金叉 且 价格低于布林带中轨（低位买入）
-            if self.macd_cross[0] > 0 and self.data.close[0] < self.boll.mid[0]:
-                self.buy(size=self.p.stake)
-                print(f'{self.data.datetime.date(0)} 买入: {self.data.close[0]:.2f}')
-        else:
-            # 卖出条件：价格触及布林带上轨 或 MACD死叉
-            if self.data.close[0] > self.boll.top[0] or self.macd_cross[0] < 0:
-                self.sell(size=self.p.stake)
-                print(f'{self.data.datetime.date(0)} 卖出: {self.data.close[0]:.2f}')
-
-    def notify_trade(self, trade):
-        if trade.isclosed:
-            print(f'交易完成: 净利润={trade.pnlcomm:.2f}')
-
-# 运行回测
-cerebro = bt.Cerebro()
-cerebro.addstrategy(MACDBollStrategy)
-data = bt.feeds.PandasData(dataname=df)  # df 为包含 OHLCV 数据的 DataFrame
-cerebro.adddata(data)
-cerebro.broker.setcash(100000)
-cerebro.broker.setcommission(commission=0.001)
-cerebro.addanalyzer(bt.analyzers.SharpeRatio, _name='sharpe')
-cerebro.addanalyzer(bt.analyzers.DrawDown, _name='dd')
-results = cerebro.run()
-strat = results[0]
-print(f'夏普比率: {strat.analyzers.sharpe.get_analysis()["sharperatio"]:.2f}')
-print(f'最大回撤: {strat.analyzers.dd.get_analysis()["max"]["drawdown"]:.2f}%')
-cerebro.plot()
-```
-
-
-### 海龟交易策略（完整实现）
-
-```python
-import backtrader as bt
-
-class TurtleStrategy(bt.Strategy):
-    """经典海龟交易策略 — 唐奇安通道突破 + ATR仓位管理"""
-    params = (
-        ('entry_period', 20),    # 入场通道周期
-        ('exit_period', 10),     # 出场通道周期
-        ('atr_period', 20),      # ATR周期
-        ('risk_pct', 0.01),      # 每笔交易风险比例
-    )
-
-    def __init__(self):
-        self.entry_high = bt.indicators.Highest(self.data.high, period=self.p.entry_period)
-        self.entry_low = bt.indicators.Lowest(self.data.low, period=self.p.entry_period)
-        self.exit_high = bt.indicators.Highest(self.data.high, period=self.p.exit_period)
-        self.exit_low = bt.indicators.Lowest(self.data.low, period=self.p.exit_period)
-        self.atr = bt.indicators.ATR(self.data, period=self.p.atr_period)
-        self.order = None
-
-    def next(self):
-        if self.order:
-            return  # 有未完成订单，等待
-
-        # 计算仓位大小（基于ATR的风险管理）
-        atr_val = self.atr[0]
-        if atr_val <= 0:
-            return
-        unit_size = int(self.broker.getvalue() * self.p.risk_pct / atr_val)
-        unit_size = max(unit_size, 1)
-
-        if not self.position:
-            # 突破20日高点 → 做多
-            if self.data.close[0] > self.entry_high[-1]:
-                self.order = self.buy(size=unit_size)
-        else:
-            # 跌破10日低点 → 平仓
-            if self.data.close[0] < self.exit_low[-1]:
-                self.order = self.close()
-
-    def notify_order(self, order):
-        if order.status in [order.Completed]:
-            if order.isbuy():
-                print(f'{self.data.datetime.date(0)} 买入 {order.executed.size} 股 @ {order.executed.price:.2f}')
-            else:
-                print(f'{self.data.datetime.date(0)} 卖出 @ {order.executed.price:.2f}')
-        self.order = None
-```
-
-### 多股票轮动策略
-
-```python
-import backtrader as bt
-
-class MomentumRotation(bt.Strategy):
-    """动量轮动策略 — 每月持有动量最强的前N只股票"""
-    params = (
-        ('momentum_period', 20),  # 动量计算周期（交易日）
-        ('hold_num', 3),          # 持股数量
-        ('rebalance_days', 20),   # 调仓周期
-    )
-
-    def __init__(self):
-        self.counter = 0
-        # 计算每只股票的动量指标（N日收益率）
-        self.momentums = {}
-        for d in self.datas:
-            self.momentums[d._name] = bt.indicators.RateOfChange(
-                d.close, period=self.p.momentum_period
-            )
-
-    def next(self):
-        self.counter += 1
-        if self.counter % self.p.rebalance_days != 0:
-            return  # 非调仓日
-
-        # 计算并排序每只股票的动量
-        rankings = []
-        for d in self.datas:
-            mom = self.momentums[d._name][0]
-            rankings.append((d._name, d, mom))
-        rankings.sort(key=lambda x: x[2], reverse=True)
-
-        # 选取动量最强的前N只股票
-        selected = [r[1] for r in rankings[:self.p.hold_num]]
-        selected_names = [r[0] for r in rankings[:self.p.hold_num]]
-        print(f'{self.data.datetime.date(0)} 选中股票: {selected_names}')
-
-        # 卖出不在目标列表中的持仓
-        for d in self.datas:
-            if self.getposition(d).size > 0 and d not in selected:
-                self.close(data=d)
-
-        # 等权重买入目标股票
-        if selected:
-            per_value = self.broker.getvalue() * 0.95 / len(selected)
-            for d in selected:
-                target_size = int(per_value / d.close[0])
-                current_size = self.getposition(d).size
-                if target_size > current_size:
-                    self.buy(data=d, size=target_size - current_size)
-                elif target_size < current_size:
-                    self.sell(data=d, size=current_size - target_size)
-```
-
-
+更多完整策略示例（MACD+布林带组合、海龟交易、多股票轮动）见 [references/advanced-strategies.md](references/advanced-strategies.md)。
 
 ## 常见错误处理
 
@@ -556,6 +387,10 @@ class MomentumRotation(bt.Strategy):
 - 使用 `self.data.close[0]` 访问当前值，`[-1]` 访问前一个值。
 - 通过 `optstrategy` 进行参数优化支持多核并行，显著加速。
 - 绘图需要安装 matplotlib；直接调用 `cerebro.plot()` 即可。
+
+## 资源索引
+
+- [references/advanced-strategies.md](references/advanced-strategies.md) — 完整策略示例（MACD+布林带、海龟交易、多股票轮动）。需要参考进阶策略实现时读取。
 
 ## 规则
 
