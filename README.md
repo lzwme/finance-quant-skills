@@ -14,10 +14,10 @@ finance-quant-skills/
 │   ├── backtrader/      # Backtrader 开源量化回测框架
 │   ├── baostock/        # BaoStock A股数据平台（免费行情、K线、财务数据）
 │   ├── jqdatasdk/       # 聚宽数据接口（A股行情、财务、因子数据）
-│   ├── joinquant-docs/  # 聚宽官网策略开发文档（回测/模拟/API/因子/技术指标）
+│   ├── joinquant-strategy/ # 聚宽官网策略开发文档（回测/模拟/API/因子/技术指标）
 │   ├── miniqmt/         # MiniQMT 迅投量化交易接口（XtQuant，支持交易下单）
 │   ├── pywencai/        # 同花顺问财数据查询（中文自然语言查询）
-│   ├── qmt-docs/        # QMT 策略开发指南与 API 参考文档
+│   ├── qmt-strategy/    # QMT 客户端策略开发指南与 API 参考文档
 │   ├── rqalpha/         # RQAlpha 米筐开源回测框架（A股/期货）
 │   ├── equity-researcher/ # 机构级投研报告生成（Kimi 官方技能）
 │   ├── tdxquant/        # 通达信量化数据获取（行情/K线/财务/板块/公式执行）
@@ -36,7 +36,7 @@ finance-quant-skills/
 
 > 帮我安装这个 skills 仓库中的所有技能: https://github.com/lzwme/finance-quant-skills
 >
-> 帮我安装这个 skills 仓库中的 qmt-docs 技能: https://github.com/lzwme/finance-quant-skills
+> 帮我安装这个 skills 仓库中的 qmt-strategy 技能: https://github.com/lzwme/finance-quant-skills
 
 ### 2.2 方式二：在 Claude Code 中安装使用
 
@@ -117,14 +117,14 @@ Skills 的详细使用示例见 [USAGE_EXAMPLES.md](./USAGE_EXAMPLES.md)，涵�
 | 数据获取 | **akshare** | 股票/期货/加密货币/宏观等全品类金融数据 | 免费，无需注册 |
 | 数据获取 | **pywencai** | 同花顺问财自然语言选股查询 | 需配置 Cookie |
 | 数据获取 | **tdxquant** | 通达信行情快照、K 线、财务、公式执行 | 需客户端 |
-| 数据获取 | **miniqmt** | MiniQMT 实时行情订阅、K 线、交易下单 | 需客户端 |
+| 数据获取 | **miniqmt** | MiniQMT（xtquant 库）实时行情订阅、K 线、交易下单 | 需客户端 |
 | 数据获取 | **jqdatasdk** | 聚宽数据：行情、财务、因子数据 | 需 Token |
 | 数据获取 | **tushare** | Tushare Pro：A 股行情、财务、宏观数据 | 需 Token |
 | 回测框架 | **backtrader** | 事件驱动回测，内置 100+ 指标 | 开源 Python |
 | 回测框架 | **rqalpha** | 米筐回测，支持 A 股/期货 | 开源 Python |
 | 策略开发 | **akquant** | 事件驱动策略框架，支持风控、优化 | 开源 Python |
-| 策略开发 | **qmt-docs** | QMT 策略开发指南与 API 参考 | 文档查阅 |
-| 策略开发 | **joinquant-docs** | 聚宽官网策略编写与 API 文档 | 文档查阅 |
+| 策略开发 | **qmt-strategy** | QMT 客户端策略开发指南与 API 参考 | 文档查阅 |
+| 策略开发 | **joinquant-strategy** | 聚宽官网策略编写与 API 文档 | 文档查阅 |
 | 投研报告 | **equity-researcher** | 机构级投研报告生成（投资速览/深度研报） | Kimi 官方技能 |
 
 详见 [USAGE_EXAMPLES.md](./USAGE_EXAMPLES.md) 获取具体使用场景与参数说明。

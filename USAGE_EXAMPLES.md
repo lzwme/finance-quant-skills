@@ -54,7 +54,7 @@
 - **适用场景**：本地 Python 环境获取 A 股行情、财务指标、因子数据（估值/动量/质量等）
 - **前置要求**：需注册聚宽账号并配置 Token（环境变量 `JQDATA_TOKEN`）
 - **关键参数**：代码格式 `600036.XSHG`（上海）/ `000001.XSHE`（深圳）
-- **与 joinquant-docs 的区别**：`jqdatasdk` 用于财经数据拉取；`joinquant-docs` 用于官网策略编写与 API 查阅
+- **与 joinquant-strategy 的区别**：`jqdatasdk` 用于财经数据拉取；`joinquant-strategy` 用于官网策略编写与 API 查阅
 
 ### 7. Tushare 数据（需 Token）
 
@@ -135,9 +135,9 @@
 | 场景 | 推荐 Skills 搭配 |
 |------|----------------|
 | **数据获取 + 回测研究** | baostock / akshare → backtrader / rqalpha |
-| **数据获取 + QMT 实盘** | baostock / akshare → qmt-docs（策略开发）→ miniqmt（实盘交易） |
-| **聚宽策略开发** | joinquant-docs（API/策略编写）→ jqdatasdk（本地数据验证） |
-| **聚宽迁移至 QMT** | joinquant-docs（理解聚宽 API）→ qmt-docs（joinquant-migration 迁移指南） |
+| **数据获取 + QMT 实盘** | baostock / akshare → qmt-strategy（策略开发）→ miniqmt（实盘交易） |
+| **聚宽策略开发** | joinquant-strategy（API/策略编写）→ jqdatasdk（本地数据验证） |
+| **聚宽迁移至 QMT** | joinquant-strategy（理解聚宽 API）→ qmt-strategy（joinquant-migration 迁移指南） |
 | **选股 + 回测验证** | pywencai（筛选标的）→ backtrader（回测策略） |
 | **通达信公式 + 实盘交易** | tdxquant（公式计算/选股）→ miniqmt / QMT（下单） |
 | **全品类数据采集** | akshare（股票/期货/加密货币/宏观） |

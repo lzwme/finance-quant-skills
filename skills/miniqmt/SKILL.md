@@ -1,6 +1,6 @@
 ---
 name: miniqmt
-description: MiniQMT 迅投量化交易接口，基于 XtQuant Python 库，支持 A 股/期货/期权的行情数据获取（K线、分笔、财务数据等）和交易下单（报单、撤单、查询资产/委托/持仓）。当用户提及 miniqmt、xtquant、迅投、获取实时行情、量化交易下单、回测数据获取，或需要连接 MiniQMT 客户端进行程序化交易时使用
+description: MiniQMT 迅投量化交易接口，基于 XtQuant Python 库（xtdata 行情 / xttrader 交易），供外部 Python 程序连接 MiniQMT 客户端，支持 A 股/期货/期权的行情获取（K线、分笔、财务数据等）和交易下单（报单、撤单、查询资产/委托/持仓）。当用户提及 miniqmt、xtquant、获取实时行情、量化交易下单、回测数据获取，或需要用外部 Python 程序连接 MiniQMT 客户端进行程序化交易时使用。若需在 QMT 客户端内编写/回测内置策略（ContextInfo/passorder），请用 qmt-strategy 技能。
 metadata: {"openclaw":{"emoji":"📈","requires":{"bins":["python3"]}}}
 ---
 
@@ -11,7 +11,9 @@ metadata: {"openclaw":{"emoji":"📈","requires":{"bins":["python3"]}}}
 - 能力包含：
   - **行情模块 (xtdata)**：K线数据、分笔数据、实时行情订阅、财务数据、板块分类、ETF信息、新股申购、交易日历
   - **交易模块 (xttrader)**：股票/期货/期权下单、撤单、查询资产/委托/持仓、资金划拨、信用交易、约券
-- 触发条件：用户提及 miniqmt、xtquant、迅投、获取行情、量化交易、下单交易时使用
+- 触发条件：用户提及 miniqmt、xtquant、获取行情、量化交易、下单交易时使用
+
+> **与 qmt-strategy 的区别**：本技能通过 **xtquant 库**在**外部 Python 程序**中连接 MiniQMT 客户端（`xtdata` 行情 / `xttrader` 交易）；若需在 QMT 客户端内编写**内置策略**（`ContextInfo`/`passorder`、`#coding:gbk`），请使用 `qmt-strategy` 技能。
 
 ## 前置准备
 

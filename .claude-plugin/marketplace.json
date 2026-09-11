@@ -18,8 +18,8 @@
         "./skills/akquant",
         "./skills/backtrader",
         "./skills/equity-researcher",
-        "./skills/joinquant-docs",
-        "./skills/qmt-docs",
+        "./skills/joinquant-strategy",
+        "./skills/qmt-strategy",
         "./skills/rqalpha"
       ]
     },

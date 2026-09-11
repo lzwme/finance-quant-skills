@@ -50,13 +50,13 @@
 
 ```bash
 # 在 api.md 中搜索函数
-rg "def get_price|get_price\(" skills/joinquant-docs/api.md
+rg "def get_price|get_price\(" skills/joinquant-strategy/api.md
 
 # 在数据字典中搜索字段
-rg "market_cap|市盈率" skills/joinquant-docs/data/Stock.md
+rg "market_cap|市盈率" skills/joinquant-strategy/data/Stock.md
 
 # 搜索技术指标
-rg "^### MACD" skills/joinquant-docs/data/technicalanalysis.md
+rg "^### MACD" skills/joinquant-strategy/data/technicalanalysis.md
 ```
 
 ## 原始 HTML 缓存

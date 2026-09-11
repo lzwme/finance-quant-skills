@@ -1,7 +1,6 @@
 ---
-name: "qmt-docs"
-type: skill
-description: "QMT（迅投极速策略交易系统）Python 策略开发完整指南。涵盖策略编写、回测、实盘交易、API参考和代码示例。当用户需要开发 QMT 量化策略、查询 QMT API、从聚宽迁移至 QMT、编写实盘交易程序，或提及 QMT、迅投策略、QMT 回测时使用。"
+name: "qmt-strategy"
+description: "QMT 客户端（迅投极速策略交易系统）内置 Python 策略引擎开发指南，涵盖策略编写、回测、实盘交易、内置 API 参考与代码示例（基于 ContextInfo/passorder/get_trade_detail_data 等，非 xtquant 库）。当用户需要在 QMT 客户端中编写/回测/运行策略、查询 QMT 内置 API、从聚宽迁移至 QMT，或提及 QMT 策略、迅投策略、QMT 回测时使用。若需用外部 Python 程序通过 xtquant 库连接 QMT 获取行情或下单，请改用 miniqmt 技能。"
 tags: ["QMT", "迅投", "策略开发", "Python", "回测", "实盘交易", "量化交易"]
 metadata: {"openclaw":{"emoji":"📚","requires":{"bins":["python3"]}}}
 ---
@@ -9,6 +8,8 @@ metadata: {"openclaw":{"emoji":"📚","requires":{"bins":["python3"]}}}
 # QMT Python 策略开发知识库
 
 为 QMT（迅投极速策略交易系统）提供完整的 Python 开发参考，分为**教程指南**和 **API 参考**两层。
+
+> **与 miniqmt 的区别**：本技能面向 QMT 客户端**内置策略引擎**——策略在 QMT 客户端内运行，使用内置 API（`ContextInfo`/`C`、`passorder`、`get_market_data_ex`、`get_trade_detail_data` 等），文件首行需 `#coding:gbk`。若需在**外部 Python 程序**中通过 **xtquant 库**（`xtdata`/`xttrader`）连接 QMT/MiniQMT 客户端获取行情或下单，请使用 `miniqmt` 技能。
 
 ## 📖 文档结构
 

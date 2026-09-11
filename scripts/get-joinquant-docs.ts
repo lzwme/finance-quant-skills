@@ -63,7 +63,7 @@ async function main() {
         "bond"
     ]
 
-    const savedir = './skills/joinquant-docs/data'
+    const savedir = './skills/joinquant-strategy/data'
     const token = await getToekn()
 
     for (const id of contentIdList) {
