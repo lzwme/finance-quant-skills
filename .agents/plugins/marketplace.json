@@ -1,0 +1,21 @@
+{
+  "name": "finance-quant-skills",
+  "interface": {
+    "displayName": "Finance Quant Skills"
+  },
+  "plugins": [
+    {
+      "name": "finance-quant-skills",
+      "description": "金融量化交易相关技能集",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Finance"
+    }
+  ]
+}

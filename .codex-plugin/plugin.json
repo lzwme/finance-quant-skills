@@ -1,0 +1,26 @@
+{
+  "name": "finance-quant-skills",
+  "version": "1.0.0",
+  "description": "金融量化交易相关技能集：行情数据获取、策略开发、回测框架与投研报告生成",
+  "author": {
+    "name": "renxia <lzwy0820@qq.com>"
+  },
+  "homepage": "https://github.com/lzwme/finance-quant-skills",
+  "repository": "https://github.com/lzwme/finance-quant-skills",
+  "license": "MIT",
+  "keywords": [
+    "quant",
+    "finance",
+    "trading",
+    "backtesting",
+    "skills"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Finance Quant Skills",
+    "shortDescription": "金融量化交易技能集：数据获取、策略开发、回测与投研报告",
+    "longDescription": "面向金融量化交易领域的 Agent Skills 集合，覆盖 akshare/tushare/baostock 等行情数据获取、backtrader/rqalpha/akquant 等回测与策略框架、QMT/聚宽等交易接口文档查询，以及机构级投研报告生成。",
+    "developerName": "renxia",
+    "category": "Finance"
+  }
+}

@@ -23,7 +23,8 @@ finance-quant-skills/
 │   ├── tdxquant/        # 通达信量化数据获取（行情/K线/财务/板块/公式执行）
 │   └── tushare/         # Tushare 数据接口（A股行情、财务、宏观数据）
 ├── template/            # Skill 模板
-└── .claude-plugin/      # Claude Code 插件配置
+├── .claude-plugin/      # Claude Code 插件配置
+└── .codex-plugin/       # Codex 插件配置（marketplace 索引见 .agents/plugins/）
 ```
 
 ## 二、Skills 安装
@@ -74,7 +75,17 @@ npx skills update
 npx skills add lzwme/finance-quant-skills
 ```
 
-### 2.4 安装技巧：以软连接形式支持多编程智能体工具
+### 2.4 方式四：在 Codex CLI 中安装使用
+
+本仓库同时提供了 Codex 插件清单（`.codex-plugin/plugin.json`），可将本仓库注册为 Codex 插件 marketplace 后安装：
+
+```bash
+codex plugin marketplace add lzwme/finance-quant-skills
+```
+
+然后在 Codex 会话中输入 `/plugins`，进入插件界面选择 `finance-quant-skills` 安装即可。安装后会加载全部技能，直接用自然语言描述需求即可触发。
+
+### 2.5 安装技巧：以软连接形式支持多编程智能体工具
 
 不同编程智能体的 skills 目录规范有所不同。当我们在多个编程工具之间切换使用时，需要配置多个 skills 目录。
 
@@ -84,24 +95,27 @@ npx skills add lzwme/finance-quant-skills
 
 ```bash
 # 假若在 agents/skills 中维护 skills
-# 创建 .cluade、.cursor 的 skills 软连接
+# 创建 .cluade、.cursor、.codex 的 skills 软连接
 
 # macOS/Linux 下
 ln -s agents/skills .cluade/skills
 ln -s agents/skills .cursor/skills
+ln -s agents/skills .codex/skills
 
 # windows powershell 下（其中的 Junction 也可换为 SymbolicLink，但需管理员权限执行）
 New-Item -ItemType Junction -Path .cluade/skills -Target <绝对路径>/agents/skills
 New-Item -ItemType Junction -Path .cursor/skills -Target <绝对路径>/agents/skills
+New-Item -ItemType Junction -Path .codex/skills -Target <绝对路径>/agents/skills
 ```
 
 `.gitignore` 配置示例如下：
 
 ```
 # 假若仅在 .agents/skills 中维护 skills
-# 忽略 .cluade、.cursor 等目录下的 skills 软连接
+# 忽略 .cluade、.cursor、.codex 等目录下的 skills 软连接
 .cluade/skills
 .cursor/skills
+.codex/skills
 .codebuddy/skills
 ```
 
