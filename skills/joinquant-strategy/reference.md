@@ -1,14 +1,16 @@
 # 聚宽文档索引
 
-本目录文档从 [聚宽官方 API 文档](https://www.joinquant.com/help/api/help) 离线同步，供策略开发时精确查阅。
+`api.md`、`faq.md`、`fator.md` 与 `data/*.md` 从 [聚宽官方 API 文档](https://www.joinquant.com/help/api/help) 离线同步，供策略开发时精确查阅；`simulation.md`、`strategy_template.md` 为本技能原创整理（机制依据官方文档）。
 
 ## 根目录文档
 
 | 文件 | 内容 | 何时查阅 |
 |------|------|----------|
 | [api.md](api.md) | 策略 API 全文：initialize、run_daily、数据获取、交易、对象、示例 | 查任意官网 API 签名、参数、返回值 |
-| [faq.md](faq.md) | 常见问题：数据更新频率、代码后缀、复权、财务差异、期货主力合约 | 数据异常、环境差异、概念澄清 |
+| [faq.md](faq.md) | 常见问题：数据更新频率、代码后缀、复权、财务差异、期货主力合约、模拟交易替换代码 | 数据异常、环境差异、模拟盘代码未生效 |
 | [fator.md](fator.md) | 因子分析：Factor 定义、calc_factors、因子看板、多因子框架 | 自定义因子、因子回测分析 |
+| [strategy_template.md](strategy_template.md) | 通用策略模板：`apply_settings` 配置集中、盘前选池、调仓骨架、改造清单 | 新建策略、需要可直接运行的骨架 |
+| [simulation.md](simulation.md) | 模拟盘热更新：断点定位、`apply_settings` 单一配置源、诊断模板、常见误判 | 模拟盘改代码/参数不生效、替换代码排查 |
 
 ## 数据字典（data/）
 
@@ -37,7 +39,8 @@
 |------|------|
 | 开始写策略 | 最小示例、均线策略模板 |
 | 策略引擎介绍 | 运行频率、撮合、滑点、税费、回测/模拟差异 |
-| 策略程序架构 ♠ | initialize、run_daily/weekly/monthly、handle_data |
+| 策略程序架构 ♠ | initialize、run_daily/weekly/monthly、handle_data、after_code_changed、process_initialize |
+| 模拟盘注意事项 | 替换代码后为何不生效、进程重启与状态持久化 |
 | 策略设置函数 | set_benchmark、set_order_cost、set_slippage、set_option |
 | 数据获取函数 | get_price、history、get_fundamentals、get_index_stocks 等 |
 | 交易函数 | order、order_value、order_target、order_target_percent |

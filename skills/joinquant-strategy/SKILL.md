@@ -1,6 +1,6 @@
 ---
 name: joinquant-strategy
-description: 聚宽（JoinQuant）官网策略开发指南，涵盖回测、模拟交易、数据 API、交易函数、因子与技术指标。当用户编写聚宽策略、回测、模拟盘、查询聚宽 API、get_price/order/run_daily、Alpha 因子、技术指标，或提及 joinquant、聚宽、jqdata 策略时使用。本地数据获取请用 jqdatasdk 技能。
+description: 聚宽（JoinQuant）官网策略开发指南，涵盖回测、模拟交易、数据 API、交易函数、因子与技术指标。当用户编写聚宽策略、回测、模拟盘，排查模拟盘改代码不生效/替换代码，查询聚宽 API、get_price/order/run_daily、Alpha 因子、技术指标，或提及 joinquant、聚宽、jqdata 策略时使用。本地数据获取请用 jqdatasdk 技能。
 metadata: {"openclaw":{"emoji":"📚","requires":{"bins":["python3"]}}}
 ---
 
@@ -18,7 +18,7 @@ metadata: {"openclaw":{"emoji":"📚","requires":{"bins":["python3"]}}}
 4. **给出答案时**引用文档中的调用方法、参数、返回值与示例代码
 
 ```
-需要写策略框架？     → api.md「开始写策略」「策略程序架构」
+需要写策略框架？     → strategy_template.md（完整骨架）+ api.md「策略程序架构」
 需要查数据 API？      → api.md「数据获取函数」+ data/ 对应品种文档
 需要下单/持仓？      → api.md「交易函数」「对象」
 需要财务/估值数据？  → data/Stock.md（run_query + valuation/fundamentals 表）
@@ -27,6 +27,7 @@ metadata: {"openclaw":{"emoji":"📚","requires":{"bins":["python3"]}}}
 需要 Alpha 因子？    → data/Alpha101.md、data/Alpha191.md
 需要自定义因子？     → fator.md（jqfactor.Factor、calc_factors）
 需要因子看板数据？   → data/factor_values.md
+模拟盘改代码没生效？ → simulation.md（先读再答）
 ```
 
 ## 策略骨架
@@ -56,6 +57,8 @@ def trade(context):
         order_target(security, 0)
 ```
 
+完整可运行骨架（配置集中、盘前选池、先卖后买、热更新入口）见 [strategy_template.md](strategy_template.md)；模拟盘热更新机制见 [simulation.md](simulation.md)。
+
 ### 生命周期函数
 
 | 函数 | 说明 |
@@ -65,6 +68,8 @@ def trade(context):
 | `handle_data(context, data)` | 按回测频率驱动；**不建议与 run_daily 混用** |
 | `before_trading_start` | 开盘前（9:00） |
 | `after_trading_end` | 收盘后（15:30） |
+| `after_code_changed(context)` | 模拟盘**替换代码后**触发；此时 `initialize` 不会重跑 |
+| `process_initialize(context)` | 每次进程重启都执行；重建不可序列化对象（如 `query`） |
 
 带 ♠ 标识的 API 仅支持**回测/模拟**，不能在研究模块调用。`jqdata` 模块在研究与回测环境均可使用。
 
@@ -166,6 +171,10 @@ factors = calc_factors(securities, [MyFactor()], start_date, end_date)
 - `run_daily(func, time='every_bar')` 频率与回测设置一致
 - `run_weekly/monthly` 的 `force=False` 可避免晚注册时的就近执行
 
+### 模拟盘：改了代码不生效
+
+模拟盘持有独立的代码副本、`initialize` 不会重跑，回测里正常的改动常在模拟盘失效。回答此类问题前先读 [simulation.md](simulation.md)：内含断点定位、`apply_settings` 迁移模板、诊断模板与误判清单。
+
 ### 数据查询限制
 
 - `run_query` / `get_fundamentals` 单次最多返回 **4000 行**
@@ -183,7 +192,7 @@ factors = calc_factors(securities, [MyFactor()], start_date, end_date)
 
 | 场景 | 首先阅读 | 深入查阅 |
 |------|----------|----------|
-| 新手写第一个策略 | `api.md`「开始写策略」 | `api.md`「策略程序架构」 |
+| 编写策略/需要完整骨架 | `strategy_template.md` | `api.md`「策略程序架构」 |
 | 股票选股 + 财务 | `data/Stock.md` | `api.md` get_fundamentals |
 | 指数成分股策略 | `data/index.md` | `api.md` get_index_stocks |
 | 行业/概念轮动 | `data/plateData.md` | `api.md` get_industry_stocks |
@@ -195,6 +204,7 @@ factors = calc_factors(securities, [MyFactor()], start_date, end_date)
 | 技术分析指标 | `data/technicalanalysis.md` | — |
 | 因子选股 | `fator.md` + `data/factor_values.md` | `data/Alpha101.md` |
 | 融资融券 | `data/Stock.md` 融资融券章节 | `api.md` 融资融券专用函数 |
+| 模拟盘改代码/参数不生效 | `simulation.md` | `faq.md`「如何替换模拟交易的代码」、`api.md`「模拟盘注意事项」 |
 | 报错/数据疑问 | `faq.md` | `api.md`「注意事项」 |
 
 ## 策略示例
@@ -210,9 +220,13 @@ bun scripts/get-joinquant-docs.ts
 # 强制覆盖已有 md：FORCE_UPDATE=1 bun scripts/get-joinquant-docs.ts
 ```
 
+`simulation.md`、`strategy_template.md` 为手工维护；`api.md` / `faq.md` / `data/*.md` 由脚本同步，切勿手改。
+
 ## 附加资源
 
 - 完整文档索引：[reference.md](reference.md)
 - 平台 API 全文：[api.md](api.md)
 - 常见问题：[faq.md](faq.md)
 - 因子分析：[fator.md](fator.md)
+- 通用策略模板：[strategy_template.md](strategy_template.md)
+- 模拟盘热更新：[simulation.md](simulation.md)

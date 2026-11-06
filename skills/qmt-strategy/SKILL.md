@@ -11,10 +11,20 @@ metadata: {"openclaw":{"emoji":"📚","requires":{"bins":["python3"]}}}
 
 > **与 miniqmt 的区别**：本技能面向 QMT 客户端**内置策略引擎**——策略在 QMT 客户端内运行，使用内置 API（`ContextInfo`/`C`、`passorder`、`get_market_data_ex`、`get_trade_detail_data` 等），文件首行需 `#coding:gbk`。若需在**外部 Python 程序**中通过 **xtquant 库**（`xtdata`/`xttrader`）连接 QMT/MiniQMT 客户端获取行情或下单，请使用 `miniqmt` 技能。
 
+## 🎯 适用对象与业务场景
+
+| 角色 | 典型用法 |
+|------|---------|
+| 量化策略开发者 | 在 QMT 客户端编写 / 回测 / 实盘策略，查询内置 API 用法与代码模板 |
+| QMT 运营与技术支持 | 快速定位策略报错，答复编码、参数、单位、运行模式等高频咨询 |
+| 交易系统运维 | 排查策略侧问题，厘清 QMT 内置引擎与 xtquant 外部接口的使用边界 |
+
+**解决的问题**：QMT 内置策略引擎与通用 Python 生态差异较大（GBK 编码、专有 API、金额单位为分、100 股整手、quicktrade 模式差异等），官方资料分散、检索慢；通用大模型缺乏该领域知识，易生成混用 `xtquant`/聚宽写法而无法运行的代码。本技能将 QMT 策略开发知识结构化沉淀，供 AI 编程助手直接加载调用。
+
 ## 📖 文档结构
 
 ```
-教程/指南（实践导向）
+教程/指南（实践导向 · 本技能原创整理）
 ├── overview.md              系统概述、模式选择、入门路径
 ├── execution-mechanisms.md  三种运行机制详解（含流程图和代码模板）
 ├── backtesting-guide.md     回测完整流程（数据准备→参数设置→运行→分析）
@@ -24,7 +34,7 @@ metadata: {"openclaw":{"emoji":"📚","requires":{"bins":["python3"]}}}
 ├── joinquant-migration.md   聚宽策略迁移至 QMT 指南
 └── examples/                代码示例（backtest / live-trading / subscribe / run-time）
 
-API 参考（官方完整文档）
+API 参考（迅投官方知识库离线快照 · 来源见文末"文档来源与合规声明"）
 └── python-innerApi/
     ├── start_now.md          快速开始（回测/实盘概览 + 三种机制示例）
     ├── data_function.md      行情与数据函数（get_market_data_ex 等完整参数）
@@ -41,7 +51,7 @@ API 参考（官方完整文档）
     ├── user_attention.md     用户注意事项
     └── question_answer.md    常见问题
 
-数据字典
+数据字典（迅投官方知识库离线快照 · 来源见文末"文档来源与合规声明"）
 └── dict/                    各品种数据字段（stock / indexes / future / option 等）
 ```
 
@@ -122,6 +132,17 @@ holds_dict = {f'{p.m_strInstrumentID}.{p.m_strExchangeID}': p.m_nVolume for p in
 # 查询账户可用资金（单位：分）
 cash = get_trade_detail_data(account, 'stock', 'account')[0].m_dAvailable
 ```
+
+## 📄 文档来源与合规声明
+
+本技能的文档由两部分构成，来源与权属不同，请注意区分：
+
+| 层级 | 目录 | 来源与权属 | 说明 |
+|------|------|-----------|------|
+| **原创教程层** | `references/*.md`、`references/examples/` | 本技能作者原创整理 | 系统概述、运行机制详解、回测/实盘指南、API 速查卡片、最佳实践、聚宽迁移指南、代码示例 |
+| **官方 API 引用层** | `references/python-innerApi/`、`references/dict/` | 迅投官方知识库（[dict.thinktrader.net](https://dict.thinktrader.net)）离线快照，版权归迅投所有 | 每个文件首部保留官方原文 `url` 与 `title` 作为出处标识；仅作离线查阅与检索之用 |
+
+**使用须知**：官方 API 引用层内容为第三方文档的离线备份，仅用于内部学习与开发参考；对外分发、转载或商业使用请以迅投官方知识库为准，并遵守其使用条款。原创主张仅适用于原创教程层内容。
 
 ## ⚠️ 使用注意事项
 
