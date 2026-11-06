@@ -20,8 +20,9 @@
 | `handlebar` | 逐K线驱动 | ✅ | ✅ |
 | `subscribe` | 事件驱动（分笔推送） | ❌ | ✅ |
 | `run_time` | 定时任务 | ❌ | ✅ |
-| `quicktrade=0` | 等待K线完成再下单 | ✅ | ✅ |
-| `quicktrade=2` | 立即下单 | ❌ | ✅ |
+| `quicktrade=0` | 逐K线：下一根K线首个 tick 触发（默认值） | ✅ | ✅ |
+| `quicktrade=1` | 立即下单，仅非历史 bar（`C.is_last_bar()` 为 True） | ❌ | ✅ |
+| `quicktrade=2` | 立即下单且不判断 bar，历史 bar 也会触发，⚠️ 请谨慎使用 | ❌ | ✅ |
 
 ## 📈 行情数据 API
 
@@ -82,7 +83,7 @@ passorder(
     -1,              # price: -1=不设止价（最新价模式）
     100,             # volume: 股数（须为100的倍数）
     '策略名称',      # strategyName
-    0,               # quicktrade: 0=逐K线, 2=立即下单
+    0,               # quicktrade: 0=逐K线(默认), 1=实时bar立即, 2=不判断bar(谨慎)
     '投资备注',      # userOrderId
     C                # ContextInfo 对象
 )
@@ -156,6 +157,8 @@ info = C.get_instrument_detail('600000.SH')
 ```
 
 ## 📋 常用策略代码骨架
+
+> ⚠️ 骨架中的 `buy_signal`/`sell_signal` 为 `TODO` 占位，直接运行回测不会产生任何成交；交付前必须替换为实际信号。
 
 ```python
 #coding:gbk

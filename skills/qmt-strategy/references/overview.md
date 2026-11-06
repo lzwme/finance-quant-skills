@@ -50,6 +50,8 @@ QMT（极速策略交易系统）是迅投推出的内置 Python 3.6 环境的�
 | 分笔高频交易 | subscribe | 实时推送 | quicktrade=2 |
 | 定时监控 | run_time | 定时查询 | quicktrade=2 |
 
+> `quicktrade=1` 只在 `handlebar` 的非历史 bar 上立即触发；`subscribe`/`run_time` 回调没有 K 线上下文，官方示例用 `2`。`2` 会让历史 bar 也触发委托，请谨慎使用（见 `python-innerApi/trading_function.md` 与 `python-innerApi/enum_constants.md`）。
+
 ## 开发入门路径
 
 ```
