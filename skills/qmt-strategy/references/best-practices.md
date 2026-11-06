@@ -572,17 +572,7 @@ subscribe = False if is_backtest else True
 data = C.get_market_data_ex(..., subscribe=subscribe)
 ```
 
-### 陷阱3：忽略单位转换
-
-```python
-# ❌ 错误：m_dAvailable 单位是分（1/100元）
-cash = account.m_dAvailable  # 这是分
-
-# ✅ 正确：转换为元
-cash_yuan = account.m_dAvailable / 100
-```
-
-### 陷阱4：未经验证直接交易
+### 陷阱3：未经验证直接交易
 
 ```python
 # ❌ 错误：直接根据信号下单

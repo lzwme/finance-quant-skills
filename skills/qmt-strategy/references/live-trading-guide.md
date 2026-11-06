@@ -222,7 +222,7 @@ def handlebar(C):
         return
     
     account = account[0]
-    available_cash = int(account.m_dAvailable)
+    available_cash = account.m_dAvailable          # 元（float）
     
     # 4. 处理未查到的委托
     if A.waiting_list:

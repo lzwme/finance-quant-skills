@@ -92,7 +92,7 @@ def handlebar(C):
         return
     
     account = account[0]
-    available_cash = int(account.m_dAvailable)
+    available_cash = account.m_dAvailable          # 元（float）
     
     # 获取持仓信息
     holdings = get_trade_detail_data(C.accountid, 'stock', 'position')

@@ -147,9 +147,9 @@ def check_portfolio(C):
     
     # 输出持仓信息
     print(f"[{now}] ========== 持仓检查 ==========")
-    print(f"可用现金: {acc.m_dAvailable / 100:.2f} 元")
-    print(f"总资产: {acc.m_dTotalAsset / 100:.2f} 元")
-    print(f"浮动盈亏: {acc.m_dFloatProfit / 100:.2f} 元")
+    print(f"可用现金: {acc.m_dAvailable:.2f} 元")
+    print(f"总资产: {acc.m_dTotalAsset:.2f} 元")
+    print(f"浮动盈亏: {acc.m_dFloatProfit:.2f} 元")
     print()
     
     if not positions:

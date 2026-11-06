@@ -10,7 +10,7 @@
 
 - 缩进使用 4 个空格（不可混用）
 - 股票最小交易单位：**100 股**
-- 账户金额单位：**分**（需要 `/100` 转换为元）
+- 账户金额字段（`m_dAvailable` 等）：**float，单位元**，无需换算
 - 回测模式使用 `subscribe=False`，实盘使用 `subscribe=True`
 
 ## 📊 核心概念速查
@@ -107,7 +107,7 @@ passorder(
 ```python
 # 查询账户
 acc = get_trade_detail_data(account, 'stock', 'account')[0]
-cash = acc.m_dAvailable          # 可用资金（分）
+cash = acc.m_dAvailable          # 可用资金（元）
 total_asset = acc.m_dTotalAsset  # 总资产
 
 # 查询持仓（返回列表，每个元素为一个持仓对象）
@@ -184,7 +184,7 @@ def handlebar(C):
 
     # 获取账户信息
     acc = get_trade_detail_data(C.accountid, 'stock', 'account')[0]
-    cash = int(acc.m_dAvailable)
+    cash = acc.m_dAvailable                # 元（float）
 
     # 获取持仓
     positions = get_trade_detail_data(C.accountid, 'stock', 'position')
@@ -192,7 +192,9 @@ def handlebar(C):
              for p in positions}
     vol = holds.get(C.stock, 0)
 
-    # 交易逻辑
+    # 交易逻辑（信号需自行实现，以下为占位）
+    buy_signal = False       # TODO: 替换为你的买入信号
+    sell_signal = False      # TODO: 替换为你的卖出信号
     price = close_list[-1]
     if vol == 0 and buy_signal:
         qty = int(cash / price / 100) * 100

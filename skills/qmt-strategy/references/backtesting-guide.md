@@ -81,7 +81,7 @@
 回测使用的K线周期
 - 日线（1d）
 - 周线（1w）
-- 月线（1m）
+- 月线（1mon）
 - 分钟线（1m, 5m, 15m, 30m）
 ```
 
@@ -303,8 +303,8 @@ if not account:
     return
 account = account[0]
 
-# 可用现金（单位：分）
-available_cash = int(account.m_dAvailable)
+# 可用现金（元，float）
+available_cash = account.m_dAvailable
 
 # 获取持仓信息
 holdings = get_trade_detail_data('test', 'stock', 'position')
@@ -328,12 +328,12 @@ vol = int(available_cash / current_price / 100) * 100
 # 买入信号：双线金叉（上穿）
 if holding_vol == 0 and line1_mean > line2_mean:
     passorder(
-        23,             # 买卖代码（23=卖出, 24=卖出）
-        1101,           # 价格订单类型（市价）
-        C.accountid,    # 账号
-        C.stock,        # 品种
-        5,              # 订单等级
-        -1,             # 止价 (-1 = 不设置）
+        23,             # opType：23=股票买入，24=股票卖出
+        1101,           # orderType：1101=按股数下单
+        C.accountid,    # 资金账号
+        C.stock,        # 品种代码
+        5,              # prType：5=最新价，11=限价
+        -1,             # price：-1=不指定价格（最新价模式）
         vol,            # 成交数量
         C               # ContextInfo对象
     )
