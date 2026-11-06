@@ -2,15 +2,17 @@
 
 `api.md`、`faq.md`、`fator.md` 与 `data/*.md` 从 [聚宽官方 API 文档](https://www.joinquant.com/help/api/help) 离线同步，供策略开发时精确查阅；`simulation.md`、`strategy_template.md` 为本技能原创整理（机制依据官方文档）。
 
+意图到文件的路由见 `SKILL.md`「文档查阅流程」；本文件只给文件清单与定位线索。
+
 ## 根目录文档
 
-| 文件 | 内容 | 何时查阅 |
-|------|------|----------|
-| [api.md](api.md) | 策略 API 全文：initialize、run_daily、数据获取、交易、对象、示例 | 查任意官网 API 签名、参数、返回值 |
-| [faq.md](faq.md) | 常见问题：数据更新频率、代码后缀、复权、财务差异、期货主力合约、模拟交易替换代码 | 数据异常、环境差异、模拟盘代码未生效 |
-| [fator.md](fator.md) | 因子分析：Factor 定义、calc_factors、因子看板、多因子框架 | 自定义因子、因子回测分析 |
-| [strategy_template.md](strategy_template.md) | 通用策略模板：`apply_settings` 配置集中、盘前选池、调仓骨架、改造清单 | 新建策略、需要可直接运行的骨架 |
-| [simulation.md](simulation.md) | 模拟盘热更新：断点定位、`apply_settings` 单一配置源、诊断模板、常见误判 | 模拟盘改代码/参数不生效、替换代码排查 |
+| 文件 | 内容 |
+|------|------|
+| [api.md](api.md) | 策略 API 全文：initialize、run_daily、数据获取、交易、对象、示例 |
+| [faq.md](faq.md) | 常见问题：数据更新频率、代码后缀、复权、财务差异、期货主力合约、模拟交易替换代码 |
+| [fator.md](fator.md) | 因子分析：Factor 定义、calc_factors、因子看板、多因子框架 |
+| [strategy_template.md](strategy_template.md) | 通用策略模板：`apply_settings` 配置集中、盘前选池、调仓骨架、改造清单 |
+| [simulation.md](simulation.md) | 模拟盘热更新：断点定位、`apply_settings` 单一配置源、诊断模板、常见误判 |
 
 ## 数据字典（data/）
 
@@ -49,19 +51,30 @@
 | 期货策略专用函数 | 换月、交割相关 |
 | 策略示例 | 均线、多股、追涨、万圣节效应 |
 
+♠ = 仅回测/模拟可用，研究模块不可调用。
+
 ## 搜索技巧
 
-```bash
-# 在 api.md 中搜索函数
-rg "def get_price|get_price\(" skills/joinquant-strategy/api.md
+在技能目录内执行：
 
-# 在数据字典中搜索字段
-rg "market_cap|市盈率" skills/joinquant-strategy/data/Stock.md
+```bash
+# 搜索函数签名与用法
+rg "get_price\(" api.md
+
+# 搜索字段 / 中文关键词
+rg "market_cap|市盈率" data/Stock.md
 
 # 搜索技术指标
-rg "^### MACD" skills/joinquant-strategy/data/technicalanalysis.md
+rg "^### MACD" data/technicalanalysis.md
 ```
 
-## 原始 HTML 缓存
+## 文档同步
 
-`data/local/*.html` 为官网原始 HTML，仅在需要对比转换质量时参考。日常查 API 请读 `.md` 文件。
+在**仓库根目录**执行（脚本按 `./skills/joinquant-strategy/data` 写入）：
+
+```bash
+bun scripts/get-joinquant-docs.ts
+# 强制覆盖已有 md：FORCE_UPDATE=1 bun scripts/get-joinquant-docs.ts
+```
+
+`api.md` / `faq.md` / `data/*.md` 由脚本同步，切勿手改。脚本把官网原始 HTML 缓存到 `data/local/*.html`（已被 `.gitignore` 忽略，仅本地存在，克隆后无此目录），仅在需要对比转换质量时参考。

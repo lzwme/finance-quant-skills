@@ -13,7 +13,7 @@
 
 先来看一个简单但是完整的策略:
 
-```python python
+```py
 def initialize(context):
     # 定义一个全局变量, 保存要操作的股票
     g.security = '000001.XSHE'
@@ -46,7 +46,7 @@ def market_open(context):
 -   如果上一时间点价格高出五天平均价1%, 则全仓买入
 -   如果上一时间点价格低于五天平均价, 则空仓卖出
 
-```python python
+```py
 # 导入聚宽函数库
 import jqdata
 
@@ -198,7 +198,7 @@ Bar 就是时间维度上，价格在空间维度上变化构成的数据单元�
     -   run_xxx和handle_data不要在同一个策略中使用，建议使用run_xxxx;
     -   一个策略中可以写多个run_xxx函数，例如需要每分钟运行和定时运行的话，可以这样设置：
 
-    ```python python
+    ```py
     ## func1, func2, func3都是您自己实现的函数
     # 每分钟运行
     run_daily(func1, time='every_bar')
@@ -320,7 +320,7 @@ Bar 就是时间维度上，价格在空间维度上变化构成的数据单元�
 传统前复权回测模式 与 真实价格（动态复权）回测模式 区别
 
 使用前复权价格，不论回测开始时间、结束时间是何时，使用的数据都是基于今天（回测当天）或某个时间的复权因子进行前复权获得的价格，因此使用前复权价格进行回测，回测结果肯定有问题。示意图如下： !\[传统回测模式\](https://image.joinquant.com/cfa8e207b0590a821c236f374eaed457) 不论历史时刻1或历史时刻2，拿到的数据都是基于未来某一天的前复权价格，使用这样的数据存在未来函数（未来函数是回测最大的敌人之一） !\[开启真实价格回测\](https://image.joinquant.com/b85f579811e3ee8209ac311761ee5d74) 使用真实价格回测模式，回测到历史时刻1，使用历史时刻1的真实价格撮合成交；如果需要复权，会使用的历史时刻1的复权因子，对“历史时刻1"之前的价格进行前复权，这样有效避免了未来函数，因为回测全程都不可能使用未来的数据。 你可能没有看懂，下面举个例子： !\[p3\](https://image.joinquant.com/37a5167160afbf57fa155aa12f391a99) 如现有一只股票，股价一直没有波动，只进行了拆分。 - 前复权回测模式 - 站在“历史时刻3”看历史数据：因为使用今天的复权因子，“历史时刻3”之前的股价均为2； - 站在“历史时刻2”看历史数据：因为使用今天的复权因子，“历史时刻3”的股价是2； - 站在“历史时刻1”看历史数据，因为使用今天的复权因子，“历史时刻2”和“历史时刻3”的股价是2； - 真实价格回测模式 - 站在“历史时刻3”看历史数据：因为使用历史时刻3的复权因子，“历史时刻3”之前的股价均为8 - 站在“历史时刻2”看历史数据：因为使用历史时刻2的复权因子，“历史时刻3”的股价是4； - 站在“历史时刻1”看历史数据：因为使用历史时刻1的复权因子，“历史时刻2”和“历史时刻3”的股价是2； \*\*因为使用了未来的复权因子，前复权回测模式，回测过程中使用的价格是不正确的。\*\* 下面再举一个真实的例子，比较一下前复权回测模式和真实价格回测模式的区别 !\[GL_pre\](https://image.joinquant.com/d5c3445c18c7b5f76f61e075521137d2) 2007-01-30，波导股份的真实股价（绿色曲线）是低于格力电器（黑色曲线）的；但使用前复权价格，波导股份的价格会高于格力电器。 采用最简单的交易思路，购买股价低的股票并持有，前复权模式会买入格力电器，真实价格回测模式会买入波导股份。 下面我们进行回测，根据2007-01-30当天格力电器与波导股份的收盘价，买入低价位股票并持有到现在。回测结果如下所示： \*\*前复权回测模式的回测结果：\*\* 初始资金：100,000 策略收益：776.54% 沪深300收益：21.98% 最大回撤：64.98% !\[gbzs\](https://image.joinquant.com/933bf07aa1ab7143e5c8c45c55be41e3) \*\*真实价格回测模式的回测结果：\*\* 初始资金：100,000 策略收益：78.35% 沪深300收益：21.98% 最大回撤：79.78% !\[kqzs\](https://image.joinquant.com/cc3e42eaba4988ae2a21622673f6e0f7) \*\*由回测结果不难看出，前复权回测模式因为存在未来函数，结果是不准确的，使用前复权回测模式可能会让你获得非常高的收益，但实盘时，效果却非常一般；在某些策略中，如使用到价格因子，前复权模式会导致回测中买卖信号与实际中不一致，从而导致回测结果不准确，影响策略在真实场景中的应用。\*\* 开启真实价格回测功能 其实很简单，只需一步即可搞定： 在initialize中使用set_option即可，如下所示：
-```python python
+```py
 def initialize(context):
     set_option('use_real_price', True)
 
@@ -495,7 +495,7 @@ AEI 日均超额收益
         -   g 中以 '\_\_' 开头的变量将被忽略, 不会被保存
         -   g 中不能序列化的变量不会被保存, 重启后会不存在. 如果你写了如下的代码:
 
-        ```python python
+        ```py
         def initialize(context):
             g.query = query(valuation)
 
@@ -503,7 +503,7 @@ AEI 日均超额收益
 
         -   [g](#g) 将不能被保存, 因为 query() 返回的对象并不能被持久化. 重启后也不会再执行 [initialize](#initialize), 使用 g.query 将会抛出 AttributeError 异常。正确的做法是, 在 [process_initialize](#process_initialize) 中初始化它, 并且名字以 '\_\_' 开头.
 
-        ```python python
+        ```py
         def process_initialize(context):
             g.__query = query(valuation)
 
@@ -526,7 +526,7 @@ AEI 日均超额收益
 
 -   模拟盘更改回测之后上述的全局变量(包括 g 和 context 中保存的)不会丢失. 新代码中 [initialize](#initialize) 不会执行. 如果需要修改原来的值, 可以在 [after_code_changed](#after_code_changed) 函数里面修改, 比如, 原来代码是:
 
-    ```python python
+    ```py
     def initialize(context):
         g.stock = '000001.XSHE'
 
@@ -534,7 +534,7 @@ AEI 日均超额收益
 
     代码改成:
 
-    ```python python
+    ```py
     def initialize(context):
         g.stock = '000002.XSHE'
 
@@ -542,7 +542,7 @@ AEI 日均超额收益
 
     执行时, g.stock 仍然是 '000001.XSHE', 要修改他们的值, 必须定义 [after_code_changed](#after_code_changed):
 
-    ```python python
+    ```py
     def after_code_changed(context):
         g.stock = '000002.XSHE'
 
@@ -638,7 +638,7 @@ AEI 日均超额收益
 
 回测代码如下, 优化函数API详情见 [portfolio_optimizer - 投资组合优化](https://www.joinquant.com/help/api/help#name:optimizer)：
 
-```python python
+```py
 # 导入函数库
 import pandas as pd
 from jqdata import *
@@ -778,12 +778,12 @@ def market_open(context):
 
 initialize 初始化函数
 
-```python python
+```py
 initialize(context)
 
 ```
 初始化方法，在整个回测、模拟中最开始执行一次，用于初始一些全局变量 \*\*参数\*\* context: \[Context\](#Context)对象, 存放有当前的账户/股票持仓信息 \*\*注意\*\* 该函数只在开始模拟交易的时候运行一次, 直接替换/修改代码导致的初始化函数变动并不会在模拟盘中生效 , 应该使用after_code_changed等函数 \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 def initialize(context):
     # g为全局变量
     g.security = "000001.XSHE"
@@ -793,7 +793,7 @@ def initialize(context):
 run_daily/run_weekly/run_monthly 定时运行策略(可选)
 
 - run_monthly - run_weekly - run_daily
-```python python
+```py
 def initialize(context):
     ## func是您自己定义的函数
     # 按月运行
@@ -808,7 +808,7 @@ def initialize(context):
 如参照 '000001.XSHG'，交易时间为 9:30-15:00；
 如参照'IF9999.CCFX'，2016-01-01之后的交易时间为 9:30-15:00，在此之前为 9:15-15:15；
 如参照'A9999.XDCE'，因为有夜盘，因此开始时间为21:00，结束时间为15:00。期货策略一定要修改参考标的，建议修改为对应的主力合约。当time为具体时间时请勿设置此参数 \*\*返回值\*\* None \*\*注意\*\* - \*\*一个策略中尽量不要同时使用run_daily和handle_data，更不能使用run_daily(handle_data, "xx:xx")\*\* - 建议使用run_daily； - \[【API解析】策略运行频率（附隔固定时间运行方法）\](https://www.joinquant.com/view/community/detail/6797d703ee45325b51079374439b1ca5) - run_daily中的函数只能有一个参数context，具体示例如下：
-```python python
+```py
 def initialize(context):
     run_daily(func, time='10:00')
 
@@ -823,7 +823,7 @@ def func1(context, parm1):
 
 ```
 - \*\*参数 func 必须是一个全局的函数, 不能是类的成员函数\*\*, 示例:
-```python python
+```py
 def on_week_start(context):
     pass
 
@@ -839,7 +839,7 @@ def initialize(context):
 
 ```
 - 通过\[history\](#history)/\[attribute_history\](#attribute_history)取天数据时, \*\*是不包括当天的数据的\*\*(即使在15:00和after_close里面也是如此), 要取得当天数据, 只能取分钟的 - 这些函数可以\*\*重复调用\*\*, 比如下面的代码可以在每周的第一个交易日和最后一个交易日分别调用两个函数:
-```python python
+```py
 def on_week_start(context):
     pass
 def on_week_end(context):
@@ -850,7 +850,7 @@ def initialize(context):
 
 ```
 - 每次调用这些函数都会产生一个新的定时任务, 如果想修改或者删除旧的定时任务, 请先调用 \[unschedule_all\](#unschedule_all) 来删除所有定时任务, 然后再添加新的. - 在一月/一周交易日数不够以致于monthday/weekday无法满足时, 我们会找这周内最近的一个日期来执行, 比如, 如果某一周只有4个交易日: - 若 weekday == 5, 我们会在第4个交易日执行 - 若 weekday == -5, 我们会在第1个交易日执行 如果要避免这样的行为, 您可以这样做:
-```python python
+```py
 def initialize(context):
     run_weekly(weekly, 1)
 
@@ -861,7 +861,7 @@ def weekly(context):
 
 ```
 \*\*示例\*\*
-```python python
+```py
 def initialize(context):
     run_weekly(market_open, weekday=2, force=False)
 
@@ -869,7 +869,7 @@ def market_open(context):
     print("今天是周内第二个交易日") #注意策略开始的那一周,第一个交易日是按策略开始的日期开始计算的
 
 ```
-```python python
+```py
 def weekly(context):
     print('weekly %s %s' % (context.current_dt, context.current_dt.isoweekday()))
 
@@ -910,12 +910,12 @@ def initialize(context):
 
 handle_data 运行策略(可选)
 
-```python python
+```py
 handle_data(context, data)
 
 ```
 该函数每个单位时间会调用一次, 如果按天回测,则每天调用一次,如果按分钟,则每分钟调用一次 ,tick频率不支持这个函数。 \*\*该函数依据的时间是股票的交易时间，即 9:30 - 15:00. 期货请使用\[定时运行\](#task_func)函数。\*\* 该函数在回测中的非交易日是不会触发的（如回测结束日期为2016年1月5日，则程序在2016年1月1日-3日时，handle_data不会运行，4日继续运行）。 对于使用当日开盘价撮合的日级模拟盘，在9:25集合竞价完成时就可以获取到开盘价，出于减少并发运行模拟盘数量的目的，我们会提前到9:27~9:30之间运行, 策略内获取到逻辑时间(context.current_dt)仍然是 9:30。 \*\*参数\*\* context: \[Context\](#Context)对象, 存放有当前的账户/标的持仓信息 data: 一个字典(dict), key是股票代码, value是当时的\[SecurityUnitData\](#SecurityUnitData) 对象. 存放前一个单位时间(按天回测, 是前一天, 按分钟回测, 则是前一分钟) 的数据. \*\*注意\*\*: - 为了加速, data 里面的数据是按需获取的, 每次 handle_data 被调用时, data 是空的 dict, 当你使用 \`data\[security\]\` 时该 security 的数据才会被获取. - data 只在这一个时间点有效, 请不要存起来到下一个 handle_data 再用 - 注意, 要获取回测当天的开盘价/是否停牌/涨跌停价, 请使用 \[get_current_data\](#get_current_data) \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 def handle_data(context, data):
     order("000001.XSHE",100)
 
@@ -923,7 +923,7 @@ def handle_data(context, data):
 
 on_event 事件回调(可选)
 
-```python python
+```py
 on_event(context, event)
 
 ```
@@ -931,12 +931,12 @@ on_event(context, event)
 
 before_trading_start 开盘前运行策略(可选)
 
-```python python
+```py
 before_trading_start(context)
 
 ```
 该函数会在每天开始交易前被调用一次, 您可以在这里添加一些每天都要初始化的东西. \*\*该函数依据的时间是股票的交易时间，即该函数启动时间为'09:00'. 期货请使用\[定时运行\](#task_func)函数，time 参数设定为'08:30' 。\*\* \*\*参数\*\* context: \[Context\](#Context)对象, 存放有当前的账户/股票持仓信息 \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 def before_trading_start(context):
     log.info(str(context.current_dt))
 
@@ -944,12 +944,12 @@ def before_trading_start(context):
 
 after_trading_end 收盘后运行策略(可选)
 
-```python python
+```py
 after_trading_end(context)
 
 ```
 该函数会在每天结束交易后被调用一次, 您可以在这里添加一些每天收盘后要执行的内容. 这个时候所有未完成的订单已经取消. \*\*该函数依据的时间是股票的交易时间，即该函数启动时间为 15:30. 期货请使用\[定时运行\](#task_func)函数，time 参数设定为'15:30' 。\*\* \*\*参数\*\* context: \[Context\](#Context)对象, 存放有当前的账户/股票持仓信息 \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 def after_trading_end(context):
     log.info(str(context.current_dt))
 
@@ -957,12 +957,12 @@ def after_trading_end(context):
 
 on_strategy_end 策略运行结束时调用(可选)
 
-```python python
+```py
 def on_strategy_end(context)
 
 ```
 在回测、模拟交易正常结束时被调用， 失败时不会被调用。 在模拟交易到期结束时也会被调用， 手动在到期前关闭不会被调用。 \*\*参数\*\* context: \[Context\](#Context)对象, 存放有当前的账户/股票持仓信息 \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 def on_strategy_end(context):
     print('回测结束')
 
@@ -970,12 +970,12 @@ def on_strategy_end(context):
 
 process_initialize 每次程序启动时运行函数(可选)
 
-```python python
+```py
 process_initialize(context)
 
 ```
 该函数会在每次模拟盘/回测进程重启时执行, 一般用来初始化一些\*\*不能持久化保存\*\*的内容. 在 \[initialize\](#initialize) 后执行. 因为模拟盘会每天重启(只在注册的定时运行时间点才会启动,任务结束后进程关闭), 所以这个函数会每天都执行. \*\*参数\*\* context: \[Context\](#Context)对象, 存放有当前的账户/股票持仓信息 \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 def process_initialize(context):
     # query 对象不能被 pickle 序列化, 所以不能持久保存, 所以每次进程重启时都给它初始化
     # 以两个下划线开始, 系统序列化 [g](#g) 时就会自动忽略这个变量, 更多信息, 请看 [g](#g) 和 [模拟盘注意事项](#simulation_matters)
@@ -988,12 +988,12 @@ def handle_data(context, data):
 
 after_code_changed 模拟交易更换代码后运行函数(可选)
 
-```python python
+```py
 after_code_changed(context)
 
 ```
 模拟盘在每天的交易时间结束后会休眠，第二天开盘时会恢复，如果在恢复时发现代码已经发生了修改，则会在恢复时执行这个函数。 具体的使用场景：可以利用这个函数修改一些模拟盘的数据。 注意: 因为一些原因, 执行回测时这个函数也会被执行一次, 在 \[process_initialize\](#process_initialize) 执行之前执行. \*\*参数\*\* context: \[Context\](#Context)对象, 存放有当前的账户/股票持仓信息 \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 def after_code_changed(context):
     g.stock = '000001.XSHE'
 
@@ -1001,13 +1001,13 @@ def after_code_changed(context):
 
 unschedule_all 取消所有定时运行(可选)
 
-```python python
+```py
 # 取消所有定时运行
 unschedule_all()
 
 ```
 \*\*示例\*\*
-```python python
+```py
 def after_code_changed(context):
     # 取消所有定时运行
     unschedule_all()
@@ -1038,29 +1038,29 @@ def after_code_changed(context):
 
 set_benchmark 设置基准
 
-```python python
+```py
 set_benchmark(security)
 
 ```
 默认我们选定了沪深300指数的每日价格作为判断您策略好坏和一系列风险值计算的基准. 您也可以使用set_benchmark指定其他股票/指数/ETF/自定义组合的价格作为基准。 如果在期货策略中不希望看到基准，可以这样设置：set_benchmark({"000001.XSHG":0})，策略可以正常运行 （但无法计算alpha等收益）。 \*\*参数\*\* - security:股票/指数/ETF代码，或者一个dict，key为股票/指数/ETF代码，value为小于1的浮点数，代表对应标的的权重，权重之和必须小于等于1（小于1代表基准中部分资金闲置）。 \*\*返回\*\* None \*\*示例一\*\*
-```python python
+```py
 set_benchmark('600000.XSHG')
 
 ```
 \*\*示例二，设置自定义组合为基准\*\*
-```python python
+```py
 set_benchmark({'000001.XSHG':0.5,'000300.XSHG':0.3,'600000.XSHG':0.2})
 
 ```
 
 set_order_cost 设置佣金/印花税
 
-```python python
+```py
 set_order_cost(cost, type, ref=None)
 
 ```
 指定每笔交易要收取的手续费, 系统会根据用户指定的费率计算每笔交易的手续费 \*\*参数\*\* - cost: OrderCost 对象 - open_tax，买入时印花税 (只股票类标的收取，基金与期货不收) - close_tax，卖出时印花税 (只股票类标的收取，基金与期货不收) - open_commission，买入时佣金 - close_commission, 卖出时佣金 - close_today_commission, 平今仓佣金 - min_commission, 最低佣金，不包含印花税 - type: 股票、场内基金、场内交易的货币基金、分级A基金、分级B基金、分级母基金、金融期货、期货、债券基金、股票基金、QDII 基金、混合基金，'stock'/ 'fund' / 'mmf' /'fja'/'fjb'/ 'fjm'/ 'index_futures' / 'futures' / 'bond_fund' / 'stock_fund' / 'QDII_fund' / / ‘mixture_fund' / - ref: 参考代码，支持股票代码/基金代码/期货合约代码，以及期货的品种，如 '000001.XSHE'/'510180.XSHG'/'IF1709'/'IF'/'000300.OF' \*\*注意：针对特定的交易品种类别设置手续费时，必须将ref设为None；若针对特定的交易品种或者标的，需要将type设置为对应的交易品种类别，将ref设置为对应的交易品种或者标的\*\* \*\*默认与示例\*\*
-```python python
+```py
 # 股票类每笔交易时的手续费是：买入时佣金万分之三，卖出时佣金万分之三加千分之一印花税, 每笔交易佣金最低扣5块钱
 set_order_cost(OrderCost(open_tax=0, close_tax=0.001, open_commission=0.0003, close_commission=0.0003, close_today_commission=0, min_commission=5), type='stock')
 
@@ -1087,12 +1087,12 @@ set_order_cost(OrderCost(open_tax=0, close_tax=0.001, open_commission=0.0003, cl
 
 set_slippage 设置滑点
 
-```python python
+```py
 set_slippage(object,type=None, ref=None)
 
 ```
 设定滑点，回测/模拟时有效. 当您下单后, 真实的成交价格与下单时预期的价格总会有一定偏差, 因此我们加入了滑点模式来帮您更好的模拟真实市场的表现. 我们也支持为交易品种和特定的交易标的设置滑点。 \*\*参数\*\* - type：交易品种，支持股票、基金、金融期货、期货、债券基金、股票基金、QDII 基金、货币基金、混合基金，'stock'/ 'fund' / 'index_futures' （金融期货）/ 'futures'（包含股指期货和商品期货） / 'bond_fund' / 'stock_fund' / 'QDII_fund' / 'money_market_fund' / ‘mixture_fund' 。为None时则应用于全局。当type被设定而ref为None时，表示将滑点应用于交易品种为type的所有交易标的。 - ref: 标的代码。如要为特定交易标的单独设置滑点，必须同时设置type为交易标的的交易品种。 \*\*固定滑点\*\* 当您使用固定滑点的时候, 我们认为您的落单的多少并不会影响您最后的成交价格. 您只需要指定一个价差, 当您下达一个买单指令的时候, 成交的价格等于当时(您执行order函数所在的单位时间)的平均价格加上价差的一半；当您下达一个卖出指令的时候，卖出的价格等于当时的平均价格减去价差的一半. 价差可以设定为一个固定值或者按照百分比设定。 - 固定值： 这个价差可以是一个固定的值(比如0.02元, 交易时加减0.01元), 设定方式为：FixedSlippage(0.02) - 百分比： 这个价差可以是是当时价格的一个百分比(比如0.2%, 交易时加减当时价格的0.1%), 设定方式为：PriceRelatedSlippage(0.002) - 跳数（期货专用，双边）: 这个价差可以是合约的价格变动单位（跳数），比如2跳，设定方式为： StepRelatedSlippage(2)；滑点为小数时，向下取整，例如设置为3跳，单边1.5，向下取整为1跳。
-```python python
+```py
 # 为全部交易品种设定固定值滑点
 set_slippage(FixedSlippage(0.02))
 
@@ -1113,18 +1113,18 @@ set_slippage(StepRelatedSlippage(2),type='futures', ref="RB1809.XSGE")
 
 use_real_price 设置动态复权(真实价格)模式，建议开启
 
-```python python
+```py
 set_option('use_real_price', value)
 
 ```
 \*\*该设定必须在\[initialize\](#initialize)中调用，建议开启\*\* 设置是否开启动态复权（真实价格）模式，默认是False(主要是为了让旧的策略不会出错)。 是否开启动态复权模式对模拟交易是有影响的，原理参考\[拆分合并与分红\](https://www.joinquant.com/help/api/help?name=api#%E6%8B%86%E5%88%86%E5%90%88%E5%B9%B6%E4%B8%8E%E5%88%86%E7%BA%A2)，\[【API解析】| 动态复权与技术指标\](https://www.joinquant.com/view/community/detail/48502bfa85355991258093e990d74f35?type=1)。 \*\*参数\*\* - value: True / False \*\*示例\*\*
-```python python
+```py
 # 开启动态复权模式
 set_option('use_real_price', True)
 
 ```
 \*\*是否开启动态复权对于回测及模拟交易的影响（原理参考\[拆分合并与分红\](https://www.joinquant.com/help/api/help?name=api#%E6%8B%86%E5%88%86%E5%90%88%E5%B9%B6%E4%B8%8E%E5%88%86%E7%BA%A2)）：\*\* - \*\*开启\*\*，value 值为 True: 回测过程中: - 每天看到的当天的价格都是真实的(不复权的) - 使用真实的价格下单, 交易详情和持仓详情里看到的都是真实价格 - 为了让编写代码简单, 通过\[数据获取函数API\](#数据获取函数) \*\*拿到的都是基于当天日期的前复权价格\*\*. 比如: 回测运行到了2015-01-01这一天, 那么\`history(3, '1d', 'close')\`取得的就是你穿越到2015-01-01这一天所看到的前复权价格. 另一方面, 你在不同日期调用\[数据获取函数API\](#数据获取函数)返回的价格可能是不一样的, 因为我们在不同日期看到的前复权价格是不一样的. 所以\*\*不要跨日期缓存这些API返回的结果.\*\* - 每到新的一天, \*\*如果持仓中有股票发生了送股或者分红，对应的股数/现金会自动在账户中体现 - 注意事项: - 如上所说, 不要跨日期缓存\[数据获取函数API\](#数据获取函数)返回的结果 - 开启真实价格回测之后, 回测结果可能会之前不一样, 因为交易时买入数量必须是100的倍数, 使用前复权价格和实际价格能买入的数量是不一样的. - 如果想通过 history 拿到昨天的真实价格, 还是需要用取得价格除以factor, 因为可能今天发生了拆合分红, 导致拿到的昨天的价格是相对于今天的前复权价格. \`\`\`python s = '000001.XSHE' df = attribute_history(s, 1, '1d', fields=\['close', 'factor'\]) real_close = df\['close'\]\[-1\] / df\['factor'\]\[-1\] \`\`\` - \*\*关闭\*\*，value 值为 False: 此选项的核心是选定一个日期作为基准, 保证这个日期的价格是真实价格, 然后调整其他日期的价格. 最终保证所有价格是连续的, 在回测或者模拟交易过程中不同日期看到的价格是一致的. 下面分回测和模拟交易单独做介绍: - 回测: 基准日期是建立回测的日期, 回测过程中所看到的所有价格都是基于此日期的前复权价格. 比如说, 我昨天跑了一个回测, 那么回测过程所有价格都是在昨天所看到的前复权价格. 这会导致两个问题: - 回测过程中使用了前复权价格下单, 这是违背真实场景的. - 不同的日期建立的回测跑出来的结果可能会有差异, 因为如果这两次回测之间回测的股票发生了拆合或者分红, 会导致回测中看到前复权价格会不一致. - 模拟交易: 基准日期是建立模拟交易的日期, 模拟交易过程所看到的所有价格都是基于此日期调整过的. 为了方便计算, 我举一个虚拟的例子: 某只股票在如下三个日期的实际价格和后复权因子分别是: |日期|价格|后复权因子| |--|--|--| |2015-09-01|1|1| |2015-10-01|2|2| |2015-11-01|4|4| - 如果你在 09-01 建立了一个模拟交易, 你在不同日期看到的所有价格都是 1 - 如果你在 10-01 建立了一个模拟交易, 你在不同日期看到的所有价格都是 2 - 如果你在 11-01 建立了一个模拟交易, 你在不同日期看到的所有价格都是 4 - 为了更好的模拟, 建议大家都设成 True. \*\*注意：\*\* (1)对期货不生效,对场内基金会生效, 但因场内基金在拆分/合并时除权日披露不标准,目前采用的是折算基准日，和实际除权日可能有差异，鉴于此原因不建议给含有场内基金的策略开启动态复权 (2) 设置 use_real_price 为 True之后, 如下的按天回测的代码是不对的：
-```python python
+```py
 def initialize(context):
     g.cached_data = []
     g.s = '000001.XSHE'
@@ -1140,12 +1140,12 @@ def handle_data(content, data):
 
 order_volume_ratio 设置成交量比例
 
-```python python
+```py
 set_option('order_volume_ratio', value)
 
 ```
 设定成交量比例，根据实际行情限制每个订单的成交量. \*\*参数\*\* - value: value 是一个 float 值, 默认为1.0, 根据实际行情限制每个订单的成交量. - 对于每一笔订单： - 如果是市价单, 成交量不超过: 每日成交量 \* value - 如果是限价单, \[限价单撮合\](#订单处理)时设定分价表中每一个价格的成交量的比率, 假设某一分钟分价表如下: 价格|成交量 ---|--- 10.0 | 10 10.1 | 11 10.2 | 12 - 撮合时, 按价格 10.0 成交 10 \* value 股, 按价格 10.1 成交 11 \* value 股, 按价格 10.2 成交 12 \* value 股 \*\*示例\*\*
-```python python
+```py
 # 设定成交量比例
 set_option('order_volume_ratio', 0.25) # 成交量不超过总成交量的四分之一
 
@@ -1154,7 +1154,7 @@ set_option('order_volume_ratio', 0.25) # 成交量不超过总成交量的四分
 
 match_with_order_book 设置是否开启盘口撮合模式
 
-```python python
+```py
 set_option('match_with_order_book', value)
 
 ```
@@ -1162,19 +1162,19 @@ set_option('match_with_order_book', value)
 
 set_universe(history专用) 设定股票池
 
-```python python
+```py
 set_universe(security_list)
 
 ```
 设置或者更新此策略要操作的股票池 context.universe. 请注意: - \*\*该函数现在只用于设定history函数的默认security_list, 除此之外并无其他用处。\*\* \*\*参数\*\* - security_list: 股票列表 \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 set_universe(['000001.XSHE', '600000.XSHG'])
 
 ```
 
 ~~set_commission(已废弃)~~ 设定费率
 
-```python python
+```py
 set_commission(object)
 
 ```
@@ -1182,7 +1182,7 @@ set_commission(object)
 
 disable_cache 关闭缓存
 
-```python python
+```py
 disable_cache()
 
 ```
@@ -1203,7 +1203,7 @@ set_option("match_by_signal", True)
 
 avoid_future_data 设置是否开启避免未来数据模式
 
-```python python
+```py
 set_option("avoid_future_data", True)
 
 ```
@@ -1236,12 +1236,12 @@ set_option("avoid_future_data", True)
 
 get_price 获取历史数据，可查询多个标的多个数据字段，返回数据格式为 DataFrame
 
-```python python
+```py
 get_price(security, start_date=None, end_date=None, frequency='daily', fields=None, skip_paused=False, fq='pre', count=None, panel=True, fill_paused=True)
 
 ```
 获取一支或者多只股票的行情数据, 按天或者按分钟，这里在使用时注意 end_date 的设置， 传入的值不要大于context.current_dt，否则会引入未来函数。 \*\*关于停牌\*\*: 因为此API可以获取多只股票的数据, 可能有的股票停牌有的没有, 为了保持时间轴的一致, 我们默认没有跳过停牌的日期, 停牌时使用停牌前的数据填充(请看 \[SecurityUnitData\](https://www.joinquant.com/help/api/help?name=api#SecurityUnitData) 的 paused 属性). 如想跳过, 请使用 skip_paused=True 参数, 注意当 panel=True 且获取多标的时不支持(panel结构需要索引对齐) \*\*参数\*\* - security: 一支股票代码或者一个股票代码的list - count: \*\*与 start_date 二选一，不可同时使用\*\*. 数量, 返回的结果集的行数, 即表示获取 end_date 之前几个 frequency 的数据 - start_date: \*\*与 count 二选一，不可同时使用\*\*. 字符串或者 datetime.datetime/datetime.date 对象, 开始时间. - 如果 count 和 start_date 参数都没有, 则 start_date 生效, 值是 '2015-01-01'. 注意: - 当取分钟数据时, 时间可以精确到分钟, 比如: 传入 \`datetime.datetime(2015, 1, 1, 10, 0, 0)\` 或者 \`'2015-01-01 10:00:00'\`. - 当取分钟数据时, 如果只传入日期, 则日内时间是当日的 00:00:00. - 当取天数据时, 传入的日内时间会被忽略 - end_date: 格式同上, 结束时间, 默认是'2015-12-31', 包含此日期. \*\*注意: 当取分钟数据时, 如果 end_date 只有日期, 则日内时间等同于 00:00:00, 所以返回的数据是不包括 end_date 这一天的\*\*. - frequency: 单位时间长度, 几天或者几分钟, 现在支持'Xd','Xm', 'daily'(等同于'1d'), 'minute'(等同于'1m'), X是一个正整数, 分别表示X天和X分钟(不论是按天还是按分钟回测都能拿到这两种单位的数据), 注意, 当X > 1时, fields只支持\['open', 'close', 'high', 'low', 'volume', 'money'\]这几个标准字段,\*\*合成数据的逻辑见下文\*\*. 默认值是daily - fields: 字符串list, 选择要获取的行情数据字段, 默认是None(表示\['open', 'close', 'high', 'low', 'volume', 'money'\]这几个标准字段), 支持\[SecurityUnitData\](#SecurityUnitData)里面的所有基本属性,，包含：\['open', 'close', 'low', 'high', 'volume', 'money', 'factor', 'high_limit','low_limit', 'avg', 'pre_close', 'paused','open_interest'\],其中paused为1表示停牌。 - skip_paused: 是否跳过不交易日期(包括停牌, 未上市或者退市后的日期). 如果不跳过, 停牌时会使用停牌前的数据填充(具体请看\[SecurityUnitData\](#SecurityUnitData)的paused属性), 上市前或者退市后数据都为 nan, 但要注意: - 默认为 False - 当 skip_paused 是 True 时, 获取多个标的时需要将panel参数设置为False(panel结构需要索引对齐) - fq: 复权选项(对股票/基金的价格字段、成交量字段及factor字段生效) : - \`'pre'\`, 前复权(根据'use_real_price'选项不同含义会有所不同, 参见\[set_option\]), 默认是前复权 - \`None\`,不复权, 返回实际价格 - \`'post'\`,后复权 - panel：在pandas 0.25版后，panel被彻底移除。获取多标的数据时建议设置panel为False，返回等效的dataframe - fill_paused：对于停牌股票的价格处理，默认为True；True表示用pre_close价格填充；False 表示使用NAN填充停牌的数据。 \*\*合成数据的逻辑\*\* 当frequency为X天和X分钟时，代表使用以X为长度的滑动窗口进行合并数据。举例： - 9:33:00调用get_price获取1个单位的数据，frequency='5min',表示使用上一交易日14:58、14:59、15:00、本交易日9:31、9:32这5根1分钟K线来合成数据； - 9:37:00调用get_price获取1个单位的数据，frequency='5min',表示使用本交易日9:32、9:33、9:34、9:35、9:36这5根1分钟K线来合成数据； \*\*返回\*\* - \*\*请注意, 为了方便比较一只股票的多个属性, 同时也满足对比多只股票的一个属性的需求, 我们在security参数是一只股票和多只股票时返回的结构完全不一样(默认panel=False时)\*\* - 如果是一支股票, 则返回\[pandas.DataFrame\]对象, 行索引是\[datetime.datetime\]对象, 列索引是行情字段名字, 比如'open'/'close'. 比如: \`get_price('000300.XSHG')\[:2\]\` 返回: |---|open|close|high|low|volume|money| |---|---|---|---|---|---|---| |2015-01-05|3566.09|3641.54|3669.04|3551.51|451198098.0|519849817448.0| |2015-01-06|3608.43|3641.06|3683.23|3587.23|420962185.0|498529588258.0| - 如果是多支股票, 则返回\[pandas.Panel\]对象, 里面是很多\[pandas.DataFrame\]对象, 索引是行情字段(open/close/...), 每个\[pandas.DataFrame\]的行索引是\[datetime.datetime\]对象, 列索引是股票代号. 比如\`get_price(\['000300.XSHG', '000001.XSHE'\])\['open'\]\[:2\]\`返回: |---|000300.XSHG|000001.XSHE| |---|---|---| |2015-01-05|3566.09|13.21| |2015-01-06|3608.43|13.09| \*\*示例\*\*
-```python python
+```py
 # 获取一支股票
 df = get_price('000001.XSHE') # 获取000001.XSHE的2015年的按天数据
 df = get_price('000001.XSHE', start_date='2015-01-01', end_date='2015-01-31 23:00:00', frequency='1m', fields=['open', 'close']) # 获得000001.XSHG的2015年01月的分钟数据, 只获取open+close字段
@@ -1259,12 +1259,12 @@ df_open['000001.XSHE'] # 获取平安银行的2015年每天的开盘价数据
 
 history 获取历史数据，可查询多个标的单个数据字段，返回数据格式为 DataFrame 或 Dict(字典)
 
-```python python
+```py
 history(count, unit='1d', field='avg', security_list=None, df=True, skip_paused=False, fq='pre')
 
 ```
 \*\*回测环境/模拟专用API，可以在投资研究中获取\*\* 查看历史的行情数据。 \*\*关于停牌\*\*: 因为获取了多只股票的数据, 可能有的股票停牌有的没有, 为了保持时间轴的一致, 我们默认没有跳过停牌的日期, 停牌时使用停牌前的数据填充(请看\[SecurityUnitData\]的paused属性). 如想跳过, 请使用 skip_paused=True 参数 \*\*当取天数据时, 不包括当天的, 即使是在收盘后；分钟数据不包括当前分钟的数据，没有未来\*\* \*\*参数\*\* - count: 数量, 返回的结果集的行数 - unit: 单位时间长度, 几天或者几分钟, 现在支持'Xd','Xm', X是一个正整数, 分别表示X天和X分钟(不论是按天还是按分钟回测都能拿到这两种单位的数据), 注意, 当X > 1时, field只支持\['open', 'close', 'high', 'low', 'volume', 'money'\]这几个标准字段. - field: 要获取的数据类型, 支持\[SecurityUnitData\](#SecurityUnitData)里面的所有基本属性,，包含：\['open', ' close', 'low', 'high', 'volume', 'money', 'factor', 'high_limit',' low_limit', 'avg', ' pre_close', 'paused'\] - security_list: - 要获取数据的股票列表 - None 表示查询 context.universe 中所有股票的数据，context.universe 需要使用\[set_universe\](#set_universe)进行设定，形如：set_universe(\['000001.XSHE', '600000.XSHG'\])。 - df: 若是True, 返回\[pandas.DataFrame\], 否则返回一个dict, 具体请看下面的返回值介绍. 默认是True. 我们之所以增加df参数, 是因为\[pandas.DataFrame\]创建和操作速度太慢, 很多情况并不需要使用它. 为了保持向上兼容, df默认是True, 但是如果你的回测速度很慢, 请考虑把df设成False. - skip_paused: 是否跳过不交易日期(包括停牌, 未上市或者退市后的日期). 如果不跳过, 停牌时会使用停牌前的数据填充(具体请看SecurityUnitData的paused属性), 上市前或者退市后数据都为 nan, 但要注意: - 默认为 False - 如果跳过, 则行索引不再是日期, 因为不同股票的实际交易日期可能不一样 - fq: 复权选项(对股票/基金的价格字段、成交量字段及factor字段生效) : - \`'pre'\`: 前复权(根据'use_real_price'选项不同含义会有所不同, 参见\[set_option\]), 默认是前复权 - \`None\`: 不复权, 返回实际价格 - \`'post'\`: 后复权 \*\*返回\*\* - df=True: \[pandas.DataFrame\]对象, 行索引是\[datetime.datetime\]对象, 列索引是股票代号. 比如: 如果当前时间是2015-01-07, universe是\['000300.XSHG', '000001.XSHE'\], \`history(2, '1d', 'open')\`将返回: |---|000300.XSHG|000001.XSHE| |---|---|---| |2015-01-05|3566.09|13.21| |2015-01-06|3608.43|13.09| 关于numpy和pandas, 请看下面的第三方库介绍 - df=False: dict, key是股票代码, value是一个numpy数组\[numpy.ndarray\], 对应上面的DataFrame的每一列, 例如\`history(2, '1d', 'open', df=False)\`将返回: \`\`\`python { '000300.XSHG': array(\[ 3566.09, 3608.43\]), '000001.XSHE': array(\[ 13.21, 13.09\]) } \`\`\` \*\*示例\*\*
-```python python
+```py
 h = history(5, security_list=['000001.XSHE', '000002.XSHE'])
 h['000001.XSHE'] #000001(平安银行)过去5天的每天的平均价, 一个pd.Series对象, index是datatime
 h['000001.XSHE'][-1] #000001(平安银行)昨天(数组最后一项)的平均价
@@ -1273,7 +1273,7 @@ h.iloc[-1]['000001.XSHE'] #000001(平安银行)昨天(数组最后一项)的平�
 h.mean() # 取得每一列的平均值
 
 ```
-```python python
+```py
 ## set_universe 之后可以，调用 history 可以不用指定 security_list
 set_universe(['000001.XSHE']) # 设定universe
 history(5) # 获取universe中股票的过去5天(不包含今天)的每天的平均价
@@ -1283,7 +1283,7 @@ history(5, '1m', 'volume') # 获取universe中股票的过去5分钟(不包含�
 history(5, '1m', 'price', ['000001.XSHE']) # 获取平安银行的过去5分钟(不包含当前分钟)的每分钟的平均价
 
 ```
-```python python
+```py
 h = history(5, security_list=['000001.XSHE', '000002.XSHE'], df=False)
 h['000001.XSHE'] #h 是一个 dict，获取 h 中 000001.XSHE 对应的值。
 h['000001.XSHE'][0] #返回000001.XSHE第五天的数据
@@ -1298,14 +1298,14 @@ h['000001.XSHE'].mean() # 对返回的五日数据求平均
 
 attribute_history 获取历史数据，可查询单个标的多个数据字段，返回数据格式为 DataFrame 或 Dict(字典)
 
-```python python
+```py
 attribute_history(security, count, unit='1d',
             fields=['open', 'close', 'high', 'low', 'volume', 'money'],
             skip_paused=True, df=True, fq='pre')
 
 ```
 \*\*回测环境/模拟专用API\*\* 查看某一支股票的历史数据, 可以选这只股票的多个属性, \*\*默认跳过停牌日期\*\*. \*\*当取天数据时, 不包括当天的, 即使是在收盘后；分钟数据不包括当前分钟的数据，没有未来；\*\* \*\*参数\*\* - security: 股票代码 - count: 数量, 返回的结果集的行数 - unit: 单位时间长度, 几天或者几分钟, 现在支持 'Xd', 'Xm', X是一个正整数, 分别表示X天和X分钟(不论是按天还是按分钟回测都能拿到这两种单位的数据), 注意, 当 X > 1 时, field 只支持 \['open', 'close', 'high', 'low', 'volume', 'money'\] 这几个标准字段. - fields: 股票属性的list, 支持\[SecurityUnitData\](#SecurityUnitData)里面的所有基本属性，包含：\['open', ' close', 'low', 'high', 'volume', 'money', 'factor', 'high_limit',' low_limit', 'avg', ' pre_close', 'paused'\] - skip_paused: 是否跳过不交易日期(包括停牌, 未上市或者退市后的日期). 如果不跳过, 停牌时会使用停牌前的数据填充(具体请看\[SecurityUnitData\]的paused属性), 上市前或者退市后数据都为 nan, \*\*默认是True\*\* - df: 若是True, 返回\[pandas.DataFrame\], 否则返回一个dict, 具体请看下面的返回值介绍. 默认是True.我们之所以增加df参数, 是因为\[pandas.DataFrame\]创建和操作速度太慢, 很多情况并不需要使用它. 为了保持向上兼容, df默认是True, 但是如果你的回测速度很慢, 请考虑把df设成False. - fq: 复权选项(对股票/基金的价格字段、成交量字段及factor字段生效) : - \`'pre'\`: 前复权(根据'use_real_price'选项不同含义会有所不同, 参见\[set_option\]), 默认是前复权 - \`None\`: 不复权, 返回实际价格 - \`'post'\`: 后复权 \*\*返回\*\* - df=True \[pandas.DataFrame\]对象, 行索引是\[datetime.datetime\]对象, 列索引是属性名字. 比如: 如果当前时间是2015-01-07, \`attribute_history('000300.XSHG', 2)\`将返回: |---|open|close|high|low|volume|money| |---|---|---|---|---|---|---| |2015-01-05|3566.09|3641.54|3669.04|3551.51|451198098.0|519849817448.0| |2015-01-06|3608.43|3641.06|3683.23|3587.23|420962185.0|498529588258.0| - df=False: dict, key是fields中的属性, value是一个numpy数组\[numpy.ndarray\], 对应上面的DataFrame的每一列, 例如\`attribute_history('000300.XSHG', 2, df=False)\`将返回: \`\`\`python { 'volume': array(\[ 4.51198098e+08, 4.20962185e+08\]), 'money': array(\[ 5.19849817e+11, 4.98529588e+11\]), 'high': array(\[ 3669.04, 3683.23\]), 'low': array(\[ 3551.51, 3587.23\]), 'close': array(\[ 3641.54, 3641.06\]), 'open': array(\[ 3566.09, 3608.43\]) } \`\`\` \*\*示例\*\*
-```python python
+```py
 stock = '000001.XSHE'
 h = attribute_history(stock, 5, '1d', ('open','close', 'volume', 'factor')) # 取得000001(平安银行)过去5天的每天的开盘价, 收盘价, 交易量, 复权因子
 # 不管df等于True还是False, 下列用法都是可以的
@@ -1333,13 +1333,13 @@ h['close'] = h['close']/h['factor']
 
 get_bars 获取历史数据(包含快照数据)，可查询单个或多个标的多个数据字段，返回数据格式为 numpy.ndarray或DataFrame
 
-```python python
+```py
 get_bars(security, count, unit='1d',fields=['date', 'open','high','low','close'],
          include_now=False, end_dt=None, fq_ref_date=None, df=False)
 
 ```
 获取各种时间周期的 bar 数据， bar 的分割方式与主流股票软件相同， 而且支持返回当前时刻所在 bar 的数据； get_bars 开盘时取的bar高开低收都是当天的开盘价，成交量成交额为0； get_bars 没有跳过停牌选项，所获取的数据都是不包含停牌的数据，如果bar个数少于count个，则返回实际个数，并不会填充。 更详细的get_bars解释，\[【API解析】get_bars 定义和逻辑\](https://www.joinquant.com/view/community/detail/f05b9cbce3612bb2fad36740551d28be?type=1) \*\*参数\*\* - security: 标的代码或包含交易代码的列表,支持一个或多个标的，多个标的用list或tuple。 - count: 大于0的整数，表示获取bar的个数。如果行情数据的bar不足count个，返回的长度则小于count个数。 - unit: bar的时间单位, 支持标准bar和非标准bar 当unit为'1m', '5m', '15m', '30m', '60m', '120m', '1d', '1w'(一周), '1M'（一月）标准bar时，bar的分割方式与主流股票软件类似，期货的bar各平台也许稍微有差异，我们与文华接近； 当unit为非上述标准bar时('xm', 例如'3m')，只支持分钟级别的，x需要小于240，以每天的开盘为起始点，每x分钟为一条bar； - fields: 获取数据的字段， 支持如下值：'date', 'open', 'close', 'high', 'low', 'volume', 'money', 'open_interest'(持仓量，是期货和期权特有的字段), 'factor'(后复权因子) - include_now: 取值True 或者False。 表示是否包含当前bar, 比如策略时间是9:33，unit参数为5m， 如果 include_now=True,则返回9:30-9:33这个分钟 bar。 - end_dt：查询的截止时间，支持的类型为datetime.datetime或None或str。默认值为None - 在回测/模拟环境下默认为context.current_dt - 在投资研究环境下默认为datetime.now() - 由于bar的最小单位是一分钟，所以end_dt的秒和毫秒没有什么意义，会被替换为0，例如：end_dt=datetime.datetime(2019, 11, 22, 9, 35, 23) 和 end_dt=datetime.datetime(2019, 11, 22, 9, 35, 00) 是一样的 - fq_ref_date：复权基准日期，支持的类型为datetime.datetime或None,为None时为不复权数据。 - 投资研究环境中默认为 datetime.date.today() - 回测/模拟环境中默认为 context.current_dt.date() - 如果用户输入 fq_ref_date = None, 则获取到的是不复权的数据 - 如果用户想获取后复权的数据，可以将fq_ref_date 指定为一个很早的日期，比如 datetime.date(2000, 1, 1) - 定点复权，以某一天价格点位为参照物，进行的前复权或后复权。设置为datetime.datetime.now()即返回前复权数据 ; 设置为context.current_dt返回动态复权数据，\[更多关于动态复权解释\](https://www.joinquant.com/view/community/detail/48502bfa85355991258093e990d74f35) - 对股票/基金的价格字段、成交量字段生效 ,factor字段不受影响,只返回后复权因子 - df:是否返回pandas.DataFrame对象，默认为False，返回的是numpy.ndarray对象 \*\*返回值\*\* - df = False - 若security为字符串格式的标的代码时，返回一个 numpy.ndarry 对象。 - 若security为list或者tuple格式的标的代码时，返回一个dict，key为标的代码，value为numpy.ndarry 对象。 - df = True - 若security为字符串格式的标的代码时，返回pandas.DataFrame，dataframe 的index是一个整数数组 - 若security为list或者tuple格式的标的代码时，返回pandas.DataFrame，dataframe 的index是一个MultiIndex \*\*示例\*\*
-```python python
+```py
 get_bars(["ER8888.XZCE", "AP1905.XZCE"], end_dt=datetime.datetime.now(), count=3,include_now=False)
 
 
@@ -1369,12 +1369,12 @@ print(array[0][1])
 
 get_current_tick♠ 获取最新的 tick 数据
 
-```python python
+```py
 get_current_tick(security, dt=None, df=False)
 
 ```
 \#### \*\*参数\*\* - security: 标的代码， 支持股票、场内基金、商品期货和股指期货以及包含标的代码的列表。 期货需要使用具体合约代码，不可以使用主力合约和指数合约代码。 - dt: datetime格式的时刻。指定时代表返回离指定时刻最近的一条tick。默认为None。 - df: 默认为False，表示用Tick对象来封装tick数据，df=True的时候，tick数据使用dataframe返回。 #### \*\*返回\*\* - 当传入参数为标的代码时，返回\[tick 对象\](#tick对象)； - 当传入包含标的代码的列表则返回一个dict，key是标的代码，value和传入一个字符串的返回值一样 - 当参数df = True时，返回Dataframe格式数据 #### \*\*注意\*\* - 目前不支持在研究中使用,支持回测及模拟交易的tick、分钟及天频率中使用； - get_current_tick 依赖上下文，可以在run_daily、handle_data 或handle_tick 中调用； - 当天截至当天时刻未产生tick时返回None； #### \*\*示例\*\*
-```python python
+```py
 import datetime
 def initialize(context):
     run_daily(market_open, time='10:00')
@@ -1387,12 +1387,12 @@ def market_open(context):
 
 get_ticks 获取股票、期货、50ETF期权、股票指数及场内基金的 tick 数据
 
-```python python
+```py
 get_ticks(security, end_dt, start_dt=None, count=None, fields=['time', 'current', 'high', 'low', 'volume', 'money'], skip=True, df=False)
 
 ```
 \#### \*\*参数\*\*： - security: 一只str格式的股票代码或期货代码，或者一个list格式的股票或者期货列表 - end_dt: 结束日期 - start_dt: 开始日期, 与count参数二选一 - count: 取出指定时间区间内前多少条的tick数据, 与start_dt参数二选一 - fields: 选择要获取的行情数据字段，默认为\["time", "current", "high", "low", "volume", "money"\], \*\*默认的fields没有a1\_v~a5\_v等数据，需要这些字段的话，需要您在fields中自己添加，即可获取\*\* - skip:默认为True，过滤掉无成交变化的tick数据；当指定skip=False时，返回的tick数据会保留无成交有盘口变化的tick数据（股票自2013年1月1日以后；期货自2019年8月19日以后） - df:默认为False，返回numpy.ndarray格式的tick数据；df=True的时候，返回pandas.Dataframe格式的数据。 #### \*\*返回值\*\* - df为False 返回numpy.ndarray格式的数据。ndarray打印输出没有附带字段名，但您仍然可以通过array\[field\]的形式获取对应字段的数据。 - df为True 返回pandasDataframe格式的数据 - \*\*股票tick返回结果\*\* | 字段名 | 说明 | 字段类型 | | --------- | ---------- | ------- | | time | 时间 | float | | open | 当日开盘价 | float | | current | 当前价 | float | | high | 截至到当前时刻的日内最高价 | float | | low | 截至到当前时刻的日内最低价 | float | | volume | 累计成交量 | float | | money | 累计成交额 | float | | a1\_v~a5\_v | 五档卖量 | float | | a1\_p~a5\_p | 五档卖价 | float | | b1\_v~b5\_v | 五档买量 | float | | b1\_p~b5\_p | 五档买价 | float | - \*\*期货tick返回结果：\*\* | 字段名 | 说明 | 字段类型 | | -------- | ----------| -------- | | time | 时间 | float | | current | 当前价 | float | | open | 当日开盘价 | float | | high | 截至到当前时刻的日内最高价 | float | | low | 截至到当前时刻的日内最低价 | float | | volume | 累计成交量 | float | | money | 累计成交额 | float | | position | 持仓量 | float | | a1\_v | 一档卖量 | float | | a1\_p | 一档卖价 | float | | b1\_v | 一档买量 | float | | b1\_p | 一档买价 | float | #### \*\*注意\*\* - 股票及场内基金部分， 支持 2010-01-01 至今的tick数据，提供买五卖五数据； - 期货部分， 支持 2010-01-01 至今的tick数据，提供买一卖一数据。\*\* 如果要获取主力合约的tick数据，可以先使用get_dominant_future(underlying_symbol,dt)获取主力合约对应的标的，然后再用get_ticks()获取该合约的tick数据； - 期权部分，上交所ETF（2017-01-01起），商品期权（2019-12-02起），提供买五卖五数据；目前期权仅提供数据，不支持回测模拟等； - 支持在tick、分钟及天频率的策略中使用； - 集合竞价期间, 不产生成交(skip=True时不会返回) ,a1\_p/b1\_p 是虚拟匹配价 , a1\_v/b1\_v 是虚拟匹配量 , a2\_v/b2\_v是虚拟匹配价下的剩余未匹配量 #### \*\*示例\*\* - 股票tick数据示例
-```python python
+```py
 #获取平安银行2018-07-01的tick数据，start_dt和count只能有一个不为None值, 不带时分秒时，默认00:00:00
 d = get_ticks("000001.XSHE",start_dt=None, end_dt="2018-07-02", count=10)
 print(d)
@@ -1409,7 +1409,7 @@ print(d)
  (20180629150003.0, 9.09, 9.13, 8.96, 67530000.0, 611346111.0)]
 
 ```
-```python python
+```py
 # skip=True,返回空值
 d = get_ticks("000068.XSHE",start_dt="2019-10-11 09:15:00",
 end_dt="2019-10-11 09:25:00", count=None,
@@ -1417,7 +1417,7 @@ fields=['time', 'current', 'volume','money','a1_v','a2_v', 'b1_v', 'b2_v'], skip
 print(d)
 
 ```
-```python python
+```py
 # skip=False,有数据
 d = get_ticks("000068.XSHE",start_dt="2019-10-11 09:15:00",
 end_dt="2019-10-11 09:25:00", count=None,
@@ -1425,7 +1425,7 @@ fields=['time', 'current', 'volume','money','a1_v','a2_v', 'b1_v', 'b2_v'], skip
 print(d)
 
 ```
-```python python
+```py
 # df=True,返回DataFrame格式的数据
 df2 = get_ticks('000001.XSHE', end_dt='2019-11-05 10:40:10',
 start_dt='2019-11-05 10:40:00', df=True)
@@ -1433,7 +1433,7 @@ print(df2)
 
 ```
 - 期货tick数据示例
-```python python
+```py
 #获取AU1812期货合约在2018-07-03的tick数据,start_dt和count只能有一个不为None值
 d = get_ticks('AU1812.XSGE',start_dt='2018-07-02 21:00:00',end_dt='2018-07-03 15:30:00',count=None)
 print(d)
@@ -1449,12 +1449,12 @@ print(d)
 
 get_current_data ♠ 获取当前时间数据
 
-```python python
+```py
 get_current_data()
 
 ```
 \*\*回测环境/模拟专用API\*\* 获取当前单位时间（当天/当前分钟）的涨跌停价, 是否停牌，当天的开盘价等。 回测时, 通过其他获取数据的API获取到的是前一个单位时间(天/分钟)的数据, 而有些数据, 我们在这个单位时间是知道的, 比如涨跌停价, 是否停牌, 当天的开盘价. 我们添加了这个API用来获取这些数据. \*\*参数\*\* - 现在不需要传入, 即使传入了, 返回的 dict 也是空的, dict 的 value 会按需获取. \*\*返回值\*\* 一个dict, 其中 key 是股票代码, value 是拥有如下属性的对象 - last_price : 最新价,09:30之前获取返回昨日收盘价 - high_limit: 涨停价 - low_limit: 跌停价 - paused: 是否停止或者暂停了交易, 当停牌、未上市或者退市后返回 True - is_st: 是否是 ST(包括ST, \*ST)，是则返回 True，否则返回 False - day_open: 当天开盘价,当天的开盘价至少09:27分之后才可获取 - name: 股票现在的名称, 可以用这个来判断股票当天是否是 ST, \*ST, 是否快要退市 - industry_code: 股票现在所属行业代码, 参见 \[行业概念数据\](https://www.joinquant.com/help/api/help?name=plateData) \*\*注意\*\* - 为了加速, 返回的 dict 里面的数据是按需获取的, dict 初始是空的, 当你使用 current_data = get_current_data(); current_data\[security\]时(假设 current_data 是返回的 dict), 该 security 的数据才会被获取. - 返回的结果只在当天有效, 请不要存起来到隔天再用 - 该函数仅仅限在要获取数据的标的\*\*在交易时段\*\*时调用 \*\*示例\*\*
-```python python
+```py
 def handle_data(context, data):
     current_data = get_current_data()
     print(current_data)
@@ -1466,12 +1466,12 @@ def handle_data(context, data):
 
 get_extras 获取基金单位/累计净值，期货结算价/持仓量等
 
-```python python
+```py
 get_extras(info, security_list, start_date='2015-01-01', end_date='2015-12-31', df=True, count=None)
 
 ```
 得到多只标的在一段时间的如下额外的数据: - is_st: 是否股改s, st,\*st和退市整理期标的 - acc_net_value: 基金累计净值 - unit_net_value: 基金单位净值 - futures_sett_price: 期货结算价 - futures_positions: 期货持仓量 - adj_net_value: 场外基金的复权净值 \*\*参数\*\* - info: \['is_st', 'acc_net_value', 'unit_net_value', 'futures_sett_price', 'futures_positions', 'adj_net_value'\] 中的一个 - security_list: 股票列表 - start_date/end_date: 开始结束日期, 同 \[get_price\](#get_price) - df: 返回\[pandas.DataFrame\]对象还是一个dict, 同 \[history\] - count: 数量, \*\*与 start_date 二选一, 不可同时使用\*\*, 必须大于 0. 表示取 end_date 往前的 count 个交易日的数据 \*\*返回值\*\* - df=True: \[pandas.DataFrame\]对象, 列索引是股票代号, 行索引是\[datetime.datetime\], 比如\`get_extras('acc_net_value', \['510300.XSHG', '510050.XSHG'\], start_date='2015-12-01', end_date='2015-12-03')\`返回: |---|510300.XSHG|510050.XSHG| |---|---|---| |2015-12-01|1.395|3.119| |2015-12-02|1.4432|3.251| |2015-12-03|1.4535|3.254| \`get_extras('is_st', \['000001.XSHE', '000018.XSHE'\], start_date='2013-12-01', end_date='2013-12-03')\`返回: |---|000001.XSHE|000018.XSHE| |---|---|---| |2013-12-02|False|True| |2013-12-03|False|True| - df=False 一个dict, key是基金代号, value是\[numpy.ndarray\], 比如\`get_extras('acc_net_value', \['510300.XSHG', '510050.XSHG'\], start_date='2015-12-01', end_date='2015-12-03', df=False)\` 返回:
-```python python
+```py
 {
     u'510050.XSHG': array([ 3.119,  3.251,  3.254]),
     u'510300.XSHG': array([ 1.395 ,  1.4432,  1.4535])
@@ -1479,7 +1479,7 @@ get_extras(info, security_list, start_date='2015-01-01', end_date='2015-12-31', 
 
 ```
 \*\*示例\*\*
-```python python
+```py
 info = 'acc_net_value'
 security_list = ['519671.OF', '110003.OF']
 df = get_extras(info, security_list, start_date='2019-05-10', end_date='2019-05-15')
@@ -1489,12 +1489,12 @@ print(df)
 
 get_all_factors 获取聚宽因子库中所有因子的信息
 
-```python python
+```py
 get_all_factors()
 
 ```
 \*\*参数\*\* - 无 \*\*返回\*\* pandas.DataFrame，包含因子代码、因子名称、因子分类 \*\*示例\*\*
-```python python
+```py
 from jqfactor import get_all_factors
 print(get_all_factors())
 
@@ -1513,7 +1513,7 @@ index                  factor                        factor_intro      category 
 
 get_factor_values 质量、基础、情绪、成长、风险、每股等数百个因子数据
 
-```python python
+```py
 # 导入函数库
 from jqfactor import get_factor_values
 # 取值函数
@@ -1521,7 +1521,7 @@ get_factor_values(securities, factors, start_date, end_date, count)
 
 ```
 获取质量因子、基础因子、情绪因子、成长因子、风险因子、每股因子等数百个因子数据，详细的因子列表请参考\[因子库\](/help/api/help?name=factor_values) \*\*参数\*\* - securities:股票池，单只股票（字符串）或一个股票列表 - factors: 因子名称，单个因子（字符串）或一个因子列表 - start_date:开始日期，字符串或 datetime 对象，与 coun t参数二选一 - end_date: 结束日期， 字符串或 datetime 对象，可以与 start_date 或 count 配合使用 - count: 截止 end_date 之前交易日的数量（含 end_date 当日），与 start_date 参数二选一 \*\*返回\*\* - 一个 dict： key 是因子名称， value 是 pandas.dataframe。 - dataframe 的 index 是日期， column 是股票代码， value 是因子值 - 为了防止单次返回数据时间过长，每次调用 api 请求的因子值(因子数×股票数×交易日数)不能超过 200000 个 \*\*示例\*\*
-```python python
+```py
 # 导入函数库
 from jqfactor import get_factor_values
 
@@ -1534,7 +1534,7 @@ factor_data['Skewness60']
 
 get_factor_kanban_values 获取因子看板列表数据
 
-```python python
+```py
 from jqfactor import *
 df = get_factor_kanban_values(universe='hs300',bt_cycle='month_3',model='long_only',category=['quality','basics','emotion','growth','risk','pershare'],skip_paused=False,commision_slippage=0)
 print(df)
@@ -1544,12 +1544,12 @@ print(df)
 
 get_fundamentals 查询财务数据
 
-```python python
+```py
 get_fundamentals(query_object, date=None, statDate=None)
 
 ```
 查询财务数据，详细的财务数据表及字段描述请点击[财务数据文档](https://www.joinquant.com/help/api/help?name=Stock#%E8%8E%B7%E5%8F%96%E5%8D%95%E5%AD%A3%E5%BA%A6%E5%B9%B4%E5%BA%A6%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE)查看，Query 对象的使用方法请参考\[Query的简单教程\](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376) date和statDate参数只能传入一个: - 传入date时, 查询\*\*指定日期date收盘后所能看到的最近(对市值表来说, 最近一天, 对其他表来说, 最近一个季度)的数据\*\*, 默认我们会查找上市公司在当前日期之前发布的数据, 不会有未来函数.不要传递当天的日期取获取估值表,pe/市值等依赖收盘价的指标是盘后更新的。 - 传入statDate时, 查询 \*\*statDate 指定的季度或者年份的财务数据\*\*. 注意: 1. 由于公司发布财报不及时, 一般是看不到当季度或年份的财务报表的, 回测中使用这个数据可能会有未来函数, 请注意规避. 2. 由于估值表每天更新, 当按季度或者年份查询时, 返回季度或者年份最后一天的数据 3. 由于“资产负债数据”这个表是存量性质的， 查询年度数据是返回第四季度的数据。 4. 银行业、券商、保险专项数据只有年报数据，需传入statDate参数，当传入 date 参数 或 statDate 传入季度时返回空，请自行避免未来函数。 当 date 和 statDate 都不传入时, 相当于使用 date 参数, date 的默认值下面会描述. \*\*参数\*\* - query_object: 一个\[sqlalchemy.orm.query.Query对象\](https://docs.sqlalchemy.org/en/rel\_1\_0/orm/query.html), 可以通过全局的 query 函数获取 Query 对象,\[Query对象的简单使用教程\](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376) - date: 查询日期, 一个字符串(格式类似'2015-10-15')或者\[datetime.date\]/\[datetime.datetime\]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别: 1. 回测模块: 默认值会随着回测日期变化而变化, 等于 context.current_dt 的前一天(实际生活中我们只能看到前一天的财报和市值数据, 所以要用前一天) 2. 研究模块: 使用平台财务数据的最新日期, 一般是昨天. - statDate: 财报统计的季度或者年份, 一个字符串, 有两种格式: 1. 季度: 格式是: \*\*年 + 'q' + 季度序号\*\*, 例如: '2015q1', '2013q4'. 2. 年份: 格式就是年份的数字, 例如: '2015', '2016'. \*\*返回\*\* 返回一个 \[pandas.DataFrame\], 每一行对应数据库返回的每一行(可能是几个表的联合查询结果的一行), 列索引是你查询的所有字段 注意： 1. 为了防止返回数据量过大, 我们每次最多返回5000行 2. 当相关股票上市前、退市后，财务数据返回各字段为空 \*\*示例\*\*
-```python python
+```py
 # 查询'000001.XSHE'的所有市值数据, 时间是2015-10-15
 q = query(
     valuation
@@ -1561,7 +1561,7 @@ df = get_fundamentals(q, '2015-10-15')
 log.info(df['market_cap'][0])
 
 ```
-```python python
+```py
 # 获取多只股票在某一日期的市值, 利润
 df = get_fundamentals(query(
         valuation, income
@@ -1571,7 +1571,7 @@ df = get_fundamentals(query(
     ), date='2015-10-15')
 
 ```
-```python python
+```py
 # 选出所有的总市值大于1000亿元, 市盈率小于10, 营业总收入大于200亿元的股票
 df = get_fundamentals(query(
         valuation.code, valuation.market_cap, valuation.pe_ratio, income.total_operating_revenue
@@ -1588,7 +1588,7 @@ df = get_fundamentals(query(
     ), date='2015-10-15')
 
 ```
-```python python
+```py
 # 使用 or_ 函数: 查询总市值大于1000亿元 **或者** 市盈率小于10的股票
 from sqlalchemy.sql.expression import or_
 get_fundamentals(query(
@@ -1601,7 +1601,7 @@ get_fundamentals(query(
     ))
 
 ```
-```python python
+```py
 # 查询平安银行2014年四个季度的季报, 放到数组中
 q = query(
         income.statDate,
@@ -1616,7 +1616,7 @@ q = query(
 rets = [get_fundamentals(q, statDate='2014q'+str(i)) for i in range(1, 5)]
 
 ```
-```python python
+```py
 # 查询平安银行2014年的年报
 q = query(
         income.statDate,
@@ -1633,12 +1633,12 @@ ret = get_fundamentals(q, statDate='2014')
 
 get_fundamentals_continuously 查询多日的财务数据
 
-```python python
+```py
 get_fundamentals_continuously(query_object, end_date=None,count=None, panel=True)
 
 ```
 查询多日财务数据，详细的财务数据表及字段描述请点击[财务数据文档](https://www.joinquant.com/help/api/help?name=Stock#%E8%8E%B7%E5%8F%96%E5%8D%95%E5%AD%A3%E5%BA%A6%E5%B9%B4%E5%BA%A6%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE)查看，Query 对象的使用方法请参考\[Query的简单教程\](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376) \*\*参数\*\* - query_object: 一个\[sqlalchemy.orm.query.Query对象\](https://docs.sqlalchemy.org/en/rel\_1\_0/orm/query.html), 可以通过全局的 query 函数获取 Query 对象,\[Query对象的简单使用教程\](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376) - end_date: 查询日期, 一个字符串(格式类似'2015-10-15')或者\[datetime.date\]/\[datetime.datetime\]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别: 1. 回测模块: 默认值会随着回测日期变化而变化, 等于 context.current_dt 的前一天(实际生活中我们只能看到前一天的财报和市值数据, 所以要用前一天) 2. 研究模块: 使用平台财务数据的最新日期, 一般是昨天. - count: 获取 end_date 前 count 个日期的数据 - panel：在pandas 0.24版后，panel被彻底移除。获取多标的数据时建议设置panel为False，返回等效的dataframe \*\*返回\*\* - 默认panel=True，返回一个 pandas.Panel； - 建议设置panel为False，返回等效的dataframe； \*\*出于性能方面考虑，我们做出了返回总条数不超过5000条的限制。 也就是说：查询的股票数量\\\*count 要小于5000。 否则，返回的数据会不完整。\*\* \*\*示例\*\*
-```python python
+```py
 >>> q = query(valuation.turnover_ratio,
               valuation.market_cap,
               indicator.eps
@@ -1687,13 +1687,13 @@ day
 
 finance.run_query 深沪港通股东信息等数据
 
-```python python
+```py
 from jqdata import *
 finance.run_query(query_object)
 
 ```
 查询深沪港通、股东信息、公司概况等数据，详细的数据字段描述请点击\[市场通（沪港通深港通和港股通）\](https://www.joinquant.com/help/api/help?name=Stock#%E5%B8%82%E5%9C%BA%E9%80%9A%EF%BC%88%E6%B2%AA%E6%B8%AF%E9%80%9A%E6%B7%B1%E6%B8%AF%E9%80%9A%E5%92%8C%E6%B8%AF%E8%82%A1%E9%80%9A%EF%BC%89)查看 \*\*参数\*\* \* query_object: 一个\[sqlalchemy.orm.query.Query对象\](https://docs.sqlalchemy.org/en/rel\_1\_0/orm/query.html), 可以通过全局的query函数获取Query对象。 \*\*返回\*\* 返回一个 dataframe， 每一行对应数据库返回的每一行， 列索引是你所查询的字段 注意 1. \*\*为了防止返回数据量过大, 我们每次最多返回4000行\*\* 2. 不能进行连表查询，即同时查询多张表内数据 \*\*示例\*\*
-```python python
+```py
 # 查询万科 AH 股价格的前10条数据
 q=query(finance.STK_AH_PRICE_COMP
   ).filter(
@@ -1704,7 +1704,7 @@ q=query(finance.STK_AH_PRICE_COMP
 df=finance.run_query(q)
 
 ```
-```python python
+```py
 #指定查询对象为恒瑞医药（600276.XSHG)的十大股东情况，限定返回条数为10条
 q=query(finance.STK_SHAREHOLDER_TOP10
   ).filter(
@@ -1718,20 +1718,20 @@ df=finance.run_query(q)
 macro.run_query 获取聚宽宏观经济数据
 
 \*\*数据调用方法\*\*
-```python python
+```py
 from jqdata import *
 macro.run_query(query_object)
 
 ```
 查询宏观经济数据，详细的数据字段描述请点击\[宏观经济数据\](https://www.joinquant.com/help/api/help?name=macroData)查看 \*\*参数\*\* \* query_object: 一个\[sqlalchemy.orm.query.Query对象\](https://docs.sqlalchemy.org/en/rel\_1\_0/orm/query.html), 可以通过全局的query函数获取Query对象。 \*\*返回\*\* 返回一个 dataframe， 每一行对应数据库返回的每一行， 列索引是你所查询的字段 注意 1. 为了防止返回数据量过大, 我们每次最多返回4000行 2. 不能进行连表查询，即同时查询多张表内数据 \*\*示例\*\*
-```python python
+```py
 # 查询分地区农林牧渔业总产值表(季度累计) 的前10条数据
 q = query(macro.MAC_INDUSTRY_AREA_AGR_OUTPUT_VALUE_QUARTER
     ).limit(10)
 df = macro.run_query(q)
 
 ```
-```python python
+```py
 # 查询2014年的分地区农林牧渔业总产值表(年度)
 q = query(macro.MAC_INDUSTRY_AREA_AGR_OUTPUT_VALUE_YEAR
         ).filter(macro.MAC_INDUSTRY_AREA_AGR_OUTPUT_VALUE_YEAR.stat_year=='2014')
@@ -1741,12 +1741,12 @@ df = macro.run_query(q)
 
 get_billboard_list 获取龙虎榜数据
 
-```python python
+```py
 get_billboard_list(stock_list, start_date, end_date, count)
 
 ```
 获取指定日期区间内的龙虎榜数据 \*\*参数\*\* - stock_list: 一个股票代码的 list。 当值为 None 时， 返回指定日期的所有股票。 - start_date:开始日期 - end_date: 结束日期 - count: 交易日数量， 可以与 end_date 同时使用， 表示获取 end_date 前 count 个交易日的数据(含 end_date 当日) \*\*返回值\*\* - pandas.DataFrame， 各 column 的含义如下: - code: 股票代码 - day: 日期 - direction: ALL 表示『汇总』，SELL 表示『卖』，BUY 表示『买』 - abnormal_code: 异常波动类型 - abnormal_name: 异常波动名称 - sales_depart_name: 营业部名称 - rank: 0 表示汇总， 1~5 表示买一到买5， 6~10 表示卖一到卖五 - buy_value:买入金额 - buy_rate:买入金额占比(买入金额/市场总成交额) - sell_value:卖出金额 - sell_rate:卖出金额占比(卖出金额/市场总成交额) - net_value:净额(买入金额 - 卖出金额) - amount:市场总成交额 - total_value：买入卖出金额之和（买入金额+卖出金额） \*\*示例\*\*
-```python python
+```py
 # 在策略中获取前一日的龙虎榜数据
 get_billboard_list(stock_list=None, end_date = context.previous_date, count =1)
 
@@ -1754,12 +1754,12 @@ get_billboard_list(stock_list=None, end_date = context.previous_date, count =1)
 
 get_index_stocks 获取指数成份股
 
-```python python
+```py
 get_index_stocks(index_symbol, date=None)
 
 ```
 获取一个指数给定日期在平台可交易的成分股列表，请点击\[指数列表\](https://www.joinquant.com/help/api/help?name=index)查看指数信息 \*\*参数\*\* - index_symbol: 指数代码 - date: 查询日期, 一个字符串(格式类似'2015-10-15')或者datetime.date/datetime.datetime对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别: 1. 回测模块: 默认值会随着回测日期变化而变化, 等于context.current_dt 2. 研究模块: 默认是今天 \*\*返回\*\* 返回股票代码的list \*\*示例\*\*
-```python python
+```py
 # 获取所有沪深300的股票
 stocks = get_index_stocks('000300.XSHG')
 log.info(stocks)
@@ -1768,12 +1768,12 @@ log.info(stocks)
 
 get_index_weights 获取指数成分股权重
 
-```python python
+```py
 get_index_weights(index_id, date=None)
 
 ```
 获取指数成分股权重，每月更新一次，一般在月底或者月初 \*\*参数\*\* - index_id: 必选参数，代表指数的标准形式代码， 形式：指数代码.交易所代码，例如"000001.XSHG"。若代码格式错误或传入无效的指数代码，报错。 - date: 可选参数， 查询权重信息的日期，形式："%Y-%m-%d"，例如"2018-05-03"，除此之外其他日期格式报错。当date为None，在回测、模拟环境中，默认为context.current_dt.date()；在研究环境中，默认为datetime.now().date()。 \*\*返回\*\* - 查询到对应日期，且有权重数据，返回 pandas.DataFrame， index 是股票代码，columns 为 display_name(股票名称), date(日期), weight(权重)； - 查询到对应日期，且无权重数据， 返回距离查询日期最近日期的权重信息； - 找不到对应日期的权重信息， 返回距离查询日期最近日期的权重信息； \*\*示例\*\*
-```python python
+```py
 >>> get_index_weights(index_id="000001.XSHG", date="2018-05-09")
 
 
@@ -1788,12 +1788,12 @@ get_index_weights(index_id, date=None)
 
 get_industry_stocks 获取行业成份股
 
-```python python
+```py
 get_industry_stocks(industry_code, date=None)
 
 ```
 获取在给定日期一个行业的所有股票，行业分类列表见数据页面-\[行业概念数据\](https://www.joinquant.com/help/api/help?name=plateData)。 \*\*参数\*\* - industry_code: 行业编码 - date: 查询日期, 一个字符串(格式类似'2015-10-15')或者\[datetime.date\]/\[datetime.datetime\]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别: 1. 回测模块: 默认值会随着回测日期变化而变化, 等于context.current_dt 2. 研究模块: 默认是今天 \*\*返回\*\* 返回股票代码的list \*\*示例\*\*
-```python python
+```py
 # 获取计算机/互联网行业的成分股
 stocks = get_industry_stocks('I64')
 
@@ -1801,12 +1801,12 @@ stocks = get_industry_stocks('I64')
 
 get_concept_stocks 获取概念成份股
 
-```python python
+```py
 get_concept_stocks(concept_code, date=None)
 
 ```
 获取在给定日期一个概念板块的所有股票，概念板块分类列表见数据页面-\[行业概念数据\](https://www.joinquant.com/help/api/help?name=plateData)。 \*\*参数\*\* - concept_code: 概念板块编码 - date: 查询日期, 一个字符串(格式类似'2015-10-15')或者\[datetime.date\]/\[datetime.datetime\]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别: 1. 回测模块: 默认值会随着回测日期变化而变化, 等于context.current_dt 2. 研究模块: 默认是今天 \*\*返回\*\* 返回股票代码的list \*\*示例\*\*
-```python python
+```py
 # 获取风电概念板块的成分股
 stocks = get_concept_stocks('SC0084', date='2019-04-16')
 print(stocks)
@@ -1816,13 +1816,13 @@ print(stocks)
 
 get_industries 获取行业列表
 
-```python python
+```py
 from jqdata import *
 get_industries(name, date=None)
 
 ```
 按照行业分类获取行业列表。 \*\*参数\*\* - name: 行业代码， 取值如下： - "sw_l1": 申万一级行业 - "sw_l2": 申万二级行业 - "sw_l3": 申万三级行业 - "jq_l1": 聚宽一级行业 - "jq_l2": 聚宽二级行业 - "zjw": 证监会行业 - date: 获取数据的日期，默认为None，返回历史上所有行业；传入date，返回date当天存在的行业；研究和回测中返回结果相同； \*\*返回值\*\* - pandas.DataFrame， 各 column 的含义如下: - index: 行业代码 - name: 行业名称 - start_date: 开始日期 \*\*示例\*\*
-```python python
+```py
 from jqdata import *
 get_industries(name='zjw')
 get_industries(name='zjw', date='2016-01-01')
@@ -1831,7 +1831,7 @@ get_industries(name='zjw', date='2016-01-01')
 
 get_concepts 获取概念列表
 
-```python python
+```py
 from jqdata import *
 get_concepts()
 
@@ -1845,7 +1845,7 @@ get_all_securities(types=[], date=None)
 
 ```
 获取平台支持的所有股票、基金、指数、期货、期权信息 \*\*参数\*\* - types: list: 用来过滤securities的类型, list元素可选: 'stock', 'fund', 'index', 'futures', 'options', 'etf', 'lof', 'fja', 'fjb', 'open_fund', 'bond_fund', 'stock_fund', 'QDII_fund'(QDII基金), 'money_market_fund', 'mixture_fund'。 \*\*types为空时返回所有股票, 不包括基金,指数和期货\*\* - date: 日期, 一个字符串或者 datetime.datetime /datetime.date 对象, 用于获取某日期还在上市的股票信息. 默认值为 None, 表示获取所有日期的股票信息.\*\*建议使用时添加上指定date\*\* \*\*返回\*\* \[pandas.DataFrame\], 比如:\`get_all_securities()\[:2\]\`返回: |---|display_name|name|start_date|end_date|type| |---|---|---|---|---|---| |000001.XSHE|平安银行|PAYH|1991-04-03|9999-01-01|stock| |000002.XSHE|万 科Ａ|WKA|1991-01-29|9999-01-01|stock| - display_name: 中文名称,只返回最新的，判断是否st请使用get_extras - name: 缩写简称，同上 - start_date: 上市日期 - end_date: 退市日期（股票是最后一个交易日，不同于摘牌日期），如果没有退市则为2200-01-01； - type: 类型，stock(股票)，index(指数)，etf(场内ETF基金)，fja（场内分级A），fjb（场内分级B），fjm（场内分级母基金），mmf（场内交易的货币基金），lof（上市型开放基金），open_fund（开放式基金）, bond_fund（债券基金）, stock_fund（股票型基金）, money_market_fund（场外交易的货币基金）, mixture_fund（混合型基金）,fund_fund（联接基金) options(期权), \*\*示例\*\*
-```python python
+```py
 def initialize(context):
     #获得所有股票列表
     log.info(get_all_securities())
@@ -1884,12 +1884,12 @@ def initialize(context):
 
 get_security_info 获取单个标的信息
 
-```python python
+```py
 get_security_info(code, date=None)
 
 ```
 获取股票/基金/指数/期货的信息. \*\*参数\*\* - code: 证券代码 - date：查询日期,默认为None，仅支持股票 \*\*返回值\*\* - 一个对象, 有如下属性: - display_name: 中文名称 - name: 缩写简称 - start_date: 上市日期, \[datetime.date\] 类型 - end_date: 退市日期（股票是最后一个交易日，不同于摘牌日期）， \[datetime.date\] 类型, 如果没有退市则为2200-01-01 - type: 股票、基金、金融期货、期货、债券基金、股票基金、QDII 基金、货币基金、混合基金、场外基金，'stock'/ 'fund' / 'index_futures' / 'futures' / 'etf'/'bond_fund' / 'stock_fund' / 'QDII_fund' / 'money_market_fund' / ‘mixture_fund' / 'open_fund' - parent: 分级基金的母基金代码 \*\*示例\*\*
-```python python
+```py
 # 获取000001.XSHE的上市时间
 start_date = get_security_info('000001.XSHE').start_date
 print(start_date)
@@ -1898,12 +1898,12 @@ print(start_date)
 
 get_industry 查询股票所属行业
 
-```python python
+```py
 get_industry(security, date=None)
 
 ```
 \*\*参数\*\* - security：标的代码。类型为字符串，形式如"000001.XSHE"；或为包含标的代码字符串的列表，形如\["000001.XSHE", "000002.XSHE"\] - date：查询的日期。类型为字符串，形如"2018-06-01"或"2018-06-01 09:00:00"；或为datetime.datetime对象和datetime.date。\*注意传入对象的时分秒将被忽略\*。默认值为None，研究中默认值为当天，回测中默认值会随着回测日期变化而变化, 等于context.current_dt。 \*\*返回结果\*\* 一个dict， key是标的代码。 \*\*示例\*\*
-```python python
+```py
 >>> get_industry(security=['000001.XSHE','000002.XSHE'], date="2018-06-01")
 
 
@@ -1925,7 +1925,7 @@ get_industry(security, date=None)
 
 ```
 \*\*注意\*\*
-```python python
+```py
 # python2中print打印一个unicode对象的时候，调用的是这个对象的"__str__"，而打印一个类似{"a": u"中文"}的时候，调用的是"__repr__"。因此可以这样使用：
 
 res = get_industry(security=['000001.XSHE','000002.XSHE'], date="2018-06-01")
@@ -1935,7 +1935,7 @@ print(repr(res).decode("unicode-escape"))
 
 get_all_trade_days 获取所有交易日
 
-```python python
+```py
 from jqdata import *
 get_all_trade_days()
 
@@ -1944,7 +1944,7 @@ get_all_trade_days()
 
 get_trade_days 获取指定范围交易日
 
-```python python
+```py
 from jqdata import *
 get_trade_days(start_date=None, end_date=None, count=None)
 
@@ -1953,13 +1953,13 @@ get_trade_days(start_date=None, end_date=None, count=None)
 
 get_money_flow 获取资金流信息
 
-```python python
+```py
 from jqdata import *
 get_money_flow(security_list, start_date=None, end_date=None, fields=None, count=None)
 
 ```
 获取一只或者多只股票在一个时间段内的资金流向数据，仅包含股票数据，不可用于获取期货数据; 提供2010年至今的数据，数据频率为天; 净额 : 为正是资金流入, 为负为资金流出; \*\*参数\*\* - security_list: 一只股票代码或者一个股票代码的 list - start_date: 开始日期, \*\*与 count 二选一, 不可同时使用\*\*, 一个字符串或者 \[datetime.datetime\]/\[datetime.date\] 对象, 默认为平台提供的数据的最早日期 - end_date: 结束日期, 一个字符串或者 datetime.date/datetime.datetime 对象, 默认为 datetime.date.today() - count: 数量, \*\*与 start_date 二选一，不可同时使用\*\*, 必须大于 0. 表示返回 end_date 之前 count 个交易日的数据, 包含 end_date - fields: 字段名或者 list, 可选. 默认为 None, 表示取全部字段, 各字段含义如下： |字段名|含义|备注| |---|---|---| |date|日期|---| |sec_code|股票代码|---| |change_pct|涨跌幅(%)|---| |net_amount_main|主力净额(万)|主力净额 = 超大单净额 + 大单净额| |net_pct_main|主力净占比(%)|主力净占比 = 主力净额 / 成交额| |net_amount_xl|超大单净额(万)|超大单：大于等于50万股或者100万元的成交单| |net_pct_xl|超大单净占比(%)|超大单净占比 = 超大单净额 / 成交额| |net_amount_l|大单净额(万)|大单：大于等于10万股或者20万元且小于50万股或者100万元的成交单| |net_pct_l|大单净占比(%)|大单净占比 = 大单净额 / 成交额| |net_amount_m|中单净额(万)|中单：大于等于2万股或者4万元且小于10万股或者20万元的成交单| |net_pct_m|中单净占比(%)|中单净占比 = 中单净额 / 成交额| |net_amount_s|小单净额(万)|小单：小于2万股或者4万元的成交单| |net_pct_s|小单净占比(%)|小单净占比 = 小单净额 / 成交额| \*\*返回\*\* 返回一个 pandas.DataFrame 对象，默认的列索引为取得的全部字段. 如果给定了 fields 参数, 则列索引与给定的 fields 对应. \*\*示例\*\*
-```python python
+```py
 from jqdata import *
 
 # 获取一只股票在一个时间段内的资金流量数据
@@ -1987,7 +1987,7 @@ get_money_flow('000001.XSHE', count=20)
 get_concept 获取股票所属概念板块
 
 \*\*数据调用方法\*\*
-```python python
+```py
 get_concept(security, date=None)
 
 ```
@@ -2002,7 +2002,7 @@ get_concept(security, date=None)
 
 ```
 code是传入的股票代码；多个code返回嵌套的多个字典。 ‘jq_concept’代表聚宽概念； XX是code所在的概念代码； YY是code所在的概念名称。 \*\*示例\*\*
-```python python
+```py
 dict1 = get_concept('000001.XSHE', date='2019-07-15')
 print(dict1)
 
@@ -2011,13 +2011,13 @@ print(dict1)
 get_call_auction 获取指定时间区间内集合竞价时的 tick 数据
 
 获取指定时间区间内交易日09:25的集合竞价数据，支持股票（2010年至今）、场内基金（2019年至今）、指数（2017年至今）和上交所ETF期权（2017年至今）的集合竞价数据，当日的集合竞价数据最晚于9:28分返回。
-```python python
+```py
 from jqdata import *
 get_call_auction(security, start_date=None, end_date=None, fields=None)
 
 ```
 \*\*参数\*\*： - security: 标的代码或者标的代码组成的列表,支持股票、指数、50ETF期权 - start_date: 开始日期，一个时间字符串, 比如"2019-01-01" - end_date: 结束日期，一个时间字符, 比如"2019-02-01" - fields: 选择要获取的行情字段(类似tick数据的每一个字段)，字段介绍如下: | 字段名 | 说明 | 字段类型 | | :-------: | :--------------: | :------: | | time | 时间 | datetime | | current | 当前价 | float | | volume | 累计成交量（股） | float | | money | 累计成交额 | float | | b1\_v~b5\_v | 五档买量 | float | | b1\_p~b5\_p | 五档买价 | float | | a1\_v~a5\_v | 五档卖量 | float | | a1\_p~a5\_p | 五档卖价 | float | \*\*返回值\*\* 返回一个dataframe，索引为pandas默认的整数索引。 \*\*注意\*\* - fields为None的时候，默认获取全部字段； - start_date和end_date不能为None，否则将抛出异常； - 为了防止返回数据量过大, 我们每次最多返回5000行； \*\*示例\*\*
-```python python
+```py
 from jqdata import *
 d = get_call_auction(['000001.XSHE', '000002.XSHE'], start_date='2019-01-01', end_date='2019-10-10',fields=['time', 'current', 'a1_v', 'b1_v'])
 print(d)
@@ -2035,7 +2035,7 @@ print(d)
 [356 rows x 5 columns]
 
 ```
-```python python
+```py
 from jqdata import *
 #fields不填，默认获取全部字段数据
 d = get_call_auction('000001.XSHE','2019-08-10','2019-08-20')
@@ -2056,7 +2056,7 @@ print(d)
 get_trade_day 根据标的获取指定时刻标的对应的交易日
 
 获取指定时刻标的对应的交易日。返回一个dict，key为标的代码，value为标的在此时刻对应的交易日。
-```python python
+```py
 get_trade_day(security, query_dt)
 
 ```
@@ -2071,7 +2071,7 @@ get_trade_day(security, query_dt)
 get_history_fundamentals 获取多个季度/年度的历史财务数据
 
 获取多个季度/年度的三大财务报表和财务指标数据. 可指定单季度数据, 也可以指定年度数据。可以指定观察日期, 也可以指定最后一个报告期的结束日期
-```python python
+```py
 get_history_fundamentals(security, fields, watch_date=None, stat_date=None, count=1, interval='1q', stat_by_year=False)
 
 ```
@@ -2089,13 +2089,13 @@ print(df.groupby('code').mean())
 
 get_valuation 获取多个标的在指定交易日范围内的市值表数据
 
-```python python
+```py
 from jqdata import *
 get_valuation(security, start_date=None, end_date=None, fields=None, count=None)
 
 ```
 获取多个标的在指定交易日范围内的市值表数据 ##### \*\*参数\*\* - security: 标的code字符串列表或者单个标的字符串 - end_date: 查询结束时间 - start_date: 查询开始时间，不能与count共用 - count: 表示往前查询每一个标的count个交易日的数据，如果期间标的停牌，则该标的返回的市值数据数量小于count - fields: 财务数据中市值表的字段，返回结果中总会包含code、day字段，可用字段如下： |字段|释义| |--|--| |code| 股票代码 带后缀.XSHE/.XSHG| |day |日期 取数据的日期| | capitalization |总股本(万股)| |circulating_cap| 流通股本(万股)| |market_cap |总市值(亿元)| |circulating_market_cap| 流通市值(亿元)| |turnover_ratio |换手率(%)| |pe_ratio |市盈率(PE, TTM)| |pe_ratio_lyr |市盈率(PE)| |pb_ratio |市净率(PB)| | ps_ratio| 市销率(PS, TTM)| |pcf_ratio| 市现率(PCF, 现金净流量TTM)| ##### \*\*返回值\*\* - 返回一个dataframe，索引默认是pandas的整数索引，返回的结果中总会包含code、day字段。 #### \*\*注意\*\* - 每次最多返回5000条数据，更多数据需要根据标的或者时间分多次获取 - 不要获取当天的估值数据,pe/市值等依赖收盘价的指标是盘后更新的。 ##### \*\*示例\*\*
-```python python
+```py
 from jqdata import *
 # 传入单个标的
 df1 = get_valuation('000001.XSHE', end_date="2019-11-18", count=3, fields=['capitalization', 'market_cap'])
@@ -2114,7 +2114,7 @@ print(df2)
 alpha101 Alpha 101 因子
 
 \*\*因子来源\*\* 根据 WorldQuant LLC 发表的论文 \[\*101 Formulaic Alphas\*\](https://arxiv.org/ftp/arxiv/papers/1601/1601.00991.pdf) 中给出的 101 个 Alphas 因子公式，我们将公式编写成了函数，方便大家使用。 \*\*详细介绍\*\* 函数计算公式、API 调用方法，输入输出值详情请见:\[数据字典 - Alpha 101\](https://www.joinquant.com/help/api/help?name=Alpha101). \*\*使用方法\*\*
-```python python
+```py
 # 导入 Alpha101 库
 >>> from jqlib.alpha101 import *
 
@@ -2160,7 +2160,7 @@ Outputs:
 alpha191 Alpha 191 因子
 
 \*\*因子来源\*\* 根据国泰君安数量化专题研究报告 - \[基于短周期价量特征的多因子选股体系\](https://file.joinquant.com/198f09d54939dbcd27819bb96f67ac15/%E5%9B%BD%E6%B3%B0%E5%90%9B%E5%AE%89-%E6%95%B0%E9%87%8F%E5%8C%96%E4%B8%93%E9%A2%98%E4%B9%8B%E4%B9%9D%E5%8D%81%E4%B8%89%EF%BC%9A%E5%9F%BA%E4%BA%8E%E7%9F%AD%E5%91%A8%E6%9C%9F%E4%BB%B7%E9%87%8F%E7%89%B9%E5%BE%81%E7%9A%84%E5%A4%9A%E5%9B%A0%E5%AD%90%E9%80%89%E8%82%A1%E4%BD%93%E7%B3%BB-2017-06-16.pdf?\_upd=%E5%9B%BD%E6%B3%B0%E5%90%9B%E5%AE%89-%E6%95%B0%E9%87%8F%E5%8C%96%E4%B8%93%E9%A2%98%E4%B9%8B%E4%B9%9D%E5%8D%81%E4%B8%89%EF%BC%9A%E5%9F%BA%E4%BA%8E%E7%9F%AD%E5%91%A8%E6%9C%9F%E4%BB%B7%E9%87%8F%E7%89%B9%E5%BE%81%E7%9A%84%E5%A4%9A%E5%9B%A0%E5%AD%90%E9%80%89%E8%82%A1%E4%BD%93%E7%B3%BB-2017-06-16.pdf)给出了 191 个短周期交易型阿尔法因子，方便大家使用。 \*\*详细介绍\*\* 函数计算公式、API 调用方法，输入输出值详情请见:\[数据字典 - Alpha 191\](https://www.joinquant.com/help/api/help?name=Alpha191). \*\*使用方法\*\*
-```python python
+```py
 # 导入 Alpha191 库
 >>> from jqlib.alpha191 import *
 
@@ -2191,7 +2191,7 @@ Type:      function
 technical_analysis 技术分析指标
 
 \*\*因子说明\*\* 为了让用户有更多可直接调用的技术分析指标因子，我们计划基于通达信、东方财富、同花顺等的公式，来完善我们的技术分析指标因子库。 我们给出了公式的API、参数说明、返回值的结果及类型说明、备注（相较于上述三家结果及算法的比对）、用法注释及示例，旨在帮助您更方便、更快速的在策略研究中使用这些因子函数。 \[技术指标常见问题-动态复权与技术指标\](https://www.joinquant.com/view/community/detail/48502bfa85355991258093e990d74f35) \*\*详细介绍\*\* 函数计算公式、API 调用方法，用法注释， 输入输出值详情请见:\[数据字典 - 技术分析指标\](https://www.joinquant.com/help/api/help?name=technicalanalysis). \*\*使用方法\*\*
-```python python
+```py
 # 导入 Alpha101 库
 >>> from jqlib.technical_analysis import *
 
@@ -2244,12 +2244,12 @@ Docstring:
 
 neutralize 中性化
 
-```python python
+```py
 neutralize(series, how=None, date=None, axis=1, fillna=None, add_constant=False)
 
 ```
 \*\*参数\*\* - data: pd.Series/pd.DataFrame , 待中性化的序列，序列的 index 为股票的 code - how: str list 。 中性化使用的因子名称列表。默认为 \['jq_l1', 'market_cap'\] 支持的内容包括： - 财务数据：如 'market_cap', 'net_profit'等；也可以输入对数市值'ln_market_cap' 和 对数流通市值 'ln_circulating_market_cap'; - 行业数据：可输入行业分类代码（如 'jq_l1', 'sw_l1'）或行业代码（如 'HY001'） 行业代码分类会被替换为行业代码，例如输入 how=\['jq_l1'\] 和 how=\['HY001','HY002','HY003','HY004','HY005','HY006','HY007', 'HY008','HY009','HY010','HY011'\] 是等价的 - 'jq_l1'： 聚宽一级行业 - 'jq_l2'： 聚宽二级行业 - 'sw_l1'： 申万一级行业 - 'sw_l2'： 申万二级行业 - 'sw_l3'： 申万三级行业 - \[聚宽因子库\](https://www.joinquant.com/help/api/help?name=factor_values#%E5%9B%A0%E5%AD%90%E5%88%97%E8%A1%A8)因子名称，如 'operating_profit_ttm', 'VOL240' - 风险因子：可以使用的风险因子包括： \['size', 'beta', 'momentum', 'residual_volatility', 'non_linear_size', 'book_to_price_ratio', 'liquidity', 'earnings_yield', 'growth', 'leverage'\] - date: 日期格式 str 将用 date 这天的相关变量数据对 series 进行中性化；请注意date不要为实时数据中的天（例如设置date=datetime.date.today())，因为此时处理依赖的当天财务数据还没有更新，默认依赖数据为Nan；如果依赖数据为Nan , 直接忽略,返回原始数据, 不中性化； - axis: 默认为 1。仅在 data 为 pd.DataFrame 时生效。 表示沿哪个方向做中性化，0 为对每列做中性化，1 为对每行做中性化 - fillna: 缺失值填充方式，默认为None，表示不填充。支持的值： - 'jq_l1'： 聚宽一级行业 - 'jq_l2'： 聚宽二级行业 - 'sw_l1'： 申万一级行业 - 'sw_l2'： 申万二级行业 - 'sw_l3'： 申万三级行业 表示使用某行业分类的均值进行填充。 - add_constant: 中性化时是否添加常数项, 默认为 False \*\*返回\*\* 中性化后的因子数据 \*\*示例\*\*
-```python python
+```py
 # 导入需要的函数库
 import pandas as pd
 import numpy as np
@@ -2263,12 +2263,12 @@ neutralize(data, how=['jq_l1', 'market_cap'], date='2018-05-02', axis=1)
 
 winsorize 去极值
 
-```python python
+```py
 winsorize(series, scale=None, range=None, qrange=None, inclusive=True, inf2nan=True, axis=1)
 
 ```
 \*\*参数\*\* - data: pd.Series/pd.DataFrame/np.array, 待缩尾的序列 - scale: 标准差倍数，与 range，qrange 三选一，不可同时使用。会将位于 \[mu - scale \* sigma, mu + scale \* sigma\] 边界之外的值替换为边界值 - range: 列表， 缩尾的上下边界。与 scale，qrange 三选一，不可同时使用。 - qrange: 列表，缩尾的上下分位数边界，值应在 0 到 1 之间，如 \[0.05, 0.95\]。与 scale，range 三选一，不可同时使用。 - inclusive: 是否将位于边界之外的值替换为边界值，默认为 True。如果为 True，则将边界之外的值替换为边界值，否则则替换为 np.nan - inf2nan: 是否将 np.inf 和 -np.inf 替换成 np.nan，默认为 True如果为 True，在缩尾之前会先将 np.inf 和 -np.inf 替换成 np.nan，缩尾的时候不会考虑 np.nan，否则 inf 被认为是在上界之上，-inf 被认为在下界之下 - axis: 在 data 为 pd.DataFrame 时使用，沿哪个方向做标准化，默认为 1。 0 为对每列做缩尾，1 为对每行做缩尾。 \*\*返回\*\* 去极值处理之后的因子数据 \*\*示例\*\*
-```python python
+```py
 # 导入需要的函数库
 import pandas as pd
 import numpy as np
@@ -2282,12 +2282,12 @@ winsorize(data, qrange=[0.05,0.93], inclusive=True, inf2nan=True, axis=1)
 
 winsorize_med 中位数去极值
 
-```python python
+```py
 winsorize_med(series, scale=1, inclusive=True, inf2nan=True, axis=1)
 
 ```
 \*\*参数\*\* - data: pd.Series/pd.DataFrame/np.array, 待缩尾的序列 - scale: 倍数，默认为 1.0。会将位于 \[med - scale \* distance, med + scale \* distance\] 边界之外的值替换为边界值/np.nan - inclusive bool 是否将位于边界之外的值替换为边界值，默认为 True。 如果为 True，则将边界之外的值替换为边界值，否则则替换为 np.nan - inf2nan: 是否将 np.inf 和 -np.inf 替换成 np.nan，默认为 True。如果为 True，在缩尾之前会先将 np.inf 和 -np.inf 替换成 np.nan，缩尾的时候不会考虑 np.nan，否则 inf 被认为是在上界之上，-inf 被认为在下界之下 - axis: 在 data 为 pd.DataFrame 时使用，沿哪个方向做标准化，默认为 1。0 为对每列做缩尾，1 为对每行做缩尾 \*\*返回\*\* 中位数去极值之后的因子数据 \*\*示例\*\*
-```python python
+```py
 # 导入需要的函数库
 import pandas as pd
 import numpy as np
@@ -2301,12 +2301,12 @@ winsorize_med(data, scale=1, inclusive=True, inf2nan=True, axis=0)
 
 standardlize 标准化(z-score)
 
-```python python
+```py
 standardlize(series, inf2nan=True, axis=1)
 
 ```
 \*\*参数\*\* - data: pd.Series/pd.DataFrame/np.array, 待标准化的序列 - inf2nan: 是否将 np.inf 和 -np.inf 替换成 np.nan。默认为 True - axis=1: 在 data 为 pd.DataFrame 时使用，如果 series 为 pd.DataFrame，沿哪个方向做标准化。0 为对每列做标准化，1 为对每行做标准化 \*\*返回\*\* 标准化后的因子数据 \*\*示例\*\*
-```python python
+```py
 # 导入需要的函数库
 import pandas as pd
 import numpy as np
@@ -2322,7 +2322,7 @@ standardlize(data, inf2nan=True, axis=0)
 
 ##### portfolio_optimizer - 投资组合优化
 
-```python python
+```py
 portfolio_optimizer(date, securities, target, constraints, bounds=[Bound(0.0, 1.0)], default_port_weight_range=[0.0, 1.0], ftol=1e-9, return_none_if_fail=True)
 
 ```
@@ -2357,7 +2357,7 @@ portfolio_optimizer(date, securities, target, constraints, bounds=[Bound(0.0, 1.
 
 示例代码 给了五个应用示例，修改参数即可生效
 
-```python python
+```py
 # 导入函数库
 import pandas as pd
 from jqdata import *
@@ -2503,12 +2503,12 @@ def market_open(context):
 
 order 按股数下单
 
-```python python
+```py
 order(security, amount, style=None, side='long', pindex=0, close_today=False)
 
 ```
 买卖标的。调用成功后, 您将可以调用\[get_open_orders\]取得所有未完成的交易, 也可以调用\[cancel_order\]取消交易 \*\*参数\*\* - security: 标的代码 - amount: 交易数量, 正数表示买入, 负数表示卖出 - style: 参见\[OrderStyle\](https://www.joinquant.com/help/api/help#api:OrderStyle), None代表MarketOrder - side: 'long'/'short'，操作多单还是空单。默认为多单，\*\*股票、基金暂不支持开空单\*\*。 - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0 指定第一个 subportfolio, 1 指定第二个 subportfolio，\*\*默认为0\*\*。 - close_today: 平今字段，close_today: 平今字段，仅对上海国际能源中心，上海期货交易所，中金所生效，其他交易所将会报错（其他交易所没有区分平今与平昨，均按照先开先平的方法处理）。 - 对上海国际能源中心，上海期货交易所，中金所的标的： - close_today = True, 只平今仓，今仓不足的时候，订单将会被废单。 - close_today = False, 优先平昨仓，昨仓不足部分平今仓 - 不管close_today是True还是False，此函数只会产生一个订单，区别在于平仓时的手续费计算，平昨仓使用close_commission对应手续费率，平今仓使用close_today_commission手续费率。 \*\*返回\*\* Order对象或者None, 如果创建订单成功, 则返回Order对象, 失败则返回None \*\*示例\*\*
-```python python
+```py
 #买入平安银行股票100股
 order('000001.XSHE', 100) # 下一个市价单
 order('000001.XSHE', 100, MarketOrderStyle()) # 下一个市价单, 功能同上(科创板市价单需要指定保护价)
@@ -2520,12 +2520,12 @@ order('000001.XSHE', 100, LimitOrderStyle(10.0)) # 以10块价格下一个限价
 
 order_target 目标股数下单
 
-```python python
+```py
 order_target(security, amount, style=None, side='long', pindex=0, close_today=False)
 
 ```
 买卖标的, 使最终标的的数量达到指定的amount，注意使用此接口下单时若指定的标的有未完成的订单，则先前未完成的订单将会被取消 \*\*参数\*\* - security: 标的代码 - amount: 期望的最终数量 - style: 参见\[OrderStyle\](https://www.joinquant.com/help/api/help#api:OrderStyle), None代表MarketOrder - side: 'long'/'short'，操作多单还是空单。默认为多单。默认为多单，\*\*股票、基金暂不支持开空单\*\*。 - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 - close_today: 平今字段，close_today: 平今字段，仅对上海国际能源中心，上海期货交易所，中金所生效，其他交易所将会报错（其他交易所没有区分平今与平昨，均按照先开先平的方法处理）。 - 对上海国际能源中心，上海期货交易所，中金所的标的： - close_today = True, 只平今仓，今仓不足的时候，订单将会被废单。 - close_today = False, 优先平昨仓，昨仓不足部分平今仓 - 不管close_today是True还是False，此函数只会产生一个订单，区别在于平仓时的手续费计算，平昨仓使用close_commission对应手续费率，平今仓使用close_today_commission手续费率。 \*\*返回\*\* Order对象或者None, 如果创建委托成功, 则返回Order对象, 失败则返回None \*\*示例\*\*
-```python python
+```py
 # 卖出平安银行所有股票
 order_target('000001.XSHE', 0)
 # 买入平安银行所有股票到100股
@@ -2536,12 +2536,12 @@ order_target('688001.XSHG', 100, MarketOrderStyle(10)) #科创板设置保护价
 
 order_value 按价值下单
 
-```python python
+```py
 order_value(security, value, style=None, side='long', pindex=0, close_today=False)
 
 ```
 买卖价值为value的标的。 \*\*参数\*\* - security: 股票名字 - value: 股票价值，value = 最新价 \* 手数 \* 保证金率（股票为1） \* 乘数（股票为100） - style: 参见\[OrderStyle\](https://www.joinquant.com/help/api/help#api:OrderStyle), None代表MarketOrder - side: 'long'/'short'，操作多单还是空单。默认为多单。默认为多单，\*\*股票、基金暂不支持开空单\*\*。 - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 - close_today: 平今字段，close_today: 平今字段，仅对上海国际能源中心，上海期货交易所，中金所生效，其他交易所将会报错（其他交易所没有区分平今与平昨，均按照先开先平的方法处理）。 - 对上海国际能源中心，上海期货交易所，中金所的标的： - close_today = True, 只平今仓，今仓不足的时候，订单将会被废单。 - close_today = False, 优先平昨仓，昨仓不足部分平今仓 - 不管close_today是True还是False，此函数只会产生一个订单，区别在于平仓时的手续费计算，平昨仓使用close_commission对应手续费率，平今仓使用close_today_commission手续费率。 \*\*返回\*\* Order对象或者None, 如果创建委托成功, 则返回Order对象, 失败则返回None \*\*示例\*\*
-```python python
+```py
 #卖出价值为10000元的平安银行股票
 order_value('000001.XSHE', -10000)
 #买入价值为10000元的平安银行股票
@@ -2552,12 +2552,12 @@ order_value('688001.XSHG', 100, MarketOrderStyle(10)) #科创板设置保护价,
 
 order_target_value 目标价值下单
 
-```python python
+```py
 order_target_value(security, value, style=None, side='long', pindex=0, close_today=False)
 
 ```
 调整标的仓位到value价值，注意使用此接口下单时若指定的标的有未完成的订单，则先前未完成的订单将会被取消 \*\*参数\*\* - security: 标的名字 - value: 期望的标的最终价值，value = 最新价 \* 手数 \* 保证金率（股票为1） \* 乘数（股票为100） - style: 参见\[OrderStyle\](https://www.joinquant.com/help/api/help#api:OrderStyle), None代表MarketOrder - side: 'long'/'short'，操作多单还是空单。默认为多单。 - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 - close_today: 平今字段，close_today: 平今字段，仅对上海国际能源中心，上海期货交易所，中金所生效，其他交易所将会报错（其他交易所没有区分平今与平昨，均按照先开先平的方法处理）。 - 对上海国际能源中心，上海期货交易所，中金所的标的： - close_today = True, 只平今仓，今仓不足的时候，订单将会被废单。 - close_today = False, 优先平昨仓，昨仓不足部分平今仓 - 不管close_today是True还是False，此函数只会产生一个订单，区别在于平仓时的手续费计算，平昨仓使用close_commission对应手续费率，平今仓使用close_today_commission手续费率。 \*\*返回\*\* Order对象或者None, 如果创建委托成功, 则返回Order对象, 失败则返回None \*\*示例\*\*
-```python python
+```py
 #卖出平安银行所有股票
 order_target_value('000001.XSHE', 0)
 #调整平安银行股票仓位到10000元价值
@@ -2568,12 +2568,12 @@ order_target_value('688001.XSHG', 100, MarketOrderStyle(10)) #科创板设置保
 
 cancel_order 撤单
 
-```python python
+```py
 cancel_order(order)
 
 ```
 取消订单 \*\*参数\*\* - order: \[Order\]对象或者order_id \*\*返回\*\* Order对象或者None, 如果取消委托成功, 则返回Order对象, 委托不存在返回None \*\*示例\*\*
-```python python
+```py
 #每个交易日结束运行
 def after_trading_end(context):
     # 得到当前未完成订单
@@ -2586,12 +2586,12 @@ def after_trading_end(context):
 
 get_open_orders 获取未完成订单
 
-```python python
+```py
 get_open_orders()
 
 ```
 获得当天的所有未完成的订单 \*\*参数\*\* 无 \*\*返回\*\* 返回一个dict, key是order_id, value是\[Order\]对象 \*\*示例\*\*
-```python python
+```py
 #每个交易日结束运行
 def after_trading_end(context):
     #得到当前未完成订单
@@ -2603,12 +2603,12 @@ def after_trading_end(context):
 
 get_orders 获取订单信息
 
-```python python
+```py
 get_orders(order_id=None, security=None, status=None)
 
 ```
 获取当天的所有订单 \*\*参数\*\* - order_id: 订单 id - security: 标的代码，可以用来查询指定标的的所有订单 - status: \[OrderStatus\]， 查询特定订单状态的所有订单 \*\*返回\*\* 返回一个dict, key是order_id, value是\[Order\]对象 \*\*示例\*\*
-```python python
+```py
 #每个交易日结束运行
 def after_trading_end(context):
     #得到当天所有订单
@@ -2633,12 +2633,12 @@ def after_trading_end(context):
 
 get_trades 获取成交信息
 
-```python python
+```py
 get_trades()
 
 ```
 获取当天的所有成交记录, 一个订单可能分多次成交 \*\*参数\*\* 无 \*\*返回\*\* 返回一个dict, key是trade_id, value是\[Trade\]对象 \*\*示例\*\*
-```python python
+```py
 #每个交易日结束运行
 def after_trading_end(context):
     #得到当天所有成交记录
@@ -2650,12 +2650,12 @@ def after_trading_end(context):
 
 inout_cash 账户出入金
 
-```python python
+```py
 inout_cash(cash, pindex=0)
 
 ```
 账户转入或转出资金，当日的出入金从当日开始记入成本，用于计算收益，即当日结束计算收益时的本金是包含当日出入金金额的； \*\*参数\*\* - cash： 可正可负，正为入金，负为出金。 - pindex： 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，默认为0。 \*\*示例\*\*
-```python python
+```py
 # 查看账户可用资金
 log.info('账户可用资金：',context.portfolio.subportfolios[0].available_cash)
 # 增加资金：6666
@@ -2667,7 +2667,7 @@ log.info('账户可用资金：',context.portfolio.subportfolios[0].available_ca
 
 batch_submit_orders 篮子下单
 
-```python python
+```py
 batch_submit_orders(orders)
 
 ```
@@ -2684,7 +2684,7 @@ batch_submit_orders(orders)
 
 ```
 - security: 标的代码 - amount: 交易数量, 正数表示买入, 负数表示卖出 - style: 参见\[order styles\], None代表MarketOrder - side: 'long'/'short'，操作多单还是空单。默认为多单，\*\*股票、基金暂不支持开空单\*\*。 - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0 指定第一个 subportfolio, 1 指定第二个 subportfolio，\*\*默认为0\*\*。 - close_today: 平今字段。 - 对上海国际能源中心，上海期货交易所，中金所的标的： - close_today = True, 只平今仓 - close_today = False, 优先平昨仓，昨仓不足部分平今仓 - 对其他交易所标的： - close_today = True, 优先平今，超出则平昨仓 - close_today = False, 优先平昨，超出则平今仓 \*\*返回\*\* 一个包含Order对象的list \*\*示例\*\*
-```python python
+```py
 #买入平安银行和福耀玻璃各股票100股
 orders=[{
         "security":"000001.XSHE",
@@ -2702,7 +2702,7 @@ batch_submit_orders(orders)
 
 batch_cancel_orders 篮子撤单
 
-```python python
+```py
 batch_cancel_orders(orders)
 
 ```
@@ -2715,7 +2715,7 @@ batch_cancel_orders(orders)
 g 全局变量对象
 
 全局对象 g，用来存储用户的各类可被pickle.dumps函数序列化的全局数据 在模拟盘中，进程每天都会重启，我们会使用\[pickle.dumps\]序列化所有的g下面的变量内容, 保存到磁盘中，再启动的时候模拟盘就不会有任何数据影响。如果没有用g声明，会出现模拟盘重启后，变量数据丢失的问题。 \*\*如果不想 g 中的某个变量被序列化, 可以让变量以 '\_\_' 开头, 这样, 这个变量在序列化时就会被忽略\*\* \*\*注意保存的大小有限制,上限30M,超出后将报错\*\* \*\*注意避免对context及其下属的order/trade/position等对象进行持久化保存，因为账户信息是可变的,这种操作可能导致异常\*\* \*\*注意尽量不要将全局变量的声明/初始化放在函数体外, 否则每次进程重启时都会被执行\*\* 更多模拟盘细节, 请看 \[模拟盘注意事项\](https://www.joinquant.com/help/api/help#api:%E6%A8%A1%E6%8B%9F%E7%9B%98%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9).
-```python python
+```py
 def initialize(context):
     g.security = "000001.XSHE"
     g.count = 1
@@ -2735,7 +2735,7 @@ def handle_data(context, data):
 Context 策略信息总览，包含账户、时间等信息
 
 - subportfolios: 当前单个操作仓位的资金、标的信息，是一个\[SubPortfolio\](#subportfolios) 的数组 - portfolio: 账户信息，即subportfolios 的汇总信息, \[Portfolio\](#portfolio)对象，单个操作仓位时，portfolio 指向 subportfolios\[0\] - current_dt: 当前单位时间的开始时间, \[datetime.datetime\]对象 - previous_date: 前一个交易日, \[datetime.date\]对象, 注意, 这是一个日期, 是 date, 而不是 datetime - universe: 查询set_universe()设定的股票池, 比如: \['000001.XSHE', '600000.XSHG'\] - run_params: 表示此次运行的参数, 有如下属性 - start_date: 回测/模拟开始日期, \[datetime.date\]对象 - end_date: 回测/模拟结束日期, \[datetime.date\]对象 - type: 运行方式, 如下四个字符串之一 'simple_backtest': 回测, 通过点击'编译运行'运行 'full_backtest': 回测, 通过点击'运行回测'运行 'sim_trade': 模拟交易 - frequency: 运行频率, 如下三个字符串之一 'day' 'minute' 'tick' - 为了让从其他平台迁移过来的同学更顺手的使用系统, 我们对此对象也做了和 \[g\] 一样的处理: - 可以添加自己的变量, 每次进程关闭时持久保存, 进程重启时恢复. - 以 '\_\_' 开头的变量不会被持久保存 - 如果添加的变量与系统的冲突, 将覆盖掉系统变量, 如果想恢复系统变量, 请删除自己的变量. 示例: \`\`\`python def handle_data(context, data): # 执行下面的语句之后, context.portfolio 的整数 1 context.portfolio = 1 log.info(context.portfolio) # 要恢复系统的变量, 只需要使用下面的语句即可 del context.portfolio # 此时, context.portfolio 将变成账户信息. log.info(context.portfolio.total_value) \`\`\` - 我们以后可能会往 context 添加新的变量来支持更多功能, 为了减少不必要的迷惑, 还是建议大家使用 \[g\](#g) - \[context对象综述及获取方法\](https://www.joinquant.com/view/community/detail/4adb8722188f906bbe11f59999e08db4) \*\*示例\*\*
-```python python
+```py
 def handle_data(context, data):
 
     #获得当前回测相关时间
@@ -2772,7 +2772,7 @@ def handle_data(context, data):
 SubPortfolio 子账户信息
 
 某个仓位的资金，标的信息，如未使用 SubPortfolioConfig 设置多仓位，默认只有subportfolios\[0\]一个仓位，Portfolio 指向该仓位。 - inout_cash: 累计出入金, 比如初始资金 1000, 后来转移出去 100, 则这个值是 1000 - 100 - available_cash: 可用资金, 可用来购买证券的资金 - transferable_cash: 可取资金, 即可以提现的资金, 不包括今日卖出证券所得资金 - locked_cash: 挂单锁住资金 - type: 账户所属类型 - long_positions: 多单的仓位, 一个 dict, key 是标的代码, value 是 \[Position\]对象 - short_positions: 空单的仓位, 一个 dict, key 是标的代码, value 是 \[Position\]对象 - positions_value: 持仓价值 - total_value: 总资产, 包括现金, 保证金(期货)或者仓位(股票)的总价值, 可用来计算收益 - total_liability: 总负债, 等于融资负债、融券负债、利息总负债的总和 - net_value: 净资产, 等于总资产减去总负债 - cash_liability: 融资负债 - sec_liability: 融券负债 - interest: 利息总负债 - maintenance_margin_rate: 维持担保比例 - available_margin: 融资融券可用保证金 - margin: 保证金，股票、基金保证金都为100%；融资融券保证金为0；期货保证金会实时更新, 总是等于当前期货价值 乘以 保证金比率, 当保证金不足时, 强制平仓. 平仓顺序是: 亏损多的(相对于开仓均价)先平仓
-```python python
+```py
 print("累计出入金:{0}".format(context.subportfolios[0].inout_cash))
 print("可用资金:{0}".format(context.subportfolios[0].available_cash))
 print("可取资金:{0}".format(context.subportfolios[0].transferable_cash))
@@ -2790,7 +2790,7 @@ print("总资产:{0}".format(context.subportfolios[0].total_value))
 Portfolio 总账户信息
 
 账户当前的资金，标的信息，即所有标的操作仓位的信息汇总。如未使用 SubPortfolioConfig 设置多仓位，默认只有subportfolios\[0\]一个仓位，Portfolio 指向该仓位。注意区分多仓和空仓。 - inout_cash: 累计出入金, 比如初始资金 1000, 后来转移出去 100, 则这个值是 1000 - 100 - available_cash: 可用资金, 可用来购买证券的资金 - transferable_cash: 可取资金, 即可以提现的资金, 不包括今日卖出证券所得资金 - locked_cash: 挂单锁住资金 - margin: 保证金，股票、基金保证金都为100% - positions: 等同于 long_positions - long_positions: 多单的仓位, 一个 dict, key 是证券代码, value 是 \[Position\]对象 - short_positions: 空单的仓位, 一个 dict, key 是证券代码, value 是 \[Position\]对象 - total_value: 总的权益, 包括现金, 保证金(期货)或者仓位(股票)的总价值, 可用来计算收益 - returns: 前一日总权益的累计收益；（前一交易日total_value / inout_cash) ； - starting_cash: 初始资金, 现在等于 inout_cash - positions_value: 持仓价值 - ~~cash: \*\*已过时\*\*，等价于 available_cash~~ - ~~portfolio_value: \*\*已过时\*\*，等价于 total_value~~ - ~~unsell_positions: \*\*已过时, 请使用 positions 代替\*\*, 当前持有的不可以卖出的持仓(比如在A股T+1市场, 今天购票的股票), 并没有考虑股票今天是否停牌, 一个dict, key是股票代码, value是\[Position\]对象.~~
-```python python
+```py
 print("多单的仓位:{0}".format(context.portfolio.long_positions))
 print("空单的仓位:{0}".format(context.portfolio.short_positions))
 print("总权益:{0}".format(context.portfolio.total_value))
@@ -2803,7 +2803,7 @@ print("持仓价值:{0}".format(context.portfolio.positions_value))
 Position 持仓标的信息
 
 持有的某个标的的信息,注意区分多仓和空仓 - security: 标的代码 - price: 最新行情价格 - acc_avg_cost 是累计的持仓成本，在清仓/减仓时也会更新，该持仓累积的收益都会用于计算成本（一开始acc_avg_cost为0，amount也为0），加仓：new_acc_avg_cost = (acc_avg_cost \* amount + trade_value + commission) / (amount + trade_amount)；减仓：new_acc_avg_cost = (acc_avg_cost \* amount - trade_value + commission) / (amount - trade_amount) 说明：commission是本次买入或者卖出的手续费 - avg_cost 是当前持仓成本，只有在开仓/加仓时会更新： new_avg_cost = (position_value + trade_value + commission) / (position_amount + trade_amount) 每次买入后会调整avg_cost, 卖出时avg_cost不变. 这个值也会被用来计算浮动盈亏. - hold_cost: 当日持仓成本，计算方法：当日无收益：hold_cost = 前收价 （清算后），加仓：hold_cost = (hold_cost \* amount + trade_value)/(amount + trade_amount)，减仓：hold_cost = (hold_cost \* amount - trade_value)/(amount - trade_amount)；trade_value = trade_price \* trade_amount - init_time: 建仓时间，格式为 datetime.datetime - transact_time: 最后交易时间，格式为 datetime.datetime - locked_amount: 挂单冻结仓位 - total_amount: 总仓位, 但不包括挂单冻结仓位( 如果要获取当前持仓的仓位,需要将locked_amount和total_amount相加) - closeable_amount: 可卖出的仓位 - today_amount: 今天开的仓位 - value: 标的价值，计算方法是: price \* total_amount \* multiplier, 其中股票、基金的multiplier为1，期货为相应的合约乘数 - side: 多/空，'long' or 'short' - pindex: 仓位索引，subportfolio index - ~~sellable_amount: \*\*已过时\*\*, 为了向前兼容, 等同于 closeable_amount~~ - ~~amount: \*\*已过时\*\*, 为了向前兼容, 等同于 closeable_amount~~
-```python python
+```py
 print(type(context.portfolio.long_positions))
 long_positions_dict = context.portfolio.long_positions
 for position in list(long_positions_dict.values()):
@@ -2818,7 +2818,7 @@ for position in list(short_positions_dict.values()):
 SecurityUnitData data对象
 
 一个单位时间内的股票的数据 \*\*为了向前兼容，保留data对象，由于效率问题不推荐使用\*\* ##### 基本属性 \*\*以下属性也能通过history/attribute_history/get_price获取到\*\* - open: 时间段开始时价格(当天天级别的开盘价至少需要09:27分之后才可获取) - close: 时间段结束时价格 - low: 时间段中的最低价 - high: 时间段中的最高价 - volume: 时间段中的成交的股票数量 - money: 时间段中的成交的金额 - factor: 前复权因子, 我们提供的价格都是前复权后的, 但是利用这个值可以算出原始价格, 方法是价格除以factor, 比如: \`close/factor\` - high_limit: 时间段中的涨停价 - low_limit: 时间段中的跌停价 - avg: 这段时间的平均价。计算方法（1）天级别：股票是成交额除以成交量；期货是直接从CTP行情获取的，计算方法为成交额除以成交量再除以合约乘数；（2）分钟级别：用该分钟所有tick的现价乘以该tick的成交量加起来之后，再除以该分钟的成交量。 - ~~price: \*\*已经过时\*\*, 为了向前兼容, 等同于 avg~~ - pre_close: 前一个单位时间结束时的价格, 按天则是前一天的收盘价（期货中pre_close是前前一天结算价，建议使用get_extras获取结算价）, \*\*注意：在分钟频率下pre_close=open；\*\* - paused: bool值, 这只股票是否停牌, 停牌时open/close/low/high/pre_close依然有值,都等于停牌前的收盘价, volume=money=0 ##### 额外的属性和方法 - security: 股票代码, 比如'000001.XSHE' - returns: 股票在这个单位时间的相对收益比例, 等于 \`(close-pre_close)/pre_close\` - isnan(): 数据是否有效, 当股票未上市或者退市时, 无数据, isnan()返回True - \`mavg(days, field='close')\`: 过去days天的每天收盘价的平均值, 把field设成'avg'(等同于已过时的'price')则为每天均价的平均价, 下同 - \`vwap(days)\`: 过去days天的每天均价的加权平均值, 以days=2为例子, 算法是:
-```python python
+```py
 (avg1 * volume1 + avg2 * volume2) / (volume1 + volume2)
 
 ```
@@ -2831,7 +2831,7 @@ tick 对象 tick 对象
 Trade对象 订单的一次交易记录,一个订单可能分多次交易.
 
 订单的一次交易记录,一个订单可能分多次交易 \[关于order/trader对象及订单处理\](https://www.joinquant.com/view/community/detail/2ecedbc451f8345c2aefdc11fcd0d1a6) - time: 交易时间, \[datetime.datetime\]对象 - security：标的代码 - amount: 交易数量 - price: 交易价格 - trade_id: 交易记录id - order_id: 对应的订单id
-```python python
+```py
 trades = get_trades()
 for _trade in trades.values():
     print('成交记录：'+str(_trade))
@@ -2843,7 +2843,7 @@ for _trade in trades.values():
 Order对象 买卖订单信息
 
 买卖订单 \[关于order/trader对象及订单处理\](https://www.joinquant.com/view/community/detail/2ecedbc451f8345c2aefdc11fcd0d1a6) \[以csv格式保存order、trade、position数据\](https://www.joinquant.com/view/community/detail/19535) - status: 状态, 一个\[OrderStatus\](https://www.joinquant.com/help/api/help#api:OrderStatus)值 - add_time: 订单添加时间, \[datetime.datetime\]对象 - is_buy: bool值, 买还是卖，对于期货: 开多/平空 -> 买 开空/平多 -> 卖 - amount: 下单数量, 不管是买还是卖, 都是正数 - filled: 已经成交的股票数量, 正数 - security: 股票代码 - order_id: 订单ID - price: 平均成交价格, 已经成交的股票的平均成交价格(一个订单可能分多次成交) - avg_cost: 卖出时表示下卖单前的此股票的持仓成本, 用来计算此次卖出的收益. 买入时表示此次买入的均价(等同于price). - side: 多/空，'long'/'short' - action: 开/平， 'open'/'close' - commission：交易费用（佣金、税费等）
-```python python
+```py
 orders = order('000001.XSHE', 100)
 print(orders)
 if orders is None:
@@ -2860,7 +2860,7 @@ else:
 OrderStatus 订单状态
 
 订单状态, Enum特性使用的第三方库(https://pypi.python.org/pypi/enum34) 获取订单状态的方法请参考上面\*\*Order对象\*\*
-```python python
+```py
 class OrderStatus(Enum):
     # 订单新创建未委托，用于盘前/隔夜单，订单在开盘时变为 open 状态开始撮合
     new = 8
@@ -2882,7 +2882,7 @@ class OrderStatus(Enum):
 
 ```
 \*\*注意\*\* 订单状态数据类型为Enum，判断时可以转为字符串，示例代码如下：
-```python python
+```py
 def initialize(context):
     run_daily(market_open, time='every_bar')
 
@@ -2908,14 +2908,14 @@ def market_open(context):
 OrderStyle 下单方式
 
 具体订单处理方法请查看\[订单处理>>>\](https://www.joinquant.com/help/api/help?name=api#%E8%AE%A2%E5%8D%95%E5%A4%84%E7%90%86) 下单方式, 有如下子类 - 市价单
-```python python
+```py
 class MarketOrderStyle(OrderStyle):
    def __init__(self, limit_price=None):
         self.limit_price = limit_price
 
 ```
 市价单示例 参数： - limit_price：科创板市价单的保护价，对非科创板标的无效。
-```python python
+```py
  # 在仓位0，以市价单买入平安银行股票100股
 order('000001.XSHE', 100)
 # 在仓位0，以市价单买入平安银行股票100股G
@@ -2927,14 +2927,14 @@ order('688003.XSHG', 200, MarketOrderStyle(200))
 
 ```
 科创板保护价逻辑： 市价买入时成交的最高价格不高于本价格，若最优一档的价格高于该价格，剩余未成交部分撤单； 市价卖出时成交的最低价格不低于本价格，若最优一档的价格低于该价格，剩余未成交部分撤单； - 限价单
-```python python
+```py
 class LimitOrderStyle(OrderStyle):
     def __init__(self, limit_price):
         self.limit_price = limit_price
 
 ```
 限价单示例
-```python python
+```py
 # 以10块价格下一个限价单
 order('000001.XSHE', 100, LimitOrderStyle(10.0))
 # 在仓位1中以3600的限价单，平一手沪深300指数期货的空单
@@ -2953,12 +2953,12 @@ Event 事件对象
 
 record ♠ 画图函数
 
-```python python
+```py
 record(**kwargs)
 
 ```
 \*\*回测环境/模拟专用API\*\* \*\*如调用该函数，需要从回测开始时调用，不支持在回测周期中间时段调用\*\* 我们会帮您在图表上画出收益曲线和基准的收益曲线，您也可以调用record函数来描画额外的曲线。 因为我们是按天展现的，如果您使用按分钟回测，我们画出的点是您最后一次调用record的值（不是每分钟的）。 以16:00为界限，16:00之后绘制的属于第二天。 \*\*参数\*\* 一个或多个key=value形式的参数，key为曲线名称，value为值（不能是列表） \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 # 初始化函数，设定基准等等
 def initialize(context):
     # 开启动态复权模式(真实价格)
@@ -2983,14 +2983,14 @@ send_message(message, channel='weixin')
 
 ```
 \*\*聚宽官网实时运行模拟交易专用API\*\* 给用户自己发送消息, 暂时只支持微信消息. \*\*参数\*\* message: 消息内容. 字符串. channel: 消息渠道, 暂时只支持微信: weixin. 默认值是 weixin \*\*返回值\*\* True/False, 表示是否发送成功. 当发送失败时, 会在日志中显示错误信息. \*\*注意\*\* - 要使用模拟交易发送微信功能, 必须\[绑定及开启微信通知\](https://www.joinquant.com/help/api/help?name=faq#%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%E5%BE%AE%E4%BF%A1%E9%80%9A%E7%9F%A5%EF%BC%9F)； - 此功能只能在 \*\*聚宽官网的实时运行模拟交易\*\* 中使用, 回测中使用会直接忽略, 无任何提示；有关\[实时和延时运行\](https://www.joinquant.com/help/api/help?name=faq#%E5%BB%B6%E6%97%B6%E8%BF%90%E8%A1%8C) - 请注意区分自定义消息和下单通知，send_message对应的是自定义微信消息，下单通知是模拟交易策略有下单时（交易详情页面有下单记录）同时发送微信消息； - 自定义消息只要绑定了微信，都会发送；下单信息只有开启具体模拟交易的\*\*微信通知\*\*开关，此策略才发送微信消息； - 下单通知：每个账号每天最多60条；自定义消息每个账号每天最多 \*\*5\*\* 条, 超出会发送失败，需要更多条数可以使用\[积分兑换\](https://www.joinquant.com/view/credits/list) - 自定义消息长度不得超过 \*\*200\*\* 个字符, 也不能包含回车和换行这些特殊字符，否则会发送失败 - 一个账号模拟交易只能被一个用户绑定，多个微信绑定后，前面失效，以最后一个绑定的微信号为准 \*\*示例\*\*
-```python python
+```py
 send_message("测试消息")
 
 ```
 
 log 日志log信息
 
-```python python
+```py
 log.error(content)
 log.warn(content)
 log.info(content)
@@ -2999,19 +2999,19 @@ print(content1, content2, ...)
 
 ```
 分级别打log,跟python的logging模块一致 print输出的结果等同于log.info, 但是print后面的每一个元素会占用一行 \*\*参数\*\* 参数可以是字符串、对象等 \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 log.info(history(10)) # 打印出 history(10)返回的结果
 log.info("Selling %s, amount=%s", security, amount) # 打印出一个格式化后的字符串
 print(history(10), data, context.portfolio)
 
 ```
 \##### 设定log级别：log.set_level
-```python python
+```py
 log.set_level(name, level)
 
 ```
 设置不同种类的log的级别, 低于这个级别的log不会输出. 所有log的默认级别是debug，为了降低排查问题的难度，建议\*\*日志级别保持为默认级别(不设置日志级别，或者设置log.set_level('order', 'info'))\*\*。 \*\*参数\*\* name: 字符串, log种类, 必须是'order', 'history', 'strategy'中的一个, 含义分别是: - order: 调用order系列API产生的log - history: 调用history系列API(history/attribute_history/get_price)产生的log - strategy: 您自己在策略代码中打的log - system：系统日志，除以上三类之外的日志 level: 字符串, 必须是'debug', 'info', 'warning', 'error'中的一个, 级别: debug < info < warning < error \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 # 设置日志级别为debug
 log.set_level('order', 'debug')
 
@@ -3023,12 +3023,12 @@ log.set_level('order', 'debug')
 
 write_file 将回测或模拟交易数据写入到投资研究文件中
 
-```python python
+```py
 write_file(path, content, append=False)
 
 ```
 将回测或者模拟交易的数据写入\[投资研究\](https://www.joinquant.com/research)path文件, 写入后, 您可以立即在研究模块中看到这个文件,默认在投资研究的根目录 \[在回测及模拟交易中读取/写入研究中不同格式的文件\](https://www.joinquant.com/view/community/detail/a9f7577b37265f78ffc2c6bb2467d47e?type=1) \*\*参数\*\* - path: 相对路径, 相对于您的私有空间的根目录的路径 - content: 文件内容, str或者unicode, 如果是unicode, 则会使用UTF-8编码再存储.可以是二进制内容. - append: 是否是追加模式, 当为False会清除原有文件内容，默认为False. \*\*返回\*\* None 如果写入失败(一般是因为路径不合法), 会抛出异常 \*\*示例\*\*
-```python python
+```py
 write_file("test.txt", "hello world")
 
 # 写入沪深300的股票到HS300.stocks.json文件中
@@ -3045,12 +3045,12 @@ write_file('df.csv', df.to_csv(), append=False) #写到文件中
 
 read_file 在回测或者模拟交易中读取您研究中文件
 
-```python python
+```py
 read_file(path)
 
 ```
 在回测及模拟交易中读取你的私有文件(您的私有文件可以在研究模块中看到) \[在回测及模拟交易中读取/写入研究中不同格式的文件\](https://www.joinquant.com/view/community/detail/a9f7577b37265f78ffc2c6bb2467d47e?type=1) \*\*参数\*\* path: 相对路径, 相对于您的私有空间的根目录的路径 \*\*返回\*\* 返回文件的原始内容, 不做任何decode. \*\*示例\*\*
-```python python
+```py
 #解析json文件
 import json
 content = read_file('HS300.stocks.json')
@@ -3080,12 +3080,12 @@ data=pd.read_csv(BytesIO(body))
 
 create_backtest 通过一个策略ID从研究中创建回测
 
-```python python
+```py
 create_backtest(algorithm_id, start_date, end_date, frequency="day", initial_cash=10000, initial_positions=None, extras=None, name=None, code="", benchmark=None, python_version=2, use_credit=False)
 
 ```
 通过一个策略ID从研究中创建回测，只能在研究中使用，目前不支持在回测及模拟交易中使用； \*\*参数：\*\* - algorithm_id: 策略ID，从策略编辑页的 url 中获取, 比如 '/algorithm/index/edit?algorithmId=xxxx'，则策略ID为: xxxx。如下图所示： !\[\](https://image.joinquant.com/b643aa04a7c6baf28d44f211d4ee910b) - start_date: 回测开始日期 - end_date: 回测结束日期 - frequency: 数据频率，支持 day, minute, tick - initial_cash: 初始资金 - extras: 额外参数，一个 dict， 用于设置全局的 g 变量，如 extras={'x':1, 'y':2}，则回测中 g.x = 1, g.y = 2，需要注意的是，该参数的值是\`在 initialize 函数执行之后\`才设置给 g 变量的，所以这会覆盖掉 initialize 函数中 g 变量同名属性的值 - name: 回测名, 用于指定回测名称, 如果没有指定则默认采用策略名作为回测名 - initial_positions: 初始持仓。持仓会根据价格换成现金加到初始资金中，如果没有给定价格则默认获取股票最近的价格。格式如下:
-```python python
+```py
 initial_positions = [
     {
         'security':'000001.XSHE',
@@ -3100,7 +3100,7 @@ initial_positions = [
 
 ```
 - code：策略代码。现在支持从研究中传入策略代码进行回测。指定之后将使用传入的代码来创建回测。 - benchmark: 为回测设置基准。默认为None，表示使用策略中原有set_benchmark设置的基准。若不为None，则表示使用当前传入的基准覆盖原策略的基准。benchmark支持的基准同set_benchmark - python_version: 创建回测的python的版本，已废弃参数,目前只支持python3内核 - use_credit:是否允许消耗积分新建回测。当每个自然日内编译运行、回测超过免费时间时，继续运行每30分钟需消耗2积分。默认为False，表示不允许消耗积分新建回测，设为True表示接受消耗积分新建回测。需注意，对于已经在运行中的回测，此配置不生效。 \*\*返回：\*\* 一个字符串, 即 backtest_id \*\*示例一：\*\*
-```python python
+```py
 algorithm_id = "xxxx"
 extra_vars = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5}
 initial_positions = [
@@ -3130,7 +3130,7 @@ print(created_bt_id)
 
 ```
 \*\*示例二，在研究中指定回测用策略代码：\*\*
-```python python
+```py
 code = """
 # 导入函数库
 from jqdata import *
@@ -3239,12 +3239,12 @@ created_bt_id = create_backtest(code=code, **params)
 get_backtest 研究中获取回测与模拟交易信息
 
 ####
-```python python
+```py
 gt = get_backtest(backtest_id)
 
 ```
 研究中获取回测与模拟交易信息，只能在研究中使用，目前不支持在回测及模拟交易中使用；使用方法及参考教程： - \[参数优化及并行回测参考教程\](https://www.joinquant.com/help/api/help?name=faq#%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96%E5%8F%8A%E5%B9%B6%E8%A1%8C%E5%9B%9E%E6%B5%8B) - \[区分create_backtest(策略ID)和get_backtest(回测ID)\](https://www.joinquant.com/help/api/help?name=faq#%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96%E5%8F%8A%E5%B9%B6%E8%A1%8C%E5%9B%9E%E6%B5%8B) - \[create_backtest与get_backtest\](https://www.joinquant.com/view/community/detail/1673d7bd3b883ad403a189288389efd8?type=1) \*\*参数：\*\* - backtest_id: 回测ID，从回测详情页以及模拟交易详情页的 url 中获取, 比如 '/algorithm/backtest/detail?backtestId='以及'/algorithm/live/index?backtestId='，则回测ID为:xxxx。如下图所示： !\[img\](https://image.joinquant.com/73514339d9b8e3f45818b0eb6c0594bf) \*\*返回：\*\* - gt.get_status():\*\*获取回测状态\*\*. 返回一个字符串，其含义分别为： - none: 未开始 - running: 正在进行 - done: 完成 - failed: 失败 - canceled: 取消 - paused: 暂停 - deleted: 已删除 - gt.get_params()：\*\*获得回测参数\*\*. 返回一个 dict, 包含调用 create_backtest 时传入的所有信息. (注： algorithm_id，initial_positions，extras 只有在研究中创建的回测才能取到) - gt.get_results()：\*\*获得收益曲线\*\*. 返回一个 list，每个交易日是一个 dict，键的含义如下： - time: 时间 - returns: 收益 - benchmark_returns: 基准收益 - 如果没有收益则返回一个空的 list - gt.get_positions(start_date=None, end_date=None)：\*\*获得持仓详情\*\*. 返回一个 list，默认取所有回测时间段内的数据。每个交易日为一个 dict，键的含义为： - time: 时间 - amount: 持仓数量, - avg_cost: 开场均价, - closeable_amount: 可平仓数量, - daily_gains: 当日收益, - gains: 累积收益, - hold_cost: 持仓成本（期货）, - margin: 保证金, - price: 当前价格, - security: 标的代码, - security_name: 标的名, - side: 仓位方向, - today_amount: 今开仓量 - 如果没有持仓则返回一个空的 list - gt.get_orders(start_date=None, end_date=None)：\*\*获得交易详情\*\*. 返回一个 list，默认取所有回测时间段内的数据。每个交易日为一个 dict，键的含义为： - time: 时间 - action: 开平仓，'open'/'close', - amount: 数量, - commission: 手续费, - filled: 已成交量, - gains: 收益, - limit_price: 限价单委托价, - match_time: 最新成交时间, - price: 成交价, - security: 标的代码, - security_name: 标的名, - side: 仓位方向, - status: 订单状态, - time: 委托时间, - type: 委托方式，市价单/限价单 - 如果没有交易则返回一个空的 list - gt.get_records()：\*\*获得所有 record 记录\*\*. 返回一个 list，每个交易日为一个 dict，键是 time 以及调用 record() 函数时设置的值. - gt.get_risk()：\*\*获得总的风险指标\*\*. 返回一个 dict，键是各类收益指标数据，如果没有风险指标则返回一个空的 dict. - gt.get_period_risks()：\*\*获得分月计算的风险指标\*\*. 返回一个 dict，键是各类指标, 值为一个 pandas.DataFrame. 如果没有风险指标则返回一个空的 dict. - gt.get_balances(start_date=None, end_date=None): \*\*获取回测每日市值\*\*. 返回一个 list，默认取所有回测时间段内的数据。每个交易日为一个 dict \*\*示例：\*\*
-```python python
+```py
 gt = get_backtest("xxxx")
 
 gt.get_status()        # 获取回测状态
@@ -3261,12 +3261,12 @@ gt.get_balances()      # 获取回测每日市值
 
 normalize_code 股票代码格式转换
 
-```python python
+```py
 normalize_code()
 
 ```
 将其他形式的股票代码转换为聚宽可用的股票代码形式。 \*\*仅适用于A股市场股票代码、期货以及场内基金代码，输入字符串格式或int格式的其他形式标的代码,也支持list或tuple来转换多个标的代码\*\* \*\*示例\*\*
-```python python
+```py
 #输入
 codes =  ('000001', 'SZ000001', '000001SZ', '000001.sz', '000001.XSHE')
 print(normalize_code(codes ))
@@ -3278,7 +3278,7 @@ print(normalize_code(codes ))
 
 enable_profile ♠ 性能分析
 
-```python python
+```py
 enable_profile()
 
 ```
@@ -3347,17 +3347,17 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 
 set_subportfolios 初始化策略子账户 subportfolios
 
-```python python
+```py
 set_subportfolios([SubPortfolioConfig(cash,type), ... ])
 
 ```
 \*\*初始化或者修改 subportfolios 的配置，只能在 initialize 中调用, 每个 SubPortfolioConfig 中 cash 的和应该等于总的初始资金\*\* \*\*SubPortfolioConfig 参数\*\*
-```python python
+```py
 SubPortfolioConfig(cash,type)
 
 ```
 - cash: 仓位初始资金 - type: 可操作标的的类型，'stock' / 'index_futures' / 'futures' / 'stock_margin' / 其中 stock 包括股票和基金，index_futures 指金融期货，futures 包含股指期货和商品期货，stock_margin 为融资融券账户 \*\*示例\*\*
-```python python
+```py
     ## 设置多个账户
     # 获取初始资金，并等分为三份
     init_cash = context.portfolio.starting_cash/3
@@ -3376,12 +3376,12 @@ SubPortfolio 子账户信息
 
 transfer_cash 账户间转移资金
 
-```python python
+```py
 transfer_cash(from_pindex, to_pindex, cash)
 
 ```
 从序号为 from_pindex 的 subportfolio 转移 cash 到序号为 to_pindex 的 subportfolio 资金转移及时到账 \*\*示例\*\*
-```python python
+```py
 # 从subportfolio[0] 向 subportfolio[1] 转移 500000
 transfer_cash(from_pindex=0, to_pindex=1, cash=500000)
 
@@ -3406,12 +3406,12 @@ transfer_cash(from_pindex=0, to_pindex=1, cash=500000)
 
 handle_tick 策略运行
 
-```python python
+```py
 handle_tick(context, tick)
 
 ```
 该函数在策略订阅的标的产生 tick 事件时被调用一次。如果没有 tick 事件， 则不会被调用。 \*\*参数\*\* - context: \[context\](#Context) 对象, 存放有当前的账户/标的持仓信息 - tick: \[tick\](#tick) 对象， 存放了触发 handle_tick 事件的 tick 数据。 \*\*返回\*\* - None \*\*示例\*\*
-```python python
+```py
 def handle_tick(context, tick):
     log.info(tick)
 
@@ -3419,7 +3419,7 @@ def handle_tick(context, tick):
 
 subscribe 订阅标的的 tick 事件
 
-```python python
+```py
  subscribe(security, frequency)
 
 ```
@@ -3427,7 +3427,7 @@ subscribe 订阅标的的 tick 事件
 
 unsubscribe 取消订阅标的的 tick 事件
 
-```python python
+```py
 unsubscribe(security, frequency)
 
 ```
@@ -3435,7 +3435,7 @@ unsubscribe(security, frequency)
 
 unsubscribe_all 取消订阅所有 tick 事件
 
-```python python
+```py
 unsubscribe_all()
 
 ```
@@ -3445,7 +3445,7 @@ unsubscribe_all()
 
 ##### 示例1：
 
-```python python
+```py
 # 回测时间段2019-06-03到2019-06-04，运行频率设置为tick
 # 初始化
 def initialize(context):
@@ -3481,7 +3481,7 @@ def after_market_close(context):
 
 ##### 示例2：
 
-```python python
+```py
 # 导入函数库
 import jqdata
 def initialize(context):
@@ -3508,7 +3508,7 @@ def after_trading_end(context):
 
 因此要进行融资融券，您需要设定 SubPortfolioConfig 的 type = 'stock_margin'，具体方法如下：
 
-```python python
+```py
 def initialize(context):
 
     ## 设置单个账户
@@ -3538,12 +3538,12 @@ def initialize(context):
 
 margincash_interest_rate 设置融资利率
 
-```python python
+```py
 set_option('margincash_interest_rate', value)
 
 ```
 设定融资利率, 默认 8% \*\*参数\*\* - value: 融资利率的值, 默认 8% \*\*示例\*\*
-```python python
+```py
 # 设定融资利率: 年化8%
 set_option('margincash_interest_rate', 0.08)
 
@@ -3551,12 +3551,12 @@ set_option('margincash_interest_rate', 0.08)
 
 margincash_margin_rate 设置融资保证金比率
 
-```python python
+```py
 set_option('margincash_margin_rate', value)
 
 ```
 设置融资保证金比率, 默认 100% \*\*参数\*\* - value: 融资保证金比率的值, 默认 100% \*\*示例\*\*
-```python python
+```py
 # 设置融资保证金比率: 150%
 set_option('margincash_margin_rate', 1.5)
 
@@ -3564,12 +3564,12 @@ set_option('margincash_margin_rate', 1.5)
 
 marginsec_interest_rate 设置融券利率
 
-```python python
+```py
 set_option('marginsec_interest_rate', value)
 
 ```
 设定融券利率: 年化 10%, 默认 10% \*\*参数\*\* - value: 融券利率的值, 默认 10% \*\*示例\*\*
-```python python
+```py
 # 设定融券利率: 年化10%
 set_option('marginsec_interest_rate', 0.10)
 
@@ -3577,12 +3577,12 @@ set_option('marginsec_interest_rate', 0.10)
 
 marginsec_margin_rate 设置融券保证金比率
 
-```python python
+```py
 set_option('marginsec_margin_rate', value)
 
 ```
 设定融券保证金比率: 150%, 默认 100% \*\*参数\*\* - value: 融券保证金比率的值, 默认 100% \*\*示例\*\*
-```python python
+```py
 # 设定融券保证金比率: 150%
 set_option('marginsec_margin_rate', 1.5)
 
@@ -3590,12 +3590,12 @@ set_option('marginsec_margin_rate', 1.5)
 
 margincash_open 融资买入
 
-```python python
+```py
 margincash_open(security, amount, style=None, pindex=0)
 
 ```
 融资买入 \*\*参数\*\* - security: 标的代码 - amount: 数量 - style: 参见\[OrderStyle\](#OrderStyle), None代表MarketOrder - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 \*\*返回\*\* Order对象或者None, 如果创建委托成功, 则返回Order对象, 失败则返回None \*\*示例\*\*
-```python python
+```py
 # 融资买入平安银行 1000 股
 margincash_open('000001.XSHE', 1000)
 
@@ -3603,12 +3603,12 @@ margincash_open('000001.XSHE', 1000)
 
 margincash_close 卖券还款
 
-```python python
+```py
 margincash_close(security, amount, style=None, pindex=0)
 
 ```
 卖券还款 \*\*参数\*\* - security: 标的代码 - amount: 数量 - style: 参见\[OrderStyle\](#OrderStyle), None代表MarketOrder - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 \*\*返回\*\* Order对象或者None, 如果创建委托成功, 则返回Order对象, 失败则返回None \*\*示例\*\*
-```python python
+```py
 # 卖出 1000 股平安银行用以还款
 margincash_close('000001.XSHE', 1000)
 
@@ -3616,12 +3616,12 @@ margincash_close('000001.XSHE', 1000)
 
 margincash_direct_refund 直接还款
 
-```python python
+```py
 margincash_direct_refund(value, pindex=0)
 
 ```
 直接还款 \*\*参数\*\* - value: 还款金额 \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 # 还款 100000 元
 margincash_direct_refund(100000)
 
@@ -3629,12 +3629,12 @@ margincash_direct_refund(100000)
 
 marginsec_open 融券卖出
 
-```python python
+```py
 marginsec_open(security, amount, style=None, pindex=0)
 
 ```
 融券卖出 \*\*参数\*\* - security: 标的代码 - amount: 数量 - style: 参见\[OrderStyle\](#OrderStyle), None代表MarketOrder - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 \*\*返回\*\* Order对象或者None, 如果创建委托成功, 则返回Order对象, 失败则返回None \*\*示例\*\*
-```python python
+```py
 # 融券卖出 1000 股 平安银行
 marginsec_open('000001.XSHE', 1000)
 
@@ -3642,12 +3642,12 @@ marginsec_open('000001.XSHE', 1000)
 
 marginsec_close 买券还券
 
-```python python
+```py
 marginsec_close(security, amount, style=None, pindex=0)
 
 ```
 买券还券 \*\*参数\*\* - security: 标的代码 - amount: 数量 - style: 参见\[OrderStyle\](#OrderStyle), None代表MarketOrder - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 \*\*返回\*\* Order对象或者None, 如果创建委托成功, 则返回Order对象, 失败则返回None \*\*示例\*\*
-```python python
+```py
 # 买入 1000 股平安银行用以还券
 marginsec_close('000001.XSHE', 1000)
 
@@ -3655,12 +3655,12 @@ marginsec_close('000001.XSHE', 1000)
 
 marginsec_direct_refund 直接还券
 
-```python python
+```py
 marginsec_direct_refund(security, amount, pindex=0)
 
 ```
 直接还券 \*\*参数\*\* - security: 标的代码 - amount: 数量 - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 \*\*返回\*\* None \*\*示例\*\*
-```python python
+```py
 ## 如果账户持仓中"有" 1000股 平安银行
 # 直接还 1000 股平安银行
 marginsec_direct_refund('000001.XSHE', 1000)
@@ -3677,12 +3677,12 @@ marginsec_direct_refund('000001.XSHE', 1000)
 
 get_margincash_stocks 获取融资标的列表
 
-```python python
+```py
 get_margincash_stocks()
 
 ```
 \*\*参数\*\* date: 查询日期，回测模块中若不填，日期默认为回测的日期；研究模块中若不填，默认为最新日期；也可指定日期。 \*\*返回\*\* 返回上交所、深交所最近一次披露的的可融资标的列表的list。 \*\*示例\*\*
-```python python
+```py
 # 获取融资标的列表，并赋值给 margincash_stocks
 margincash_stocks = get_margincash_stocks()
 
@@ -3694,12 +3694,12 @@ margincash_stocks = get_margincash_stocks()
 
 get_marginsec_stocks 获取融券标的列表
 
-```python python
+```py
 get_marginsec_stocks(date=None)
 
 ```
 \*\*参数\*\* date: 查询日期，回测模块中若不填，日期默认为回测的日期；研究模块中若不填，默认为最新日期；也可指定日期。 \*\*返回\*\* 返回上交所、深交所最近一次披露的的可融券标的列表的list。 \*\*示例\*\*
-```python python
+```py
 # 获取融券标的列表，并赋值给 marginsec_stocks
 marginsec_stocks= get_marginsec_stocks()
 
@@ -3711,13 +3711,13 @@ marginsec_stocks= get_marginsec_stocks()
 
 get_mtss 获取融资融券信息
 
-```python python
+```py
 from jqdata import *
 get_mtss(security_list, start_date=None, end_date=None, fields=None, count=None)
 
 ```
 获取一只或者多只股票在一个时间段内的融资融券信息 \*\*注： 需导入 jqdata 模块，即在策略或研究起始位置加入\`from jqdata import \*\`\*\* \*\*参数\*\* - security_list: 一只股票代码或者一个股票代码的 list - start_date: 开始日期, \*\*与 count 二选一, 不可同时使用\*\*. 一个字符串或者 \[datetime.datetime\]/\[datetime.date\] 对象, 默认为平台提供的数据的最早日期 - end_date: 结束日期, 一个字符串或者 \[datetime.date\]/\[datetime.datetime\] 对象, 默认为 datetime.date.today() - count: 数量, \*\*与 start_date 二选一，不可同时使用\*\*, 必须大于 0. 表示返回 end_date 之前 count 个交易日的数据, 包含 end_date - fields: 字段名或者 list, 可选. 默认为 None, 表示取全部字段, 各字段含义如下： |字段名|含义| |---|---| |date|日期| |sec_code|股票代码| |fin_value|融资余额（元）| |fin_buy_value|融资买入额（元）| |fin_refund_value|融资偿还额（元）| |sec_value|融券余量（股）| |sec_sell_value|融券卖出量（股）| |sec_refund_value|融券偿还量（股）| |fin_sec_value|融资融券余额（元）| \*\*返回\*\* 返回一个 \[pandas.DataFrame\] 对象，默认的列索引为取得的全部字段. 如果给定了 fields 参数, 则列索引与给定的 fields 对应. \*\*示例\*\*
-```python python
+```py
 # 导入聚宽函数库
 from jqdata import *
 
@@ -3744,7 +3744,7 @@ get_mtss('000001.XSHE', count=20)
 初始化的仓位是**不允许**直接买卖期货的，因为初始默认 subportfolios\[0\] 中 SubPortfolioConfig 的 type = 'stock'，只允许买卖股票与场内基金等。
 **因此要买卖期货，您需要设定 SubPortfolioConfig 的 type = 'futures'**，具体方法如下：
 
-```python python
+```py
 def initialize(context):
 
     ## 设置单个账户
@@ -3782,12 +3782,12 @@ def initialize(context):
 
 get_dominant_future 获取主力合约对应的标的
 
-```python python
+```py
 get_dominant_future(underlying_symbol, date=None)
 
 ```
 \*\*参数\*\* - underlying_symbol: 期货合约品种，如 'AG'(白银) - date: 查询日期，回测模块中若不填，日期默认为回测的日期；研究模块中若不填，默认为最新日期；也可指定日期。 \*\*返回\*\* - 主力合约对应的期货合约 \*\*示例\*\*
-```python python
+```py
 # 获取某一天的主力合约对应的期货合约代码（策略当前日期是20160801）
 >>> get_dominant_future('IF')
 
@@ -3798,12 +3798,12 @@ get_dominant_future(underlying_symbol, date=None)
 
 get_future_contracts 期货可交易合约列表
 
-```python python
+```py
 get_future_contracts(security, date=None)
 
 ```
 获取某期货品种在策略当前日期的可交易合约标的列表 \*\*参数\*\* - security: 期货合约品种，如 'AG'(白银) - date: 查询日期，回测模块中若不填，日期默认为回测的日期；研究模块中若不填，默认为最新日期；也可指定日期。 \*\*返回\*\* - 某期货品种在策略当前日期的可交易合约标的列表 \*\*示例\*\*
-```python python
+```py
 # 获取某一天的主力合约对应的期货合约代码（策略当前日期是20160601）
 get_future_contracts('IF')
 
@@ -3814,12 +3814,12 @@ get_future_contracts('IF')
 
 futures_margin_rate 设置期货保证金比例
 
-```python python
+```py
 set_option('futures_margin_rate', value)
 
 ```
 设置期货保证金比例。可为不同品种的标的设置不同比例的保证金。 除中金所股指期货外,其他品种使用合约单边保证金机制，对于一个合约的双向持仓只收最大的那一边的保证金。 中金所股指期货使用跨品种单边保证金，对于所有中金所股指期货标的，只收取双向持仓中更大的那一边的保证金。 \*\*参数\*\* - value: value 是一个 float 值，为期货的保证金比例。 \*\*示例\*\*
-```python python
+```py
 # 设定期货保证金比例
 set_option('futures_margin_rate', 0.25) # 设定期货保证金比例为25%
 set_option('futures_margin_rate.AU1709', 0.08)# 设定合约AU1709保证金比例为8%
@@ -3833,12 +3833,12 @@ set_option('futures_margin_rate.IF', 0.15)# 设定所有股指期货保证金比
 is_dangerous 期货保证金预警
 
 判断指定仓位，是否低于指定的保证金比率，高于该比例返回\`False\`，低于该比例返回\`True\`.
-```python python
+```py
 context.subportfolios[i].is_dangerous(margin_rate)
 
 ```
 \*\*其中 i 是要查询的仓位编号, margin_rate 是要查询的保证金比例\*\* \*\*返回：\*\* True 或 False \*\*示例：\*\*
-```python python
+```py
 # 查询 subportfolios[1] 中保证金是否低于 20%
 context.subportfolios[1].is_dangerous(0.2)
 
@@ -3849,7 +3849,7 @@ context.subportfolios[1].is_dangerous(0.2)
 get_price等 获取期货的行情数据
 
 获取期货行情数据，与获取股票数据的方法类似 - \[get_price\](#get_price)、\[history\](#history)、\[attribute_history\](#attribute_history)、\[get_current_data\](#get_current_data)、\[get_bars\](#get_bars) 等 API 均可正常使用； - get_price, get_bars, history, attribute_history 新增字段 : 持仓量open_interest； - get_price中pre_close获取天数据时为前结算价；
-```python python
+```py
 df = get_price('C1909.XDCE', end_date='2019-06-28 15:00:00', count=5,
                 fields=['close', 'open_interest'], frequency='1m')
 print(df)
@@ -3858,12 +3858,12 @@ print(df)
 
 order 期货按手数下单
 
-```python python
+```py
 order(security, amount, style=None, side='long', pindex=0, close_today=False)
 
 ```
 买卖标的。调用成功后, 您将可以调用\[get_open_orders\]取得所有未完成的交易, 也可以调用\[cancel_order\]取消交易 \*\*参数\*\* - security: 标的代码 - amount: 交易数量, 正数表示买入, 负数表示卖出 - style: 参见\[OrderStyle\](#OrderStyle), None代表MarketOrder - side: 'long'/'short'，操作多单还是空单，默认为多单。 - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0 指定第一个 subportfolio, 1 指定第二个 subportfolio，\*\*默认为0\*\*。 - close_today: 平今字段，仅对上海国际能源中心，上海期货交易所，中金所生效，其他交易所将会报错（其他交易所没有区分平今与平昨，均按照先开先平的方法处理）。 - 对上海国际能源中心，上海期货交易所，中金所的标的： - close_today = True, 只平今仓 - close_today = False, 优先平昨仓，昨仓不足部分平今仓 \*\*返回\*\* Order对象或者None, 如果创建订单成功, 则返回Order对象, 失败则返回None \*\*示例\*\*
-```python python
+```py
 ## 如果期货账户是默认账户
 # 在仓位0中开一手沪深300指数期货的空单
 order('IF1412.CCFX', 1 , side='short', pindex=0)
@@ -3883,12 +3883,12 @@ order('IF1412.CCFX', -1 , side='long', pindex=1)
 
 order_target 期货目标手数下单
 
-```python python
+```py
 order_target(security, amount, style=None, side='long', pindex=0, close_today=False)
 
 ```
 买卖标的, 使最终标的的数量达到指定的amount \*\*参数\*\* - security: 标的代码 - amount: 期望的最终数量 - style: 参见\[OrderStyle\](#OrderStyle), None代表MarketOrder - side: 'long'/'short'，操作多单还是空单，默认为多单。 - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 - close_today: 平今字段，仅对上海国际能源中心，上海期货交易所，中金所生效，其他交易所将会报错（其他交易所没有区分平今与平昨，均按照先开先平的方法处理）。 - 对上海国际能源中心，上海期货交易所，中金所的标的： - close_today = True, 只平今仓 - close_today = False, 优先平昨仓，昨仓不足部分平今仓 \*\*返回\*\* Order对象或者None, 如果创建委托成功, 则返回Order对象, 失败则返回None 注意：\*\*使用order_target进行开平仓时，请直接对目标方向进行操作，请看示例。\*\* \*\*示例\*\*
-```python python
+```py
 # 开5手多单
 order_target('IF1412.CCFX', 5 , side='long', pindex=1)
 # 平1手多单
@@ -3902,12 +3902,12 @@ order_target('IF1412.CCFX', 4 , side='short', pindex=1)
 
 order_value 期货按保证金下单
 
-```python python
+```py
 order_value(security, value, style=None, side='long', pindex=0, close_today=False)
 
 ```
 买卖保证金为value的标的。 \*\*参数\*\* - security: 标的名字 - value: 期货保证金，value = 最新价 \* 手数 \* 保证金率 \* 乘数 - style: 参见\[OrderStyle\](#OrderStyle), None代表MarketOrder - side: 'long'/'short'，操作多单还是空单。默认为多单。 - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 - close_today: 平今字段，仅对上海国际能源中心，上海期货交易所，中金所生效，其他交易所将会报错（其他交易所没有区分平今与平昨，均按照先开先平的方法处理）。 - 对上海国际能源中心，上海期货交易所，中金所的标的： - close_today = True, 只平今仓 - close_today = False, 优先平昨仓，昨仓不足部分平今仓 \*\*返回\*\* Order对象或者None, 如果创建委托成功, 则返回Order对象, 失败则返回None 注意：\*\*使用order_value进行开平仓时，请直接对目标方向进行操作，请看示例。\*\* \*\*示例\*\*
-```python python
+```py
 # 开保证金为5000000多单
 order_value('IF1412.CCFX', 5000000 , side='long', pindex=1)
 # 平保证金为4000000多单
@@ -3917,12 +3917,12 @@ order_value('IF1412.CCFX', -4000000, side='long', pindex=1)
 
 order_target_value 期货目标保证金下单
 
-```python python
+```py
 order_target_value(security, value, style=None, side='long', pindex=0, close_today=False)
 
 ```
 调整标的仓位到value价值。 \*\*参数\*\* - security: 标的名字 - value: 期望的标的最终保证金，value = 最新价 \* 手数 \* 保证金率 \* 乘数 - style: 参见\[OrderStyle\](#OrderStyle), None代表MarketOrder - side: 'long'/'short'，操作多单还是空单。 - pindex: 在使用set_subportfolios创建了多个仓位时，指定subportfolio 的序号, 从 0 开始, 比如 0为 指定第一个 subportfolio, 1 为指定第二个 subportfolio，\*\*默认为0\*\*。 - close_today: 平今字段，仅对上海国际能源中心，上海期货交易所，中金所生效，其他交易所将会报错（其他交易所没有区分平今与平昨，均按照先开先平的方法处理）。 - 对上海国际能源中心，上海期货交易所，中金所的标的： - close_today = True, 只平今仓 - close_today = False, 优先平昨仓，昨仓不足部分平今仓 \*\*返回\*\* Order对象或者None, 如果创建委托成功, 则返回Order对象, 失败则返回None 注意：\*\*使用order_target_value进行开平仓时，请直接对目标方向进行操作，请看示例。\*\* \*\*示例\*\*
-```python python
+```py
 # 将IF1412.CCFX的多单保证金调整至5000000
 order_target_value('IF1412.CCFX',5000000, side='long', pindex=1)
 # 将IF1412.CCFX的多单保证金调整至4000000
@@ -4014,7 +4014,7 @@ Fama-French五因子模型，是将超额收益分为5个因子来解释，具�
 
 当价格高于5日均线平均价格_1.05时买入，当价格低于5日平均价格_0.95时卖出。
 
-```python python
+```py
 # 导入聚宽函数库
 import jqdata
 
@@ -4061,7 +4061,7 @@ def handle_data(context, data):
 
 这是一个较简单的多股票操作示例，当价格高于三天平均价_1.005则买入100股，当价格小于三天平均价_0.995则卖出。
 
-```python python
+```py
 # 导入聚宽函数库
 import jqdata
 
@@ -4104,7 +4104,7 @@ def handle_data(context, data):
 
 当股票在当日收盘30分钟内涨幅到达9.5%~9.9%时间段的时候，我们进行买入，在第二天开盘卖出。注意：**请按照分钟进行回测该策略**。
 
-```python python
+```py
 # 导入聚宽函数库
 import jqdata
 
@@ -4194,7 +4194,7 @@ def handle_data(context, data):
 
 股市投资中的“万圣节效应”是指在北半球的冬季(11月至4月份)，股市回报通常明显高於夏季(5月至10月份)。这里我们选取了中国蓝筹股，采用10月15日后买入，5月15日后卖出的简单策略进行示例。
 
-```python python
+```py
 # 导入聚宽函数库
 import jqdata
 

@@ -4,7 +4,7 @@
 
 最小示例见 `SKILL.md`「策略骨架」；热更新机制与排查见 [simulation.md](simulation.md)。
 
-```python
+```py
 # 聚宽通用策略模板（股票 / 日级）
 # 结构：配置集中 + 盘前选池 + 盘中调仓 + 模拟盘热更新入口
 from jqdata import *
@@ -17,7 +17,7 @@ def initialize(context):
     set_order_cost(OrderCost(open_tax=0, close_tax=0.001,
                              open_commission=0.0003, close_commission=0.0003,
                              close_today_commission=0, min_commission=5), type='stock')
-    set_slippage(PriceRelatedSlippage(0.00246), type='stock')
+    set_slippage(PriceRelatedSlippage(0.00246), type='stock')  # 等于平台默认值，改滑点只改这里
     apply_settings(context)
 
 

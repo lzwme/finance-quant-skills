@@ -15,7 +15,7 @@
 
 为了便于理解，将因子计算部分置于因子定义前面。
 
-```python python
+```py
 calc_factors(securities, factors, start_date, end_date, use_real_price, skip_paused)
 
 ```
@@ -35,7 +35,7 @@ calc_factors(securities, factors, start_date, end_date, use_real_price, skip_pau
 
 示例中的ALPHA013、GROSSPROFITABILITY为自定义因子，定义因子的方法及说明见下节**因子定义**。
 
-```python python
+```py
 # 导入函数库
 from jqfactor import Factor, calc_factors
 
@@ -85,7 +85,7 @@ factors['alpha013_name'].head()
 `max_window 和 dependencies 定义了在 calc 中可以获取到的数据，calc 实现因子的算法。`
 `calc 的返回值即每天的因子值。 calc 需要返回一个pandas.Series。index 是股票代码， value 是因子值。`
 
-```python python
+```py
 class MA5(Factor):
     name = 'ma5'
     # 每天获取过去五日的数据
@@ -137,7 +137,7 @@ class MA5(Factor):
 
 ### 在因子定义中获取额外数据
 
-```python python
+```py
 self._get_extra_data(securities=[],fields=[])
 
 ```
@@ -155,7 +155,7 @@ self._get_extra_data(securities=[],fields=[])
 
 **示例 获取指数收盘价**
 
-```python python
+```py
 class IndexClose(Factor):
     name = 'indice_close'
     max_window = 10
@@ -229,7 +229,7 @@ class IndexClose(Factor):
 
 #### 示例-计算TTM数据
 
-```python python
+```py
 # 计算营业收入TTM
 from jqfactor import Factor
 class OR_TTM(Factor):
@@ -259,7 +259,7 @@ class OR_TTM(Factor):
 
 ### 中性化
 
-```python python
+```py
 neutralize(series, how=None, date=None, axis=1)
 
 ```
@@ -283,7 +283,7 @@ neutralize(series, how=None, date=None, axis=1)
 
 **示例**
 
-```python python
+```py
 # 导入需要的函数库
 import pandas as pd
 import numpy as np
@@ -297,7 +297,7 @@ neutralize(data, how=['jq_l1', 'market_cap'], date='2018-05-02', axis=1)
 
 ### 去极值
 
-```python python
+```py
 winsorize(series, scale=None, range=None, qrange=None, inclusive=True, inf2nan=True, axis=1)
 
 ```
@@ -318,7 +318,7 @@ winsorize(series, scale=None, range=None, qrange=None, inclusive=True, inf2nan=T
 
 **示例**
 
-```python python
+```py
 # 导入需要的函数库
 import pandas as pd
 import numpy as np
@@ -332,7 +332,7 @@ winsorize(data, qrange=[0.05,0.93], inclusive=True, inf2nan=True, axis=1)
 
 ### 中位数去极值
 
-```python python
+```py
 winsorize_med(series, scale=1, inclusive=True, inf2nan=True, axis=1)
 
 ```
@@ -351,7 +351,7 @@ winsorize_med(series, scale=1, inclusive=True, inf2nan=True, axis=1)
 
 **示例**
 
-```python python
+```py
 # 导入需要的函数库
 import pandas as pd
 import numpy as np
@@ -365,7 +365,7 @@ winsorize_med(data, scale=1, inclusive=True, inf2nan=True, axis=0)
 
 ### 标准化
 
-```python python
+```py
 standardlize(series, inf2nan=True, axis=1)
 
 ```
@@ -382,7 +382,7 @@ standardlize(series, inf2nan=True, axis=1)
 
 **示例**
 
-```python python
+```py
 # 导入需要的函数库
 import pandas as pd
 import numpy as np
@@ -400,7 +400,7 @@ standardlize(data, inf2nan=True, axis=0)
 
 为了让用户在[研究环境](https://www.joinquant.com/research)中，可以便捷的分析因子，我们准备了单因子分析工具
 
-```python python
+```py
 #载入函数库
 from jqfactor import analyze_factor
 
@@ -439,7 +439,7 @@ far = analyze_factor(factor, start_date, end_date, industry, universe, quantiles
 
 **示例一：自定义因子进行分析**
 
-```python python
+```py
 #导入需要的数据库
 from jqfactor import analyze_factor
 from jqfactor import Factor
@@ -464,7 +464,7 @@ far.ic_monthly #月度信息系数
 
 **示例二：获取因子库因子进行分析**
 
-```python python
+```py
 #导入需要的数据库
 from jqfactor import analyze_factor
 from jqfactor import get_factor_values
@@ -1320,7 +1320,7 @@ IC 的计算， 一般有两种方法， normal IC 与 rank IC。 我们计算�
 
 **因子实现**
 
-```python python
+```py
 from jqfactor import Factor
 import numpy as np
 
@@ -1361,7 +1361,7 @@ class ALPHA013(Factor):
 
 **因子实现**
 
-```python python
+```py
 from jqfactor import Factor
 
 class GROSSPROFITABILITY(Factor):
@@ -1396,7 +1396,7 @@ class GROSSPROFITABILITY(Factor):
 
 **因子实现**
 
-```python python
+```py
 from jqfactor import Factor
 import numpy as np
 import pandas as pd
@@ -1442,7 +1442,7 @@ def neutralization(data, factor):
 
 **因子实现**
 
-```python python
+```py
 from jqfactor import Factor
 
 class Hs300Alpha(Factor):
@@ -1477,7 +1477,7 @@ class Hs300Alpha(Factor):
 
 **因子实现**
 
-```python python
+```py
 from jqfactor import Factor
 
 class NetProfitGrowth(Factor):
@@ -1509,7 +1509,7 @@ class NetProfitGrowth(Factor):
 
 **因子实现**
 
-```python python
+```py
 class ROATTM(Factor):
     name = 'roa_ttm'
     max_window = 1
@@ -1533,7 +1533,7 @@ class ROATTM(Factor):
 其中的factor_data数据需要自己获取，并整理成符合因子分析要求的格式。
 更多关于factor_data数据格式请查看单因子分析框架[jqfactor_analyzer](https://github.com/JoinQuant/jqfactor_analyzer)
 
-```python python
+```py
 # 载入函数库
 from jqfactor import analyze_factor
 from jqdata import *

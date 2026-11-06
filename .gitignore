@@ -22,3 +22,11 @@ uv.lock
 pnpm-lock.yaml
 yarn.lock
 package-lock.json
+
+/.agents/skills
+/.claude/skills
+/.codebuddy/skills
+/.codex/skills
+/.cursor/skills
+/.opencode/skills
+/.workbuddy/skills
