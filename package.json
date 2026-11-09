@@ -1,10 +1,10 @@
 {
 	"dependencies": {
 		"@lzwme/fe-utils": "^1.9.2",
-		"turndown": "^7.2.4",
+		"turndown": "^7.2.5",
 		"turndown-plugin-gfm": "^1.0.2"
 	},
 	"devDependencies": {
-		"@types/node": "^25.9.1"
+		"@types/node": "^26.6.6"
 	}
 }

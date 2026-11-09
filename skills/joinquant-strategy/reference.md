@@ -1,6 +1,6 @@
 # 聚宽文档索引
 
-`api.md`、`faq.md`、`fator.md` 与 `data/*.md` 从 [聚宽官方 API 文档](https://www.joinquant.com/help/api/help) 离线同步，供策略开发时精确查阅；`simulation.md`、`strategy_template.md` 为本技能原创整理（机制依据官方文档）。
+`api.md`、`faq.md`、`factor.md` 与 `data/*.md` 从 [聚宽官方 API 文档](https://www.joinquant.com/help/api/help) 离线同步，供策略开发时精确查阅；`simulation.md`、`strategy_template.md` 为本技能原创整理（机制依据官方文档）。
 
 意图到文件的路由见 `SKILL.md`「文档查阅流程」；本文件只给文件清单与定位线索。
 
@@ -10,7 +10,7 @@
 |------|------|
 | [api.md](api.md) | 策略 API 全文：initialize、run_daily、数据获取、交易、对象、示例 |
 | [faq.md](faq.md) | 常见问题：数据更新频率、代码后缀、复权、财务差异、期货主力合约、模拟交易替换代码 |
-| [fator.md](fator.md) | 因子分析：Factor 定义、calc_factors、因子看板、多因子框架 |
+| [factor.md](factor.md) | 因子分析：Factor 定义、calc_factors、因子看板、多因子框架 |
 | [strategy_template.md](strategy_template.md) | 通用策略模板：`apply_settings` 配置集中、盘前选池、调仓骨架、改造清单 |
 | [simulation.md](simulation.md) | 模拟盘热更新：断点定位、`apply_settings` 单一配置源、诊断模板、常见误判 |
 

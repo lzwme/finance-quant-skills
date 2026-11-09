@@ -1,8 +1,8 @@
 ## 常见问题
 
 感谢您使用JoinQuant（聚宽）量化交易平台，以下内容希望解答您对JoinQuant的疑问。
- 如果您想了解我们提供的API如何使用，请查看[API文档](https://www.joinquant.com/help/api/index)。
- 如果以下内容仍没有解决您的问题，请您通过[社区提问](https://www.joinquant.com/community#tag=faq)的方式告诉我们，谢谢。
+如果您想了解我们提供的API如何使用，请查看[API文档](https://www.joinquant.com/help/api/index)。
+如果以下内容仍没有解决您的问题，请您通过[社区提问](https://www.joinquant.com/community#tag=faq)的方式告诉我们，谢谢。
 
 [常见Bug或者警告>>>](https://www.joinquant.com/view/community/detail/6cab768c4b2fa259385a45927089367f)
 
@@ -12,22 +12,23 @@
 
 #### JoinQuant提供哪些数据及数据更新频率
 
-[提供的数据及更新频率](https://www.joinquant.com/help/api/help?name=JQData#JQData%E6%8F%90%E4%BE%9B%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E9%A2%91%E7%8E%87)
+提供的数据一览：[数据字典](https://www.joinquant.com/data)
 
-1. 股票数据：我们拥有所有A股上市公司2005年以来的股票行情数据、[市值数据](https://www.joinquant.com/data/dict/fundamentals#市值数据)、[财务数据](https://www.joinquant.com/data/dict/fundamentals)、[上市公司基本信息](https://www.joinquant.com/help/api/help?name=Stock#上市公司概况)、[融资融券信息](https://www.joinquant.com/help/api/help?name=Stock#获取股票的融资融券信息)等。为了避免[幸存者偏差](https://baike.baidu.com/item/%E5%B9%B8%E5%AD%98%E8%80%85%E5%81%8F%E5%B7%AE/10313799?fr=aladdin)，我们包括了已经退市的股票数据（但是不包含2005年之前退市的股票）。
-2. 基金数据：我们目前提供了600多种在交易所上市的基金的行情、净值等数据，包含[ETF](https://www.joinquant.com/data/dict/fundData#etf列表)、[LOF](https://www.joinquant.com/data/dict/fundData#lof列表)、[分级A/B基金](https://www.joinquant.com/data/dict/fundData#分级基金列表)以及[货币基金](https://www.joinquant.com/help/api/help?name=fund#货币基金列表)的完整的行情、净值数据等，请点击[基金数据](https://www.joinquant.com/data/dict/fundData)查看。
-3. 金融期货数据：我们提供中金所推出的所有[金融期货产品](https://www.joinquant.com/data/dict/sfData)的行情数据，并包含历史产品的数据。
-4. 股票指数：我们支持近600种[股票指数](https://www.joinquant.com/data/dict/indexData)数据，包括指数的行情数据以及成分股数据。为了避免未来函数，我们支持获取历史任意时刻的指数成分股信息，具体见[get_index_stocks](https://www.joinquant.com/help/api/help?name=api#get_index_stocks)和[get_index_weights](https://www.joinquant.com/help/api/help?name=api#get_index_weights)。注意：指数不能买卖
-5. 行业板块：我们支持按行业、按板块选股，具体见[get_industry_stocks](https://www.joinquant.com/help/api/help?name=api#get_industry_stocks)
-6. 概念板块：我们支持按概念板块选股，具体见[get_concept_stocks](https://www.joinquant.com/help/api/help?name=api#get_concept_stocks)
-7. 宏观数据：我们提供全方位的[宏观数据](https://www.joinquant.com/data/dict/macroData)，为投资者决策提供有力数据支持。
-8. 所有的行情数据我们均已处理好前复权信息。
-9. 我们当日的回测数据会在收盘后通过多数据源进行校验，并在T+1（第二天）的00:01更新。
+平台数据更新频率和JQData本地数据更新频率相同，详情见：[JQData本地数据的数据范围及更新时间](https://www.joinquant.com/help/api/doc?name=JQDatadoc&id=10261)
+
+1. 股票数据：我们拥有所有A股上市公司2005年以来的股票行情数据、市值数据、财务数据、上市公司基本信息、融资融券信息等。为了避免幸存者偏差，我们包括了已经退市的股票数据（但是不包含2005年之前退市的股票）。
+2. 基金数据：我们目前提供了600多种在交易所上市的基金的行情、净值等数据，包含ETF、LOF、分级A/B基金以及货币基金的完整的行情、净值数据等。
+3. 金融期货数据：我们提供中金所推出的所有金融期货产品的行情数据，并包含历史产品的数据。
+4. 股票指数：我们支持近600种股票指数数据，包括指数的行情数据以及成分股数据。为了避免未来函数，我们支持获取历史任意时刻的指数成分股信息。
+5. 行业板块：我们支持按行业、按板块选股
+6. 概念板块：我们支持按概念板块选股
+7. 所有的行情数据我们均已处理好前复权信息。
+8. 我们当日的回测数据会在收盘后通过多数据源进行校验，并在T+1（第二天）的00:01更新。
 
 #### JoinQuant提供的数据支持下载吗？
 
 JoinQuant提供的数据可以在官网的回测、模拟交易、研究模块使用；
- 本地下载请使用[jqdatasdk](https://www.joinquant.com/help/api/help?name=JQData#JQData-%E6%9C%AC%E5%9C%B0%E9%87%8F%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AF%B4%E6%98%8E%E4%B9%A6)。
+本地下载请使用[JQData本地数据](https://www.joinquant.com/help/api/doc?name=JQDatadoc)。
 
 #### 数据后缀是怎么定义的？
 
@@ -51,28 +52,28 @@ JoinQuant提供的数据可以在官网的回测、模拟交易、研究模块�
 #### 发现数据有问题怎么办？
 
 （1）查看下我们的[数据常见疑问汇总](https://www.joinquant.com/view/community/detail/1226a48b1f9b7bd90dc3516feea8b5cc?type=2)，也许您认为的问题已经有说明了；
- （2）在[社区发帖](https://www.joinquant.com/view/community/list?listType=2&type=isNew&tags=)，详细描述下您的问题，包括以下内容：
+（2）在[社区发帖](https://www.joinquant.com/view/community/list?listType=2&type=isNew&tags=)，详细描述下您的问题，包括以下内容：
 
 - 具体是什么问题;
 - 发下查询语句；
 - 发下查询结果并标记下觉得有问题的地方；
 - 发下对比截图；
-- [发帖参考贴](https://www.joinquant.com/post/15582?tag=algorithm)
 
 #### 不同平台的行情数据或者财务数据不同
 
 行情数据不同
- （1）目前我们默认提供的是前复权数据，不复权数据可以将get_price的fq设置为None获取；
- （2）不同平台的复权数据源或者算法不同，导致前复权及后复权数据的不同，具体的可以多对比一些平台就了解了；
- （3）fq不为None时的成交量数据我们也做了复权处理，需要不复权数据可以将fq设置为None；
- （4）更多行情数据的说明请查看[数据常见疑问汇总](https://www.joinquant.com/view/community/detail/1226a48b1f9b7bd90dc3516feea8b5cc?type=2)
+（1）目前我们默认提供的是前复权数据，不复权数据可以将get_price的fq设置为None获取；
+（2）不同平台的复权数据源或者算法不同，导致前复权及后复权数据的不同，具体的可以多对比一些平台就了解了；
+（3）fq不为None时的成交量数据我们也做了复权处理，需要不复权数据可以将fq设置为None；
+（4）更多行情数据的说明请查看[数据常见疑问汇总](https://www.joinquant.com/view/community/detail/1226a48b1f9b7bd90dc3516feea8b5cc?type=2)
 
 财务数据不同
- （1）财务指标数据有单季度和报告期两种，一般财经网站上提供的财务指标数据都是上市公司披露的原始报告期数据，所以请先确定对比的是相同的数据；
- （2）我们同时提供的有单季度的和报告期的数据，[单季度](https://www.joinquant.com/help/api/help?name=Stock#%E8%8E%B7%E5%8F%96%E5%8D%95%E5%AD%A3%E5%BA%A6%E5%B9%B4%E5%BA%A6%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE)和[报告期](https://www.joinquant.com/help/api/help?name=Stock#%E8%8E%B7%E5%8F%96%E6%8A%A5%E5%91%8A%E6%9C%9F%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE)的财务数据，您也可以分别查看使用。例如可以通过下面的方式获取报告期的eps:![image](https://image.joinquant.com/a3ddf6470e8205cbb73facdf0814388e)
- （3）单季度财务数据提供上市之后的数据（不包含上市之前的），报告期有上市前的财务数据；核查时请注意上市时间；
- （4）上市公司公布财报分四种，一季度报、中期年度报、前三季度报、全年年报，统计的周期跨度分别为第一季度、前两个季度、前三个季度、全年，而聚宽考虑到量化分析，所以默认查询的财务指标数据是单季度的；例如[同花顺](http://stockpage.10jqka.com.cn/000759/finance/#finance)上的单季度数据查询方法，选择按单季度统计，如下图：![image](https://image.joinquant.com/acea19612851d31b57f3ecd283bbe6fd) （5）市值（valuation）数据中market_cap、pb_ratio、pe_ratio、ps_ratio等由于算法或者数据源不同，各个平台数据不一定完全相同；
- （6）公告没有披露的数据为空值；
+（1）财务指标数据有单季度和报告期两种，一般财经网站上提供的财务指标数据都是上市公司披露的原始报告期数据，所以请先确定对比的是相同的数据；
+（2）我们同时提供的有单季度的和报告期的数据，[单季度](https://www.joinquant.com/help/api/help?name=Stock#%E8%8E%B7%E5%8F%96%E5%8D%95%E5%AD%A3%E5%BA%A6%E5%B9%B4%E5%BA%A6%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE)和[报告期](https://www.joinquant.com/help/api/help?name=Stock#%E8%8E%B7%E5%8F%96%E6%8A%A5%E5%91%8A%E6%9C%9F%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE)的财务数据，您也可以分别查看使用。例如可以通过下面的方式获取报告期的eps:
+![image](https://image.joinquant.com/a3ddf6470e8205cbb73facdf0814388e)
+（3）单季度财务数据提供上市之后的数据（不包含上市之前的），报告期有上市前的财务数据；核查时请注意上市时间；
+（4）上市公司公布财报分四种，一季度报、中期年度报、前三季度报、全年年报，统计的周期跨度分别为第一季度、前两个季度、前三个季度、全年，而聚宽考虑到量化分析，所以默认查询的财务指标数据是单季度的；例如[同花顺](http://stockpage.10jqka.com.cn/000759/finance/#finance)上的单季度数据查询方法，选择按单季度统计，如下图： ![image](https://image.joinquant.com/acea19612851d31b57f3ecd283bbe6fd) （5）市值（valuation）数据中market_cap、pb_ratio、pe_ratio、ps_ratio等由于算法或者数据源不同，各个平台数据不一定完全相同；
+（6）公告没有披露的数据为空值；
 
 查询过程有问题的话，请查看[数据常见疑问汇总](https://www.joinquant.com/view/community/detail/1226a48b1f9b7bd90dc3516feea8b5cc?type=2)
 
@@ -80,30 +81,32 @@ JoinQuant提供的数据可以在官网的回测、模拟交易、研究模块�
 
 #### JQData，jqdatasdk和jqdata的关系
 
-（1）JQData和jqdatasdk是同一个产品不同的名称，是一个Python库(或模块)，是聚宽提供的数据接口，在您自己搭建的本地环境中使用（可以脱离官网独立使用），具体方法见[JQData的API](https://www.joinquant.com/help/api/help?name=JQData)；
- （2）jqdata是官网的数据产品，主要在官网使用，具体使用方法见[官网的API](https://www.joinquant.com/help/api/help?name=api)；
- （3）jqdata和jqdatasdk中的获取数据的函数及使用方法稍微不同，使用对应的API就没问题；再强调一下，**jqdatasdk不能在官网的回测、模拟、研究中使用**
+（1）JQData和jqdatasdk是同一个产品不同的名称，是一个Python库(或模块)，是聚宽提供的数据接口，在您自己搭建的本地环境中使用（可以脱离官网独立使用），具体方法见[JQData的API](https://www.joinquant.com/help/api/doc?name=JQDatadoc)；
+（2）jqdata是官网的数据产品，主要在官网使用，具体使用方法见[官网的API](https://www.joinquant.com/help/api/help?name=api)；
+（3）jqdata和jqdatasdk中的获取数据的函数及使用方法稍微不同，使用对应的API就没问题；再强调一下，**jqdatasdk不能在官网的回测、模拟、研究中使用**
 
 #### 如何获取行业及概念板块的行情数据及pe,pb等数据
 
 （1）概念板块目前只可以通过[get_concept_stocks](https://www.joinquant.com/help/api/help?name=api#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E5%87%BD%E6%95%B0)获取某个概念板块包含哪些股票；
- （2）目前没有概念板块的行情数据，敬请期待；
- （3）可以通过[get_industry_stocks](https://www.joinquant.com/help/api/help?name=api#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E5%87%BD%E6%95%B0)获取某个行业有哪些股票，也可以通过[get_industry](https://www.joinquant.com/help/api/help?name=api#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E5%87%BD%E6%95%B0)查询股票属于哪个行业;
- （4）目前不支持行业的行情数据，及指数的PE/股息率
+（2）目前没有概念板块的行情数据，敬请期待；
+（3）可以通过[get_industry_stocks](https://www.joinquant.com/help/api/help?name=api#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E5%87%BD%E6%95%B0)获取某个行业有哪些股票，也可以通过[get_industry](https://www.joinquant.com/help/api/help?name=api#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E5%87%BD%E6%95%B0)查询股票属于哪个行业;
+（4）目前不支持行业的行情数据，及指数的PE/股息率
 
 #### 有关期货主力合约或者指数与其他平台问题
 
 ### 为什么有时看到的期货主力合约和其他平台不一致，是怎么判断的，什么时候更新的
 
-（1）因此我们根据**持仓量（不是成交量）**对期货合约进行拼接，形成主力连续合约；![image](https://image.joinquant.com/da0e8a09ccc31eae63bbc1c92001ce36)
- （2）主力合约根据T-2和T-1的持仓量生成，在T-1的晚上、也即T日的夜盘开始前就切换到新的主力合约；
- （3）wind等显示主连的数据及主力合约![image](https://image.joinquant.com/455a1877238bb797e628e1d314bb642d)
+（1）因此我们根据**持仓量（不是成交量）**对期货合约进行拼接，形成主力连续合约；
+![image](https://image.joinquant.com/da0e8a09ccc31eae63bbc1c92001ce36)
+（2）主力合约根据T-2和T-1的持仓量生成，在T-1的晚上、也即T日的夜盘开始前就切换到新的主力合约；
+（3）wind等显示主连的数据及主力合约
+![image](https://image.joinquant.com/455a1877238bb797e628e1d314bb642d)
 
 #### JQData使用过程过程有问题怎么处理？
 
 （1）有关账户、权限、价格等方面，可以查看[JQData文档](https://www.joinquant.com/help/api/doc?name=logon&id=9830)；
- （2）查看[JQData常见问题](https://www.joinquant.com/view/community/detail/16925)；
- （3）在聚宽社区中[社区提问题模块](https://www.joinquant.com/view/community/list/2?type=isNew&tags=)发帖提问，详细描述下问题，发下对应的测试代码及结果截图，我们核查后答复您。
+（2）查看[JQData常见问题](https://www.joinquant.com/view/community/detail/16925)；
+（3）在聚宽社区中[社区提问题模块](https://www.joinquant.com/view/community/list/2?type=isNew&tags=)发帖提问，详细描述下问题，发下对应的测试代码及结果截图，我们核查后答复您。
 
 ### 回测
 
@@ -135,7 +138,7 @@ JoinQuant提供的数据可以在官网的回测、模拟交易、研究模块�
 
 点击新建策略后会出现一些模板策略，您可以直接运行这些策略、修改这些策略或者删除模板策略重新写
 
-![微信图片_20181016171524.png](https://image.joinquant.com/737d7180d04d8542f841b3b0c6526507)
+![微信图片\_20181016171524.png](https://image.joinquant.com/737d7180d04d8542f841b3b0c6526507)
 
 ![编译运行.png](https://image.joinquant.com/f894f2cf342d065d2b8902f94d47d013)
 
@@ -163,8 +166,9 @@ JoinQuant提供的数据可以在官网的回测、模拟交易、研究模块�
 
 #### 多次回测的结果不一样， 可能是什么原因？
 
-（1）比较的前提: 开始/结束日期、起始资金、策略及运行频率必须相同；运行环境必须完全相同，例如都是在聚宽官网的Python3环境运行；可以在聚宽官网回测列表中，回测对比和代码对比工具对比查看![img](https://image.joinquant.com/d016e295783fb01eead1252f5157d92a)
- （2）策略的原因（在相同条件下多次回测比较结果是否相同来排除）:
+（1）比较的前提: 开始/结束日期、起始资金、策略及运行频率必须相同；运行环境必须完全相同，例如都是在聚宽官网的Python3环境运行；可以在聚宽官网回测列表中，回测对比和代码对比工具对比查看
+![img](https://image.joinquant.com/d016e295783fb01eead1252f5157d92a)
+（2）策略的原因（在相同条件下多次回测比较结果是否相同来排除）:
 
 - 代码中有随机因素，包括但不限于这些例子：(A)遍历 dict中的元素. 因为dict 是无序存储的, 每次遍历的顺序可能不一样；(B)集合在Python内部通过哈希表实现，其本征无序，输出时所显示的顺序具有随机性；(c)使用的一些Python模块的函数是随机，例如一些机器学习算法；(d)[MySQL、sqlalchemy等数据查询出现的随机因素](https://www.joinquant.com/view/community/detail/7221e4e7cef20a72bd21b0bd65b7fe6c?type=2)
 - 不稳定的排序，比如多列的DataFrame, 根据一列进行排序, 每次排序后最终的DataFrame可能是不一样的；
@@ -187,17 +191,26 @@ JoinQuant提供的数据可以在官网的回测、模拟交易、研究模块�
 #### 区分create_backtest(策略ID)和get_backtest(回测ID)
 
 - 策略ID（algorithmId）：每个策略的唯一标识，可以为此策略设置不同的回测条件，得到不同的回测ID
-    - **聚宽官网**![img](https://image.joinquant.com/ae3bcb713ded3840d50b602e8a84cfd3)
+
+    -   **聚宽官网**
+        ![img](https://image.joinquant.com/ae3bcb713ded3840d50b602e8a84cfd3)
 - 回测ID（backtestId）:每个回测的唯一标识
-    - **聚宽官网**![img](https://image.joinquant.com/73514339d9b8e3f45818b0eb6c0594bf)
+
+    -   **聚宽官网**
+        ![img](https://image.joinquant.com/73514339d9b8e3f45818b0eb6c0594bf)
 - 模拟交易ID（backtestId）：每个模拟交易的唯一标识
-    - **聚宽官网**![img](https://image.joinquant.com/b6c872612c25dc4d24ab5adb6e663279)
+
+    -   **聚宽官网**
+        ![img](https://image.joinquant.com/b6c872612c25dc4d24ab5adb6e663279)
 - create_backtest:在研究中创建回测，需要使用策略ID（algorithmId）
+
 - get_backtest:在研究中获取回测或者模拟交易的信息，获取回测信息使用回测ID（backtestId），获取模拟交易信息使用模拟交易ID（backtestId）
+
 - 三个ID的关系
-    - 策略ID设置不同的回测条件（开始时间、资金、频率），会得到不同的回测结果；
-    - 每组回测条件下的回测ID是唯一的
-    - 可以根据回测结果创建模拟交易，[创建模拟交易的方法](https://www.joinquant.com/help/api/help?name=faq#%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%A8%A1%E6%8B%9F%E4%BA%A4%E6%98%93%EF%BC%9F)
+
+    -   策略ID设置不同的回测条件（开始时间、资金、频率），会得到不同的回测结果；
+    -   每组回测条件下的回测ID是唯一的
+    -   可以根据回测结果创建模拟交易，[创建模拟交易的方法](https://www.joinquant.com/help/api/help?name=faq#%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%A8%A1%E6%8B%9F%E4%BA%A4%E6%98%93%EF%BC%9F)
 
 #### 回测运行比较慢
 
@@ -244,7 +257,7 @@ JoinQuant提供的数据可以在官网的回测、模拟交易、研究模块�
 
 ![模拟交易-新建模拟交易-1.png](https://image.joinquant.com/7d806841d2cd0b94b14076cf104de9ee)
 
-#### 如果提示没有可用的模拟交易位，请点击[模拟交易列表](https://www.joinquant.com/algorithm/trade/list?process=1)最下面的**获取新的模拟交易位**，使用积分兑换模拟交易位；请注意模拟交易位是和频率有关的，需要选择对应运行频率的模拟交易位。
+#### 如果提示没有可用的模拟交易位，请点击[模拟交易列表](https://www.joinquant.com/algorithm/trade/list?process=1)最下面的**获取新的模拟交易位**，使用积分兑换模拟交易位；
 
 #### 模拟交易支持哪些操作？
 
@@ -282,7 +295,7 @@ JoinQuant提供的数据可以在官网的回测、模拟交易、研究模块�
 
 替换代码示例
 
-```python
+```py
 # 初始化函数，设定基准等等
 def initialize(context):
     # 设定沪深300作为基准
@@ -336,12 +349,12 @@ def after_code_changed(context):
 #### 如何重新设置日志级别（替换代码）
 
 日志级别的说明：
- 1.如果还没有开启模拟交易：建议使用默认的日志级别（不用设置日志级别）或者设置日志级别为debug，具体方法为log.set_level('order', 'debug')；
- 2.如果已经开启模拟交易，且在初始化中设置日志级别为error，可以通过替换代码的方式实现：
- （1）如果您之前替换过代码，策略中有after_code_changed，直接在after_code_changed中添加log.set_level('order', 'debug')即可；
- （2）如果您之前没有替换过代码，需要在策略中添加after_code_changed，并且在after_code_changed中添加log.set_level('order', 'debug')，最终形式为：
+1.如果还没有开启模拟交易：建议使用默认的日志级别（不用设置日志级别）或者设置日志级别为debug，具体方法为log.set_level('order', 'debug')；
+2.如果已经开启模拟交易，且在初始化中设置日志级别为error，可以通过替换代码的方式实现：
+（1）如果您之前替换过代码，策略中有after_code_changed，直接在after_code_changed中添加log.set_level('order', 'debug')即可；
+（2）如果您之前没有替换过代码，需要在策略中添加after_code_changed，并且在after_code_changed中添加log.set_level('order', 'debug')，最终形式为：
 
-```python
+```py
 def after_code_changed(context):
     # 设置日志级别为debug
     log.set_level('order', 'debug')
@@ -351,7 +364,7 @@ def after_code_changed(context):
 
 示例代码如下：
 
-```python
+```py
 # 初始化函数，设定基准等等
 def initialize(context):
     # 推荐：设置日志级别为debug(或者不设置日志级别，使用系统推荐的)
@@ -375,32 +388,32 @@ def after_code_changed(context):
 ```
 
 (4)更多的替换代码方法
- [如何替换模拟交易的代码](https://www.joinquant.com/help/api/help?name=faq#%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E6%A8%A1%E6%8B%9F%E4%BA%A4%E6%98%93%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%9F)
- [怎样替换代码](https://www.joinquant.com/view/community/detail/0fd4ee9e029c205c4beb48547c582f00)
- [替换代码及注意事项](https://ycjq.95358.com/post/25?tag=new)
+[如何替换模拟交易的代码](https://www.joinquant.com/help/api/help?name=faq#%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E6%A8%A1%E6%8B%9F%E4%BA%A4%E6%98%93%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%9F)
+[怎样替换代码](https://www.joinquant.com/view/community/detail/0fd4ee9e029c205c4beb48547c582f00)
+[替换代码及注意事项](https://ycjq.95358.com/post/25?tag=new)
 
 #### 如何开启微信通知？
 
 开启微信通知后，您可以通过微信接收模拟交易的下单信号，也可以通过[send_message](https://www.joinquant.com/help/api/help?name=api#%E5%85%B6%E4%BB%96%E5%87%BD%E6%95%B0)发送自定义微信内容。
- 回测不支持微信通知；
- 盘中开启微信通知，当日不推送微信信号；
- 模拟交易的下单信号由腾讯微信发送，可能有30s内的延迟；
- 延时模拟交易不支持微信通知，[开启实时运行](https://www.joinquant.com/help/api/help?name=faq#%E5%BB%B6%E6%97%B6%E8%BF%90%E8%A1%8C)
- 默认每天发送自定义消息条数为5，[获取更多每日发送自定义消息数据](https://www.joinquant.com/view/credits/detail/9d50cc3a6e3ccc073c297403b84c715e)
- 未收到微信消息：（1）确定是否已经开启微信通知，且是实时运行的模拟交易；（2）区分模拟交易的下单信号还是自定义消息：下单先检查一下交易详情页面有没有下单记录；自定义需要自己检查策略逻辑是否符合发送条件，还有是否已经超过自定义消息条数。
+回测不支持微信通知；
+盘中开启微信通知，当日不推送微信信号；
+模拟交易的下单信号由腾讯微信发送，可能有30s内的延迟；
+延时模拟交易不支持微信通知，[开启实时运行](https://www.joinquant.com/help/api/help?name=faq#%E5%BB%B6%E6%97%B6%E8%BF%90%E8%A1%8C)
+默认每天发送自定义消息条数为5，[获取更多每日发送自定义消息数据](https://www.joinquant.com/view/credits/detail/9d50cc3a6e3ccc073c297403b84c715e)
+未收到微信消息：（1）确定是否已经开启微信通知，且是实时运行的模拟交易；（2）区分模拟交易的下单信号还是自定义消息：下单先检查一下交易详情页面有没有下单记录；自定义需要自己检查策略逻辑是否符合发送条件，还有是否已经超过自定义消息条数。
 
 - 开启微信通知步骤如下：
 
 绑定微信账号并开启微信通知，使用微信扫一扫绑定微信账号。
- 注意：一个JoinQuant账号仅支持绑定一个微信账号，一个微信号也只能和一个聚宽账号绑定
+注意：一个JoinQuant账号仅支持绑定一个微信账号，一个微信号也只能和一个聚宽账号绑定
 
-![绑定微信账号.png](https://image.joinquant.com/81d5d584b6121da5b8c6398fcc0ffb40)![enter image description here](https://image.joinquant.com/928691edf26e4954a06189edec981f30)
+![绑定微信账号.png](https://image.joinquant.com/81d5d584b6121da5b8c6398fcc0ffb40) ![enter image description here](https://image.joinquant.com/928691edf26e4954a06189edec981f30)
 
 - 微信通知示例
 
 模拟交易下单信号及异常信号提醒
 
-![微信图片_20181029102058.png](https://image.joinquant.com/d34ce1eb89b0e6baf395a7632f8a8bc2)
+![微信图片\_20181029102058.png](https://image.joinquant.com/d34ce1eb89b0e6baf395a7632f8a8bc2)
 
 - 替换之前绑定的微信号，请查看下面的如何重新绑定 点击如图箭头所示位置，出现如图所示二维码，扫码后即重新绑定微信。
 
@@ -409,19 +422,22 @@ def after_code_changed(context):
 #### 数据有延迟？
 
 数据有延迟是正常的。即便在同花顺、东方财富等客户端看到的数据也是延迟的数据。
- 因为信息从证券交易所发出，再到数据提供商，再到终端，是存在延时的。
- 我们数据存在的延时是指与交易所发出数据的时刻的延时，并不是与您在客户端看到的数据的延时。
- 可以使用tick级别的数据，基本无延迟；
- 本地实时获取数据可以使用[jqdatasdk](https://www.joinquant.com/help/api/help?name=JQData)
+因为信息从证券交易所发出，再到数据提供商，再到终端，是存在延时的。
+我们数据存在的延时是指与交易所发出数据的时刻的延时，并不是与您看到的数据的延时。
+可以使用tick级别的数据，基本无延迟；
 
 #### 日志提示：策略进程异常退出，可能是什么原因？
 
 在平台上运行策略时，日志出现该提示，通常是因为策略进程非正常结束所致。以下列举几种可能得原因：
 
 - 调用 `sys.exit()` 企图退出程序 `sys.exit()` 表示结束进程的运行，在平台上运行时则表示整个回测或者模拟运行结束，这样做是没有必要的。若需退出函数，请使用 `return` 即可。
+
 - 调用 raise SystemExit 企图抛出异常 当调用 `raise SystemExit` ，实际上它会调用 `sys.exit()` ，所以也可能导致进程非正常退出。
+
 - 错误的字符串格式化方式 使用 `%` 来格式化字符串，可能会遇到类似 `ValueError: unsupported format character` 的错误，导致进程异常退出。字符串格式化中希望输出 `%` 的情况如： `收益：%s%` ，实际意图是希望输出 `收益：0.1%` ，但用法可能是错误的，因为输出`%`时需要对其进行转义。建议使用 `str.format` 的方式格式化字符串。[点击这里](https://www.joinquant.com/post/5547)了解更多信息。
+
 - 调用第三方库 部分第三方库是用C语言扩展，直接调用动态库，如：numpy，错误的调用可能会导致**段错误**，这样策略进程也会异常退出。另有部分第三方库可能创建新的进程、线程、锁等，平台资源有限，所以限制了策略进程所能占用的资源，若占用资源过大，可能导致进程崩溃。
+
 - 其他不正确的代码书写方式 Python 是动态型语言，很多错误的书写方式是语法检测不出来的，如：错误的使用了字符串格式化方式，这些错误只有当代码运行到该处时才会报错，否则表现为正常运行的情况。
 
 #### 模拟交易或者回测怎么读取本地文件或者保存文件到研究
@@ -432,13 +448,13 @@ def after_code_changed(context):
 
 - 鼠标放在收益曲线最右侧, 可以看到最后一次运行的时间;
 - 查看模拟交易什么时候开始运行的，一般是当天开启，下一个交易日才运行；
-- 如果是对run_weekly/run_monthly有疑问, 注意这两个方法设置的是**第几个交易日**, 不是周几/几号, **开始策略的那一周/月第一个交易日是从开始的那一天开始计算的**, 比如本周w五个交易日, 策略从周二开始, 注册运行run_weekly(day=3), 第一个交易日是周二, 第三个交易日是周四,所以第一周是在周四运行, 往后每周的第三个交易日运行。
+- 如果是对run_weekly/run_monthly有疑问, 注意这两个方法设置的是**第几个交易日**, 不是周几/几号 , **开始策略的那一周/月第一个交易日是从开始的那一天开始计算的**, 比如本周w五个交易日, 策略从周二开始, 注册运行run_weekly(day=3) , 第一个交易日是周二, 第三个交易日是周四 ,所以第一周是在周四运行, 往后每周的第三个交易日运行。详情见:[定时运行策略](https://www.joinquant.com/help/api/help#api:%E7%AD%96%E7%95%A);
 - 刷新下页面；
 - 查看模拟交易的状态是否正常，查看日志是否运行失败；
 - 在模拟交易列表中查看对应的模拟交易位到期时间，检查是否已经到期，被关闭；
 - 是否有一个多月没有登录，如果一个月没有登录官网的话，系统会停掉模拟交易，对应的日志也有说明，登录后，下一个交易日即可运行；
-- 查看是不是延时运行的，是的话可以[改为实时运行](https://www.joinquant.com/help/api/help?name=faq#%E5%BB%B6%E6%97%B6%E8%BF%90%E8%A1%8C)，然后下一个交易日看看；
-- 是不是替换了代码，替换代码注意事项及替换后什么时候生效请查看[如何替换代码](https://www.joinquant.com/help/api/help?name=faq#%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E6%A8%A1%E6%8B%9F%E4%BA%A4%E6%98%93%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%9F);
+- 延时模拟交易在凌晨运行；已存在的模拟盘，模拟交易位从延时换为实时后，或非会员变为会员后，模拟交易是在下一交易日转为实时运行。详情见：[延时运行](https://www.joinquant.com/help/api/help?name=faq#%E5%BB%B6%E6%97%B6%E8%BF%90%E8%A1%8C)；
+- 是不是替换了代码。替换操作不当可能会引起模拟交易异常，详情见：[如何替换代码](https://www.joinquant.com/help/api/help?name=faq#%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E6%A8%A1%E6%8B%9F%E4%BA%A4%E6%98%93%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%9F);
 - 确定下，是不是具体什么时候一定有日志，但是没有出现，**没有日志不一定是没有运行**，不符合打印日志的条件就不会打印；如果输出日志带有判断逻辑，请自行检查打印条件是否触发。
 
 #### 模拟交易界面上参数说明
@@ -457,7 +473,7 @@ def after_code_changed(context):
 
 - 为了优化资源配置，非会员及非积分兑换的模拟交易位会在第二天凌晨三点后运行，延时模拟交易不支持微信通知；
 - 加入[聚宽会员](https://www.joinquant.com/view/vip/charge)，模拟交易会实时运行；
-- 或者使用积分兑换的模拟交易位，模拟交易也会实时运行；[积分兑换](https://www.joinquant.com/view/credits/list)后,再在对应的模拟交易设置页面，将原来的模拟交易位替换成新的模拟交易位即可![tihuan](https://image.joinquant.com/0a45ae7aba261564387064178e33a4fe)
+- 或者使用积分兑换的模拟交易位，模拟交易也会实时运行；[积分兑换](https://www.joinquant.com/view/credits/list)后,再在对应的模拟交易设置页面，将原来的模拟交易位替换成新的模拟交易位即可 ![tihuan](https://image.joinquant.com/0a45ae7aba261564387064178e33a4fe)
 - 加入会员或者替换交易位后立即生效，下一个交易日实时运行
 
 ### 投资研究
@@ -489,8 +505,8 @@ def after_code_changed(context):
 
 #### 上传文件和下载文件是否有限制？
 
-- 最大上传文件20M，下载文件没有大小限制，但由于我们做了限速会慢一些，要耐心；
-- 如果要下载的数据比较大，建议使用我们的[JQData](https://www.joinquant.com/help/api/help?name=JQData)
+- 最大上传文件20M，下载文件没有大小限制；
+- 如果要下载的数据比较大，建议使用[JQData本地数据](https://www.joinquant.com/help/api/doc?name=JQDatadoc)
 
 #### 研究和回测中都支持哪些第三方Python库
 
@@ -504,8 +520,8 @@ def after_code_changed(context):
 #### 回测及模拟交易和研究的数据如何交互
 
 - 回测中可以使用[read_file](https://www.joinquant.com/help/api/help?name=api#read_file)/[write_file](https://www.joinquant.com/help/api/help?name=api#write_file)读写研究模块的文件。
- [如何在回测及模拟交易中读取（或写入）研究中不同格式的文件（csv、json等）及数据](https://www.joinquant.com/view/community/detail/19300)
- [在回测及模拟交易中获取研究数据](https://www.joinquant.com/view/community/detail/b048a3e848d190ad810c3930fb07a4dc)
+    [如何在回测及模拟交易中读取（或写入）研究中不同格式的文件（csv、json等）及数据](https://www.joinquant.com/view/community/detail/19300)
+    [在回测及模拟交易中获取研究数据](https://www.joinquant.com/view/community/detail/b048a3e848d190ad810c3930fb07a4dc)
 - 研究中可以使用create_backtest创建回测，通过get_backtest获取回测及模拟交易的结果
 
 #### 投资研究打不开的解决方法
@@ -520,9 +536,9 @@ def after_code_changed(context):
 - 磁盘数据每三小时更新一次（研究文件太多，统计所有研究文件数及大小需要时间及资源），删除三小时后再重启查看；
 - 还有问题，请使用官网右下角在线客服系统，联系或者留言技术人员，并提供您的注册手机号；
 - 注意：研究环境不要随意安装Python库/模块。
-- 如果因为ipynb文件中, 内容输出过多导致页面无法正常加载(个别ipynb打开后无内容但是其他ipynb或者新建的文件可正常打开运行)，可使用以下方法清空ipynb的输出内容建立一个副本:
+- 如果因为ipynb文件中, 内容输出过多导致页面无法正常加载(个别ipynb打开后无内容但是其他ipynb或者新建的文件可正常打开运行)，可使用以下方法清空ipynb的输出内容建立一个副本 :
 
-```python
+```py
 import json
 # 旧notebook文件路径
 file_path = 'path_to_your_notebook.ipynb'
@@ -546,7 +562,7 @@ with open(file_path.replace('.ipynb', '_clean.ipynb'), 'w', encoding='utf-8') as
 
 在研究文件中运行以下代码，即可查看
 
-```python
+```py
 import os
 from pandas import DataFrame
 from collections import defaultdict
@@ -603,7 +619,7 @@ list_dir_human('.')
 
 ### 其他第三方库问题
 
-python的第三方库之间往往存在依赖关系，升级或者安装某个第三方库可能会导致其他库不兼容甚至导致研究环境无法正常启动，所以不建议自行安装第三方库。 如果实在有安装第三方库的需求，可以创建个目录，将第三方库安装到此目录中，使用时将此目录加入python环境变量再导入。 **注意:由于研究环境有文件个数不得大于1万的限制，所以安装第三方库需要慎重，不要大肆安装。** 安装命令可以使用:!pip install 库名 --target="/home/jquser/提前建好的目录" --no-dependencies (--no-dependencies <不需要安装的依赖库名> ) 为可选参数, 避免重复安装依赖库) 。 如需要卸载此目录下的第三方库，将对应的文件夹移入到回收站然后删除即可。 使用时，通过以下代码将第三方库添加到环境变量:
+python的第三方库之间往往存在依赖关系，升级或者安装某个第三方库可能会导致其他库不兼容甚至导致研究环境无法正常启动，所以不建议自行安装第三方库。 如果实在有安装第三方库的需求，可以创建个目录，将第三方库安装到此目录中，使用时将此目录加入python环境变量再导入。 **注意:由于研究环境有文件个数不得大于1万的限制，所以安装第三方库需要慎重，不要大肆安装。** 安装命令可以使用 : !pip install 库名 --target="/home/jquser/提前建好的目录" --no-dependencies (--no-dependencies <不需要安装的依赖库名> ) 为可选参数 , 避免重复安装依赖库) 。 如需要卸载此目录下的第三方库，将对应的文件夹移入到回收站然后删除即可。 使用时，通过以下代码将第三方库添加到环境变量:
 
 ```
 import sys
@@ -622,7 +638,7 @@ sys.path.append( "/home/jquser/提前建好的目录" )
 
 使用如下代码，更多设置请查看pandas官网教程
 
-```python
+```py
 import pandas as pd
 
 # 设定最大显示行数、列数为10000
@@ -638,37 +654,37 @@ pd.set_option('display.width', 10000)
 解决方法：您可以查看下您使用环境中Pandas的版本，并使用对应的排序方法。具体使用方法请参考Pandas的教程。
 
 一般的，Pandas早期版本的排序方法是sort，新版本的排序方法为sort_values。
- [sort的使用方法](http://pandas.pydata.org/pandas-docs/version/0.17.0/generated/pandas.DataFrame.sort.html)
- [sort_values的使用方法](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.sort_values.html)
+[sort的使用方法](http://pandas.pydata.org/pandas-docs/version/0.17.0/generated/pandas.DataFrame.sort.html)
+[sort_values的使用方法](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.sort_values.html)
 
 ascending=False为降序排列，即最大值在最前面；默认为升序排列
 
 早期版本的排序order，sort
- years_pct_sum[year].order(ascending=False)
- data.sort('change_pct', ascending=False)
+years_pct_sum[year].order(ascending=False)
+data.sort('change_pct', ascending=False)
 
 新版本的排序sort_values
- year_pct_sum_sort = years_pct_sum[year].sort_values(ascending=False)
- data.sort_values(by='date')
+year_pct_sum_sort = years_pct_sum[year].sort_values(ascending=False)
+data.sort_values(by='date')
 
 #### numpy.float64 浮点数的展示问题
 
 有同学问到, 聚宽的数据是不是有问题, 怎么价格还带那么多位小数. 其实并不是我们数据的问题, 是numpy.float64 展示数据的问题.我们的价格是 numpy.float64 对象存储的, numpy.float64 展示的时候跟我们想象的不一样.
- stackoverflow上的答案: [点击这里](http://stackoverflow.com/questions/27098529/numpy-float64-vs-python-float)
- 详情可以查看：[点击这里](https://www.joinquant.com/post/754)
+stackoverflow上的答案: [点击这里](http://stackoverflow.com/questions/27098529/numpy-float64-vs-python-float)
+详情可以查看：[点击这里](https://www.joinquant.com/post/754)
 
 #### 忽略或屏蔽提示及警告
 
-```python
+```py
 import warnings
 warnings.filterwarnings("ignore")
 ```
 
 #### matplotlib中文显示
 
-绘图使用到中文需要设置一下中文字体:
+绘图使用到中文需要设置一下中文字体 :
 
-```python
+```py
 import matplotlib as mpl
 mpl.rcParams['font.family']='serif'
 mpl.rcParams['font.serif']='Droid Sans Fallback'
@@ -678,17 +694,17 @@ plt.rcParams['axes.unicode_minus']=False # 用来正常显示负号
 #### mpl_finance
 
 下载或者复制粘贴mpl_finance.py，
- https://github.com/matplotlib/mpl-finance/blob/master/mpl_finance.py
- 然后上传到研究中即可使用
+https://github.com/matplotlib/mpl-finance/blob/master/mpl_finance.py
+然后上传到研究中即可使用
 
-```python
+```py
 import warnings
 warnings.filterwarnings("ignore")
 import mpl_finance
 ```
 
 mpl_finance的使用方法请自己在网上搜相关教程；
- 投资研究的使用方法请参考：[投资研究使用教程](https://www.joinquant.com/help/api/help?name=faq#%E6%8A%95%E8%B5%84%E7%A0%94%E7%A9%B6)
+投资研究的使用方法请参考：[投资研究使用教程](https://www.joinquant.com/help/api/help?name=faq#%E6%8A%95%E8%B5%84%E7%A0%94%E7%A9%B6)
 
 #### 已知的第三方库中的bug
 
@@ -696,7 +712,7 @@ mpl_finance的使用方法请自己在网上搜相关教程；
 
 1. pandas的shift(…., axis=1)在数据集含有nan值时存在异常(同时存在于研究、回测中) 问题复现代码:
 
-```py
+```
 import pandas as pd
 df = pd.DataFrame([[1,2,3],
                    [1,2,3],
@@ -704,9 +720,9 @@ df = pd.DataFrame([[1,2,3],
 print(df.shift(periods= 1,axis=1))
 ```
 
-这个问题很容易复现，所以建议不要指定axis参数, 尽量使用转置后shift再重新转置的方法进行处理，如上述代码可以变更为:
+这个问题很容易复现，所以建议不要指定axis参数 , 尽量使用转置后shift再重新转置的方法进行处理，如上述代码可以变更为 :
 
-```py
+```
 import pandas as pd
 df = pd.DataFrame([[1,2,3],
                    [1,2,3],
@@ -717,11 +733,11 @@ print(df.T.shift(periods= 1).T)
 #### 研究中安装第三方库
 
 python的第三方库之间往往存在依赖关系，升级或者安装某个第三方库可能会导致其他库不兼容甚至导致研究环境无法正常启动，所以不建议自行安装第三方库。
- 如果实在有安装第三方库的需求，可以创建个目录，将第三方库安装到此目录中，使用时将此目录加入python环境变量再导入。
- **注意:由于研究环境有文件个数不得大于1万的限制，所以安装第三方库需要慎重，不要大肆安装。**
- 安装命令可以使用: `!pip install 库名 --target="/home/jquser/提前建好的目录" --no-dependencies` (--no-dependencies <不需要安装的依赖库名> ) 为可选参数, 避免重复安装依赖库) 。
- 如需要卸载此目录下的第三方库，将对应的文件夹移入到回收站然后删除即可。
- 使用时，通过以下代码将第三方库添加到环境变量:
+如果实在有安装第三方库的需求，可以创建个目录，将第三方库安装到此目录中，使用时将此目录加入python环境变量再导入。
+**注意:由于研究环境有文件个数不得大于1万的限制，所以安装第三方库需要慎重，不要大肆安装。**
+安装命令可以使用 : `!pip install 库名 --target="/home/jquser/提前建好的目录" --no-dependencies` (--no-dependencies <不需要安装的依赖库名> ) 为可选参数 , 避免重复安装依赖库) 。
+如需要卸载此目录下的第三方库，将对应的文件夹移入到回收站然后删除即可。
+使用时，通过以下代码将第三方库添加到环境变量:
 
 ```
 import sys
@@ -734,7 +750,7 @@ import 库名
 #### 客户服务
 
 聚宽技术支持人员对平台常用功能的答疑，包括平台功能使用、需求及问题反馈等。免费用户只可通过留言的方式进行沟通。
- 注意: `服务不包含代写策略、策略答疑、策略分析等`，具体的策略需要您自己实现及检查。
+注意 : `服务不包含代写策略、策略答疑、策略分析等`，具体的策略需要您自己实现及检查。
 
 #### 平台资源
 
@@ -747,7 +763,7 @@ import 库名
 **导出回测结果：** 导出回测交易详情、持仓&收益、日志时，分别需要消耗3积分/次。已经消耗过积分的，下次可以直接导出。
 
 **社区克隆策略/查看策略源码、克隆研究：** 在社区进行上述操作时，需要消耗10积分/次。已经消耗过积分的，下次可以直接克隆。每个用户每天克隆策略/查看策略源码、克隆研究的上限分别都为100次。
- 注意：`积分小于等于0时，用户将无法享受上述积分优惠。`
+注意：`积分小于等于0时，用户将无法享受上述积分优惠。`
 
 #### 高级功能
 
@@ -762,17 +778,20 @@ import 库名
 #### VIP会员更多问题
 
 - 是否可以开发票？
- 如果要开发票请提前咨询小秘书（微信：JQhelper）后再支付
+    如果要开发票请提前在平台右下方联系客服后再支付
+
 - VIP会员和JQData的数据是什么关系，购买会员后下载数据条数没有变化？
- 没有关系的，聚宽官网的VIP会员主要是官网的回测和模拟交易等功能，不包含本地下载数据条数的；
- 如果需要购买JQData数据，请查看[JQData文档](https://www.joinquant.com/help/api/doc?name=logon&id=9830)；
- 如果误买的话，也可以联系小秘书申请退订。
+    两者权限不相通，聚宽官网的VIP会员主要是官网的回测和模拟交易等功能，不包含本地下载数据条数的；
+    如果需要购买JQData数据，请查看[JQData文档](https://www.joinquant.com/help/api/doc?name=JQDatadoc)；
+
 - 加入会员后模拟交易仍然没有实时运行？
- 模拟交易是否实时运行在每天凌晨三点判断一次，三点前成为会员的，下一个交易日实时运行。
+    模拟交易是否实时运行在每天凌晨三点判断一次，三点前成为会员的，下一个交易日实时运行。
+
 - 有关VIP升级SVIP
- SVIP的时限是根据VIP的剩余时限转换的
+    SVIP的时限是根据VIP的剩余时限转换的
+
 - 有关会员时间
- 月付按照每月30天计算，年付按照每年365天计算
+    月付按照每月30天计算，年付按照每年365天计算
 
 ### 实盘说明
 

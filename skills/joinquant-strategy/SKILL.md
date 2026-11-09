@@ -32,8 +32,8 @@ metadata: {"openclaw":{"emoji":"📚","requires":{"bins":["python"]}}}
 | 宏观数据 | `data/macroData.md` | — |
 | 技术指标 | `data/technicalanalysis.md` | `jqlib.technical_analysis` |
 | Alpha 因子 | `data/Alpha101.md`、`data/Alpha191.md` | — |
-| 自定义因子 | `fator.md` | `data/Alpha101.md` |
-| 因子看板数据 | `data/factor_values.md` | `fator.md` |
+| 自定义因子 | `factor.md` | `data/Alpha101.md` |
+| 因子看板数据 | `data/factor_values.md` | `factor.md` |
 | 融资融券 | `data/Stock.md` 融资融券章节 | `api.md` 融资融券专用函数 |
 | 模拟盘改代码 / 参数不生效 | `simulation.md`（先读再答） | `faq.md`、`api.md`「模拟盘注意事项」 |
 | 报错 / 数据疑问 | `faq.md` | `api.md`「注意事项」 |
@@ -169,7 +169,7 @@ class MyFactor(Factor):
 factors = calc_factors(securities, [MyFactor()], start_date, end_date)
 ```
 
-详见 `fator.md` 与 `data/Alpha101.md`、`data/Alpha191.md`。
+详见 `factor.md` 与 `data/Alpha101.md`、`data/Alpha191.md`。
 
 ## 关键注意事项
 
