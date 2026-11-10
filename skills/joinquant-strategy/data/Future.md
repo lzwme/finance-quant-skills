@@ -12,7 +12,7 @@
 
 **调用方法**
 
-```python
+```py
 get_security_info(code)
 ```
 
@@ -32,7 +32,7 @@ get_security_info(code)
 
 **示例**
 
-```python
+```py
 # 输出沪深300股指期货信息
 get_security_info('IF1605.CCFX')
 ```
@@ -61,7 +61,7 @@ get_all_securities(types=['futures'])
 
 **示例**
 
-```python
+```py
 #获取所有期货数据中的前5条
 get_all_securities(['futures']).head()
 
@@ -82,7 +82,7 @@ A0509.XDCE       豆一0509  a0509 2004-03-15 2005-09-14  futures
 
 **调用方法**
 
-```python
+```py
 get_extras(info, security_list, start_date=None, end_date=None, df=True):
 ```
 
@@ -99,7 +99,7 @@ get_extras(info, security_list, start_date=None, end_date=None, df=True):
 
 **示例**
 
-```python
+```py
 #查询'IF1604.CCFX', 'A9999.XDCE'的期货结算价，dataframe显示
 get_extras('futures_sett_price', ['IF1604.CCFX', 'A9999.XDCE'], start_date='2016-04-06', end_date='2016-04-08',df=True)
 
@@ -113,7 +113,7 @@ get_extras('futures_sett_price', ['IF1604.CCFX', 'A9999.XDCE'], start_date='2016
 
 **示例**
 
-```python
+```py
 #查询'IF1604.CCFX', 'A9999.XDCE'的期货结算价，dict显示
 get_extras('futures_sett_price', ['IF1604.CCFX', 'A9999.XDCE'], start_date='2016-04-06', end_date='2016-04-08',df=False)
 
@@ -150,40 +150,38 @@ get_price(security, start_date='2015-01-01', end_date='2015-12-31', frequency='d
 **参数**
 
 - security: 一支股票代码或者一个股票代码的list
-    
+
 - count: **与 start_date 二选一，不可同时使用**. 数量, 返回的结果集的行数, 即表示获取 end_date 之前几个 frequency 的数据
-    
+
 - start_date: **与 count 二选一，不可同时使用**. 字符串或者 datetime.datetime/datetime.date 对象, 开始时间.
-    
+
     -   如果 count 和 start_date 参数都没有, 则 start_date 生效, 值是 '2015-01-01'. 注意:
     -   当取分钟数据时, 时间可以精确到分钟, 比如: 传入 `datetime.datetime(2015, 1, 1, 10, 0, 0)` 或者 `'2015-01-01 10:00:00'`.
     -   当取分钟数据时, 如果只传入日期, 则日内时间是当日的 00:00:00.
     -   当取天数据时, 传入的日内时间会被忽略
 - end_date: 格式同上, 结束时间, 默认是'2015-12-31', 包含此日期. **注意: 当取分钟数据时, 如果 end_date 只有日期, 则日内时间等同于 00:00:00, 所以返回的数据是不包括 end_date 这一天的**.
-    
+
 - frequency: 单位时间长度, 几天或者几分钟, 现在支持'Xd','Xm', 'daily'(等同于'1d'), 'minute'(等同于'1m'), X是一个正整数, 分别表示X天和X分钟(不论是按天还是按分钟回测都能拿到这两种单位的数据), 注意, 当X > 1时, fields只支持['open', 'close', 'high', 'low', 'volume', 'money']这几个标准字段,**合成数据的逻辑见下文**. 默认值是daily
-    
+
 - fields: 字符串list, 选择要获取的行情数据字段, 默认是None(表示['open', 'close', 'high', 'low', 'volume', 'money']这几个标准字段), 支持的所有字段：['open', 'close', 'low', 'high', 'volume', 'money', 'factor', 'high_limit','low_limit', 'avg', 'pre_close', 'paused','open_interest']。
-    
+
 - skip_paused: 是否跳过不交易日期(包括停牌, 未上市或者退市后的日期). 如果不跳过, 停牌时会使用停牌前的数据填充(对期货没有停牌的情况), 上市前或者退市后数据都为 nan, 但要注意:
-    
+
     -   默认为 False
     -   当 skip_paused 是 True 时, 获取多个标的时需要将panel参数设置为False(panel结构需要索引对齐)
 - fq: 复权选项，对期货没有意义
-    
+
 - panel：在pandas 0.25版后，panel被彻底移除。获取多标的数据时建议设置panel为False，返回等效的dataframe
-    
+
 - fill_paused：对于停牌股票的价格处理，对期货没有意义
-    
 
 **合成数据的逻辑**
 
 当frequency为X天和X分钟时，代表使用以X为长度的滑动窗口进行合并数据。举例：
 
 - 9:33:00调用get_price获取1个单位的数据，frequency='5min',表示使用上一交易日14:58、14:59、15:00、本交易日9:31、9:32这5根1分钟K线来合成数据；
-    
+
 - 9:37:00调用get_price获取1个单位的数据，frequency='5min',表示使用本交易日9:32、9:33、9:34、9:35、9:36这5根1分钟K线来合成数据；
-    
 
 **返回**
 
@@ -223,7 +221,7 @@ get_bars 开盘时取的bar高开低收都是当天的开盘价，成交量成�
 get_bars 如果bar个数少于count个，则返回实际个数，并不会填充。
 更详细的get_bars解释，[【API解析】get_bars 定义和逻辑](https://www.joinquant.com/view/community/detail/f05b9cbce3612bb2fad36740551d28be?type=1)
 
-```python
+```py
 get_bars(security, count, unit='1d',fields=['date', 'open','high','low','close'],
          include_now=False, end_dt=None, fq_ref_date=None, df=False)
 ```
@@ -255,13 +253,13 @@ get_bars(security, count, unit='1d',fields=['date', 'open','high','low','close']
 
 **示例**
 
-```python
+```py
 get_bars(["ER8888.XZCE", "AP1905.XZCE"], end_dt=datetime.datetime.now(), count=3,include_now=False)
 ```
 
 #### 获取期货tick数据
 
-```python
+```py
 get_ticks(security, start_dt, end_dt, count, fields ,skip , df)
 ```
 
@@ -270,21 +268,20 @@ get_ticks(security, start_dt, end_dt, count, fields ,skip , df)
 **参数**：
 
 - security: 股票代码或期货代码
-    
+
 - start_dt: 开始日期
-    
+
 - end_dt: 结束日期
-    
+
 - count: 取出指定时间区间内前多少条的tick数据。
-    
+
 - fields: 选择要获取的行情数据字段，默认为["time", "current", "high", "low", "volume", "money"]，支持的字段如下：
-    
+
 - skip:默认为True，过滤掉无成交变化的tick数据；当指定skip=False时，返回的tick数据会保留无成交有盘口变化的tick数据（股票自2019年6月25日以后；期货自2019年8月19日以后）
-    
+
 - df:默认为False，返回numpy.ndarray格式的tick数据；df=True的时候，返回pandas.Dataframe格式的数据。
-    
+
 - **期货tick返回结果：**
-    
 
 | 字段名 | 说明 | 字段类型 |
 | --- | --- | --- |
@@ -302,7 +299,7 @@ get_ticks(security, start_dt, end_dt, count, fields ,skip , df)
 
 **期货tick数据示例**：
 
-```python
+```py
 #获取AU1812期货合约在2018-07-02的tick数据,start_dt和count只能有一个不为None值
 >>>get_ticks('AU1812.XSGE',start_dt='2018-07-02',end_dt='2018-07-03',count=None)
                         time  current    high     low   volume         money  \
@@ -438,7 +435,7 @@ get_ticks(security, start_dt, end_dt, count, fields ,skip , df)
 
 #### 获取期货龙虎榜数据
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUT_MEMBER_POSITION_RANK).filter(finance.FUT_MEMBER_POSITION_RANK.code==code).limit(n))
 ```
@@ -497,12 +494,12 @@ finance.run_query(query(finance.FUT_MEMBER_POSITION_RANK).filter(finance.FUT_MEM
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询A1905.XDCE最新一个交易日的持仓量龙虎榜数据
 q=query(finance.FUT_MEMBER_POSITION_RANK.day,
         finance.FUT_MEMBER_POSITION_RANK.code,
@@ -538,7 +535,7 @@ print(df)
 
 #### 获取期货仓单数据
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUT_WAREHOUSE_RECEIPT).filter(finance.FUT_WAREHOUSE_RECEIPT.underlying_code==underlying_code).limit(n))
 ```
@@ -582,12 +579,12 @@ finance.run_query(query(finance.FUT_WAREHOUSE_RECEIPT).filter(finance.FUT_WAREHO
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询品种为铜（'CU')的2018年12月05日的仓单数据
 q=query(finance.FUT_WAREHOUSE_RECEIPT.day,
         finance.FUT_WAREHOUSE_RECEIPT.underlying_code,
@@ -627,7 +624,7 @@ print(df)
 
 #### 获取期货手续费
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUT_CHARGE).filter(finance.FUT_CHARGE.day==date).limit(n))
 ```
@@ -662,7 +659,7 @@ finance.run_query(query(finance.FUT_CHARGE).filter(finance.FUT_CHARGE.day==date)
 
 **示例：**
 
-```python
+```py
 #查询SI2312的2022年12月22日的手续费数据
 from jqdata import finance
 df = finance.run_query(query(finance.FUT_CHARGE).filter(finance.FUT_CHARGE.day == '2022-12-22',
@@ -678,7 +675,7 @@ print(df)
 
 #### 获取期货保证金
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUT_MARGIN).filter(finance.FUT_MARGIN.day==date).limit(n))
 ```
@@ -712,7 +709,7 @@ finance.run_query(query(finance.FUT_MARGIN).filter(finance.FUT_MARGIN.day==date)
 
 **示例：**
 
-```python
+```py
 #查询SI2312的2022年12月22日的保证金数据
 from jqdata import finance
 df = finance.run_query(query(finance.FUT_MARGIN).filter(finance.FUT_MARGIN.day == '2022-12-22',

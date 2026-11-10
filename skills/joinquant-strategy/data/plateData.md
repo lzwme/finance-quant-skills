@@ -1265,7 +1265,7 @@
 
 概念数据会不定期新增，以下列表仅作示例，请使用 get_concepts() 获取所有概念，可以使用pandas提供的方法进行筛选
 
-```python
+```py
 from jqdata import get_concepts
 df = get_concepts()
 df[df['name'].str.contains("智能")]

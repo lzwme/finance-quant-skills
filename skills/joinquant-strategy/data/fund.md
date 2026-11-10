@@ -77,45 +77,9 @@ def initialize(context):
   lofs = df[df['type']=='fjb']
 ```
 
-#### 基金累计/单位净值
-
-得到基金在一段时间的如下的数据:
-
-- acc_net_value: 基金累计净值
-- unit_net_value: 基金单位净值
-
-**调用方法**
-
-```
-get_extras(info, security_list, start_date='2015-01-01', end_date='2015-12-31', df=True,count=None):
-```
-
-**参数**
-
-- info: [‘acc_net_value’, ‘unit_net_value’] 中的一个
-- security_list: 基金列表
-- start_date/end_date: 开始结束日期, 同[get_price]
-- df: 返回[pandas.DataFrame]对象还是一个dict, 同[history]
-- count:限定返回条数
-
-**返回值**
-
-- df=True:
-    [pandas.DataFrame]对象, 列索引是基金代号, 行索引是[datetime.datetime], 比如`get_extras('acc_net_value', ['510300.XSHG', '510050.XSHG'], start_date='2015-12-01', end_date='2015-12-03')`返回:
-
-| 510300.XSHG | 510050.XSHG |
-| --- | --- |
-| 2015-12-01 00:00:00 | 1.395 |
-| 2015-12-02 00:00:00 | 1.4432 |
-| 2015-12-03 00:00:00 | 1.4535 |
-
-- df=False
-一个dict, key是基金代号, value是[numpy.ndarray], 比如 `get_extras('acc_net_value', ['510300.XSHG', '510050.XSHG'], start_date='2015-12-01', end_date='2015-12-03', df=False)` 返回:
-`{ u'510050.XSHG': array([ 3.119, 3.251, 3.254]), u'510300.XSHG': array([ 1.395 , 1.4432, 1.4535]) }`
-
 #### 场内基金份额数据
 
-```python
+```py
 from jqdata import *
 finance.run_query(query(finance.FUND_SHARE_DAILY).filter(finance.FUND_SHARE_DAILY.date=='2019-05-23').limit(n))
 ```
@@ -146,12 +110,12 @@ finance.run_query(query(finance.FUND_SHARE_DAILY).filter(finance.FUND_SHARE_DAIL
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询2019-05-23的场内基金份额数据。
 from jqdata import *
 df=finance.run_query(query(finance.FUND_SHARE_DAILY).filter(finance.FUND_SHARE_DAILY.date=='2019-05-23').limit(10))
@@ -172,7 +136,7 @@ df
 
 #### 获取场内基金tick数据
 
-```python
+```py
 get_ticks(security,end_dt,start_dt,count, fields, skip)
 ```
 
@@ -203,7 +167,7 @@ get_ticks(security,end_dt,start_dt,count, fields, skip)
 
 **获取场内基金tick数据示例**：
 
-```python
+```py
 #获取50ETF基金2019-10-16的tick数据
 df=get_ticks('510050.XSHG','2019-10-16 15:30:00','2019-10-16 09:00:00')
 df
@@ -249,12 +213,12 @@ finance.run_query(query(finance.FUND_INVEST_TARGET).filter(finance.FUND_INVEST_T
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 # 查询510190追踪的指数信息
 from jqdata import *
 q = query(finance.FUND_INVEST_TARGET).filter(finance.FUND_INVEST_TARGET.code== '510190.XSHG')
@@ -271,7 +235,7 @@ print(df)
 
 我们目前提供了所有上市交易的场内基金数据(含已退市)，包含ETF、LOF、分级AB(已全部退市)、货币基金及reits基金
 
-```python
+```py
 df = get_all_securities("fund")  #获取所有场内基金
 df[df['type'] == 'reits' ]  # 获取所有reits基金
 df[df.display_name.str.contains("指|增")] #获取名称中含"指"或"增" 的场内基金

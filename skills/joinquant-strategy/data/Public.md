@@ -29,12 +29,12 @@ finance.run_query(query(finance.CCTV_NEWS).filter(finance.CCTV_NEWS.day=='2019-0
 
 **注意：**
 
-1.  为了防止返回数据量过大, 我们每次最多返回4000行
-2.  不能进行连表查询，即同时查询多张表的数据
+1. 为了防止返回数据量过大, 我们每次最多返回4000行
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询day==2019-02-19的新闻联播文本内容
 from jqdata import *
 df=finance.run_query(query(finance.CCTV_NEWS).filter(finance.CCTV_NEWS.day=='2019-02-19').limit(10))

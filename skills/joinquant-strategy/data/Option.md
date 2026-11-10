@@ -9,7 +9,7 @@
 
 ### 获取期权合约资料
 
-```python
+```py
 from jqdata import *
 opt.run_query(query(opt.OPT_CONTRACT_INFO).filter(opt.OPT_CONTRACT_INFO.code==code).limit(n))
 ```
@@ -60,8 +60,8 @@ opt.run_query(query(opt.OPT_CONTRACT_INFO).filter(opt.OPT_CONTRACT_INFO.code==co
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回3000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回3000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
@@ -74,7 +74,7 @@ from datetime import datetime
 opt.run_query(query(opt.OPT_CONTRACT_INFO).filter((opt.OPT_CONTRACT_INFO.underlying_symbol == "510050.XSHG") & (opt.OPT_CONTRACT_INFO.last_trade_date > datetime.now())))
 ```
 
-```python
+```py
 #查询("10001313.XSHG ")最新的期权基本资料数据。
 from jqdata import *
 q=query(opt.OPT_CONTRACT_INFO).filter(opt.OPT_CONTRACT_INFO.code=='10001313.XSHG')
@@ -99,7 +99,7 @@ print(df)
 
 ### 获取期权合约调整记录
 
-```python
+```py
 from jqdata  import *
 opt.run_query(query(opt.OPT_ADJUSTMENT).filter(opt.OPT_ADJUSTMENT.code==code).limit(n))
 ```
@@ -142,12 +142,12 @@ opt.run_query(query(opt.OPT_ADJUSTMENT).filter(opt.OPT_ADJUSTMENT.code==code).li
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回3000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回3000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询("10001313.XSHG ")最新的期权合约调整记录。
 from jqdata import *
 q=query(opt.OPT_ADJUSTMENT).filter(opt.OPT_ADJUSTMENT.code=='10001313.XSHG')
@@ -169,7 +169,7 @@ print(df)
 
 ### 获取期权每日盘前静态文件
 
-```python
+```py
 from jqdata import *
 opt.run_query(query(opt.OPT_DAILY_PREOPEN).filter(opt.OPT_DAILY_PREOPEN.code==code).limit(n))
 ```
@@ -231,12 +231,12 @@ opt.run_query(query(opt.OPT_DAILY_PREOPEN).filter(opt.OPT_DAILY_PREOPEN.code==co
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回3000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回3000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询("10001313.XSHG ")最新的期权每日盘前静态数据。
 from jqdata import *
 q=query(opt.OPT_DAILY_PREOPEN.code,
@@ -261,7 +261,7 @@ print(df)
 
 ### 获取期权日行情数据
 
-```python
+```py
 from jqdata import *
 opt.run_query(query(opt.OPT_DAILY_PRICE).filter(opt.OPT_DAILY_PRICE.code==code).limit(n))
 ```
@@ -302,12 +302,12 @@ opt.run_query(query(opt.OPT_DAILY_PRICE).filter(opt.OPT_DAILY_PRICE.code==code).
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回3000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回3000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询上证50ETF期权（'10001313.XSHG')最近10个交易日的日行情数据。
 from jqdata import *
 q=query(opt.OPT_DAILY_PRICE).filter(opt.OPT_DAILY_PRICE.code=='10001313.XSHG').order_by(opt.OPT_DAILY_PRICE.date.desc()).limit(10)
@@ -353,7 +353,7 @@ print(df)
 
 ### 获取期权分钟行情(仅本地数据提供)
 
-```python
+```py
 get_price(security, start_date=None, end_date=None, frequency='daily', fields=None, skip_paused=False, count=None)
 ```
 
@@ -364,23 +364,23 @@ get_price(security, start_date=None, end_date=None, frequency='daily', fields=No
 **参数**
 
 - security: 期权合约代码；如security='10001979.XSHG' #50ETF期权，上海证券交易所；security='CU2001C42000.XSGE'#铜期权，上海期货交易所； security='SR003C5600.XZCE' #白糖期权，郑州商品交易所； security='M2005-P-2400.XDCE' #豆粕期权，大连商品交易所；
-    
+
 - count: **与 start_date 二选一，不可同时使用**. 数量, 返回的结果集的行数, 即表示获取 end_date 之前几个 frequency 的数据
-    
+
 - start_date: **与 count 二选一，不可同时使用**. 字符串或者 [datetime.datetime]/[datetime.date] 对象, 开始时间.
-    
+
     -   如果 count 和 start_date 参数都没有, 则 start_date 生效, 值是 '2015-01-01'. 注意:
     -   当取分钟数据时, 时间可以精确到分钟, 比如: 传入 `datetime.datetime(2015, 1, 1, 10, 0, 0)` 或者 `'2015-01-01 10:00:00'`.
     -   当取分钟数据时, 如果只传入日期, 则日内时间是当日的 00:00:00.
     -   当取天数据时, 传入的日内时间会被忽略
 - end_date: 格式同上, 结束时间, 默认是'2015-12-31', 包含此日期. **注意: 当取分钟数据时, 如果 end_date 只有日期, 则日内时间等同于 00:00:00, 所以返回的数据是不包括 end_date 这一天的**.
-    
+
 - frequency: 单位时间长度, 几天或者几分钟, 现在支持'Xd','Xm', 'daily'(等同于'1d'), 'minute'(等同于'1m'), X是一个正整数, 分别表示X天和X分钟(不论是按天还是按分钟回测都能拿到这两种单位的数据), 注意, 当X > 1时, fields只支持['open', 'close', 'high', 'low', 'volume', 'money']这几个标准字段. 默认值是daily
-    
+
 - fields: 字符串list, 选择要获取的行情数据字段, 默认是None(表示['open', 'close', 'high', 'low', 'volume', 'money']这几个标准字段), 支持SecurityUnitData里面的所有基本属性,，包含：['open', ' close', 'low', 'high', 'volume', 'money', 'high_limit',' low_limit', 'avg', ' pre_close', 'open_interest'(持仓量)]
-    
+
 - skip_paused: 是否跳过不交易日期(包括停牌, 未上市或者退市后的日期). 如果不跳过, 停牌时会使用停牌前的数据填充(具体请看SecurityUnitData的paused属性), 上市前或者退市后数据都为 nan, 但要注意:
-    
+
     -   默认为 False
     -   当 skip_paused 是 True 时, 只能取一只期权的信息 **关于停牌**: 因为此API可以获取多只期权的数据, 可能有的期权停牌有的没有, 为了保持时间轴的一致,我们默认没有跳过停牌的日期, 停牌时使用停牌前的数据填充(请看 SecurityUnitData 的 paused 属性). 如想跳过, 请使用 skip_paused=True 参数, 同时只取一只期权的信息
 
@@ -388,7 +388,7 @@ get_price(security, start_date=None, end_date=None, frequency='daily', fields=No
 
 - **示例**
 
-```python
+```py
 # 获取10001313.XSHG期权合约的分钟行情
 p=get_price('10001313.XSHG','2018-12-21 09:00:00','2018-12-21 12:00:00','1m')
 print(p)
@@ -423,7 +423,7 @@ print(p)
 
 ### 获取指定时间周期的期权行情(仅本地数据提供)
 
-```python
+```py
 get_bars(security, count, unit='1d',
          fields=['date','open','high','low','close'],
          include_now=False, end_dt=None)
@@ -448,7 +448,7 @@ get_bars(security, count, unit='1d',
 
 **示例**
 
-```python
+```py
 #获取指定时间周期为5m的期权行情数据
 df = get_bars('10001313.XSHG',10,'5m',fields=['date','open','high','low','close'],end_dt='2018-12-21 15:00:00')
 print(df)
@@ -468,7 +468,7 @@ print(df)
 
 ### 获取期权的tick行情(仅本地数据提供)
 
-```python
+```py
 get_ticks(security, start_dt, end_dt, count, fields , skip , df)
 ```
 
@@ -481,21 +481,20 @@ get_ticks(security, start_dt, end_dt, count, fields , skip , df)
 **参数**：
 
 - security: 期权代码，如security='10001979.XSHG' #50ETF期权，上海证券交易所；security='CU2001C42000.XSGE'#铜期权，上海期货交易所； security='SR003C5600.XZCE' #白糖期权，郑州商品交易所； security='M2005-P-2400.XDCE' #豆粕期权，大连商品交易所；
-    
+
 - start_dt: 开始日期
-    
+
 - end_dt: 结束日期
-    
+
 - count: 取出指定时间区间内前多少条的tick数据;
-    
+
 - fields: 选择要获取的行情数据字段，默认为None;
-    
+
 - skip:默认为True，过滤掉无成交变化的tick数据；当指定skip=False时，返回的tick数据会保留无成交有盘口变化的tick数据
-    
+
 - df:默认为False，返回numpy.ndarray格式的tick数据；df=True的时候，返回pandas.Dataframe格式的数据。
-    
+
 - **期权tick返回结果：**
-    
 
 | 字段名 | 说明 | 字段类型 |
 | --- | --- | --- |
@@ -519,7 +518,7 @@ get_ticks(security, start_dt, end_dt, count, fields , skip , df)
 
 **期权tick数据示例**：
 
-```python
+```py
 # fields中的字段可以自己添加，下面只是示例
 df = get_ticks('10001313.XSHG',start_dt='2018-12-20 09:00:00',end_dt='2018-12-20 10:00:00', fields=['time', 'current', 'volume', 'a1_p', 'b1_p'])
 print(df)
@@ -534,7 +533,7 @@ print(df)
 
 ### 获取ETF期权交易和持仓排名统计
 
-```python
+```py
 from jqdata import *
 opt.run_query(query(opt.OPT_TRADE_RANK_STK).filter(opt.OPT_TRADE_RANK_STK.underlying_symbol==underlying_symbol).limit(n))
 ```
@@ -568,12 +567,12 @@ opt.run_query(query(opt.OPT_TRADE_RANK_STK).filter(opt.OPT_TRADE_RANK_STK.underl
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回3000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回3000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询最活跃三个合约的认购交易排名（601001）
 from jqdata import *
 q=query(opt.OPT_TRADE_RANK_STK).filter(opt.OPT_TRADE_RANK_STK.rank_type==601001).order_by(opt.OPT_TRADE_RANK_STK.date.desc()).limit(10)
@@ -607,7 +606,7 @@ print(df)
 
 ### 获取期权风险指标数据
 
-```python
+```py
 from jqdata import *
 opt.run_query(query(opt.OPT_RISK_INDICATOR).filter(opt.OPT_RISK_INDICATOR.code==code).limit(n))
 ```
@@ -641,12 +640,12 @@ opt.run_query(query(opt.OPT_RISK_INDICATOR).filter(opt.OPT_RISK_INDICATOR.code==
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回3000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回3000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询('10001313.XSHG')最新的期权风险指标数据。
 from jqdata import *
 q=query(opt.OPT_RISK_INDICATOR).filter(opt.OPT_RISK_INDICATOR.code=='10001313.XSHG').order_by(opt.OPT_RISK_INDICATOR.date.desc()).limit(10)
@@ -680,7 +679,7 @@ print(df)
 
 ### 获取期权行权交收信息
 
-```python
+```py
 from jqdata import *
 opt.run_query(query(opt.OPT_EXERCISE_INFO).filter(opt.OPT_EXERCISE_INFO.underlying_symbol==underlying_symbol).limit(n))
 ```
@@ -711,12 +710,12 @@ opt.run_query(query(opt.OPT_EXERCISE_INFO).filter(opt.OPT_EXERCISE_INFO.underlyi
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回3000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回3000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询华夏上证50ETF("510050.XSHG")最新的期权行权交收信息数据。
 from jqdata import *
 q=query(opt.OPT_EXERCISE_INFO).filter(opt.OPT_EXERCISE_INFO.underlying_symbol=='510050.XSHG').order_by(opt.OPT_EXERCISE_INFO.exercise_date.desc()).limit(10)

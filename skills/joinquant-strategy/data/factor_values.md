@@ -16,7 +16,7 @@
 
 获取因子值:
 
-```python
+```py
 # 导入函数库
 from jqfactor import get_factor_values
 # 取值函数
@@ -38,7 +38,7 @@ get_factor_values(securities, factors, start_date, end_date, count)
 
 **示例**
 
-```python
+```py
 # 导入函数库
 from jqfactor import get_factor_values
 
@@ -50,7 +50,7 @@ factor_data['Skewness60']
 
 ### 获取所有因子
 
-```python
+```py
 get_all_factors()
 ```
 
@@ -65,7 +65,7 @@ get_all_factors()
 - category:因子分类名称
 - category_intro:因子分类说明 **示例**：
 
-```python
+```py
 #获取聚宽因子库所有因子
 from jqfactor import get_all_factors
 print(get_all_factors())
@@ -110,8 +110,6 @@ print(get_all_factors())
 
 除了上面的风格因子，在计算风格因子过程中的描述因子daily_standard_deviation、cumulative_range等也可以通过get_factor_values、get_all_factors以及get_factor_kanban_values获取；描述因子是原始值，没有进行数据处理。
 
-  
-
 #### 风格因子数据处理说明
 
 对描述因子和风格因子的数据分别进行正规化的处理，步骤如下：
@@ -131,22 +129,22 @@ print(get_all_factors())
 #### 风格因子计算说明
 
 - 市值因子 size
-    
+
     -   定义：1•natural_log_of_market_cap
     -   解释
         -   对数市值 natural_log_of_market_cap：公司的总市值的自然对数。
 - 贝塔因子 beta
-    
+
     -   定义：1•raw_beta
     -   解释
         -   raw_beta：CAPM 模型中的β，过去252个交易日股票的收益与市场收益（全A股票收益按流通市值加权）进行时间序列指数加权回归后的斜率系数。指数加权的半衰期为63个交易日。 停牌股票收益率为0，股票上市需超过21个交易日，否则beta为nan。
 - 动量因子 momentum
-    
+
     -   定义：1•relative_strength
     -   解释
         -   相对强弱 relative_strength：滞后21个交易日的过去504个交易日股票超额对数收益率的指数加权之和。其中指数权重半衰期为126个交易日。停牌股票收益率为0，上市之前收益率为nan。
 - 残差波动率因子 residual_volatility
-    
+
     -   定义：0.74•daily_standard_deviation + 0.16•cumulative_range + 0.10•historical_sigma
     -   解释
         -   日收益率标准差 daily_standard_deviation：日标准差，过去252日的超额收益的指数加权标准差，以42个交易日为半衰期。
@@ -154,17 +152,17 @@ print(get_all_factors())
         -   残差历史波动率 historical_sigma：计算beta时的回归残差项的过去252个交易日的标准差。股票上市需超过21个交易日，否则结果为nan。
         -   用 daily_standard_deviation、cumulative_range、historical_sigma 加权求和得到的 residual_volatility，之后 关于 beta 和 size 因子做正交化以消除共线性。
 - 非线性市值因子 non_linear_size
-    
+
     -   定义：1•cube_of_size
     -   解释
         -   市值立方因子 cube_of_size：首先对标准化后的市值因子size暴露值求立方，将得到的结果与市值进行加权回归的正交化处理。
 - 账面市值比因子 book_to_price_ratio
-    
+
     -   定义：book_to_price_ratio
     -   解释
         -   最新一季财报的账面价值与当前市值的比值（pb_ratio的倒数）。其中小于0的值设置为nan。
 - 流动性因子 liquidity
-    
+
     -   定义：0.35•share_turnover_monthly + 0.35•average_share_turnover_quarterly + 0.3•average_share_turnover_annual
     -   解释
         -   月换手率 share_turnover_monthly：股票一个月换手率，过去21日的股票换手率之和的对数。
@@ -172,14 +170,14 @@ print(get_all_factors())
         -   年度平均月换手率 average_share_turnover_annual：过去12个月平均换手率，计算过去12个月的平均换手率，并取对数。
         -   用 share_turnover_monthly、average_share_turnover_quarterly、average_share_turnover_annual 加权求和得到的 liquidity 关于对数市值做正交化以消除共线性。
 - 盈利能力因子 earnings_yield
-    
+
     -   定义：0.68•predicted_earnings_to_price_ratio + 0.21•cash_earnings_to_price_ratio + 0.11•earnings_to_price_ratio
     -   解释
         -   预期利润市值比 predicted_earnings_to_price_ratio：用未来12个月的净利预测值除以当前市值。
         -   现金流量市值比 cash_earnings_to_price_ratio：过去12个月的净经营现金流除以当前股票市值。
         -   利润市值比 earnings_to_price_ratio：过去12个月的归母净利润除以当前股票市值。
 - 成长因子 growth
-    
+
     -   定义：0.18•long_term_predicted_earnings_growth + 0.11•short_term_predicted_earnings_growth + 0.24•earnings_growth + 0.47•sales_growth
     -   解释
         -   预期长期盈利增长率 long_term_predicted_earnings_growth：未来三年净利润分析师一致预期相对于净利润(不含少数股东损益)最新年报值的平均增长率。一个分析师预测的股票值为nan。
@@ -188,14 +186,12 @@ print(get_all_factors())
         -   5年营业收入增长率 sales_growth：营收增长率，过去 5 年每股营业收入关于[0,1,2,3,4]回归的斜率系数，然后再除以过去 5 年每股营业收入绝对值的均值。对于保险行业的股票，使用“已赚保费”代替“销售收入”计算每股营业收入，对于银行业的股票，sales_growth为nan。
         -   earnings_growth和sales_growth至少需要有4年的财务数据，否则为nan。
 - 杠杆因子 leverage
-    
+
     -   定义：0.38•market_leverage + 0.35•debt_to_assets + 0.27•book_leverage
     -   解释
         -   市场杠杆 market_leverage：(当前的普通股市值+优先股账面价值+长期债务账面价值)/当前的普通股市值。
         -   资产负债比 debt_to_assets：总负债的账面价值/总资产的账面价值。
         -   账面杠杆 book_leverage：(普通股账面价値+优先股账面价值+长期债务账面价值)/普通股账面价值。账面杠杆需在0到100之间，否则结果为nan。
-
-  
 
 ### 行业因子
 
@@ -204,7 +200,7 @@ print(get_all_factors())
 2.[聚宽行业(一二级)](https://www.joinquant.com/help/api/help#plateData:%E8%81%9A%E5%AE%BD%E8%A1%8C%E4%B8%9A)
 3.[申万行业(一二三级)](https://www.joinquant.com/help/api/help#plateData:%E7%94%B3%E4%B8%87%E8%A1%8C%E4%B8%9A)
 
-```python
+```py
 >>> df_dic = get_factor_values('000001.XSHE',['A01','HY007','801780','801723'] ,end_date='2023-02-23',count=1)
 print(df_dic)
 >>>  {'A01':             000001.XSHE

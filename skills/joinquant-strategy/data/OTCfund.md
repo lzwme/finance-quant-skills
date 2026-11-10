@@ -4,7 +4,7 @@
 
 ### 获取公募基金主体信息
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUND_MAIN_INFO).filter(finance.FUND_MAIN_INFO.main_code==main_code).limit(n))
 ```
@@ -68,12 +68,12 @@ finance.run_query(query(finance.FUND_MAIN_INFO).filter(finance.FUND_MAIN_INFO.ma
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询华夏成长公募基金主体信息数据,传入的基金代码无须添加后缀
 from jqdata import finance
 q=query(finance.FUND_MAIN_INFO).filter(finance.FUND_MAIN_INFO.main_code=='000001')
@@ -89,7 +89,7 @@ print(df)
 
 ### 获取公募基金净值信息
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUND_NET_VALUE).filter(finance.FUND_NET_VALUE.code==code).limit(n))
 ```
@@ -122,12 +122,12 @@ finance.run_query(query(finance.FUND_NET_VALUE).filter(finance.FUND_NET_VALUE.co
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询华夏成长证券投资基金("000001")基金净值数据，传入的基金代码无需添加后缀
 from jqdata import finance
 q=query(finance.FUND_NET_VALUE).filter(finance.FUND_NET_VALUE.code=="000001").order_by(finance.FUND_NET_VALUE.day.desc()).limit(10)
@@ -149,7 +149,7 @@ id    code         ...         acc_factor  refactor_net_value
 
 ### 获取基金持股信息
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUND_PORTFOLIO_STOCK).filter(finance.FUND_PORTFOLIO_STOCK.code==code).limit(n))
 ```
@@ -187,12 +187,12 @@ finance.run_query(query(finance.FUND_PORTFOLIO_STOCK).filter(finance.FUND_PORTFO
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询华夏成长证券投资基金("000001")最近一个季度的基金持仓股票组合前10只股票
 from jqdata import finance
 q=query(finance.FUND_PORTFOLIO_STOCK).filter(finance.FUND_PORTFOLIO_STOCK.code=="000001").order_by(finance.FUND_PORTFOLIO_STOCK.pub_date.desc()).limit(10)
@@ -226,7 +226,7 @@ print(df)
 
 ### 获取基金持有的债券信息
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUND_PORTFOLIO_BOND).filter(finance.FUND_PORTFOLIO_BOND.code==code).limit(n))
 ```
@@ -264,12 +264,12 @@ finance.run_query(query(finance.FUND_PORTFOLIO_BOND).filter(finance.FUND_PORTFOL
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询华夏成长证券投资基金("000001")基金持有的债券组合数据
 from jqdata import *
 df=finance.run_query(query(finance.FUND_PORTFOLIO_BOND).filter(finance.FUND_PORTFOLIO_BOND.code=='000001').order_by(finance.FUND_PORTFOLIO_BOND.pub_date.desc()).limit(10))
@@ -314,7 +314,7 @@ print(df)
 
 ### 获取基金资产组合概况
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUND_PORTFOLIO).filter(finance.FUND_PORTFOLIO.code==code).limit(n))
 ```
@@ -374,12 +374,12 @@ finance.run_query(query(finance.FUND_PORTFOLIO).filter(finance.FUND_PORTFOLIO.co
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询华夏成长证券投资基金("000001")基金资产组合概况数据，传入的基金代码无需后缀
 q=query(finance.FUND_PORTFOLIO.code,
                   finance.FUND_PORTFOLIO.name,
@@ -405,7 +405,7 @@ print(df)
 
 ### 获取基金财务指标信息
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUND_FIN_INDICATOR).filter(finance.FUND_FIN_INDICATOR.code==code).limit(n))
 ```
@@ -451,12 +451,12 @@ finance.run_query(query(finance.FUND_FIN_INDICATOR).filter(finance.FUND_FIN_INDI
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询华夏成长证券投资基金("000001")最近公布的基金财务指标数据
 from jqdata import *
 df=finance.run_query(query(finance.FUND_FIN_INDICATOR).filter(finance.FUND_FIN_INDICATOR.code=="000001").order_by(finance.FUND_FIN_INDICATOR.pub_date.desc()).limit(10))
@@ -513,7 +513,7 @@ print(df)
 
 ### 获取货币基金收益日报
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUND_MF_DAILY_PROFIT).filter(finance.FUND_MF_DAILY_PROFIT.code==code).limit(n))
 ```
@@ -544,12 +544,12 @@ finance.run_query(query(finance.FUND_MF_DAILY_PROFIT).filter(finance.FUND_MF_DAI
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询汇添富现金宝("000330")货币基金收益日报数据，只显示10条信息。
 #注：传入的基金代码不加后缀
 from jqdata import *
@@ -571,7 +571,7 @@ print(df)
 
 ### 获取基金分红拆分合并信息
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FUND_DIVIDEND).filter(finance.FUND_DIVIDEND.code==code).limit(n))
 ```
@@ -635,12 +635,12 @@ finance.run_query(query(finance.FUND_DIVIDEND).filter(finance.FUND_DIVIDEND.code
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询华夏成长证券投资基金("000001")基金分红拆分合并数据。
 #注：传入的基金代码不加后缀
 from jqdata import *

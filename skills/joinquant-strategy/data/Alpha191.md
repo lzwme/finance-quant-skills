@@ -18,7 +18,7 @@ JoinQuant聚宽（专业的量化交易平台）旨在为大家提供更多的�
 
 **使用方法（以Alpha001因子为例）：**
 
-```python
+```py
 # 导入 Alpha191 库
 from jqlib import alpha191
 
@@ -29,15 +29,14 @@ alpha191.alpha_001(code, end_date=None,fq='pre')
 **输入:**
 
 - code：股票代码列表
-    
-- end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
-- fq: 复权选项:
-    
 
-1.  `'pre'`: 前复权,默认为前复权；目前官网设置fq= 'pre' 时,使用动态复权计算,无论在策略中(开启动态复权与否)还是研究中使用 ;
-2.  `None`: 不复权，返回实际价格；使用不复权数据计算 ;
-3.  `'post'`: 后复权，使用后复权数据计算 ;
+- end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
+
+- fq: 复权选项:
+
+1. `'pre'`: 前复权,默认为前复权；目前官网设置fq= 'pre' 时,使用动态复权计算,无论在策略中(开启动态复权与否)还是研究中使用 ;
+2. `None`: 不复权，返回实际价格；使用不复权数据计算 ;
+3. `'post'`: 后复权，使用后复权数据计算 ;
 
 **输出:**
 
@@ -50,7 +49,7 @@ alpha191.alpha_001(code, end_date=None,fq='pre')
 
 **示例:**
 
-```python
+```py
 #获取平安银行2019年4月24日按照不复权价格计算的Alpha002的因子值
 from jqlib import alpha191
 a = alpha191.alpha_002('000001.XSHE','2019-04-24',fq = None)
@@ -249,4035 +248,3846 @@ A?B:C
 
 获取标的191个全部因子值，因计算量较大，运行会有少许缓慢( jqdatasdk 不支持此方法 )
 
-```python
+```py
 from jqlib.alpha191 import *
 alpha(code,benchmark='000300.XSHG',end_date=None, fq='pre', alpha='all')
 ```
 
 - 输入：
-    
+
     -   code: 股票代码列表
     -   end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
     -   fq: 复权选项
     -   alpha，因子列表，**默认全取**。也可指定获取其中的某些因子，写法如alpha=['alpha_005', 'alpha_010', 'alpha_015', 'alpha_020']，或 alpha=[5,10,15,20]
 - 输出：
-    
+
     -   一个 DataFrame，包括股票列表中每一只股票的 alpha001-alpha191 的值
 
 #### alpha_001
 
-```python
+```py
 alpha_001(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date：计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
 
 (-1 * CORR(RANK(DELTA(LOG(VOLUME), 1)), RANK(((CLOSE - OPEN) / OPEN)), 6))
 
 #### alpha_002
 
-```python
+```py
 alpha_002(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式： -1 * delta((((close-low)-(high-close))/((high-low)),1))
-    
 
 #### alpha_003
 
-```python
+```py
 alpha_003(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM((CLOSE=DELAY(CLOSE,1)?0:CLOSE-(CLOSE>DELAY(CLOSE,1)?MIN(LOW,DELAY(CLOSE,1)):MAX(HIGH,DELAY(CLOSE,1)))),6)
-    
 
 #### alpha_004
 
-```python
+```py
 alpha_004(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((((SUM(CLOSE,8)/8)+STD(CLOSE,8))<(SUM(CLOSE,2)/2))?(-1* 1):(((SUM(CLOSE,2)/2)<((SUM(CLOSE,8)/8)-STD(CLOSE,8)))?1:(((1<(VOLUME/MEAN(VOLUME,20)))||((VOLUME/MEAN(VOLUME,20))==1))?1:(-1* 1))))
-    
 
 #### alpha_005
 
-```python
+```py
 alpha_005(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*TSMAX(CORR(TSRANK(VOLUME,5),YSRANK(HIGH,5),5),3))
-    
 
 #### alpha_006
 
-```python
+```py
 alpha_006(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(SIGN(DELTA((((OPEN * 0.85)+(HIGH * 0.15))),4)))*-1)
-    
 
 #### alpha_007
 
-```python
+```py
 alpha_007(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK(MAX((VWAP-CLOSE),3))+RANK(MIN((VWAP-CLOSE),3)))* RANK(DELTA(VOLUME,3)))
-    
 
 #### alpha_008
 
-```python
+```py
 alpha_008(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - RANK(DELTA(((((HIGH + LOW) / 2) * 0.2) + (VWAP * 0.8)), 4) * -1)
-    
 
 #### alpha_009
 
-```python
+```py
 alpha_009(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(((HIGH+LOW)/2-(DELAY(HIGH,1)+DELAY(LOW,1))/2)*(HIGH-LOW)/VOLUME,7,2)
-    
 
 #### alpha_010
 
-```python
+```py
 alpha_010(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(MAX(((RET < 0) ? STD(RET, 20) : CLOSE)^2),5))
-    
 
 #### alpha_011
 
-```python
+```py
 alpha_011(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM(((CLOSE-LOW)-(HIGH-CLOSE)). /(HIGH-LOW) . * VOLUME,6)
-    
 
 #### alpha_012
 
-```python
+```py
 alpha_012(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK((OPEN - (SUM(VWAP, 10) / 10)))) * (-1 * (RANK(ABS((CLOSE - VWAP)))))
-    
 
 #### alpha_013
 
-```python
+```py
 alpha_013(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (((HIGH * LOW)^0.5)-VWAP)
-    
 
 #### alpha_014
 
-```python
+```py
 alpha_014(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - CLOSE-DELAY(CLOSE,5)
-    
 
 #### alpha_015
 
-```python
+```py
 alpha_015(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - OPEN/DELAY(CLOSE,1)-1
-    
 
 #### alpha_016
 
-```python
+```py
 alpha_016(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1 * TSMAX(RANK(CORR(RANK(VOLUME),RANK(VWAP),5)),5))
-    
 
 #### alpha_017
 
-```python
+```py
 alpha_017(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - RANK((VWAP-MAX(VWAP,15)))^DELTA(CLOSE,5)
-    
 
 #### alpha_018
 
-```python
+```py
 alpha_018(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - CLOSE/DELAY(CLOSE,5)
-    
 
 #### alpha_019
 
-```python
+```py
 alpha_019(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE<DELAY(CLOSE,5)?(CLOSE-DELAY(CLOSE,5))/DELAY(CLOSE,5):(CLOSE=DELAY(CLOSE,5)?0:(CLOSE-DELAY(CLOSE,5))/CLOSE))
-    
 
 #### alpha_020
 
-```python
+```py
 alpha_020(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE-DELAY(CLOSE,6))/DELAY(CLOSE,6)*100
-    
 
 #### alpha_021
 
-```python
+```py
 alpha_021(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - REGBETA(MEAN(CLOSE,6),SEQUENCE(6))
-    
 
 #### alpha_022
 
-```python
+```py
 alpha_022(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMEAN(((CLOSE-MEAN(CLOSE,6))/MEAN(CLOSE,6)-DELAY((CLOSE-MEAN(CLOSE,6))/MEAN(CLOSE,6),3)),12,1)
-    
 
 #### alpha_023
 
-```python
+```py
 alpha_023(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA((CLOSE>DELAY(CLOSE,1)?STD(CLOSE:20),0),20,1)/(SMA((CLOSE>DELAY(CLOSE,1)?STD(CLOSE,20):0),20,1)+SMA((CLOSE<=DELAY(CLOSE,1)?STD(CLOSE,20):0),20,1))*100
-    
 
 #### alpha_024
 
-```python
+```py
 alpha_024(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(CLOSE-DELAY(CLOSE,5),5,1)
-    
 
 #### alpha_025
 
-```python
+```py
 alpha_025(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((-1*RANK((DELTA(CLOSE,7)*(1-RANK(DECAYLINEAR((VOLUME/MEAN(VOLUME,20)),9))))))*(1+RANK(SUM(RET,250))))
-    
 
 #### alpha_026
 
-```python
+```py
 alpha_026(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((((SUM(CLOSE,7)/7)-CLOSE))+((CORR(VWAP,DELAY(CLOSE,5),230))))
-    
 
 #### alpha_027
 
-```python
+```py
 alpha_027(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - WMA((CLOSE-DELAY(CLOSE,3))/DELAY(CLOSE,3)*100+(CLOSE-DELAY(CLOSE,6))/DELAY(CLOSE,6)*100,12)
-    
 
 #### alpha_028
 
-```python
+```py
 alpha_028(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - 3*SMA((CLOSE-TSMIN(LOW,9))/(TSMAX(HIGH,9)-TSMIN(LOW,9))*100,3,1)-2*SMA(SMA((CLOSE-TSMIN(LOW,9))/( MAX(HIGH,9)-TSMAX(LOW,9))*100,3,1),3,1)
-    
 
 #### alpha_029
 
-```python
+```py
 alpha_029(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE-DELAY(CLOSE,6))/DELAY(CLOSE,6)*VOLUME
-    
 
 #### alpha_030（尚未实现）
 
-```python
+```py
 alpha_030(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - WMA((REGRESI(CLOSE/DELAY(CLOSE)-1,MKT,SMB,HML，60))^2,20)
-    
 
 #### alpha_031
 
-```python
+```py
 alpha_031(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - CLOSE-MEAN(CLOSE,12))/MEAN(CLOSE,12)*100
-    
 
 #### alpha_032
 
-```python
+```py
 alpha_032(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*SUM(RANK(CORR(RANK(HIGH),RANK(VOLUME),3)),3))
-    
 
 #### alpha_033
 
-```python
+```py
 alpha_033(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((((-1*TSMIN(LOW,5))+DELAY(TSMIN(LOW,5),5))*RANK(((SUM(RET,240)-SUM(RET,20))/220)))*TSRANK(VOLUME,5))
-    
 
 #### alpha_034
 
-```python
+```py
 alpha_034(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MEAN(CLOSE,12)/CLOSE
-    
 
 #### alpha_035
 
-```python
+```py
 alpha_035(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MIN(RANK(DECAYLINEAR(DELTA(OPEN,1),15)),RANK(DECAYLINEAR(CORR((VOLUME),((OPEN*0.65)+(OPEN*0.35)),17),7)))*-1)
-    
 
 #### alpha_036
 
-```python
+```py
 alpha_036(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - RANK(SUM(CORR(RANK(VOLUME),RANK(VWAP)),6),2)
-    
 
 #### alpha_037
 
-```python
+```py
 alpha_037(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*RANK(((SUM(OPEN,5)*SUM(RET,5))-DELAY((SUM(OPEN,5)*SUM(RET,5)),10))))
-    
 
 #### alpha_038
 
-```python
+```py
 alpha_038(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (((SUM(HIGH,20)/20)<HIGH)?(-1*DELTA(HIGH,2)):0)
-    
 
 #### alpha_039
 
-```python
+```py
 alpha_039(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK(DECAYLINEAR(DELTA((CLOSE),2),8))-RANK(DECAYLINEAR(CORR(((VWAP*0.3)+(OPEN*0.7)),SUM(MEAN(VOLUME,180),37),14),12)))*-1
-    
 
 #### alpha_040
 
-```python
+```py
 alpha_040(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM((CLOSE>DELAY(CLOSE,1)?VOLUME:0),26)/SUM((CLOSE<=DELAY(CLOSE,1)?VOLUME:0),26)*100
-    
 
 #### alpha_041
 
-```python
+```py
 alpha_041(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(MAX(DELTA((VWAP),3),5))*-1)
-    
 
 #### alpha_042
 
-```python
+```py
 alpha_042(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*RANK(STD(HIGH,10)))*CORR(HIGH,VOLUME,10))
-    
 
 #### alpha_043
 
-```python
+```py
 alpha_043(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM((CLOSE>DELAY(CLOSE,1)?VOLUME:(CLOSE<DELAY(CLOSE,1)?-VOLUME:0)),6)
-    
 
 #### alpha_044
 
-```python
+```py
 alpha_044(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (TSRANK(DECAYLINEAR(CORR(((LOW)),MEAN(VOLUME,10),7),6),4)+TSRANK(DECAYLINEAR(DELTA((VWAP),3),10),15))
-    
 
 #### alpha_045
 
-```python
+```py
 alpha_045(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(DELTA((((CLOSE*0.6)+(OPEN*0.4))),1))*RANK(CORR(VWAP,MEAN(VOLUME,150),15)))
-    
 
 #### alpha_046
 
-```python
+```py
 alpha_046(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MEAN(CLOSE,3)+MEAN(CLOSE,6)+MEAN(CLOSE,12)+MEAN(CLOSE,24))/(4*CLOSE)
-    
 
 #### alpha_047
 
-```python
+```py
 alpha_047(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA((TSMAX(HIGH,6)-CLOSE)/(TSMAX(HIGH,6)-TSMIN(LOW,6))*100,9,1)
-    
 
 #### alpha_048
 
-```python
+```py
 alpha_048(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*((RANK(((SIGN((CLOSE-DELAY(CLOSE,1)))+SIGN((DELAY(CLOSE,1)-DELAY(CLOSE,2))))+SIGN((DELAY(CLOSE,2)-DELAY(CLOSE,3))))))*SUM(VOLUME,5))/SUM(VOLUME,20))
-    
 
 #### alpha_049
 
-```python
+```py
 alpha_049(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM(((HIGH+LOW)>=(DELAY(HIGH,1)+DELAY(LOW,1))?0:MAX(ABS(HIGH-DELAY(HIGH,1)),ABS(LOW-DELAY(LOW,1)))),12)/(SUM(((HIGH+LOW)>=(DELAY(HIGH,1)+DELAY(LOW,1))?0:MAX(ABS(HIGH-DELAY(HIGH,1)),ABS(LOW-DELAY(LOW,1)))),12)+SUM(((HIGH+LOW)<=(DELAY(HIGH,1)+DELAY(LOW,1))?0:MAX(ABS(HIGH-DELAY(HI GH,1)),ABS(LOW-DELAY(LOW,1)))),12))
-    
 
 #### alpha_050
 
-```python
+```py
 alpha_050(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM(((HIGH+LOW)<=(DELAY(HIGH,1)+DELAY(LOW,1))?0:MAX(ABS(HIGH-DELAY(HIGH,1)),ABS(LOW-DELAY(LOW,1)))),12)/(SUM(((HIGH+LOW)<=(DELAY(HIGH,1)+DELAY(LOW,1))?0:MAX(ABS(HIGH-DELAY(HIGH,1)),ABS(LOW-DELAY(LOW,1)))),12)+SUM(((HIGH+LOW)>=(DELAY(HIGH,1)+DELAY(LOW,1))?0:MAX(ABS(HIGH-DELAY(HIGH,1)),ABS(LOW-DELAY(LOW,1)))),12))-SUM(((HIGH+LOW)>=(DELAY(HIGH,1)+DELAY(LOW,1))?0:MAX(ABS(HIGH-DELAY(HIGH,1)),ABS(LOW-DELAY(LOW,1)))),12)/(SUM(((HIGH+LOW)>=(DELAY(HIGH,1)+DELAY(LOW,1))?0: MAX(ABS(HIGH-DELAY(HIGH,1)),ABS(LOW-DELAY(LOW,1)))),12)+SUM(((HIGH+LOW)<=(DELAY(HIGH,1)+DELA Y(LOW,1))?0:MAX(ABS(HIGH-DELAY(HIGH,1)),ABS(LOW-DELAY(LOW,1)))),12))
-    
 
 #### alpha_051
 
-```python
+```py
 alpha_051(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM(((HIGH+LOW)<=(DELAY(HIGH,1)+DELAY(LOW,1))?0:MAX(ABS(HIGH-DELAY(HIGH,1)),ABS(LOW-DELAY(LOW,1)))),12)/(SUM(((HIGH+LOW)<=(DELAY(HIGH,1)+DELAY(LOW,1))?0:MAX(ABS(HIGH-DELAY(HIGH,1)),ABS(LOW-DELAY(LOW,1)))),12)+SUM(((HIGH+LOW)>=(DELAY(HIGH,1)+DELAY(LOW,1))?0:MAX(ABS(HIGH-DELAY(HI GH,1)),ABS(LOW-DELAY(LOW,1)))),12))
-    
 
 #### alpha_052
 
-```python
+```py
 alpha_052(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM(MAX(0,HIGH-DELAY((HIGH+LOW+CLOSE)/3,1)),26)/SUM(MAX(0,DELAY((HIGH+LOW+CLOSE)/3,1)-L),26)*100
-    
 
 #### alpha_053
 
-```python
+```py
 alpha_053(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - COUNT(CLOSE>DELAY(CLOSE,1),12)/12*100
-    
 
 #### alpha_054
 
-```python
+```py
 alpha_054(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*RANK((STD(ABS(CLOSE-OPEN))+(CLOSE-OPEN))+CORR(CLOSE,OPEN,10)))
-    
 
 #### alpha_055
 
-```python
+```py
 alpha_055(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM(16*(CLOSE-DELAY(CLOSE,1)+(CLOSE-OPEN)/2+DELAY(CLOSE,1)-DELAY(OPEN,1))/((ABS(HIGH-DELAY(CL OSE,1))>ABS(LOW-DELAY(CLOSE,1))&ABS(HIGH-DELAY(CLOSE,1))>ABS(HIGH-DELAY(LOW,1))?ABS(HIGH-DELAY(CLOSE,1))+ABS(LOW-DELAY(CLOSE,1))/2+ABS(DELAY(CLOSE,1)-DELAY(OPEN,1))/4:(ABS(LOW-DELAY(CLOSE,1))>ABS(HIGH-DELAY(LOW,1))&ABS(LOW-DELAY(CLOSE,1))>ABS(HIGH-DELAY(CLOSE,1))?ABS(LOW-DELAY(CLOSE,1))+ABS(HIGH-DELAY(CLOSE,1))/2+ABS(DELAY(CLOSE,1)-DELAY(OPEN,1))/4:ABS(HIGH-DELAY(LOW,1))+ABS(DELAY(CLOSE,1)-DELAY(OPEN,1))/4)))*MAX(ABS(HIGH-DELAY(CLOSE,1)),ABS(LOW-DELAY(CLOSE,1))),20)
-    
 
 #### alpha_056
 
-```python
+```py
 alpha_056(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK((OPEN-TSMIN(OPEN,12)))<RANK((RANK(CORR(SUM(((HIGH +LOW)/2),19),SUM(MEAN(VOLUME,40),19),13))^5)))
-    
 
 #### alpha_057
 
-```python
+```py
 alpha_057(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA((CLOSE-TSMIN(LOW,9))/(TSMAX(HIGH,9)-TSMIN(LOW,9))*100,3,1)
-    
 
 #### alpha_058
 
-```python
+```py
 alpha_058(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - COUNT(CLOSE>DELAY(CLOSE,1),20)/20*100
-    
 
 #### alpha_059
 
-```python
+```py
 alpha_059(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM((CLOSE=DELAY(CLOSE,1)?0:CLOSE-(CLOSE>DELAY(CLOSE,1)?MIN(LOW,DELAY(CLOSE,1)):MAX(HIGH,DELAY(CLOSE,1)))),20)
-    
 
 #### alpha_060
 
-```python
+```py
 alpha_060(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM(((CLOSE-LOW)-(HIGH-CLOSE))./(HIGH-LOW).*VOLUME,20)
-    
 
 #### alpha_061
 
-```python
+```py
 alpha_061(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MAX(RANK(DECAYLINEAR(DELTA(VWAP,1),12)),RANK(DECAYLINEAR(RANK(CORR((LOW),MEAN(VOLUME,80),8)),17)))*-1)
-    
 
 #### alpha_062
 
-```python
+```py
 alpha_062(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*CORR(HIGH,RANK(VOLUME),5))
-    
 
 #### alpha_063
 
-```python
+```py
 alpha_063(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(MAX(CLOSE-DELAY(CLOSE,1),0),6,1)/SMA(ABS(CLOSE-DELAY(CLOSE,1)),6,1)*100
-    
 
 #### alpha_064
 
-```python
+```py
 alpha_064(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MAX(RANK(DECAYLINEAR(CORR(RANK(VWAP),RANK(VOLUME),4),4)),RANK(DECAYLINEAR(MAX(CORR(RANK(CLOSE),RANK(MEAN(VOLUME,60)),4),13),14)))*-1)
-    
 
 #### alpha_065
 
-```python
+```py
 alpha_065(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MEAN(CLOSE,6)/CLOSE
-    
 
 #### alpha_066
 
-```python
+```py
 alpha_066(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE-MEAN(CLOSE,6))/MEAN(CLOSE,6)*100
-    
 
 #### alpha_067
 
-```python
+```py
 alpha_067(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(MAX(CLOSE-DELAY(CLOSE,1),0),24,1)/SMA(ABS(CLOSE-DELAY(CLOSE,1)),24,1)*100
-    
 
 #### alpha_068
 
-```python
+```py
 alpha_068(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(((HIGH+LOW)/2-(DELAY(HIGH,1)+DELAY(LOW,1))/2)*(HIGH-LOW)/VOLUME,15,2)
-    
 
 #### alpha_069
 
-```python
+```py
 alpha_069(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (SUM(DTM,20)>SUM(DBM,20)?(SUM(DTM,20)-SUM(DBM,20))/SUM(DTM,20):(SUM(DTM,20)=SUM(DBM,20)？0:(SUM(DTM,20)-SUM(DBM,20))/SUM(DBM,20)))
-    
 
 #### alpha_070
 
-```python
+```py
 alpha_070(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - STD(AMOUNT,6)
-    
 
 #### alpha_071
 
-```python
+```py
 alpha_071(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE-MEAN(CLOSE,24))/MEAN(CLOSE,24)*100
-    
 
 #### alpha_072
 
-```python
+```py
 alpha_072(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA((TSMAX(HIGH,6)-CLOSE)/(TSMAX(HIGH,6)-TSMIN(LOW,6))*100,15,1)
-    
 
 #### alpha_073
 
-```python
+```py
 alpha_073(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((TSRANK(DECAYLINEAR(DECAYLINEAR(CORR((CLOSE),VOLUME,10),16),4),5)-RANK(DECAYLINEAR(CORR(VWAP,MEAN(VOLUME,30),4),3)))*-1)
-    
 
 #### alpha_074
 
-```python
+```py
 alpha_074(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(CORR(SUM(((LOW*0.35)+(VWAP*0.65)),20),SUM(MEAN(VOLUME,40),20),7))+RANK(CORR(RANK(VWAP),RANK(VOLUME),6)))
-    
 
 #### alpha_075
 
-```python
+```py
 alpha_075(code,benchmark='000300.XSHG',end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - benchmark:基准指数，默认为沪深300
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - BANCHMARKINDEXCLOSE<BANCHMARKINDEXOPEN,50)/COUNT(BANCHMARKINDEXCLOSE<BANCHMARKIN DEXOPEN,50)
-    
 
 #### alpha_076
 
-```python
+```py
 alpha_076(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - STD(ABS((CLOSE/DELAY(CLOSE,1)-1))/VOLUME,20)/MEAN(ABS((CLOSE/DELAY(CLOSE,1)-1))/VOLUME,20)
-    
 
 #### alpha_077
 
-```python
+```py
 alpha_077(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MIN(RANK(DECAYLINEAR(((((HIGH+LOW)/2)+HIGH)-(VWAP+HIGH)),20)),RANK(DECAYLINEAR(CORR(((HIGH+LOW)/2),MEAN(VOLUME,40),3),6)))
-    
 
 #### alpha_078
 
-```python
+```py
 alpha_078(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((HIGH+LOW+CLOSE)/3-MA((HIGH+LOW+CLOSE)/3,12))/(0.015×MEAN(ABS(CLOSE-MEAN((HIGH+LOW+CLOSE)/3,12)),12))
-    
 
 #### alpha_079
 
-```python
+```py
 alpha_079(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(MAX(CLOSE-DELAY(CLOSE,1),0),12,1)/SMA(ABS(CLOSE-DELAY(CLOSE,1)),12,1)×100
-    
 
 #### alpha_080
 
-```python
+```py
 alpha_080(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (VOLUME-DELAY(VOLUME,5))/DELAY(VOLUME,5)×100
-    
 
 #### alpha_081
 
-```python
+```py
 alpha_081(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(VOLUME,21,2)
-    
 
 #### alpha_082
 
-```python
+```py
 alpha_082(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA((TSMAX(HIGH,6)-CLOSE)/(TSMAX(HIGH,6)-TSMIN(LOW,6))×100,20,1)
-    
 
 #### alpha_083
 
-```python
+```py
 alpha_083(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1×RANK(COVIANCE(RANK(HIGH),RANK(VOLUME),5)))
-    
 
 #### alpha_084
 
-```python
+```py
 alpha_084(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM((CLOSE>DELAY(CLOSE,1)?VOLUME:(CLOSE<DELAY(CLOSE,1)?-VOLUME:0)),20)
-    
 
 #### alpha_085
 
-```python
+```py
 alpha_085(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (TSRANK((VOLUME/MEAN(VOLUME,20)),20)× TSRANK((-1×DELTA(CLOSE,7)),8))
-    
 
 #### alpha_086
 
-```python
+```py
 alpha_086(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((0.25<(((DELAY(CLOSE,20)-DELAY(CLOSE,10))/10)-((DELAY(CLOSE,10)-CLOSE)/10)))?(-1×1):(((((DELAY(CLOSE,20)-DELAY(CLOSE,10))/10)-((DELAY(CLOSE,10)-CLOSE)/10))\<0)?1:((-1*1)×(CLOSE-DELAY(CLOSE,1)))))
-    
 
 #### alpha_087
 
-```python
+```py
 alpha_087(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK(DECAYLINEAR(DELTA(VWAP,4),7))+TSRANK(DECAYLINEAR(((((LOW*0.9)+(LOW*0.1))-VWAP)/(OPEN-((HIGH+LOW)/2))),11),7))*-1)
-    
 
 #### alpha_088
 
-```python
+```py
 alpha_088(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE-DELAY(CLOSE,20))/DELAY(CLOSE,20)*100
-    
 
 #### alpha_089
 
-```python
+```py
 alpha_089(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - 2*(SMA(CLOSE,13,2)-SMA(CLOSE,27,2)-SMA(SMA(CLOSE,13,2)-SMA(CLOSE,27,2),10,2))
-    
 
 #### alpha_090
 
-```python
+```py
 alpha_090(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(CORR(RANK(VWAP),RANK(VOLUME),5))*-1)
-    
 
 #### alpha_091
 
-```python
+```py
 alpha_091(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK((CLOSE-MAX(CLOSE,5)))×RANK(CORR((MEAN(VOLUME,40)),LOW,5)))×-1)
-    
 
 #### alpha_092
 
-```python
+```py
 alpha_092(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MAX(RANK(DECAYLINEAR(DELTA(((CLOSE×0.35)+(VWAP×0.65)),2),3)),TSRANK(DECAYLINEAR(ABS(CORR((MEAN(VOLUME,180)),CLOSE,13)),5),15))×-1)
-    
 
 #### alpha_093
 
-```python
+```py
 alpha_093(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM((OPEN>=DELAY(OPEN,1)?0:MAX((OPEN-LOW),(OPEN-DELAY(OPEN,1)))),20)
-    
 
 #### alpha_094
 
-```python
+```py
 alpha_094(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM((CLOSE>DELAY(CLOSE,1)?VOLUME:(CLOSE<DELAY(CLOSE,1)?-VOLUME:0)),30)
-    
 
 #### alpha_095
 
-```python
+```py
 alpha_095(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - STD(AMOUNT,20)
-    
 
 #### alpha_096
 
-```python
+```py
 alpha_096(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(SMA((CLOSE-TSMIN(LOW,9))/(TSMAX(HIGH,9)-TSMIN(LOW,9))×100,3,1),3,1)
-    
 
 #### alpha_097
 
-```python
+```py
 alpha_097(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - STD(VOLUME,10)
-    
 
 #### alpha_098
 
-```python
+```py
 alpha_098(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((((DELTA((SUM(CLOSE,100)/100),100)/DELAY(CLOSE,100))\<0.05)||((DELTA((SUM(CLOSE,100)/100),100)/DELAY(CLOSE,100))==0.05))?(-1×(CLOSE-TSMIN(CLOSE,100))):(-1×DELTA(CLOSE,3)))
-    
 
 #### alpha_099
 
-```python
+```py
 alpha_099(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1×RANK(COVIANCE(RANK(CLOSE),RANK(VOLUME),5)))
-    
 
 #### alpha_100
 
-```python
+```py
 alpha_100(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - STD(VOLUME,20)
-    
 
 #### alpha_101
 
-```python
+```py
 alpha_101(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK(CORR(CLOSE, SUM(MEAN(VOLUME,30), 37), 15)) < RANK(CORR(RANK(((HIGH * 0.1) + (VWAP * 0.9))), RANK(VOLUME), 11))) * -1)
-    
 
 #### alpha_102
 
-```python
+```py
 alpha_102(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(MAX(VOLUME-DELAY(VOLUME,1),0),6,1)/SMA(ABS(VOLUME-DELAY(VOLUME,1)),6,1)*100
-    
 
 #### alpha_103
 
-```python
+```py
 alpha_103(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((20-LOWDAY(LOW,20))/20)*100
-    
 
 #### alpha_104
 
-```python
+```py
 alpha_104(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1 * (DELTA(CORR(HIGH,VOLUME,5),5) * RANK(STD(CLOSE,20))))
-    
 
 #### alpha_105
 
-```python
+```py
 alpha_105(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*CORR(RANK(OPEN),RANK(VOLUME),10))
-    
 
 #### alpha_106
 
-```python
+```py
 alpha_106(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - CLOSE-DELAY(CLOSE,20)
-    
 
 #### alpha_107
 
-```python
+```py
 alpha_107(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (((-1*RANK((OPEN-DELAY(HIGH,1))))*RANK((OPEN-DELAY(CLOSE,1))))*RANK((OPEN-DELAY(LOW,1))))
-    
 
 #### alpha_108
 
-```python
+```py
 alpha_108(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK((HIGH-MIN(HIGH,2)))^RANK(CORR((VWAP),(MEAN(VOLUME,120)),6)))*-1)
-    
 
 #### alpha_109
 
-```python
+```py
 alpha_109(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(HIGH-LOW,10,2)/SMA(SMA(HIGH-LOW,10,2),10,2)
-    
 
 #### alpha_110
 
-```python
+```py
 alpha_110(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM(MAX(0,HIGH-DELAY(CLOSE,1)),20)/SUM(MAX(0,DELAY(CLOSE,1)-LOW),20)*100
-    
 
 #### alpha_111
 
-```python
+```py
 alpha_111(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(VOL*((CLOSE-LOW)-(HIGH-CLOSE))/(HIGH-LOW),11,2)-SMA(VOL*((CLOSE-LOW)-(HIGH-CLOSE))/(HIGH-LOW),4,2)
-    
 
 #### alpha_112
 
-```python
+```py
 alpha_112(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (SUM((CLOSE-DELAY(CLOSE,1)>0?CLOSE-DELAY(CLOSE,1):0),12)-SUM((CLOSE-DELAY(CLOSE,1)\<0?ABS(CLOS E-DELAY(CLOSE,1)):0),12))/(SUM((CLOSE-DELAY(CLOSE,1)>0?CLOSE-DELAY(CLOSE,1):0),12)+SUM((CLOSE-DE LAY(CLOSE,1)\<0?ABS(CLOSE-DELAY(CLOSE,1)):0),12))*100
-    
 
 #### alpha_113
 
-```python
+```py
 alpha_113(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*((RANK((SUM(DELAY(CLOSE,5),20)/20))*CORR(CLOSE,VOLUME,2))*RANK(CORR(SUM(CLOSE,5),SUM(CLOSE,20),2))))
-    
 
 #### alpha_114
 
-```python
+```py
 alpha_114(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK(DELAY(((HIGH-LOW)/(SUM(CLOSE,5)/5)),2))*RANK(RANK(VOLUME)))/(((HIGH-LOW)/(SUM(CLOSE,5)/5))/(VWAP-CLOSE)))
-    
 
 #### alpha_115
 
-```python
+```py
 alpha_115(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(CORR(((HIGH*0.9)+(CLOSE*0.1)),MEAN(VOLUME,30),10))^RANK(CORR(TSRANK(((HIGH+LOW)/2),4),TSRANK(VOLUME,10),7)))
-    
 
 #### alpha_116
 
-```python
+```py
 alpha_116(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - REGBETA(CLOSE,SEQUENCE,20)
-    
 
 #### alpha_117
 
-```python
+```py
 alpha_117(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((TSRANK(VOLUME,32)*(1-TSRANK(((CLOSE+HIGH)-LOW),16)))*(1-TSRANK(RET,32)))
-    
 
 #### alpha_118
 
-```python
+```py
 alpha_118(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM(HIGH-OPEN,20)/SUM(OPEN-LOW,20)*100
-    
 
 #### alpha_119
 
-```python
+```py
 alpha_119(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(DECAYLINEAR(CORR(VWAP,SUM(MEAN(VOLUME,5),26),5),7))-RANK(DECAYLINEAR(TSRANK(MIN(CORR(RANK(OPEN),RANK(MEAN(VOLUME,15)),21),9),7),8)))
-    
 
 #### alpha_120
 
-```python
+```py
 alpha_120(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK((VWAP-CLOSE))/RANK((VWAP+CLOSE)))
-    
 
 #### alpha_121
 
-```python
+```py
 alpha_121(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK((VWAP-MIN(VWAP,12)))^TSRANK(CORR(TSRANK(VWAP,20),TSRANK(MEAN(VOLUME,60),2),18),3))*-1)
-    
 
 #### alpha_122
 
-```python
+```py
 alpha_122(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (SMA(SMA(SMA(LOG(CLOSE),13,2),13,2),13,2)-DELAY(SMA(SMA(SMA(LOG(CLOSE),13,2),13,2),13,2),1))/DELAY(SMA(SMA(SMA(LOG(CLOSE),13,2),13,2),13,2),1)
-    
 
 #### alpha_123
 
-```python
+```py
 alpha_123(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK(CORR(SUM(((HIGH+LOW)/2),20),SUM(MEAN(VOLUME,60),20),9))\
-    
 
 #### alpha_124
 
-```python
+```py
 alpha_124(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE-VWAP)/DECAYLINEAR(RANK(TSMAX(CLOSE,30)),2)
-    
 
 #### alpha_125
 
-```python
+```py
 alpha_125(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(DECAYLINEAR(CORR((VWAP),MEAN(VOLUME,80),17),20))/RANK(DECAYLINEAR(DELTA(((CLOSE*0.5)+(VWAP*0.5)),3),16)))
-    
 
 #### alpha_126
 
-```python
+```py
 alpha_126(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE+HIGH+LOW)/3
-    
 
 #### alpha_127
 
-```python
+```py
 alpha_127(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MEAN((100*(CLOSE-MAX(CLOSE,12))/(MAX(CLOSE,12)))^2))^(1/2)
-    
 
 #### alpha_128
 
-```python
+```py
 alpha_128(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - 100-(100/(1+SUM(((HIGH+LOW+CLOSE)/3>DELAY((HIGH+LOW+CLOSE)/3,1)?(HIGH+LOW+CLOSE)/3* VOLUM E:0),14)/SUM(((HIGH+LOW+CLOSE)/3 < DELAY((HIGH+LOW+CLOSE)/3,1)?(HIGH+LOW+CLOSE)/3* VOLUME:0), 14)))
-    
 
 #### alpha_129
 
-```python
+```py
 alpha_129(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM((CLOSE-DELAY(CLOSE,1)\<0?ABS(CLOSE-DELAY(CLOSE,1)):0),12)
-    
 
 #### alpha_130
 
-```python
+```py
 alpha_130(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(DECAYLINEAR(CORR(((HIGH+LOW)/2),MEAN(VOLUME,40),9),10))/RANK(DECAYLINEAR(CORR(RANK(VWAP),RANK(VOLUME),7),3)))
-    
 
 #### alpha_131
 
-```python
+```py
 alpha_131(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(DELAT(VWAP,1))^TSRANK(CORR(CLOSE,MEAN(VOLUME,50),18),18))
-    
 
 #### alpha_132
 
-```python
+```py
 alpha_132(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MEAN(AMOUNT,20)
-    
 
 #### alpha_133
 
-```python
+```py
 alpha_133(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((20-HIGHDAY(HIGH,20))/20)*100-((20-LOWDAY(LOW,20))/20)*100
-    
 
 #### alpha_134
 
-```python
+```py
 alpha_134(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE-DELAY(CLOSE,12))/DELAY(CLOSE,12)*VOLUME
-    
 
 #### alpha_135
 
-```python
+```py
 alpha_135(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式： -SMA(DELAY(CLOSE/DELAY(CLOSE,20),1),20,1)
-    
 
 #### alpha_136
 
-```python
+```py
 alpha_136(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((-1*RANK(DELTA(RET,3)))*CORR(OPEN,VOLUME,10))
-    
 
 #### alpha_137
 
-```python
+```py
 alpha_137(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - 16*(CLOSE-DELAY(CLOSE,1)+(CLOSE-OPEN)/2+DELAY(CLOSE,1)-DELAY(OPEN,1))/((ABS(HIGH-DELAY(CLOSE,1))>ABS(LOW-DELAY(CLOSE,1)) &ABS(HIGH-DELAY(CLOSE,1))>ABS(HIGH-DELAY(LOW,1))?ABS(HIGH-DELAY(CLOSE,1))+ABS(LOW-DELAY(CLOSE,1))/2+ABS(DELAY(CLOSE,1)-DELAY(OPEN,1))/4:(ABS(LOW-DELAY(CLOSE,1))>ABS(HIGH-DELAY(LOW,1)) & ABS(LOW-DELAY(CLOSE,1))>ABS(HIGH-DELAY(CLOSE,1))?ABS(LOW-DELAY(CLOSE,1))+ABS(HIGH-DELAY(CLOSE,1))/2+ABS(DELAY(CLOSE,1)-DELAY(OPEN,1))/4:ABS(HIGH-DELAY(LOW,1))+ABS(DELAY(CLOSE,1)-DELAY(OPEN,1))/4)))*MAX(ABS(HIGH-DELAY(CLOSE,1)),ABS(LOW-DELAY(CLOSE,1)))
-    
 
 #### alpha_138
 
-```python
+```py
 alpha_138(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK(DECAYLINEAR(DELTA((((LOW*0.7)+(VWAP*0.3))),3),20))-TSRANK(DECAYLINEAR(TSRANK(CORR(TSRANK(LOW,8),TSRANK(MEAN(VOLUME,60),17),5),19),16),7))* -1)
-    
 
 #### alpha_139
 
-```python
+```py
 alpha_139(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*CORR(OPEN,VOLUME,10))
-    
 
 #### alpha_140
 
-```python
+```py
 alpha_140(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MIN(RANK(DECAYLINEAR(((RANK(OPEN)+RANK(LOW))-(RANK(HIGH)+RANK(CLOSE))),8)),TSRANK(DECAYLINEAR(CORR(TSRANK(CLOSE,8),TSRANK(MEAN(VOLUME,60),20),8),7),3))
-    
 
 #### alpha_141
 
-```python
+```py
 alpha_141(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(CORR(RANK(HIGH),RANK(MEAN(VOLUME,15)),9))*-1)
-    
 
 #### alpha_142
 
-```python
+```py
 alpha_142(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (((-1*RANK(TSRANK(CLOSE,10)))*RANK(DELTA(DELTA(CLOSE,1),1)))*RANK(TSRANK((VOLUME/MEAN(VOLUME,20)),5)))
-    
 
 #### alpha_143
 
-```python
+```py
 alpha_143(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - CLOSE>DELAY(CLOSE,1)?(CLOSE-DELAY(CLOSE,1))/DELAY(CLOSE,1)*SELF:SELF
-    
 
 #### alpha_144
 
-```python
+```py
 alpha_144(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUMIF(ABS(CLOSE/DELAY(CLOSE,1)-1)/AMOUNT,20,CLOSE<DELAY(CLOSE,1))/COUNT(CLOSE<DELAY(CLOSE,1),20)
-    
 
 #### alpha_145
 
-```python
+```py
 alpha_145(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MEAN(VOLUME,9)-MEAN(VOLUME,26))/MEAN(VOLUME,12)*100
-    
 
 #### alpha_146
 
-```python
+```py
 alpha_146(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MEAN((CLOSE-DELAY(CLOSE,1))/DELAY(CLOSE,1)-SMA((CLOSE-DELAY(CLOSE,1))/DELAY(CLOSE,1),61,2),20)*(( CLOSE-DELAY(CLOSE,1))/DELAY(CLOSE,1)-SMA((CLOSE-DELAY(CLOSE,1))/DELAY(CLOSE,1),61,2))/SMA(((CLOS E-DELAY(CLOSE,1))/DELAY(CLOSE,1)-((CLOSE-DELAY(CLOSE,1))/DELAY(CLOSE,1)-SMA((CLOSE-DELAY(CLOSE,1))/DELAY(CLOSE,1),61,2)))^2,60);
-    
 
 #### alpha_147
 
-```python
+```py
 alpha_147(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - REGBETA(MEAN(CLOSE,12),SEQUENCE(12))
-    
 
 #### alpha_148
 
-```python
+```py
 alpha_148(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((RANK(CORR((OPEN),SUM(MEAN(VOLUME,60),9),6))<RANK((OPEN-TSMIN(OPEN,14))))*-1)
-    
 
 #### alpha_149
 
-```python
+```py
 alpha_149(code,benchmark='000300.XSHG',end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - benchmark:基准指数，默认为沪深300
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - REGBETA(FILTER(CLOSE/DELAY(CLOSE,1)-1,BANCHMARKINDEXCLOSE<DELAY(BANCHMARKINDEXCLOSE,1)),FILTER(BANCHMARKINDEXCLOSE/DELAY(BANCHMARKINDEXCLOSE,1)-1,BANCHMARKINDEXCLOSE<DELAY(BANCHMARKINDEXCLOSE,1)),252)
-    
 
 #### alpha_150
 
-```python
+```py
 alpha_150(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE+HIGH+LOW)/3*VOLUME
-    
 
 #### alpha_151
 
-```python
+```py
 alpha_151(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(CLOSE-DELAY(CLOSE,20),20,1)
-    
 
 #### alpha_152
 
-```python
+```py
 alpha_152(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(MEAN(DELAY(SMA(DELAY(CLOSE/DELAY(CLOSE,9),1),9,1),1),12)-MEAN(DELAY(SMA(DELAY(CLOSE/DELAY (CLOSE,9),1),9,1),1),26),9,1)
-    
 
 #### alpha_153
 
-```python
+```py
 alpha_153(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MEAN(CLOSE,3)+MEAN(CLOSE,6)+MEAN(CLOSE,12)+MEAN(CLOSE,24))/4
-    
 
 #### alpha_154
 
-```python
+```py
 alpha_154(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (((VWAP-MIN(VWAP,16)))<(CORR(VWAP,MEAN(VOLUME,180),18)))
-    
 
 #### alpha_155
 
-```python
+```py
 alpha_155(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(VOLUME,13,2)-SMA(VOLUME,27,2)-SMA(SMA(VOLUME,13,2)-SMA(VOLUME,27,2),10,2)
-    
 
 #### alpha_156
 
-```python
+```py
 alpha_156(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MAX(RANK(DECAYLINEAR(DELTA(VWAP,5),3)),RANK(DECAYLINEAR(((DELTA(((OPEN*0.15)+(LOW*0.85)),2)/((OPEN*0.15)+(LOW*0.85)))*-1),3)))*-1)
-    
 
 #### alpha_157
 
-```python
+```py
 alpha_157(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MIN(PROD(RANK(RANK(LOG(SUM(TSMIN(RANK(RANK((-1*RANK(DELTA((CLOSE-1),5))))),2),1)))),1),5) +TSRANK(DELAY((-1*RET),6),5))
-    
 
 #### alpha_158
 
-```python
+```py
 alpha_158(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((HIGH-SMA(CLOSE,15,2))-(LOW-SMA(CLOSE,15,2)))/CLOSE
-    
 
 #### alpha_159
 
-```python
+```py
 alpha_159(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((CLOSE-SUM(MIN(LOW,DELAY(CLOSE,1)),6))/SUM(MAX(HGIH,DELAY(CLOSE,1))-MIN(LOW,DELAY(CLOSE,1)),6)*12*24+(CLOSE-SUM(MIN(LOW,DELAY(CLOSE,1)),12))/SUM(MAX(HGIH,DELAY(CLOSE,1))-MIN(LOW,DELAY(CL OSE,1)),12)*6*24+(CLOSE-SUM(MIN(LOW,DELAY(CLOSE,1)),24))/SUM(MAX(HGIH,DELAY(CLOSE,1))-MIN(LOW,D ELAY(CLOSE,1)),24)*6*24)*100/(6*12+6*24+12*24)
-    
 
 #### alpha_160
 
-```python
+```py
 alpha_160(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA((CLOSE<=DELAY(CLOSE,1)?STD(CLOSE,20):0),20,1)
-    
 
 #### alpha_161
 
-```python
+```py
 alpha_161(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MEAN(MAX(MAX((HIGH-LOW),ABS(DELAY(CLOSE,1)-HIGH)),ABS(DELAY(CLOSE,1)-LOW)),12)
-    
 
 #### alpha_162
 
-```python
+```py
 alpha_162(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (SMA(MAX(CLOSE-DELAY(CLOSE,1),0),12,1)/SMA(ABS(CLOSE-DELAY(CLOSE,1)),12,1)*100-MIN(SMA(MAX(CLOSE-DELAY(CLOSE,1),0),12,1)/SMA(ABS(CLOSE-DELAY(CLOSE,1)),12,1)*100,12))/(MAX(SMA(MAX(CLOSE-DELAY(CLOSE,1),0),12,1)/SMA(ABS(CLOSE-DELAY(CLOSE,1)),12,1)*100,12)-MIN(SMA(MAX(CLOSE-DELAY(CLOSE,1),0),12, 1)/SMA(ABS(CLOSE-DELAY(CLOSE,1)),12,1)*100,12))
-    
 
 #### alpha_163
 
-```python
+```py
 alpha_163(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - RANK(((((-1*RET)*MEAN(VOLUME,20))*VWAP)*(HIGH-CLOSE)))
-    
 
 #### alpha_164
 
-```python
+```py
 alpha_164(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA((((CLOSE>DELAY(CLOSE,1))?1/(CLOSE-DELAY(CLOSE,1)):1)-MIN(((CLOSE>DELAY(CLOSE,1))?1/(CLOSE-D ELAY(CLOSE,1)):1),12))/(HIGH-LOW)*100,13,2)
-    
 
 #### alpha_165（尚未实现）
 
-```python
+```py
 alpha_165(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MAX(SUMAC(CLOSE-MEAN(CLOSE,48)))-MIN(SUMAC(CLOSE-MEAN(CLOSE,48)))/STD(CLOSE,48)
-    
 
 #### alpha_166
 
-```python
+```py
 alpha_166(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - -20*(20-1)^1.5* SUM(CLOSE/DELAY(CLOSE,1)-1-MEAN(CLOSE/DELAY(CLOSE,1)-1,20),20)/((20-1)* (20-2)(SUM((CLOSE/DELAY(CLOSE,1),20)^2,20))^1.5)
-    
 
 #### alpha_167
 
-```python
+```py
 alpha_167(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM((CLOSE-DELAY(CLOSE,1)>0?CLOSE-DELAY(CLOSE,1):0),12
-    
 
 #### alpha_168
 
-```python
+```py
 alpha_168(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (-1*VOLUME/MEAN(VOLUME,20))
-    
 
 #### alpha_169
 
-```python
+```py
 alpha_169(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA(MEAN(DELAY(SMA(CLOSE-DELAY(CLOSE,1),9,1),1),12)-MEAN(DELAY(SMA(CLOSE-DELAY(CLOSE,1),9,1),1), 26),10,1)
-    
 
 #### alpha_170
 
-```python
+```py
 alpha_170(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((((RANK((1/CLOSE))*VOLUME)/MEAN(VOLUME,20))*((HIGH*RANK((HIGH-CLOSE)))/(SUM(HIGH,5)/5)))-RANK((VWAP-DELAY(VWAP,5))))
-    
 
 #### alpha_171
 
-```python
+```py
 alpha_171(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((-1*((LOW-CLOSE)*(OPEN^5)))/((CLOSE-HIGH)*(CLOSE^5)))
-    
 
 #### alpha_172
 
-```python
+```py
 alpha_172(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MEAN(ABS(SUM((LD>0&LD>HD)?LD:0,14)*100/SUM(TR,14)-SUM((HD>0&HD>LD)?HD:0,14)*100/SUM(TR,14))/(SUM((LD>0&LD>HD)?LD:0,14)*100/SUM(TR,14)+SUM((HD>0&HD>LD)?HD:0,14)*100/SUM(TR,14))*100,6)
-    
 
 #### alpha_173
 
-```python
+```py
 alpha_173(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - 3*SMA(CLOSE,13,2)-2*SMA(SMA(CLOSE,13,2),13,2)+SMA(SMA(SMA(LOG(CLOSE),13,2),13,2),13,2);
-    
 
 #### alpha_174
 
-```python
+```py
 alpha_174(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SMA((CLOSE>DELAY(CLOSE,1)?STD(CLOSE,20):0),20,1)
-    
 
 #### alpha_175
 
-```python
+```py
 alpha_175(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MEAN(MAX(MAX((HIGH-LOW),ABS(DELAY(CLOSE,1)-HIGH)),ABS(DELAY(CLOSE,1)-LOW)),6)
-    
 
 #### alpha_176
 
-```python
+```py
 alpha_176(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - CORR(RANK(((CLOSE-TSMIN(LOW,12))/(TSMAX(HIGH,12)-TSMIN(LOW,12)))),RANK(VOLUME),6)
-    
 
 #### alpha_177
 
-```python
+```py
 alpha_177(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((20-HIGHDAY(HIGH,20))/20)*100
-    
 
 #### alpha_178
 
-```python
+```py
 alpha_178(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (CLOSE-DELAY(CLOSE,1))/DELAY(CLOSE,1)*VOLUME
-    
 
 #### alpha_179
 
-```python
+```py
 alpha_179(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(CORR(VWAP,VOLUME,4))*RANK(CORR(RANK(LOW),RANK(MEAN(VOLUME,50)),12)))
-    
 
 #### alpha_180
 
-```python
+```py
 alpha_180(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((MEAN(VOLUME,20)<VOLUME)?((-1*TSRANK(ABS(DELTA(CLOSE,7)),60))*SIGN(DELTA(CLOSE,7)):(-1*VOLUME)))
-    
 
 #### alpha_181
 
-```python
+```py
 alpha_181(code,benchmark='000300.XSHG',end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - benchmark:基准指数，默认为沪深300
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM(((CLOSE/DELAY(CLOSE,1)-1)-MEAN((CLOSE/DELAY(CLOSE,1)-1),20))-(BANCHMARKINDEXCLOSE-MEAN(BANCHMARKINDEXCLOSE,20))^2,20)/SUM((BANCHMARKINDEXCLOSE-MEAN(BANCHMARKINDEXCLOSE,20))^3)
-    
 
 #### alpha_182
 
-```python
+```py
 alpha_182(code,benchmark='000300.XSHG',end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - benchmark:基准指数，默认为沪深300
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - COUNT((CLOSE>OPEN&BANCHMARKINDEXCLOSE>BANCHMARKINDEXOPEN)OR(CLOSE<OPEN&BANCHMARKINDEXCLOSE<BANCHMARKINDEXOPEN),20)/20
-    
 
 #### alpha_183（尚未实现）
 
-```python
+```py
 alpha_183(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MAX(SUMAC(CLOSE-MEAN(CLOSE,24)))-MIN(SUMAC(CLOSE-MEAN(CLOSE,24)))/STD(CLOSE,24)
-    
 
 #### alpha_184
 
-```python
+```py
 alpha_184(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (RANK(CORR(DELAY((OPEN-CLOSE),1),CLOSE,200))+RANK((OPEN-CLOSE)))
-    
 
 #### alpha_185
 
-```python
+```py
 alpha_185(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - RANK((-1*((1-(OPEN/CLOSE))^2)))
-    
 
 #### alpha_186
 
-```python
+```py
 alpha_186(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - (MEAN(ABS(SUM((LD>0&LD>HD)?LD:0,14)*100/SUM(TR,14)-SUM((HD>0&HD>LD)?HD:0,14)*100/SUM(TR,14))/(SUM((LD>0&LD>HD)?LD:0,14)*100/SUM(TR,14)+SUM((HD>0&HD>LD)?HD:0,14)*100/SUM(TR,14))*100,6)+DELAY(MEAN(ABS(SUM((LD>0&LD>HD)?LD:0,14)*100/SUM(TR,14)-SUM((HD>0&HD>LD)?HD:0,14)*100/SUM(TR,14))/(SUM((LD>0&LD>HD)?LD:0,14)*100/SUM(TR,14)+SUM((HD>0&HD>LD)?HD:0,14)*100/SUM(TR,14))*100,6),6))/2
-    
 
 #### alpha_187
 
-```python
+```py
 alpha_187(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - SUM((OPEN<=DELAY(OPEN,1)?0:MAX((HIGH-OPEN),(OPEN-DELAY(OPEN,1)))),20)
-    
 
 #### alpha_188
 
-```python
+```py
 alpha_188(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((HIGH-LOW–SMA(HIGH-LOW,11,2))/SMA(HIGH-LOW,11,2))*100
-    
 
 #### alpha_189
 
-```python
+```py
 alpha_189(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - MEAN(ABS(CLOSE-MEAN(CLOSE,6)),6)
-    
 
 #### alpha_190
 
-```python
+```py
 alpha_190(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：（公式有部分缺失 有调整）
-    
+
 - 原公式:
-    
+
     -   LOG((COUNT(CLOSE/DELAY(CLOSE)-1>((CLOSE/DELAY(CLOSE,19))^(1/20)-1),20)-1)*(SUMIF(((CLOSE/DELAY(CLOSE)-1-(CLOSE/DELAY(CLOSE,19))^(1/20)-1))^2,20,CLOSE/DELAY(CLOSE)-1<(CLOSE/DELAY(CLOSE,19))^(1/20)-1))/((COUNT((CLOSE/DELAY(CLOSE)-1<(CLOSE/DELAY(CLOSE,19))^(1/20)-1),20))*(SUMIF((CLOSE/DELAY(CLOSE)-1-((CLOSE/DELAY(CLOSE,19))^(1/20)-1))^2,20,CLOSE/DELAY(CLOSE)-1>(CLOSE/DELAY(CLOSE,19))^(1/20)-1))))
 - 修改后公式:
-    
+
     -   LOG((COUNT(CLOSE/DELAY(CLOSE,1)-1>((CLOSE/DELAY(CLOSE,19))^(1/20)-1),20)-1)*(SUMIF(((CLOSE/DELAY(CLOSE,1)-1-(CLOSE/DELAY(CLOSE,19))^(1/20)-1))^2,20,CLOSE/DELAY(CLOSE,1)-1<(CLOSE/DELAY(CLOSE,19))^(1/20)-1))/((COUNT((CLOSE/DELAY(CLOSE,1)-1<(CLOSE/DELAY(CLOSE,19))^(1/20)-1),20))*(SUMIF((CLOSE/DELAY(CLOSE,1)-1-((CLOSE/DELAY(CLOSE,19))^(1/20)-1))^2,20,CLOSE/DELAY(CLOSE,1)-1>(CLOSE/DELAY(CLOSE,19))^(1/20)-1))))
 
 #### alpha_191
 
-```python
+```py
 alpha_191(code,end_date=None)
 ```
 
 - 输入：
-    
+
 - code: 股票代码列表
-    
+
 - end_date: 计算哪一天的因子 ,默认为None也就是最近一交易日的日期
-    
+
 - 输出：
-    
+
 - 一个 Series：index 为成分股代码，values 为对应的因子值
-    
+
 - 因子公式：
-    
+
 - ((CORR(MEAN(VOLUME,20),LOW,5)+((HIGH+LOW)/2))-CLOSE)

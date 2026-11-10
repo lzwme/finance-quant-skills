@@ -4,7 +4,7 @@
 
 ### 使用说明
 
-```python
+```py
 from jqdata import bond
 df=bond.run_query(query(bond.BOND_BASIC_INFO).filter(bond.BOND_BASIC_INFO.code == '131801').limit(n))
 ```
@@ -14,7 +14,7 @@ df=bond.run_query(query(bond.BOND_BASIC_INFO).filter(bond.BOND_BASIC_INFO.code =
 **参数：**
 
 - **query(bond.BOND_BASIC_INFO)**：表示从bond.BOND_BASIC_INFO 这张表中查询债券基本信息数据，其中bond是库名，BOND_BASIC_INFO是表名。bond库中的表都可以使用run_query方法调用，表名如下所示：
-    
+
     | **表名** | **描述** |
     | --- | --- |
     | BOND_BASIC_INFO | 债券基本信息数据 |
@@ -25,13 +25,12 @@ df=bond.run_query(query(bond.BOND_BASIC_INFO).filter(bond.BOND_BASIC_INFO.code =
     | CONBOND_DAILY_PRICE | 可转债日行情 |
     | CONBOND_DAILY_CONVERT | 可转债每日转股统计 |
     | BOND_INTEREST_PAYMENT | 债券付息事件 |
-    
+
     在查询表数据时还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2，多个字段用逗号分隔进行提取；query函数的更多用法详见： **[query简易教程](https://www.joinquant.com/view/community/detail/16411)**
-    
+
 - **filter(bond.BOND_BASIC_INFO.code == '131801')**：指定筛选条件，通过bond.BOND_BASIC_INFO.code == '131801' 可以指定债券代码来获取债券基本信息数据；除此之外，还可以对表中其他字段指定筛选条件，如filter(bond.BOND_BASIC_INFO.exchange=='上交所')，表示交易市场在上交所的所有债券基本信息数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -39,12 +38,12 @@ df=bond.run_query(query(bond.BOND_BASIC_INFO).filter(bond.BOND_BASIC_INFO.code =
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回5000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回5000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 # 查询交易市场为上交所的债券基本信息数据
 from jqdata import bond
 
@@ -52,7 +51,7 @@ df = bond.run_query(query(bond.BOND_BASIC_INFO).filter(bond.BOND_BASIC_INFO.exch
 print(df)
 ```
 
-```python
+```py
    id    code short_name                            full_name  list_status_id  \
 0   2  131800      16东莞次  中国中投证券-东莞证券融出资金债权1号资产支持专项计划次级资产支持证券             NaN
 1   3  131801     花呗01A1         德邦花呗第一期消费贷款资产支持专项计划优先级资产支持证券        301006.0

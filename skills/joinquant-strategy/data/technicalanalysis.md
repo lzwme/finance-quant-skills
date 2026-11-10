@@ -21,7 +21,7 @@
 
 **在使用之前请导入 technical_analysis 库**
 
-```python
+```py
 # (官网)导入 technical_analysis 库
 >>> from jqlib.technical_analysis import *
 
@@ -33,7 +33,7 @@
 
 ### ACCER-幅度涨速
 
-```python
+```py
 ACCER(security_list, check_date, N = 8, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -65,7 +65,7 @@ ACCER(security_list, check_date, N = 8, unit = '1d', include_now = True, fq_ref_
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -82,7 +82,7 @@ for stock in security_list2:
 
 ### ADTM-动态买卖气指标
 
-```python
+```py
 ADTM(security_list, check_date, N = 23, M = 8, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -111,12 +111,12 @@ ADTM(security_list, check_date, N = 23, M = 8, unit = '1d', include_now = True, 
 
 **用法注释：**
 
-1.  该指标在+1到-1之间波动;
-2.  低于-0.5时为很好的买入点,高于+0.5时需注意风险.
+1. 该指标在+1到-1之间波动;
+2. 低于-0.5时为很好的买入点,高于+0.5时需注意风险.
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -134,7 +134,7 @@ for stock in security_list2:
 
 ### ATR-真实波幅
 
-```python
+```py
 ATR(security_list, check_date, timeperiod=14, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -166,7 +166,7 @@ ATR(security_list, check_date, timeperiod=14, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -184,7 +184,7 @@ for stock in security_list2:
 
 ### BIAS-乖离率
 
-```python
+```py
 BIAS(security_list,check_date, N1=6, N2=12, N3=24, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -218,7 +218,7 @@ BIAS(security_list,check_date, N1=6, N2=12, N3=24, unit = '1d', include_now = Tr
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -238,7 +238,7 @@ for stock in security_list2:
 
 ### BIAS_QL-乖离率_传统版
 
-```python
+```py
 BIAS_QL(security_list, check_date, N = 6, M = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -267,15 +267,15 @@ BIAS_QL(security_list, check_date, N = 6, M = 6, unit = '1d', include_now = True
 
 **用法注释：**
 
-1.  因为BIAS_QL的计算公式与BIAS36相似，而常见的炒股软件中均没有找到BIAS_QL的用法注释，所以此处使用了BIAS36的用法注释；
-2.  本指标的乖离极限值随个股不同而不同，使用者可利用参考线设定，固定其乖离范围。※一般6-12BIAS信号的可靠度比3-6BIAS佳；
-3.  当股价的正乖离扩大到一定极限时，股价会产生向下拉回的作用力；
-4.  当股价的负乖离扩大到一定极限时，股价会产生向上拉升的作用力；
-5.  本指标可设参考线。
+1. 因为BIAS_QL的计算公式与BIAS36相似，而常见的炒股软件中均没有找到BIAS_QL的用法注释，所以此处使用了BIAS36的用法注释；
+2. 本指标的乖离极限值随个股不同而不同，使用者可利用参考线设定，固定其乖离范围。※一般6-12BIAS信号的可靠度比3-6BIAS佳；
+3. 当股价的正乖离扩大到一定极限时，股价会产生向下拉回的作用力；
+4. 当股价的负乖离扩大到一定极限时，股价会产生向上拉升的作用力；
+5. 本指标可设参考线。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -293,7 +293,7 @@ for stock in security_list2:
 
 ### BIAS_36-三六乖离
 
-```python
+```py
 BIAS_36(security_list, check_date, M = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -321,14 +321,14 @@ BIAS_36(security_list, check_date, M = 6, unit = '1d', include_now = True, fq_re
 
 **用法注释：**
 
-1.  本指标的乖离极限值随个股不同而不同，使用者可利用参考线设定，固定其乖离范围。※一般6-12BIAS信号的可靠度比3-6BIAS佳；
-2.  当股价的正乖离扩大到一定极限时，股价会产生向下拉回的作用力；
-3.  当股价的负乖离扩大到一定极限时，股价会产生向上拉升的作用力；
-4.  本指标可设参考线。
+1. 本指标的乖离极限值随个股不同而不同，使用者可利用参考线设定，固定其乖离范围。※一般6-12BIAS信号的可靠度比3-6BIAS佳；
+2. 当股价的正乖离扩大到一定极限时，股价会产生向下拉回的作用力；
+3. 当股价的负乖离扩大到一定极限时，股价会产生向上拉升的作用力；
+4. 本指标可设参考线。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -348,7 +348,7 @@ for stock in security_list2:
 
 ### CCI-商品路径指标
 
-```python
+```py
 CCI(security_list, check_date, N=14, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -380,7 +380,7 @@ CCI(security_list, check_date, N=14, unit = '1d', include_now = True, fq_ref_dat
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -396,7 +396,7 @@ for stock in security_list2:
 
 ### CYF-市场能量
 
-```python
+```py
 CYF(security_list, check_date, N = 21, unit = '1d', include_now = True)
 ```
 
@@ -424,13 +424,13 @@ CYF(security_list, check_date, N = 21, unit = '1d', include_now = True)
 
 **用法注释：**
 
-1.  CYF反映了市场公众的状态和追涨热情,又称市场能量指标;
-2.  使用CYF判断股票的活跃程度, CYF小于10的股票是冷门股，CYF在20到40之间是活跃股，CYF大于50是热门股;
-3.  CYF与股价顶背离时,易形成反转.
+1. CYF反映了市场公众的状态和追涨热情,又称市场能量指标;
+2. 使用CYF判断股票的活跃程度, CYF小于10的股票是冷门股，CYF在20到40之间是活跃股，CYF大于50是热门股;
+3. CYF与股价顶背离时,易形成反转.
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -447,7 +447,7 @@ for stock in security_list2:
 
 ### DKX-多空线
 
-```python
+```py
 DKX(security_list, check_date, M = 10, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -475,12 +475,12 @@ DKX(security_list, check_date, M = 10, unit = '1d', include_now = True, fq_ref_d
 
 **用法注释：**
 
-1.  当多空线上穿其均线时为买入信号;
-2.  当多空线下穿其均线时为卖出信号。
+1. 当多空线上穿其均线时为买入信号;
+2. 当多空线下穿其均线时为卖出信号。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -498,28 +498,27 @@ for stock in security_list2:
 
 ### KD-随机指标KD
 
-```python
+```py
 KD(security_list, check_date, N = 9, M1 = 3, M2 = 3, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
 **参数：**
 
 - security_list：标的列表
-    
+
 - check_date：要查询数据的日期
-    
+
 - N：统计的天数 N
-    
+
 - M1：统计的天数 M1
-    
+
 - M2：统计的天数 M2
-    
+
 - unit：统计周期，默认为 '1d', 支持如下周期: '1m', '5m', '15m', '30m', '60m', '120m', '1d', '1w', '1M'. '1w' 表示一周, ‘1M' 表示一月
-    
+
 - include_now：是否包含当前周期，默认为 True
-    
+
 - fq_ref_date：复权基准日，默认为 None
-    
 
 **返回：**
 
@@ -536,15 +535,15 @@ KD(security_list, check_date, N = 9, M1 = 3, M2 = 3, unit = '1d', include_now = 
 
 **用法注释：**
 
-0.  KD的计算公式与SKDJ的不太大，而常见的炒股软件中均没有找到KD的用法注释，所以该处的用法注释使用的是公式SKDJ的；
-1.  指标>80 时，回档机率大；指标<20 时，反弹机率大；
-2.  K在20左右向上交叉D时，视为买进信号；
-3.  K在80左右向下交叉D时，视为卖出信号；
-4.  SKDJ波动于50左右的任何讯号，其作用不大。
+0. KD的计算公式与SKDJ的不太大，而常见的炒股软件中均没有找到KD的用法注释，所以该处的用法注释使用的是公式SKDJ的；
+1. 指标>80 时，回档机率大；指标<20 时，反弹机率大；
+2. K在20左右向上交叉D时，视为买进信号；
+3. K在80左右向下交叉D时，视为卖出信号；
+4. SKDJ波动于50左右的任何讯号，其作用不大。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -562,7 +561,7 @@ for stock in security_list2:
 
 ### KDJ-随机指标
 
-```python
+```py
 KDJ(security_list, check_date, N =9, M1=3, M2=3, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -596,7 +595,7 @@ KDJ(security_list, check_date, N =9, M1=3, M2=3, unit = '1d', include_now = True
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -616,26 +615,25 @@ for stock in security_list2:
 
 ### SKDJ-慢速随机指标
 
-```python
+```py
 SKDJ(security_list, check_date, N = 9, M = 3, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
 **参数：**
 
 - security_list：标的列表
-    
+
 - check_date：要查询数据的日期
-    
+
 - N：统计的天数 N
-    
+
 - M：统计的天数 M
-    
+
 - unit：统计周期，默认为 '1d', 支持如下周期: '1m', '5m', '15m', '30m', '60m', '120m', '1d', '1w', '1M'. '1w' 表示一周, ‘1M' 表示一月
-    
+
 - include_now：是否包含当前周期，默认为 True
-    
+
 - fq_ref_date：复权基准日，默认为 None
-    
 
 **返回：**
 
@@ -652,14 +650,14 @@ SKDJ(security_list, check_date, N = 9, M = 3, unit = '1d', include_now = True, f
 
 **用法注释：**
 
-1.  指标>80 时，回档机率大；指标<20 时，反弹机率大；
-2.  K在20左右向上交叉D时，视为买进信号；
-3.  K在80左右向下交叉D时，视为卖出信号；
-4.  SKDJ波动于50左右的任何讯号，其作用不大。
+1. 指标>80 时，回档机率大；指标<20 时，反弹机率大；
+2. K在20左右向上交叉D时，视为买进信号；
+3. K在80左右向下交叉D时，视为卖出信号；
+4. SKDJ波动于50左右的任何讯号，其作用不大。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -677,7 +675,7 @@ for stock in security_list2:
 
 ### MFI-资金流量指标
 
-```python
+```py
 MFI(security_list, check_date, timeperiod=14, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -709,7 +707,7 @@ MFI(security_list, check_date, timeperiod=14, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -725,7 +723,7 @@ for stock in security_list2:
 
 ### MTM-动量线
 
-```python
+```py
 MTM(security_list, check_date, timeperiod=14, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -757,7 +755,7 @@ MTM线　:当日收盘价与N日前的收盘价的差； MTMMA线:对上面的�
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -773,7 +771,7 @@ for stock in security_list2:
 
 ### ROC-变动率指标
 
-```python
+```py
 ROC(security_list, check_date, timeperiod=12, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -805,7 +803,7 @@ ROC(security_list, check_date, timeperiod=12, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -821,7 +819,7 @@ for stock in security_list2:
 
 ### RSI-相对强弱指标
 
-```python
+```py
 RSI(security_list, check_date, N1=6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -853,7 +851,7 @@ RSI(security_list, check_date, N1=6, unit = '1d', include_now = True, fq_ref_dat
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -869,7 +867,7 @@ for stock in security_list2:
 
 ### MARSI-相对强弱平均线
 
-```python
+```py
 MARSI(security_list, check_date, M1 = 10, M2 = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -898,15 +896,15 @@ MARSI(security_list, check_date, M1 = 10, M2 = 6, unit = '1d', include_now = Tru
 
 **用法注释：**
 
-1.  RSI>80 为超卖；RSI<20 为超买；
-2.  RSI 以50为中界线，大于50视为多头行情，小于50视为空头行情；
-3.  RSI 在80以上形成Ｍ头或头肩顶形态时，视为向下反转信号；
-4.  RSI 在20以下形成Ｗ底或头肩底形态时，视为向上反转信号；
-5.  RSI 向上突破其高点连线时，买进；RSI 向下跌破其低点连线时，卖出。
+1. RSI>80 为超卖；RSI<20 为超买；
+2. RSI 以50为中界线，大于50视为多头行情，小于50视为空头行情；
+3. RSI 在80以上形成Ｍ头或头肩顶形态时，视为向下反转信号；
+4. RSI 在20以下形成Ｗ底或头肩底形态时，视为向上反转信号；
+5. RSI 向上突破其高点连线时，买进；RSI 向下跌破其低点连线时，卖出。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -924,7 +922,7 @@ for stock in security_list2:
 
 ### OSC-变动速率线
 
-```python
+```py
 OSC(security_list, check_date, N = 20, M = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -953,14 +951,14 @@ OSC(security_list, check_date, N = 20, M = 6, unit = '1d', include_now = True, f
 
 **用法注释：**
 
-1.  OSC 以100 为中轴线，OSC>100 为多头市场；OSC<100 为空头市场；
-2.  OSC 向上交叉其平均线时，买进；OSC 向下交叉其平均线时卖出；
-3.  OSC 在高水平或低水平与股价产生背离时，应注意股价随时有反转的可能；
-4.  OSC 的超买超卖界限值随个股不同而不同，使用者应自行调整
+1. OSC 以100 为中轴线，OSC>100 为多头市场；OSC<100 为空头市场；
+2. OSC 向上交叉其平均线时，买进；OSC 向下交叉其平均线时卖出；
+3. OSC 在高水平或低水平与股价产生背离时，应注意股价随时有反转的可能；
+4. OSC 的超买超卖界限值随个股不同而不同，使用者应自行调整
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -978,7 +976,7 @@ for stock in security_list2:
 
 ### UDL-引力线
 
-```python
+```py
 UDL(security_list, check_date, N1 = 3, N2 = 5, N3 = 10, N4 = 20, M = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1010,13 +1008,13 @@ UDL(security_list, check_date, N1 = 3, N2 = 5, N3 = 10, N4 = 20, M = 6, unit = '
 
 **用法注释：**
 
-1.  本指标的超买超卖界限值随个股不同而不同，使用者应自行调整；
-2.  使用时，可列出一年以上走势图，观察其常态性分布范围，然后用参考线设定其超买超卖范围。通常UDL 高于某个极限时，短期股价会下跌；UDL 低于某个极限时，短期股价会上涨；
-3.  本指标可设参考线。
+1. 本指标的超买超卖界限值随个股不同而不同，使用者应自行调整；
+2. 使用时，可列出一年以上走势图，观察其常态性分布范围，然后用参考线设定其超买超卖范围。通常UDL 高于某个极限时，短期股价会下跌；UDL 低于某个极限时，短期股价会上涨；
+3. 本指标可设参考线。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1034,7 +1032,7 @@ for stock in security_list2:
 
 ### WR-威廉指标
 
-```python
+```py
 WR(security_list, check_date, N = 10, N1 = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1063,14 +1061,14 @@ WR(security_list, check_date, N = 10, N1 = 6, unit = '1d', include_now = True, f
 
 **方法注释：**
 
-1.  WR波动于0 - 100，100置于顶部，0置于底部。
-2.  本指标以50为中轴线，高于50视为股价转强；低于50视为股价转弱
-3.  本指标高于20后再度向下跌破20，卖出；低于80后再度向上突破80，买进。
-4.  WR连续触底3 - 4次，股价向下反转机率大；连续触顶3 - 4次，股价向上反转机率大。
+1. WR波动于0 - 100，100置于顶部，0置于底部。
+2. 本指标以50为中轴线，高于50视为股价转强；低于50视为股价转弱
+3. 本指标高于20后再度向下跌破20，卖出；低于80后再度向上突破80，买进。
+4. WR连续触底3 - 4次，股价向下反转机率大；连续触顶3 - 4次，股价向上反转机率大。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1088,7 +1086,7 @@ for stock in security_list2:
 
 ### LWR-LWR威廉指标
 
-```python
+```py
 LWR(security_list, check_date, N = 9, M1 = 3, M2 = 3, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1118,15 +1116,15 @@ LWR(security_list, check_date, N = 9, M1 = 3, M2 = 3, unit = '1d', include_now =
 
 **用法注释：**
 
-1.  LWR2<30，超买；LWR2>70，超卖。
-2.  线LWR1向下跌破线LWR2，买进参考信号；线LWR1向上突破线LWR2，卖出参考信号。
-3.  线LWR1与线LWR2的交叉发生在30以下，70以上，才有效。
-4.  LWR指标不适于发行量小，交易不活跃的股票；
-5.  LWR指标对大盘和热门大盘股有极高准确性。
+1. LWR2<30，超买；LWR2>70，超卖。
+2. 线LWR1向下跌破线LWR2，买进参考信号；线LWR1向上突破线LWR2，卖出参考信号。
+3. 线LWR1与线LWR2的交叉发生在30以下，70以上，才有效。
+4. LWR指标不适于发行量小，交易不活跃的股票；
+5. LWR指标对大盘和热门大盘股有极高准确性。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1144,7 +1142,7 @@ for stock in security_list2:
 
 ### TAPI-加权指数成交值
 
-```python
+```py
 TAPI(index_stock, security_list, check_date, M=6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1173,13 +1171,13 @@ TAPI(index_stock, security_list, check_date, M=6, unit = '1d', include_now = Tru
 
 **用法注释：**
 
-1.  先界定TAPI长期以来经常性的高低极限值，当TAPI触及顶端极限时，股价可能形成头部；当TAPI触及底端极限时，股价可能形成底部；
-2.  行情上涨，TAPI应伴随上涨；若不升反跌，则近期内将面临回档；
-3.  先前大盘量缩下跌，当其回升时，TAPI值却持续下跌，可视为买入信号。
+1. 先界定TAPI长期以来经常性的高低极限值，当TAPI触及顶端极限时，股价可能形成头部；当TAPI触及底端极限时，股价可能形成底部；
+2. 行情上涨，TAPI应伴随上涨；若不升反跌，则近期内将面临回档；
+3. 先前大盘量缩下跌，当其回升时，TAPI值却持续下跌，可视为买入信号。
 
 **示例：**
 
-```python
+```py
 # 大盘指数代码
 index_stock = '399106.XSHE'
 # 定义股票池列表
@@ -1200,7 +1198,7 @@ for stock in security_list2:
 
 ### FSL-分水岭
 
-```python
+```py
 FSL(security_list, check_date)
 ```
 
@@ -1228,7 +1226,7 @@ FSL(security_list, check_date)
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1249,7 +1247,7 @@ for stock in security_list2:
 
 ### CHO-佳庆指标
 
-```python
+```py
 CHO(security_list, check_date, N1 = 10, N2 = 20, M = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1283,7 +1281,7 @@ CHO(security_list, check_date, N1 = 10, N2 = 20, M = 6, unit = '1d', include_now
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1301,7 +1299,7 @@ for stock in security_list2:
 
 ### CYE-市场趋势
 
-```python
+```py
 CYE(security_list, check_date, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1328,12 +1326,12 @@ CYE(security_list, check_date, unit = '1d', include_now = True, fq_ref_date = No
 
 **用法注释：**
 
-1.  CYE指标又叫趋势指标,是计算机模拟人的感觉用数值分析的方法对即日的K线进行一次拟合和趋势的判断;
-2.  CYE以 0轴为界，其上为上升趋势,否则为下降趋势.
+1. CYE指标又叫趋势指标,是计算机模拟人的感觉用数值分析的方法对即日的K线进行一次拟合和趋势的判断;
+2. CYE以 0轴为界，其上为上升趋势,否则为下降趋势.
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1351,7 +1349,7 @@ for stock in security_list2:
 
 #### DMI - 趋向指标
 
-```python
+```py
 DMI(security_list, check_date, N=14,  MM = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1384,7 +1382,7 @@ DMI(security_list, check_date, N=14,  MM = 6, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1406,7 +1404,7 @@ for stock in security_list2:
 
 ### DBQR-对比强弱
 
-```python
+```py
 DBQR(index_stock, security_list, check_date, N = 5, M1 = 10, M2 = 20, M3 = 60, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1443,7 +1441,7 @@ DBQR(index_stock, security_list, check_date, N = 5, M1 = 10, M2 = 20, M3 = 60, u
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1467,7 +1465,7 @@ for stock in security_list2:
 
 ### DMA-平均差
 
-```python
+```py
 DMA(security_list, check_date, N1 = 10, N2 = 50, M = 10, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1501,7 +1499,7 @@ DMA(security_list, check_date, N1 = 10, N2 = 50, M = 10, unit = '1d', include_no
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1519,7 +1517,7 @@ for stock in security_list2:
 
 ### DPO-区间震荡线
 
-```python
+```py
 DPO(security_list, check_date, N=20,  M = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1552,7 +1550,7 @@ DPO(security_list, check_date, N=20,  M = 6, unit = '1d', include_now = True, fq
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1570,7 +1568,7 @@ for stock in security_list2:
 
 ### EMV-简易波动指标
 
-```python
+```py
 EMV(security_list, check_date, N = 14, M = 9, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1603,7 +1601,7 @@ EMV(security_list, check_date, N = 14, M = 9, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1621,7 +1619,7 @@ for stock in security_list2:
 
 ### GDX-鬼道线
 
-```python
+```py
 GDX(security_list, check_date, N = 30, M = 9, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1654,7 +1652,7 @@ GDX(security_list, check_date, N = 30, M = 9, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1674,7 +1672,7 @@ for stock in security_list2:
 
 ### JLHB-绝路航标
 
-```python
+```py
 JLHB(security_list, check_date, N = 7, M = 5, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1707,7 +1705,7 @@ JLHB(security_list, check_date, N = 7, M = 5, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1727,7 +1725,7 @@ for stock in security_list2:
 
 ### JS-加速线
 
-```python
+```py
 JS(security_list, check_date, N = 5, M1 = 5, M2 = 10, M3 = 20, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1762,7 +1760,7 @@ JS(security_list, check_date, N = 5, M1 = 5, M2 = 10, M3 = 20, unit = '1d', incl
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1784,7 +1782,7 @@ for stock in security_list2:
 
 ### MACD-平滑异同平均
 
-```python
+```py
 MACD(security_list, check_date, SHORT = 12, LONG = 26, MID = 9, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1820,7 +1818,7 @@ DIFF线　收盘价短期、长期指数平滑移动平均线间的差 DEA线　
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1840,7 +1838,7 @@ for stock in security_list2:
 
 ### QACD-快速异同平均
 
-```python
+```py
 QACD(security_list, check_date, N1 = 12, N2 = 26, M = 9, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1874,7 +1872,7 @@ QACD(security_list, check_date, N1 = 12, N2 = 26, M = 9, unit = '1d', include_no
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1894,7 +1892,7 @@ for stock in security_list2:
 
 ### QR-强弱指标
 
-```python
+```py
 QR(index_stock, security_list, check_date, N = 21, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1927,7 +1925,7 @@ QR(index_stock, security_list, check_date, N = 21, unit = '1d', include_now = Tr
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1947,7 +1945,7 @@ for stock in security_list2:
 
 ### TRIX-终极指标
 
-```python
+```py
 TRIX(security_list, check_date, N = 12, M = 9, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -1980,7 +1978,7 @@ TRIX(security_list, check_date, N = 12, M = 9, unit = '1d', include_now = True, 
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -1998,7 +1996,7 @@ for stock in security_list2:
 
 ### UOS-终极指标
 
-```python
+```py
 UOS(security_list, check_date, N1 = 7, N2 = 14, N3 = 28, M = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2033,7 +2031,7 @@ UOS(security_list, check_date, N1 = 7, N2 = 14, N3 = 28, M = 6, unit = '1d', inc
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2051,7 +2049,7 @@ for stock in security_list2:
 
 ### VMACD-量平滑移动平均
 
-```python
+```py
 VMACD(security_list, check_date, SHORT = 12, LONG = 26, MID = 9, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2085,7 +2083,7 @@ VMACD(security_list, check_date, SHORT = 12, LONG = 26, MID = 9, unit = '1d', in
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2105,7 +2103,7 @@ for stock in security_list2:
 
 ### VPT-量价曲线
 
-```python
+```py
 VPT(security_list, check_date, N = 51, M = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2138,7 +2136,7 @@ VPT(security_list, check_date, N = 51, M = 6, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2153,7 +2151,7 @@ for stock in security_list2:
 
 ### WVAD-威廉变异离散量
 
-```python
+```py
 WVAD(security_list, check_date, N = 24, M = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2186,7 +2184,7 @@ WVAD(security_list, check_date, N = 24, M = 6, unit = '1d', include_now = True, 
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2206,7 +2204,7 @@ for stock in security_list2:
 
 ### BRAR-情绪指标
 
-```python
+```py
 BRAR(security_list, check_date, N=26, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2234,14 +2232,14 @@ BRAR(security_list, check_date, N=26, unit = '1d', include_now = True, fq_ref_da
 
 **用法注释：**
 
-1.  BR>400，暗示行情过热，应反向卖出；BR<40 ，行情将起死回生，应买进；
-2.  AR>180，能量耗尽，应卖出；AR<40 ，能量已累积爆发力，应买进；
-3.  BR 由300 以上的高点下跌至50以下的水平,低于AR 时,为绝佳买点；
-4.  BR、AR、CR、VR 四者合为一组指标群，须综合搭配使用。
+1. BR>400，暗示行情过热，应反向卖出；BR<40 ，行情将起死回生，应买进；
+2. AR>180，能量耗尽，应卖出；AR<40 ，能量已累积爆发力，应买进；
+3. BR 由300 以上的高点下跌至50以下的水平,低于AR 时,为绝佳买点；
+4. BR、AR、CR、VR 四者合为一组指标群，须综合搭配使用。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2260,7 +2258,7 @@ for stock in security_list2:
 
 ### CR-带状能量线
 
-```python
+```py
 CR(security_list, check_date, N=26, M1=10, M2=20, M3=40, M4=62, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2292,15 +2290,15 @@ CR(security_list, check_date, N=26, M1=10, M2=20, M3=40, M4=62, unit = '1d', inc
 
 **用法注释：**
 
-1.  CR>400时，其10日平均线向下滑落，视为卖出信号；CR<40买进；
-2.  CR 由高点下滑至其四条平均线下方时，股价容易形成短期底部；
-3.  CR 由下往上连续突破其四条平均线时，为强势买进点；
-4.  CR 除了预测价格的外，最大的作用在于预测时间；
-5.  BR、AR、CR、VR 四者合为一组指标群，须综合搭配使用。
+1. CR>400时，其10日平均线向下滑落，视为卖出信号；CR<40买进；
+2. CR 由高点下滑至其四条平均线下方时，股价容易形成短期底部；
+3. CR 由下往上连续突破其四条平均线时，为强势买进点；
+4. CR 除了预测价格的外，最大的作用在于预测时间；
+5. BR、AR、CR、VR 四者合为一组指标群，须综合搭配使用。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2325,7 +2323,7 @@ for stock in security_list2:
 
 ### CYR-市场强弱
 
-```python
+```py
 CYR(security_list, check_date, N = 13, M = 5, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2354,12 +2352,12 @@ CYR(security_list, check_date, N = 13, M = 5, unit = '1d', include_now = True, f
 
 **用法注释：**
 
-1.  CYR是成本均线派生出的指标,是13日成本均线的升降幅度;
-2.  使用CYR可以对股票的强弱进行排序,找出其中的强势和弱势股票。
+1. CYR是成本均线派生出的指标,是13日成本均线的升降幅度;
+2. 使用CYR可以对股票的强弱进行排序,找出其中的强势和弱势股票。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2378,7 +2376,7 @@ for stock in security_list2:
 
 ### MASS-梅斯线
 
-```python
+```py
 MASS(security_list, check_date, N1=9, N2=25, M=6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2408,13 +2406,13 @@ MASS(security_list, check_date, N1=9, N2=25, M=6, unit = '1d', include_now = Tru
 
 **用法注释：**
 
-1.  MASS>27 后，随后又跌破26.5，此时股价若呈上涨状态，则卖出；
-2.  MASS<27 后，随后又跌破26.5，此时股价若呈下跌状态，则买进；
-3.  MASS<20 的行情，不宜进行投资。
+1. MASS>27 后，随后又跌破26.5，此时股价若呈上涨状态，则卖出；
+2. MASS<27 后，随后又跌破26.5，此时股价若呈下跌状态，则买进；
+3. MASS<20 的行情，不宜进行投资。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2433,7 +2431,7 @@ for stock in security_list2:
 
 ### PCNT-幅度比
 
-```python
+```py
 PCNT(security_list, check_date, M = 5, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2461,13 +2459,13 @@ PCNT(security_list, check_date, M = 5, unit = '1d', include_now = True, fq_ref_d
 
 **用法注释：**
 
-1.  PCNT 重视价格的涨跌幅度，排除观察涨跌跳动值；
-2.  较高的PCNT 值，表示该股波动幅度大；
-3.  较低的PCNT 值，表示该股波动幅度小。
+1. PCNT 重视价格的涨跌幅度，排除观察涨跌跳动值；
+2. 较高的PCNT 值，表示该股波动幅度大；
+3. 较低的PCNT 值，表示该股波动幅度小。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2486,7 +2484,7 @@ for stock in security_list2:
 
 ### PSY-心理线
 
-```python
+```py
 PSY(security_list, check_date, timeperiod=12, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2518,7 +2516,7 @@ PSY(security_list, check_date, timeperiod=12, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2534,7 +2532,7 @@ for stock in security_list2:
 
 ### VR-成交量变异率
 
-```python
+```py
 VR(security_list, check_date, N=26, M=6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2563,14 +2561,14 @@ VR(security_list, check_date, N=26, M=6, unit = '1d', include_now = True, fq_ref
 
 **用法注释：**
 
-1.  VR>450，市场成交过热，应反向卖出；
-2.  VR<40 ，市场成交低迷，人心看淡的际，应反向买进；
-3.  VR 由低档直接上升至250，股价仍未遭受阻力，此为大行情的前兆；
-4.  VR 除了与PSY为同指标群外，尚须与BR、AR、CR同时搭配研判
+1. VR>450，市场成交过热，应反向卖出；
+2. VR<40 ，市场成交低迷，人心看淡的际，应反向买进；
+3. VR 由低档直接上升至250，股价仍未遭受阻力，此为大行情的前兆；
+4. VR 除了与PSY为同指标群外，尚须与BR、AR、CR同时搭配研判
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2591,7 +2589,7 @@ for stock in security_list2:
 
 ### AMO-成交金额
 
-```python
+```py
 AMO(security_list, check_date, M1 = 5, M2 = 10, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2621,14 +2619,14 @@ AMO(security_list, check_date, M1 = 5, M2 = 10, unit = '1d', include_now = True,
 
 **用法注释：**
 
-1.  成交金额大，代表交投热络，可界定为热门股；
-2.  底部起涨点出现大成交金额，代表攻击量；
-3.  头部地区出现大成交金额，代表出货量；
-4.  观察成交金额的变化，比观察成交手数更具意义，因为成交手数并未反应股价的涨跌的后所应支出的实际金额。
+1. 成交金额大，代表交投热络，可界定为热门股；
+2. 底部起涨点出现大成交金额，代表攻击量；
+3. 头部地区出现大成交金额，代表出货量；
+4. 观察成交金额的变化，比观察成交手数更具意义，因为成交手数并未反应股价的涨跌的后所应支出的实际金额。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2649,7 +2647,7 @@ for stock in security_list2:
 
 ### CCL-持仓量（适用期货期权）
 
-```python
+```py
 CCL(futures_list, check_date, M=5)
 ```
 
@@ -2674,12 +2672,12 @@ CCL(futures_list, check_date, M=5)
 
 **用法注释：**
 
-1.  持仓量上升或下降的变化为图表分析师提供了判断价格走势的线索。
-2.  持仓量远不如价格信息重要，所以它主要用于印证市场走势。
+1. 持仓量上升或下降的变化为图表分析师提供了判断价格走势的线索。
+2. 持仓量远不如价格信息重要，所以它主要用于印证市场走势。
 
 **示例：**
 
-```python
+```py
 # 定义金融期货代码列表
 futures_list1 = 'IF1708.CCFX'
 futures_list2 = ['IF1708.CCFX','IF1709.CCFX','IF1712.CCFX','IF1803.CCFX']
@@ -2698,7 +2696,7 @@ for stock in futures_list2:
 
 ### DBLB-对比量比
 
-```python
+```py
 DBLB(index_stock, security_list, check_date, N=5, M=5, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2730,14 +2728,14 @@ DBLB(index_stock, security_list, check_date, N=5, M=5, unit = '1d', include_now 
 
 - 对比量比指标用于用于测度成交量放大程度或萎缩程度 的指标。对比量比值越大，说明成交量较前期成交量放 大程度越大，对比量比值越小，说明成交量较前期成交 量萎缩程度越大，一般认为:
 
-1.  对比量比大于20可以认为成交量极度放大；
-2.  对比量比大于3,可以认为成交量显著放大；
-3.  对比量比小于0.2,可以认为成交量极度萎缩；
-4.  对比量比小于0.4,可以认为成交量显著萎缩。
+1. 对比量比大于20可以认为成交量极度放大；
+2. 对比量比大于3,可以认为成交量显著放大；
+3. 对比量比小于0.2,可以认为成交量极度萎缩；
+4. 对比量比小于0.4,可以认为成交量显著萎缩。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 index_stock = '399106.XSHE'
 security_list1 = '000001.XSHE'
@@ -2757,7 +2755,7 @@ for stock in security_list2:
 
 ### DBQRV-对比强弱量
 
-```python
+```py
 DBQRV(index_stock, security_list, check_date, N = 5, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2787,13 +2785,12 @@ DBQRV(index_stock, security_list, check_date, N = 5, unit = '1d', include_now = 
 **用法注释：**
 
 - 对比强弱量指标包含有两条指标线,一条是对应指数量的 强弱线。另外一条是个股成交量的强弱线。当个股强弱线 与指数强弱线发生金叉时，表明个股成交活跃过大盘。当 个股强弱线与指数强弱线发生死叉时，表明个股活跃度开 始弱于大盘。对比强弱量指标也是一个短线指标。
-    
+
 - 注意：此指标使用到了大盘的数据，所以需要下载完整的 日线数据,否则显示可能不正确
-    
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 index_stock = '399106.XSHE'
 security_list1 = '000001.XSHE'
@@ -2813,7 +2810,7 @@ for stock in security_list2:
 
 ### HSL-换手线
 
-```python
+```py
 HSL(security_list, check_date, N = 5, unit = '1d', include_now = True)
 ```
 
@@ -2841,12 +2838,12 @@ HSL(security_list, check_date, N = 5, unit = '1d', include_now = True)
 
 **用法注释：**
 
-1.  换手线是根据换手率绘制的曲线，使对于成交量的研判
-2.  不受股本变动的影响，更增加了成交量具有可比性。
+1. 换手线是根据换手率绘制的曲线，使对于成交量的研判
+2. 不受股本变动的影响，更增加了成交量具有可比性。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2865,7 +2862,7 @@ for stock in security_list2:
 
 ### OBV-累积能量线
 
-```python
+```py
 OBV(security_list, check_date, timeperiod=30, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2897,7 +2894,7 @@ OBV(security_list, check_date, timeperiod=30, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2913,7 +2910,7 @@ for stock in security_list2:
 
 ### VOL-成交量
 
-```python
+```py
 VOL(security_list, check_date, M1=5, M2=10, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -2942,14 +2939,14 @@ VOL(security_list, check_date, M1=5, M2=10, unit = '1d', include_now = True, fq_
 
 **用法注释：**
 
-1.  成交量大，代表交投热络，可界定为热门股；
-2.  底部起涨点出现大成交量(成交手数)，代表攻击量；
-3.  头部地区出现大成交量(成交手数)，代表出货量；
-4.  观察成交金额的变化，比观察成交手数更具意义，因为成交手数并未反应股价的涨跌的后所应支出的实际金额。
+1. 成交量大，代表交投热络，可界定为热门股；
+2. 底部起涨点出现大成交量(成交手数)，代表攻击量；
+3. 头部地区出现大成交量(成交手数)，代表出货量；
+4. 观察成交金额的变化，比观察成交手数更具意义，因为成交手数并未反应股价的涨跌的后所应支出的实际金额。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -2970,7 +2967,7 @@ for stock in security_list2:
 
 ### VRSI-相对强弱量
 
-```python
+```py
 VRSI(security_list, check_date, N1=6, N2=12, N3=24, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3000,15 +2997,15 @@ VRSI(security_list, check_date, N1=6, N2=12, N3=24, unit = '1d', include_now = T
 
 **用法注释：**
 
-1.  VRSI>20 为超买；VRSI<20 为超卖；
-2.  VRSI 以50为中界线，大于50视为多头行情，小于50视为空头行情；
-3.  VRSI 在80以上形成Ｍ头或头肩顶形态时，视为向下反转信号；
-4.  VRSI 在20以下形成Ｗ底或头肩底形态时，视为向上反转信号；
-5.  VRSI 向上突破其高点连线时，买进；VRSI 向下跌破其低点连线时，卖出。
+1. VRSI>20 为超买；VRSI<20 为超卖；
+2. VRSI 以50为中界线，大于50视为多头行情，小于50视为空头行情；
+3. VRSI 在80以上形成Ｍ头或头肩顶形态时，视为向下反转信号；
+4. VRSI 在20以下形成Ｗ底或头肩底形态时，视为向上反转信号；
+5. VRSI 向上突破其高点连线时，买进；VRSI 向下跌破其低点连线时，卖出。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3029,7 +3026,7 @@ for stock in security_list2:
 
 ### LB-量比
 
-```python
+```py
 LB(security_list, check_date, N=5, fq_ref_date = None)
 ```
 
@@ -3051,12 +3048,12 @@ LB(security_list, check_date, N=5, fq_ref_date = None)
 
 **用法注释：**
 
-1.  量比是指股市开市后平均每分钟的成交量与过去N个交易日平均每分钟成交量之比
-2.  当天开盘截至到当前时刻（check_date），平均每分钟的成交手数，除以过去N天平均每分钟的成交手数，这里的unit就是分钟级别的，所以不用unit属性；
+1. 量比是指股市开市后平均每分钟的成交量与过去N个交易日平均每分钟成交量之比
+2. 当天开盘截至到当前时刻（check_date），平均每分钟的成交手数，除以过去N天平均每分钟的成交手数，这里的unit就是分钟级别的，所以不用unit属性；
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3075,24 +3072,23 @@ for stock in security_list2:
 
 ### AMV-成本价均线
 
-```python
+```py
 AMV(security_list, check_date, timeperiod = 13, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
 **参数：**
 
 - security_list：标的列表
-    
+
 - check_date: 要查询数据的日期
-    
+
 - timeperiod：统计的天数
-    
+
 - unit：统计周期，默认为 '1d', 支持如下周期: '1m', '5m', '15m', '30m', '60m', '120m', '1d', '1w', '1M'. '1w' 表示一周, ‘1M' 表示一月
-    
+
 - include_now：是否包含当前周期，默认为 True
-    
+
 - fq_ref_date：复权基准日，默认为 None
-    
 
 **返回：**
 
@@ -3113,7 +3109,7 @@ AMV(security_list, check_date, timeperiod = 13, unit = '1d', include_now = True,
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3130,7 +3126,7 @@ for stock in security_list2:
 
 ### ALLIGAT-鳄鱼线
 
-```python
+```py
 ALLIGAT(security_list, check_date, timeperiod = 21, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3162,7 +3158,7 @@ ALLIGAT(security_list, check_date, timeperiod = 21, unit = '1d', include_now = T
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3183,7 +3179,7 @@ for stock in security_list2:
 
 ### BBI-多空均线
 
-```python
+```py
 BBI(security_list, check_date, timeperiod1=3, timeperiod2=6, timeperiod3=12, timeperiod4=24, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3218,7 +3214,7 @@ BBI(security_list, check_date, timeperiod1=3, timeperiod2=6, timeperiod3=12, tim
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3234,24 +3230,23 @@ for stock in security_list2:
 
 ### EXPMA-指数平均线
 
-```python
+```py
 EXPMA(security_list, check_date, timeperiod = 12, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
 **参数：**
 
 - security_list：标的列表
-    
+
 - check_date: 要查询数据的日期
-    
+
 - timeperiod：统计的天数
-    
+
 - unit：统计周期，默认为 '1d', 支持如下周期: '1m', '5m', '15m', '30m', '60m', '120m', '1d', '1w', '1M'. '1w' 表示一周, ‘1M' 表示一月
-    
+
 - include_now：是否包含当前周期，默认为 True
-    
+
 - fq_ref_date：复权基准日，默认为 None
-    
 
 **返回：**
 
@@ -3268,15 +3263,15 @@ EXPMA(security_list, check_date, timeperiod = 12, unit = '1d', include_now = Tru
 
 **用法注释：**
 
-1.  EXPMA 一般以观察12日和50日二条均线为主；
-2.  12日指数平均线向上交叉50日指数平均线时，买进；
-3.  12日指数平均线向下交叉50日指数平均线时，卖出；
-4.  EXPMA 是多种平均线计算方法的一；
-5.  EXPMA 配合MTM 指标使用，效果更佳。
+1. EXPMA 一般以观察12日和50日二条均线为主；
+2. 12日指数平均线向上交叉50日指数平均线时，买进；
+3. 12日指数平均线向下交叉50日指数平均线时，卖出；
+4. EXPMA 是多种平均线计算方法的一；
+5. EXPMA 配合MTM 指标使用，效果更佳。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3293,7 +3288,7 @@ for stock in security_list2:
 
 ### BBIBOLL-多空布林线
 
-```python
+```py
 BBIBOLL(security_list, check_date, N = 11, M = 6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3322,15 +3317,15 @@ BBIBOLL(security_list, check_date, N = 11, M = 6, unit = '1d', include_now = Tru
 
 **用法注释：**
 
-1.  为BBI与BOLL的迭加；
-2.  高价区收盘价跌破BBI线，卖出信号；
-3.  低价区收盘价突破BBI线，买入信号；
-4.  BBI线向上，股价在BBI线之上，多头势强；
-5.  BBI线向下，股价在BBI线之下，空头势强。
+1. 为BBI与BOLL的迭加；
+2. 高价区收盘价跌破BBI线，卖出信号；
+3. 低价区收盘价突破BBI线，买入信号；
+4. BBI线向上，股价在BBI线之上，多头势强；
+5. BBI线向下，股价在BBI线之下，空头势强。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3351,7 +3346,7 @@ for stock in security_list2:
 
 ### MA-均线
 
-```python
+```py
 MA(security_list, check_date, timeperiod=5, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3383,7 +3378,7 @@ MA(security_list, check_date, timeperiod=5, unit = '1d', include_now = True, fq_
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3399,24 +3394,23 @@ for stock in security_list2:
 
 ### HMA-高价平均线
 
-```python
+```py
 HMA(security_list, check_date, timeperiod = 12, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
 **参数：**
 
 - security_list：标的列表
-    
+
 - check_date: 要查询数据的日期
-    
+
 - timeperiod：统计的天数
-    
+
 - unit：统计周期，默认为 '1d', 支持如下周期: '1m', '5m', '15m', '30m', '60m', '120m', '1d', '1w', '1M'. '1w' 表示一周, ‘1M' 表示一月
-    
+
 - include_now：是否包含当前周期，默认为 True
-    
+
 - fq_ref_date：复权基准日，默认为 None
-    
 
 **返回：**
 
@@ -3437,7 +3431,7 @@ HMA(security_list, check_date, timeperiod = 12, unit = '1d', include_now = True,
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3454,7 +3448,7 @@ for stock in security_list2:
 
 ### LMA-低价平均线
 
-```python
+```py
 LMA(security_list, check_date, timeperiod = 12, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3486,7 +3480,7 @@ LMA(security_list, check_date, timeperiod = 12, unit = '1d', include_now = True,
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3503,24 +3497,23 @@ for stock in security_list2:
 
 ### VMA-变异平均线
 
-```python
+```py
 VMA(security_list, check_date, timeperiod = 12, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
 **参数：**
 
 - security_list：标的列表
-    
+
 - check_date: 要查询数据的日期
-    
+
 - timeperiod：统计的天数
-    
+
 - unit：统计周期，默认为 '1d', 支持如下周期: '1m', '5m', '15m', '30m', '60m', '120m', '1d', '1w', '1M'. '1w' 表示一周, ‘1M' 表示一月
-    
+
 - include_now：是否包含当前周期，默认为 True
-    
+
 - fq_ref_date：复权基准日，默认为 None
-    
 
 **返回：**
 
@@ -3537,15 +3530,15 @@ VMA(security_list, check_date, timeperiod = 12, unit = '1d', include_now = True,
 
 **用法注释：**
 
-1.  股价高于平均线，视为强势；股价低于平均线，视为弱势；
-2.  平均线向上涨升，具有助涨力道；平均线向下跌降，具有助跌力道；
-3.  二条以上平均线向上交叉时，买进；
-4.  二条以上平均线向下交叉时，卖出；
-5.  VMA 比一般平均线的敏感度更高，消除了部份平均线落后的缺陷。
+1. 股价高于平均线，视为强势；股价低于平均线，视为弱势；
+2. 平均线向上涨升，具有助涨力道；平均线向下跌降，具有助跌力道；
+3. 二条以上平均线向上交叉时，买进；
+4. 二条以上平均线向下交叉时，卖出；
+5. VMA 比一般平均线的敏感度更高，消除了部份平均线落后的缺陷。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3564,7 +3557,7 @@ for stock in security_list2:
 
 ### BOLL-布林线
 
-```python
+```py
 Bollinger_Bands(security_list, check_date, timeperiod=20, nbdevup=2, nbdevdn=2, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3598,7 +3591,7 @@ Bollinger_Bands(security_list, check_date, timeperiod=20, nbdevup=2, nbdevdn=2, 
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3618,7 +3611,7 @@ for stock in security_list2:
 
 ### ENE-轨道线
 
-```python
+```py
 ENE(security_list,check_date,N=25,M1=6,M2=6, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3648,14 +3641,14 @@ ENE(security_list,check_date,N=25,M1=6,M2=6, unit = '1d', include_now = True, fq
 
 **用法注释：**
 
-1.  股价上升穿越轨道线上限时，回档机率大；
-2.  股价下跌穿越轨道线下限时，反弹机率大；
-3.  股价波动于轨道线内时，代表常态行情，此时，超买超卖指标可发挥效用；
-4.  股价波动于轨道线外时，代表脱轨行情，此时，应使用趋势型指标。
+1. 股价上升穿越轨道线上限时，回档机率大；
+2. 股价下跌穿越轨道线下限时，反弹机率大；
+3. 股价波动于轨道线内时，代表常态行情，此时，超买超卖指标可发挥效用；
+4. 股价波动于轨道线外时，代表脱轨行情，此时，应使用趋势型指标。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3676,7 +3669,7 @@ for stock in security_list2:
 
 ### MIKE-麦克支撑压力
 
-```python
+```py
 MIKE(security_list, check_date, timeperiod = 10, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3704,13 +3697,13 @@ MIKE(security_list, check_date, timeperiod = 10, unit = '1d', include_now = True
 
 **用法注释：**
 
-1.  MIKE指标共有六条曲线，上方三条压力线，下方三条支撑线；
-2.  当股价往压力线方向涨升时，其下方支撑线不具参考价值；
-3.  当股价往支撑线方向下跌时，其上方压力线不具参考价值；
+1. MIKE指标共有六条曲线，上方三条压力线，下方三条支撑线；
+2. 当股价往压力线方向涨升时，其下方支撑线不具参考价值；
+3. 当股价往支撑线方向下跌时，其上方压力线不具参考价值；
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3737,7 +3730,7 @@ for stock in security_list2:
 
 ### PBX-瀑布线
 
-```python
+```py
 PBX(security_list, check_date, timeperiod = 9, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3765,14 +3758,14 @@ PBX(security_list, check_date, timeperiod = 9, unit = '1d', include_now = True, 
 
 **用法注释：**
 
-1.  股价上升穿越轨道线上限时，回档机率大；
-2.  股价下跌穿越轨道线下限时，反弹机率大；
-3.  股价波动于轨道线内时，代表常态行情，此时，超买超卖指标可发挥效用；
-4.  股价波动于轨道线外时，代表脱轨行情，此时，应使用趋势型指标。
+1. 股价上升穿越轨道线上限时，回档机率大；
+2. 股价下跌穿越轨道线下限时，反弹机率大；
+3. 股价波动于轨道线内时，代表常态行情，此时，超买超卖指标可发挥效用；
+4. 股价波动于轨道线外时，代表脱轨行情，此时，应使用趋势型指标。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3789,7 +3782,7 @@ for stock in security_list2:
 
 ### XS-薛斯通道
 
-```python
+```py
 XS(security_list, check_date, timeperiod = 13, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3819,17 +3812,17 @@ XS(security_list, check_date, timeperiod = 13, unit = '1d', include_now = True, 
 
 - 薛斯建立于薛斯的循环理论的基础上，属于短线指标。在薛斯通道中，股价实际上是被短期小通道包容着在长期大通道中上下运行，基本买卖策略是当短期小通道接近长期大通道时，预示着趋势的近期反转。在上沿接近时趋势向下反转，可扑捉短期卖点。在下沿接近时趋势向上反转，可捕捉短期买点。研究这个方法可以在每一波行情中成功地逃顶捉底，寻求最大限度的赢利。薛斯通道的研判法则:
 
-1.  长期大通道是反映该股票的长期趋势状态，趋势有一定惯性，延伸时间较长，反映股票大周期，可以反握 股票整体趋势，适于中长线投资；
-2.  短期小通道反映该股票的短期走势状态，包容股票的涨跌起伏，有效地滤除股票走势中的频繁振动，但保留了股票价格在大通道内的上下波动，反映股票小周期，适于中短线炒作；
-3.  长期大通道向上，即大趋势总体向上 ，此时短期小通道触及（或接近长期大通道底部时，即买压增大，有反弹的可能。而短期小通道触及长期大通道顶部，既卖压增大，形态出现回调或盘整，有向长期大通道靠近的趋势。如果K线走势与短期小通道走势亦吻合得很好，那么更为有效；
-4.  长期大通道向上，而短期小通道触及长期大通道顶此时该股为强力拉长阶段，可适当观望，待短期转平转头向下时，为较好出货点，但穿透区为风险区应注意反转信号，随时出货；
-5.  长期大通道向下，即大趋势向下，此时短期小通道或价触顶卖压增加，有再次下跌趋势。而触底形态即买增大，有缓跌调整或止跌要求，同时价格运动将趋向近长期大通道上沿。回调宜慎重对待，待确认反转后方可买入；
-6.  长期大通道向下，而短期小通道向下穿透长期大通道线，此时多为暴跌过程，有反弹要求，但下跌过程会续，不宜立即建仓，应慎重，待长期大通道走平且有上趋势，短期小通道回头向上穿回时，是较好的低位仓机会；
-7.  当长期大通道长期横向走平时，为盘整行情，价格沿道上下震荡，此时为调整、建仓、洗盘阶段，预示着一轮行情的出现，短线炒家可逢高抛出，逢低买入。以短期小通道强力上穿长期大通道，且长期大通道转向，表明强劲上涨行情开始。若以短期小通道向下透长期大通道，且长期大通道向下转向，表明下跌将续。
+1. 长期大通道是反映该股票的长期趋势状态，趋势有一定惯性，延伸时间较长，反映股票大周期，可以反握 股票整体趋势，适于中长线投资；
+2. 短期小通道反映该股票的短期走势状态，包容股票的涨跌起伏，有效地滤除股票走势中的频繁振动，但保留了股票价格在大通道内的上下波动，反映股票小周期，适于中短线炒作；
+3. 长期大通道向上，即大趋势总体向上 ，此时短期小通道触及（或接近长期大通道底部时，即买压增大，有反弹的可能。而短期小通道触及长期大通道顶部，既卖压增大，形态出现回调或盘整，有向长期大通道靠近的趋势。如果K线走势与短期小通道走势亦吻合得很好，那么更为有效；
+4. 长期大通道向上，而短期小通道触及长期大通道顶此时该股为强力拉长阶段，可适当观望，待短期转平转头向下时，为较好出货点，但穿透区为风险区应注意反转信号，随时出货；
+5. 长期大通道向下，即大趋势向下，此时短期小通道或价触顶卖压增加，有再次下跌趋势。而触底形态即买增大，有缓跌调整或止跌要求，同时价格运动将趋向近长期大通道上沿。回调宜慎重对待，待确认反转后方可买入；
+6. 长期大通道向下，而短期小通道向下穿透长期大通道线，此时多为暴跌过程，有反弹要求，但下跌过程会续，不宜立即建仓，应慎重，待长期大通道走平且有上趋势，短期小通道回头向上穿回时，是较好的低位仓机会；
+7. 当长期大通道长期横向走平时，为盘整行情，价格沿道上下震荡，此时为调整、建仓、洗盘阶段，预示着一轮行情的出现，短线炒家可逢高抛出，逢低买入。以短期小通道强力上穿长期大通道，且长期大通道转向，表明强劲上涨行情开始。若以短期小通道向下透长期大通道，且长期大通道向下转向，表明下跌将续。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3852,7 +3845,7 @@ for stock in security_list2:
 
 ### XS2-薛斯通道2
 
-```python
+```py
 XS2(security_list, check_date, N = 102, M = 7, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3883,19 +3876,19 @@ XS2(security_list, check_date, N = 102, M = 7, unit = '1d', include_now = True, 
 
 - 特点:
 
-1.  根据通道形态找出波动的短周期,长周期是多少。
-2.  根据周期预测股票的后期走势。
-3.  股价的波动周期的各底是买入时机,股价的波动各顶是卖出时机。
+1. 根据通道形态找出波动的短周期,长周期是多少。
+2. 根据周期预测股票的后期走势。
+3. 股价的波动周期的各底是买入时机,股价的波动各顶是卖出时机。
 
 - 用法:
 
-1.  当股价运行到短周期通道的下轨时是短线买入机会,当股价运行到短周期通道的上轨时是短线的卖出时机。
-2.  当股价运行到长周期的下轨时是中长线买入时机,而当股价运行到长周期的上轨时是中长线的卖出时机。
-3.  当短周期运行到长周期的下轨时，从下向上突破长周期的下轨时是买入时机，而当短周期运行到长周期的上轨时，从上向下突破长周期的上轨时为卖出时机。
+1. 当股价运行到短周期通道的下轨时是短线买入机会,当股价运行到短周期通道的上轨时是短线的卖出时机。
+2. 当股价运行到长周期的下轨时是中长线买入时机,而当股价运行到长周期的上轨时是中长线的卖出时机。
+3. 当短周期运行到长周期的下轨时，从下向上突破长周期的下轨时是买入时机，而当短周期运行到长周期的上轨时，从上向下突破长周期的上轨时为卖出时机。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3920,7 +3913,7 @@ for stock in security_list2:
 
 ### EMA-指数移动平均
 
-```python
+```py
 EMA(security_list, check_date, timeperiod=30, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -3953,7 +3946,7 @@ EMA(security_list, check_date, timeperiod=30, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -3969,7 +3962,7 @@ for stock in security_list2:
 
 ### SMA-移动平均
 
-```python
+```py
 SMA(security_list, check_date, N = 7, M = 1, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4003,7 +3996,7 @@ SMA(security_list, check_date, N = 7, M = 1, unit = '1d', include_now = True, fq
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4019,7 +4012,7 @@ for stock in security_list2:
 
 ### BDZX-波段之星
 
-```python
+```py
 BDZX(security_list, check_date, timeperiod = 40, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4051,7 +4044,7 @@ BDZX(security_list, check_date, timeperiod = 40, unit = '1d', include_now = True
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4082,7 +4075,7 @@ for stock in security_list2:
 
 ### CDP-STD-逆势操作
 
-```python
+```py
 CDP_STD(security_list, check_date, timeperiod = 2, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4110,13 +4103,13 @@ CDP_STD(security_list, check_date, timeperiod = 2, unit = '1d', include_now = Tr
 
 **用法注释：**
 
-1.  在股价波动不是很大的情况下，即开盘价位在近高值与近低值之间时，通常交易者可以在近低值价位买进，而在近高值 价位卖出，或在近高值价位卖出，近低值价位买进；
-2.  当开盘价开在最高值或最低值附近时，则意味着跳空开高跳空开低，是一个大行情发动的开始；
-3.  投资者可以在最高值的价位去追买，在最低值的价位去追。通常，一个跳空意味着强烈的涨跌，一般有相当利润。
+1. 在股价波动不是很大的情况下，即开盘价位在近高值与近低值之间时，通常交易者可以在近低值价位买进，而在近高值 价位卖出，或在近高值价位卖出，近低值价位买进；
+2. 当开盘价开在最高值或最低值附近时，则意味着跳空开高跳空开低，是一个大行情发动的开始；
+3. 投资者可以在最高值的价位去追买，在最低值的价位去追。通常，一个跳空意味着强烈的涨跌，一般有相当利润。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4141,7 +4134,7 @@ for stock in security_list2:
 
 ### CJDX-超级短线
 
-```python
+```py
 CJDX(security_list, check_date, timeperiod = 16, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4173,7 +4166,7 @@ CJDX(security_list, check_date, timeperiod = 16, unit = '1d', include_now = True
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4194,7 +4187,7 @@ for stock in security_list2:
 
 ### CYHT-财运亨通
 
-```python
+```py
 CYHT(security_list, check_date, timeperiod = 60, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4254,7 +4247,7 @@ for stock in security_list2:
 
 ### JAX-济安线
 
-```python
+```py
 JAX(security_list, check_date, timeperiod = 30, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4286,7 +4279,7 @@ JAX(security_list, check_date, timeperiod = 30, unit = '1d', include_now = True,
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4309,7 +4302,7 @@ for stock in security_list2:
 
 ### JFZX-飓风智能中线
 
-```python
+```py
 JFZX(security_list, check_date, timeperiod = 30, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4341,7 +4334,7 @@ JFZX(security_list, check_date, timeperiod = 30, unit = '1d', include_now = True
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4361,7 +4354,7 @@ for stock in security_list2:
 
 ### JYJL-交易参考均量
 
-```python
+```py
 JYJL(security_list, check_date, N = 120, M = 5, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4394,7 +4387,7 @@ JYJL(security_list, check_date, N = 120, M = 5, unit = '1d', include_now = True,
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4412,7 +4405,7 @@ for stock in security_list2:
 
 ### LHXJ-猎狐先觉
 
-```python
+```py
 LHXJ(security_list, check_date, timeperiod = 100, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4444,7 +4437,7 @@ LHXJ(security_list, check_date, timeperiod = 100, unit = '1d', include_now = Tru
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4462,7 +4455,7 @@ for stock in security_list2:
 
 ### LYJH-猎鹰歼狐
 
-```python
+```py
 LYJH(security_list, check_date, M = 80, M1 = 50, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4495,7 +4488,7 @@ LYJH(security_list, check_date, M = 80, M1 = 50, unit = '1d', include_now = True
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4518,7 +4511,7 @@ for stock in security_list2:
 
 ### TBP-STD-趋势平衡点
 
-```python
+```py
 TBP_STD(security_list, check_date, timeperiod=30, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4563,7 +4556,7 @@ TBP_STD(security_list, check_date, timeperiod=30, unit = '1d', include_now = Tru
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4587,7 +4580,7 @@ for stock in security_list2:
 
 ### ZBCD-准备抄底
 
-```python
+```py
 ZBCD(security_list, check_date, timeperiod = 10, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4619,7 +4612,7 @@ ZBCD(security_list, check_date, timeperiod = 10, unit = '1d', include_now = True
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4638,7 +4631,7 @@ for stock in security_list2:
 
 ### SG-SMX-生命线
 
-```python
+```py
 SG_SMX(index_stock, security_list, check_date, N = 50, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4672,7 +4665,7 @@ SG_SMX(index_stock, security_list, check_date, N = 50, unit = '1d', include_now 
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 index_stock = '399001.XSHE'
 security_list1 = '000001.XSHE'
@@ -4694,7 +4687,7 @@ for stock in security_list2:
 
 ### SG-LB-量比
 
-```python
+```py
 SG_LB(index_stock, security_list, check_date, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4726,7 +4719,7 @@ SG_LB(index_stock, security_list, check_date, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 index_stock = '399106.XSHE'
 security_list1 = '000001.XSHE'
@@ -4748,7 +4741,7 @@ for stock in security_list2:
 
 ### SG-PF-强势股评分
 
-```python
+```py
 SG_PF(index_stock, security_list, check_date, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4781,7 +4774,7 @@ SG_PF(index_stock, security_list, check_date, unit = '1d', include_now = True, f
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 index_stock = '399001.XSHE'
 security_list1 = '000001.XSHE'
@@ -4799,7 +4792,7 @@ for stock in security_list2:
 
 ### XDT-心电图
 
-```python
+```py
 XDT(index_stock,security_list, check_date, P1 = 5, P2 = 10, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4832,7 +4825,7 @@ XDT(index_stock,security_list, check_date, P1 = 5, P2 = 10, unit = '1d', include
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 index_stock = '399001.XSHE'
 security_list1 = '000001.XSHE'
@@ -4856,7 +4849,7 @@ for stock in security_list2:
 
 ### ZLMM-主力买卖
 
-```python
+```py
 ZLMM(security_list, check_date, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4885,18 +4878,18 @@ ZLMM(security_list, check_date, unit = '1d', include_now = True, fq_ref_date = N
 
 白线为短期趋势线，黄线为中期趋势线，紫线为长期趋势线。
 
-1.  主力买卖与主力进出配合使用时准确率极高。
-2.  当底部构成发出信号，且主力进出线向上时判断买点，准确率极高。
-3.  当短线上穿中线及长线时，形成最佳短线买点交叉形态（如底部构成已发出信号或主力进出线也向上且短线乖离率不大时）。
-4.  当短线、中线均上穿长线，形成中线最佳买点形态（如底部构成已发出信号或主力进出线也向上且三线均向上时）。
-5.  当短线下穿中线，且短线与长线正乖离率太大时，形成短线最佳卖点交叉形态。
-6.  当短线、中线下穿长线，且是主力进出已走平或下降时，形成中线最佳卖点交叉形态。
-7.  在上升途中，短、中线回落受长线支撑再度上行之时，为较佳的买入时机。
-8.  指标在0以上表明个股处于强势，指标跌穿0线表明该股步入弱势。
+1. 主力买卖与主力进出配合使用时准确率极高。
+2. 当底部构成发出信号，且主力进出线向上时判断买点，准确率极高。
+3. 当短线上穿中线及长线时，形成最佳短线买点交叉形态（如底部构成已发出信号或主力进出线也向上且短线乖离率不大时）。
+4. 当短线、中线均上穿长线，形成中线最佳买点形态（如底部构成已发出信号或主力进出线也向上且三线均向上时）。
+5. 当短线下穿中线，且短线与长线正乖离率太大时，形成短线最佳卖点交叉形态。
+6. 当短线、中线下穿长线，且是主力进出已走平或下降时，形成中线最佳卖点交叉形态。
+7. 在上升途中，短、中线回落受长线支撑再度上行之时，为较佳的买入时机。
+8. 指标在0以上表明个股处于强势，指标跌穿0线表明该股步入弱势。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -4917,7 +4910,7 @@ for stock in security_list2:
 
 ### RAD-威力雷达
 
-```python
+```py
 RAD(index_stock, security_list, check_date, D=3, S=30, M=30, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -4949,12 +4942,12 @@ RAD(index_stock, security_list, check_date, D=3, S=30, M=30, unit = '1d', includ
 
 **用法注释：**
 
-1.  RAD 曲线往上跷升越陡者，代表该股为强势股。
-2.  RAD 指标选择强势股的效果相当良好，请多多利用。
+1. RAD 曲线往上跷升越陡者，代表该股为强势股。
+2. RAD 指标选择强势股的效果相当良好，请多多利用。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 index_stock = '399001.XSHE'
 security_list1 = '000001.XSHE'
@@ -4974,7 +4967,7 @@ for stock in security_list2:
 
 ### SHT-龙系短线
 
-```python
+```py
 SHT(security_list, check_date, N=5, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -5003,13 +4996,13 @@ SHT(security_list, check_date, N=5, unit = '1d', include_now = True, fq_ref_date
 
 **用法注释：**
 
-1.  当指标曲线向上交叉其平均线时，视为短线买进信号。
-2.  当指标曲线向下交叉其平均线时，视为短线卖出信号。
-3.  本指标可搭配KDJ、DMA指标使用。
+1. 当指标曲线向上交叉其平均线时，视为短线买进信号。
+2. 当指标曲线向下交叉其平均线时，视为短线卖出信号。
+3. 本指标可搭配KDJ、DMA指标使用。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -5030,7 +5023,7 @@ for stock in security_list2:
 
 ### CYW-主力控盘
 
-```python
+```py
 CYW(security_list, check_date, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -5061,7 +5054,7 @@ CYW(security_list, check_date, unit = '1d', include_now = True, fq_ref_date = No
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -5078,7 +5071,7 @@ for stock in security_list2:
 
 ### CYS-市场盈亏
 
-```python
+```py
 CYS(security_list, check_date, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -5110,7 +5103,7 @@ CYS(security_list, check_date, unit = '1d', include_now = True, fq_ref_date = No
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -5129,7 +5122,7 @@ for stock in security_list2:
 
 ### AROON-阿隆指标
 
-```python
+```py
 AROON(security_list, check_date, N = 25, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -5157,14 +5150,14 @@ AROON(security_list, check_date, N = 25, unit = '1d', include_now = True, fq_ref
 
 **用法注释：**
 
-0.  在分析Aroon指标时,主要观察三种状态:
-1.  极值0和100，当UP线达到100时，市场处于强势；如果维持在70~100之间，表示一个上升趋势。同样，如果Down线达到0，表示处于弱势，如果维持在0~30之间，表示处于下跌趋势。如果两条线同处于极值水平，则表明一个更强的趋势。
-2.  平行运动，如果两条线平行运动时，表明市场趋势被打破。可以预期该状况将持续下去，只到由极值水平或交叉穿行时为止。 　　
-3.  交叉穿行，当下行线上穿上行线时，表明潜在弱势，预期价格开始趋于下跌。反之，表明潜在强势，预期价格趋于走高。
+0. 在分析Aroon指标时,主要观察三种状态:
+1. 极值0和100，当UP线达到100时，市场处于强势；如果维持在70~100之间，表示一个上升趋势。同样，如果Down线达到0，表示处于弱势，如果维持在0~30之间，表示处于下跌趋势。如果两条线同处于极值水平，则表明一个更强的趋势。
+2. 平行运动，如果两条线平行运动时，表明市场趋势被打破。可以预期该状况将持续下去，只到由极值水平或交叉穿行时为止。 　　
+3. 交叉穿行，当下行线上穿上行线时，表明潜在弱势，预期价格开始趋于下跌。反之，表明潜在强势，预期价格趋于走高。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -5183,22 +5176,21 @@ for stock in security_list2:
 
 ### CFJT-财富阶梯
 
-```python
+```py
 CFJT(security_list, check_date, MM = 200, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
 **参数：**
 
 - security_list：标的列表
-    
+
 - check_date：要查询数据的日期
-    
+
 - unit：统计周期，默认为 '1d', 支持如下周期: '1m', '5m', '15m', '30m', '60m', '120m', '1d', '1w', '1M'. '1w' 表示一周, ‘1M' 表示一月
-    
+
 - include_now：是否包含当前周期，默认为 True
-    
+
 - fq_ref_date：复权基准日，默认为 None
-    
 
 **返回：**
 
@@ -5221,7 +5213,7 @@ CFJT(security_list, check_date, MM = 200, unit = '1d', include_now = True, fq_re
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -5243,7 +5235,7 @@ for stock in security_list2:
 
 ### ZSDB-指数对比
 
-```python
+```py
 ZSDB(index_stock, check_date, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -5275,7 +5267,7 @@ ZSDB(index_stock, check_date, unit = '1d', include_now = True, fq_ref_date = Non
 
 **示例：**
 
-```python
+```py
 # 定义大盘股票
 index_stock = '399001.XSHE'
 
@@ -5289,7 +5281,7 @@ print ZSZF1[index_stock]
 
 ### ZX-重心线
 
-```python
+```py
 ZX(security_list, check_date, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -5320,7 +5312,7 @@ ZX(security_list, check_date, unit = '1d', include_now = True, fq_ref_date = Non
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']
@@ -5337,7 +5329,7 @@ for stock in security_list2:
 
 ### PUCU-逆时钟曲线
 
-```python
+```py
 PUCU(security_list, check_date, N=24, unit = '1d', include_now = True, fq_ref_date = None)
 ```
 
@@ -5365,13 +5357,13 @@ PUCU(security_list, check_date, N=24, unit = '1d', include_now = True, fq_ref_da
 
 **用法注释：**
 
-1.  图表的曲线上有一个箭头，该处代表目前价量的位置；
-2.  曲线由绿变成红色时，视为买进信号；
-3.  曲线由红变成绿色时，视为卖出信号。
+1. 图表的曲线上有一个箭头，该处代表目前价量的位置；
+2. 曲线由绿变成红色时，视为买进信号；
+3. 曲线由红变成绿色时，视为卖出信号。
 
 **示例：**
 
-```python
+```py
 # 定义股票池列表
 security_list1 = '000001.XSHE'
 security_list2 = ['000001.XSHE','000002.XSHE','601211.XSHG','603177.XSHG']

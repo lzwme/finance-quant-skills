@@ -156,7 +156,7 @@ async function main() {
                 console.log(`${id} 获取内容失败！`)
                 continue
             }
-            fs.writeFileSync(path.join(savedir, `local/${id}.html`), htmlContent)
+            fs.writeFileSync(htmlPath, htmlContent)
         }
 
         const mdContent = htmlToMd(htmlContent)

@@ -12,7 +12,7 @@
 
 **调用方法**
 
-```python
+```py
 get_security_info(code)
 ```
 
@@ -32,7 +32,7 @@ get_security_info(code)
 
 **示例**
 
-```python
+```py
 # 输出沪深300指数信息
 print(get_security_info('000300.XSHG'))
 ```
@@ -83,8 +83,8 @@ get_index_stocks(index_symbol, date=None)
 - index_symbol, 指数代码
 - date: 查询日期, 一个字符串(格式类似’2015-10-15’)或者[datetime.date]/[datetime.datetime]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别:
 
-1.  回测模块: 默认值会随着回测日期变化而变化, 等于context.current_dt
-2.  研究模块: 默认是今天
+1. 回测模块: 默认值会随着回测日期变化而变化, 等于context.current_dt
+2. 研究模块: 默认是今天
 
 **返回**
 - 返回股票代码的list
@@ -218,7 +218,7 @@ get_price(security, start_date='2015-01-01', end_date='2015-12-31', frequency='d
 
 **示例**
 
-```python
+```py
 # 获取一支指数
 df = get_price('000001.XSHG') # 获取000001.XSHG的2015年的按天数据
 df = get_price('000001.XSHG', start_date='2015-01-01', end_date='2015-02-01', frequency='minute', fields=['open', 'close']) # 获得000001.XSHG的2015年02月的分钟数据, 只获取open+close字段
@@ -269,7 +269,7 @@ def handle_data(context, data):
 
 #### 获取指数tick数据
 
-```python
+```py
 get_ticks(security,end_dt,start_dt,count, fields, skip ,df)
 ```
 
@@ -297,7 +297,7 @@ get_ticks(security,end_dt,start_dt,count, fields, skip ,df)
 
 **获取指数tick数据示例**：
 
-```python
+```py
 #获取上证指数2019-11-19的tick数据
 get_ticks('000001.XSHG',start_dt='2019-11-19 09:00:00',end_dt='2019-11-19 15:05:00')
 
@@ -320,7 +320,7 @@ array([(20191119092524.0, 2904.2783, 2904.2783, 2904.2783, 97512400.0, 102033619
 - 指数相关问题如创业板成交量请查看[数据常见问题](https://www.joinquant.com/view/community/detail/1226a48b1f9b7bd90dc3516feea8b5cc?type=2)行情部分
 - **因部分中证指数不再由交易所披露行情，部分指数自2020-04-22停止更新，详情见[更新日志](https://www.joinquant.com/view/community/detail/26929)**
 
-```python
+```py
 df = get_all_securities("index",'2023-06-21')  #获取截至2023-06-21还未退市的指数
 df = get_all_securities("index")  #获取所有支持的指数
 df[df.display_name.str.contains("全指")] #获取名称中含"全指"的指数

@@ -19,7 +19,7 @@
 
 **调用方法**
 
-```python
+```py
 get_security_info(code)
 ```
 
@@ -31,16 +31,16 @@ get_security_info(code)
 
 - 一个对象, 有如下属性:
 
-1.  display_name # 中文名称
-2.  name # 缩写简称
-3.  start_date # 上市日期, [datetime.date] 类型
-4.  end_date # 退市日期， [datetime.date] 类型, 如果没有退市则为2200-01-01
-5.  type # 类型，stock(股票)，index(指数)，etf(ETF基金)，fja（分级A），fjb（分级B）
-6.  parent # 分级基金的母基金代码
+1. display_name # 中文名称
+2. name # 缩写简称
+3. start_date # 上市日期, [datetime.date] 类型
+4. end_date # 退市日期， [datetime.date] 类型, 如果没有退市则为2200-01-01
+5. type # 类型，stock(股票)，index(指数)，etf(ETF基金)，fja（分级A），fjb（分级B）
+6. parent # 分级基金的母基金代码
 
 **示例**
 
-```python
+```py
 # 输出平安银行信息的中文名称
 get_security_info('000001.XSHE').display_name
 ```
@@ -51,7 +51,7 @@ get_security_info('000001.XSHE').display_name
 
 **调用方法**
 
-```python
+```py
 get_all_securities(types=['stock'], date=None)
 ```
 
@@ -70,7 +70,7 @@ get_all_securities(types=['stock'], date=None)
 
 [pandas.DataFrame], 比如:`get_all_securities()[:2]`返回:
 
-```python
+```py
                display_name name   start_date   end_date   type
 000001.XSHE         平安银行  PAYH  1991-04-03  2200-01-01  stock
 000002.XSHE          万科Ａ   WKA   1991-01-29  2200-01-01  stock
@@ -78,7 +78,7 @@ get_all_securities(types=['stock'], date=None)
 
 **示例**
 
-```python
+```py
  #将所有股票列表转换成数组
     stocks = list(get_all_securities(['stock']).index)
  #获得2015年10月10日还在上市的所有股票列表
@@ -91,7 +91,7 @@ get_all_securities(types=['stock'], date=None)
 
 **调用方法**
 
-```python
+```py
 get_extras(info, security_list, start_date='2015-01-01', end_date='2015-12-31', df=True)
 ```
 
@@ -105,11 +105,10 @@ get_extras(info, security_list, start_date='2015-01-01', end_date='2015-12-31', 
 **返回值**
 
 - df=True: [pandas.DataFrame]对象, 列索引是股票代号, 行索引是[datetime.datetime], 比如
-    
-    `get_extras('is_st', ['000001.XSHE', '000018.XSHE'], start_date='2013-12-01', end_date='2013-12-03')`返回:
-    
 
-```python
+    `get_extras('is_st', ['000001.XSHE', '000018.XSHE'], start_date='2013-12-01', end_date='2013-12-03')`返回:
+
+```py
             000001.XSHE  000018.XSHE
 2013-12-02        False         True
 2013-12-03        False         True
@@ -117,14 +116,13 @@ get_extras(info, security_list, start_date='2015-01-01', end_date='2015-12-31', 
 
 - df=False:
     一个dict, key是股票代号, value是[numpy.ndarray], 比如`get_extras('is_st', ['000001.XSHE', '000018.XSHE'], start_date='2015-12-01', end_date='2015-12-03', df=False)` 返回:
-    
-    ```python
+
+    ```py
     {
        '000001.XSHE': array([False, False, False], dtype=bool),
        '000018.XSHE': array([False, False, False], dtype=bool)
     }
     ```
-    
 
 #### 获取股票的融资融券信息
 
@@ -132,7 +130,7 @@ get_extras(info, security_list, start_date='2015-01-01', end_date='2015-12-31', 
 
 **调用方法**
 
-```python
+```py
 get_mtss(security_list, start_date, end_date, fields=None)
 ```
 
@@ -160,7 +158,7 @@ get_mtss(security_list, start_date, end_date, fields=None)
 
 **示例**
 
-```python
+```py
 from jqdata import *
 # 获取一只股票的融资融券信息
 get_mtss('000001.XSHE', '2016-01-01', '2016-04-01')
@@ -182,7 +180,7 @@ get_mtss(['000001.XSHE', '000002.XSHE', '000099.XSHE'], '2015-03-25', '2016-01-2
 
 **调用方法**
 
-```python
+```py
 get_index_stocks(index_symbol, date=None)
 ```
 
@@ -191,8 +189,8 @@ get_index_stocks(index_symbol, date=None)
 - index_symbol, 指数代码
 - date: 查询日期, 一个字符串(格式类似’2015-10-15’)或者[datetime.date]/[datetime.datetime]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别:
 
-1.  回测模块: 默认值会随着回测日期变化而变化, 等于context.current_dt
-2.  研究模块: 默认是今天
+1. 回测模块: 默认值会随着回测日期变化而变化, 等于context.current_dt
+2. 研究模块: 默认是今天
 
 **返回**
 
@@ -200,7 +198,7 @@ get_index_stocks(index_symbol, date=None)
 
 **示例**
 
-```python
+```py
 # 获取所有沪深300的股票, 设为股票池
 stocks = get_index_stocks('000300.XSHG')
 set_universe(stocks)
@@ -212,7 +210,7 @@ set_universe(stocks)
 
 **调用方法**
 
-```python
+```py
 # 获取行业板块成分股
 get_industry_stocks(industry_code, date=None)
 
@@ -223,12 +221,11 @@ get_concept_stocks(concept_code, date=None)
 **参数**
 
 - industry_code: 行业编码
-    
-- date: 查询日期, 一个字符串(格式类似’2015-10-15’)或者[datetime.date]/[datetime.datetime]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别:
-    
 
-1.  回测模块: 默认值会随着回测日期变化而变化, 等于context.current_dt
-2.  研究模块: 默认是今天
+- date: 查询日期, 一个字符串(格式类似’2015-10-15’)或者[datetime.date]/[datetime.datetime]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别:
+
+1. 回测模块: 默认值会随着回测日期变化而变化, 等于context.current_dt
+2. 研究模块: 默认是今天
 
 **返回**
 
@@ -236,7 +233,7 @@ get_concept_stocks(concept_code, date=None)
 
 **示例**
 
-```python
+```py
 # 获取计算机/互联网行业的成分股
 stocks = get_industry_stocks('I64')
 
@@ -246,7 +243,7 @@ stocks = get_concept_stocks('GN036')
 
 #### 查询股票所属行业
 
-```python
+```py
 get_industry(security, date=None)
 ```
 
@@ -261,7 +258,7 @@ get_industry(security, date=None)
 
 **示例**
 
-```python
+```py
 #获取贵州茅台("600519.XSHG")的所属行业数据
 d = get_industry("600519.XSHG",date="2018-06-01")
 print(d)
@@ -296,7 +293,7 @@ print(d)
 
 ### 获取融资标的列表
 
-```python
+```py
 get_margincash_stocks(date)
 ```
 
@@ -306,7 +303,7 @@ get_margincash_stocks(date)
 
 **示例**
 
-```python
+```py
 # 获取融资标的列表，并赋值给 margincash_stocks
 margincash_stocks = get_margincash_stocks(date='2018-07-02')
 
@@ -317,7 +314,7 @@ margincash_stocks = get_margincash_stocks(date='2018-07-02')
 
 ### 获取融券标的列表
 
-```python
+```py
 get_marginsec_stocks(date)
 ```
 
@@ -327,7 +324,7 @@ get_marginsec_stocks(date)
 
 **示例**
 
-```python
+```py
 # 获取融券标的列表，并赋值给 marginsec_stocks
 marginsec_stocks= get_marginsec_stocks(date='2018-07-05')
 
@@ -338,7 +335,7 @@ marginsec_stocks= get_marginsec_stocks(date='2018-07-05')
 
 ## 获取融资融券汇总数据
 
-```python
+```py
 from jqdata import *
 finance.run_query(query(finance.STK_MT_TOTAL).filter(finance.STK_MT_TOTAL.date=='2019-05-23').limit(n))
 ```
@@ -372,12 +369,12 @@ finance.run_query(query(finance.STK_MT_TOTAL).filter(finance.STK_MT_TOTAL.date==
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询2019-05-23的融资融券汇总数据。
 from jqdata import *
 df=finance.run_query(query(finance.STK_MT_TOTAL).filter(finance.STK_MT_TOTAL.date=='2019-05-23').limit(10))
@@ -394,7 +391,7 @@ df
 
 **调用方法**
 
-```python
+```py
 from jqdata import *
 get_money_flow(security_list, start_date=None, end_date=None, fields=None, count=None)
 ```
@@ -429,7 +426,7 @@ get_money_flow(security_list, start_date=None, end_date=None, fields=None, count
 
 **示例**
 
-```python
+```py
 # 获取一只股票在一个时间段内的资金流量数据
 get_money_flow('000001.XSHE', '2016-02-01', '2016-02-04')
 get_money_flow('000001.XSHE', '2015-10-01', '2015-12-30', fields="change_pct")
@@ -443,7 +440,7 @@ get_money_flow(['000001.XSHE', '000040.XSHE', '000099.XSHE'], '2016-04-01', '201
 
 ## 获取龙虎榜数据
 
-```python
+```py
 get_billboard_list(stock_list, start_date, end_date, count)
 ```
 
@@ -498,14 +495,14 @@ get_billboard_list(stock_list, start_date, end_date, count)
 
 **示例**
 
-```python
+```py
 # 获取2018-08-01的龙虎榜数据
 get_billboard_list(stock_list=None, end_date = '2018-08-01', count =1)
 ```
 
 ## 上市公司分红送股（除权除息）数据
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_XR_XD).filter(finance.STK_XR_XD.code==code).order_by(finance.STK_XR_XD.report_date).limit(n))
 ```
@@ -576,18 +573,18 @@ finance.run_query(query(finance.STK_XR_XD).filter(finance.STK_XR_XD.code==code).
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-    
-2.  不能进行连表查询，即同时查询多张表的数据
-    
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+
+2. 不能进行连表查询，即同时查询多张表的数据
+
     **示例：**
-    
-    ```python
+
+    ```py
     from jqdata import *
     q=query(finance.STK_XR_XD).filter(finance.STK_XR_XD.report_date>='2015-01-01').limit(10)
     df = finance.run_query(q)
     print(df)
-    
+
      id company_id           company_name               code   report_date     bonus_type  \
     0  19  300000062  广东德美精细化工集团股份有限公司  002054.XSHE  2015-06-30       中期分红
     1  20  300000062  广东德美精细化工集团股份有限公司  002054.XSHE  2015-12-31       年度分红
@@ -629,7 +626,7 @@ finance.run_query(query(finance.STK_XR_XD).filter(finance.STK_XR_XD.code==code).
     7                           NaN                          NaN  NaN
     8                           NaN                          NaN  NaN
     9                           NaN                          NaN  NaN
-    
+
      a_transfer_arrival_date     b_transfer_arrival_date    b_dividend_arrival_date  \
     0                     NaN                     NaN                     NaN
     1                     NaN                     NaN                     NaN
@@ -641,7 +638,7 @@ finance.run_query(query(finance.STK_XR_XD).filter(finance.STK_XR_XD.code==code).
     7                     NaN                     NaN                     NaN
     8                     NaN                     NaN                     NaN
     9                     NaN                     NaN                     NaN
-    
+
       note_of_no_dividend    plan_progress_code  plan_progress     bonus_cancel_pub_date
     0                 NaN             313001         董事会预案                   NaN
     1                 NaN             313002          实施方案                   NaN
@@ -654,11 +651,10 @@ finance.run_query(query(finance.STK_XR_XD).filter(finance.STK_XR_XD.code==code).
     8                 NaN             313001         董事会预案                   NaN
     9                 NaN             313002          实施方案                   NaN
     ```
-    
 
 ## 沪深市场每日成交概况
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_EXCHANGE_TRADE_INFO).filter(finance.STK_EXCHANGE_TRADE_INFO.exchange_code==exchange_code).limit(n)
 ```
@@ -696,9 +692,8 @@ finance.run_query(query(finance.STK_EXCHANGE_TRADE_INFO).filter(finance.STK_EXCH
 | 322007 | 创业板 |  |
 
 - **filter(finance.STK_EXCHANGE_TRADE_INFO.date==date)**：指定筛选条件，通过finance.STK_EXCHANGE_TRADE_INFO.date==date可以指定你想要查询的交易日期；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_EXCHANGE_TRADE_INFO.exchange_code==322001，表示筛选市场编码为322001（上海市场）的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -706,14 +701,13 @@ finance.run_query(query(finance.STK_EXCHANGE_TRADE_INFO).filter(finance.STK_EXCH
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-    
-2.  不能进行连表查询，即同时查询多张表的数据
-    
-    **示例：**
-    
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
 
-```python
+2. 不能进行连表查询，即同时查询多张表的数据
+
+    **示例：**
+
+```py
 q=query(finance.STK_EXCHANGE_TRADE_INFO).filter(finance.STK_EXCHANGE_TRADE_INFO.date>='2015-01-01').limit(10)
 df=finance.run_query(q)
 print(df)
@@ -759,7 +753,7 @@ print(df)
 
 ### 合格证券变动记录
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_EL_CONST_CHANGE).filter(finance.STK_EL_CONST_CHANGE.code==code).limit(n))
 ```
@@ -769,9 +763,8 @@ finance.run_query(query(finance.STK_EL_CONST_CHANGE).filter(finance.STK_EL_CONST
 **参数：**
 
 - **query(finance.STK_EL_CONST_CHANGE)**：表示从finance.STK_EL_CONST_CHANGE这张表中查询沪港通、深港通和港股通成分股的变动记录，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](https://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_EL_CONST_CHANGE**：记录沪港通、深港通和港股通成分股的变动情况，包括交易类型，变更日期，变更方向等，表结构和字段信息如下：
-    
 
 | 字段 | 名称 | 类型 | 备注/示例 |
 | --- | --- | --- | --- |
@@ -794,14 +787,13 @@ finance.run_query(query(finance.STK_EL_CONST_CHANGE).filter(finance.STK_EL_CONST
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-    
-2.  不能进行连表查询，即同时查询多张表的数据
-    
-    **示例：**
-    
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
 
-```python
+2. 不能进行连表查询，即同时查询多张表的数据
+
+    **示例：**
+
+```py
 q=query(finance.STK_EL_CONST_CHANGE).filter(finance.STK_EL_CONST_CHANGE.link_id==310001).order_by(finance.STK_EL_CONST_CHANGE.change_date).limit(10)
 df=finance.run_query(q)
 print(df)
@@ -821,7 +813,7 @@ id link_id link_name         code name_ch name_en exchange change_date  \
 
 ### 市场通交易日历
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_EXCHANGE_LINK_CALENDAR).filter(finance.STK_EXCHANGE_LINK_CALENDAR.day==day).limit(n))
 ```
@@ -831,9 +823,8 @@ finance.run_query(query(finance.STK_EXCHANGE_LINK_CALENDAR).filter(finance.STK_E
 **参数：**
 
 - **query(finance.STK_EXCHANGE_LINK_CALENDAR)**：表示从finance.STK_EXCHANGE_LINK_CALENDAR这张表中查询市场沪港通、深港通和港股通交易日历的信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](https://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_EXCHANGE_LINK_CALENDAR**：代表了市场通交易日历表，记录沪港通、深港通和港股通每天是否开市，包括交易日期，交易日类型等，表结构和字段信息如下：
-    
 
 | 字段 | 名称 | 类型 | 备注/示例 |
 | --- | --- | --- | --- |
@@ -872,14 +863,13 @@ finance.run_query(query(finance.STK_EXCHANGE_LINK_CALENDAR).filter(finance.STK_E
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-    
-2.  不能进行连表查询，即同时查询多张表的数据
-    
-    **示例：**
-    
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
 
-```python
+2. 不能进行连表查询，即同时查询多张表的数据
+
+    **示例：**
+
+```py
 q=query(finance.STK_EXCHANGE_LINK_CALENDAR).filter(finance.STK_EXCHANGE_LINK_CALENDAR.day>='2015-01-01').limit(10)
 df=finance.run_query(q)
 print(df)
@@ -899,7 +889,7 @@ print(df)
 
 ### 市场通十大成交活跃股
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_EL_TOP_ACTIVATE).filter(finance.STK_EL_TOP_ACTIVATE.code==code).limit(n))
 ```
@@ -909,9 +899,8 @@ finance.run_query(query(finance.STK_EL_TOP_ACTIVATE).filter(finance.STK_EL_TOP_A
 **参数：**
 
 - **query(finance.STK_EL_TOP_ACTIVATE)**：表示从finance.STK_EL_TOP_ACTIVATE这张表中查询沪港通、深港通和港股通前十大交易活跃股的交易状况，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_EL_TOP_ACTIVATE**：代表了市场通十大成交活跃股表，统计沪港通、深港通和港股通前十大交易活跃股的交易状况，包括买入金额，卖出金额等，表结构和字段信息如下：
-    
 
 | 字段 | 名称 | 类型 | 备注/示例 |
 | --- | --- | --- | --- |
@@ -944,14 +933,13 @@ finance.run_query(query(finance.STK_EL_TOP_ACTIVATE).filter(finance.STK_EL_TOP_A
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-    
-2.  不能进行连表查询，即同时查询多张表的数据
-    
-    **示例：**
-    
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
 
-```python
+2. 不能进行连表查询，即同时查询多张表的数据
+
+    **示例：**
+
+```py
 q=query(finance.STK_EL_TOP_ACTIVATE).filter(finance.STK_EL_TOP_ACTIVATE.code=='000002.XSHE').limit(10)
 df=finance.run_query(q)
 print(df)
@@ -983,7 +971,7 @@ print(df)
 
 ### 市场通成交与额度信息
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_ML_QUOTA).filter(finance.STK_ML_QUOTA.day==day).limit(n))
 ```
@@ -1038,14 +1026,13 @@ finance.run_query(query(finance.STK_ML_QUOTA).filter(finance.STK_ML_QUOTA.day==d
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-    
-2.  不能进行连表查询，即同时查询多张表的数据
-    
-    **示例：**
-    
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
 
-```python
+2. 不能进行连表查询，即同时查询多张表的数据
+
+    **示例：**
+
+```py
 q=query(finance.STK_ML_QUOTA).filter(finance.STK_ML_QUOTA.day>='2015-01-01').limit(10)
 df=finance.run_query(q)
 print(df)
@@ -1089,7 +1076,7 @@ print(df)
 
 ### 市场通汇率
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_EXCHANGE_LINK_RATE).filter(finance.STK_EXCHANGE_LINK_RATE.day==day).limit(n))
 ```
@@ -1099,9 +1086,8 @@ finance.run_query(query(finance.STK_EXCHANGE_LINK_RATE).filter(finance.STK_EXCHA
 **参数：**
 
 - **query(finance.STK_EXCHANGE_LINK_RATE)**：表示从finance.STK_EXCHANGE_LINK_RATE这张表中查询汇率信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_EXCHANGE_LINK_RATE**：代表了市场通汇率表，记录参考汇率/结算汇兑比率信息，包括买入参考/结算汇率、卖出参考/结算汇率等，表结构和字段信息如下：
-    
 
 | 字段 | 名称 | 类型 | 备注/示例 |
 | --- | --- | --- | --- |
@@ -1131,14 +1117,13 @@ finance.run_query(query(finance.STK_EXCHANGE_LINK_RATE).filter(finance.STK_EXCHA
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-    
-2.  不能进行连表查询，即同时查询多张表的数据
-    
-    **示例：**
-    
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
 
-```python
+2. 不能进行连表查询，即同时查询多张表的数据
+
+    **示例：**
+
+```py
 q=query(finance.STK_EXCHANGE_LINK_RATE).filter(finance.STK_EXCHANGE_LINK_RATE.day>='2015-01-01').limit(10)
 df=finance.run_query(q)
 print(df)
@@ -1203,12 +1188,12 @@ print(df)
 
 **注意：**
 
-1.  为了防止返回数据量过大, 我们每次最多返回4000行
-2.  不能进行连表查询，即同时查询多张表的数据
+1. 为了防止返回数据量过大, 我们每次最多返回4000行
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #获取北向资金沪股通的持股数据
 from jqdata import finance
 df=finance.run_query(query(finance.STK_HK_HOLD_INFO).filter(finance.STK_HK_HOLD_INFO.link_id==310001).order_by(finance.STK_HK_HOLD_INFO.day.desc()))
@@ -1233,7 +1218,7 @@ print(df)
 
 ### 上市公司基本信息
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_COMPANY_INFO).filter(finance.STK_COMPANY_INFO.code==code).limit(n))
 ```
@@ -1243,9 +1228,8 @@ finance.run_query(query(finance.STK_COMPANY_INFO).filter(finance.STK_COMPANY_INF
 **参数：**
 
 - **query(finance.STK_COMPANY_INFO)**：表示从finance.STK_COMPANY_INFO这张表中查询上市公司最新公布的基本信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_COMPANY_INFO**：代表上市公司基本信息表，收录了上市公司最新公布的基本信息，表结构和字段信息如下：
-    
 
 | 字段名称 | 中文名称 | 字段类型 | 备注/示例 |
 | --- | --- | --- | --- |
@@ -1303,12 +1287,12 @@ finance.run_query(query(finance.STK_COMPANY_INFO).filter(finance.STK_COMPANY_INF
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 # 指定查询对象为恒瑞医药（600276.XSHG)的上市公司基本信息，限定返回条数为10
 q=query(finance.STK_COMPANY_INFO).filter(finance.STK_COMPANY_INFO.code=='600276.XSHG').limit(10)
 df=finance.run_query(q)
@@ -1334,7 +1318,7 @@ print(df)
 
 ### 上市公司状态变动
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_STATUS_CHANGE).filter(finance.STK_STATUS_CHANGE.code==code).limit(n))
 ```
@@ -1344,9 +1328,9 @@ finance.run_query(query(finance.STK_STATUS_CHANGE).filter(finance.STK_STATUS_CHA
 **参数：**
 
 - **query(finance.STK_STATUS_CHANGE)**：表示从finance.STK_STATUS_CHANGE这张表中查询上市公司的状态变动信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.STK_STATUS_CHANGE**：代表上市公司状态变动表，收录了上市公司已发行未上市、正常上市、实行ST、*ST、暂停上市、终止上市的变动情况等，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 备注/示例 |
     | --- | --- | --- | --- |
     | company_id | 机构ID | int |  |
@@ -1360,9 +1344,9 @@ finance.run_query(query(finance.STK_STATUS_CHANGE).filter(finance.STK_STATUS_CHA
     | change_type_id | 变更类型编码 | int | 如下[变更类型编码](#change_reason) |
     | change_type | 变更类型 | varchar(60) |  |
     | comments | 备注 | varchar(255) |  |
-    
+
     上市状态编码
-    
+
     | **上市状态编码** | **上市状态** |
     | --- | --- |
     | 301001 | 正常上市 |
@@ -1381,9 +1365,9 @@ finance.run_query(query(finance.STK_STATUS_CHANGE).filter(finance.STK_STATUS_CHA
     | 301014 | 正常转让 |
     | 301015 | 实行投资者适当性管理表示 |
     | 301099 | 其他 |
-    
+
     变更类型编码
-    
+
     | **变更类型编码** | **变更类型** |
     | --- | --- |
     | 303001 | 恢复上市 |
@@ -1408,11 +1392,10 @@ finance.run_query(query(finance.STK_STATUS_CHANGE).filter(finance.STK_STATUS_CHA
     | 303020 | 停止转让 |
     | 303021 | 重新上市 |
     | 303099 | 其他 |
-    
+
 - **filter(finance.STK_STATUS_CHANGE.code==code)**：指定筛选条件，通过finance.STK_STATUS_CHANGE.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_STATUS_CHANGE.pub_date>='2015-01-01'，表示筛选公告日期大于等于2015年1月1日之后的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -1420,12 +1403,12 @@ finance.run_query(query(finance.STK_STATUS_CHANGE).filter(finance.STK_STATUS_CHA
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 # 指定查询对象为恒瑞医药（600276.XSHG)的上市公司状态变动，限定返回条数为10
 q=query(finance.STK_STATUS_CHANGE).filter(finance.STK_STATUS_CHANGE.code=='600276.XSHG').limit(10)
 df=finance.run_query(q)
@@ -1440,7 +1423,7 @@ print(df)
 
 ### 股票上市信息
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_LIST).filter(finance.STK_LIST.code==code).limit(n))
 ```
@@ -1450,9 +1433,8 @@ finance.run_query(query(finance.STK_LIST).filter(finance.STK_LIST.code==code).li
 **参数：**
 
 - **query(finance.STK_LIST)**：表示从finance.STK_LIST这张表中查询沪深A股的上市信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_LIST**：代表股票上市信息表，收录了沪深A股的上市信息，包含上市日期、交易所、发行价格、初始上市数量等，表结构和字段信息如下：
-    
 
 | 字段名称 | 中文名称 | 字段类型 | 备注/示例 |
 | --- | --- | --- | --- |
@@ -1480,12 +1462,12 @@ finance.run_query(query(finance.STK_LIST).filter(finance.STK_LIST.code==code).li
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 # 指定查询对象为恒瑞医药（600276.XSHG)的上市信息，限定返回条数为10
 q=query(finance.STK_LIST).filter(finance.STK_LIST.code=='600276.XSHG').limit(10)
 df=finance.run_query(q)
@@ -1503,7 +1485,7 @@ print(df)
 
 ### 股票简称变更情况
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_NAME_HISTORY).filter(finance.STK_NAME_HISTORY.code==code).limit(n))
 ```
@@ -1513,9 +1495,8 @@ finance.run_query(query(finance.STK_NAME_HISTORY).filter(finance.STK_NAME_HISTOR
 **参数：**
 
 - **query(finance.STK_NAME_HISTORY)**：表示从finance.STK_NAME_HISTORY这张表中查询股票简称的变更情况，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_NAME_HISTORY**：代表股票简称变更表，收录了在A股市场和B股市场上市的股票简称的变更情况，表结构和字段信息如下：
-    
 
 | 字段名称 | 中文名称 | 字段类型 | 备注/示例 |
 | --- | --- | --- | --- |
@@ -1538,12 +1519,12 @@ finance.run_query(query(finance.STK_NAME_HISTORY).filter(finance.STK_NAME_HISTOR
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 # 指定查询对象为恒瑞医药（600276.XSHG)的股票简称变更信息，限定返回条数为10
 q=query(finance.STK_NAME_HISTORY).filter(finance.STK_NAME_HISTORY.code=='600276.XSHG').limit(10)
 df=finance.run_query(q)
@@ -1573,9 +1554,8 @@ finance.run_query(query(finance.STK_EMPLOYEE_INFO).filter(finance.STK_EMPLOYEE_I
 **参数：**
 
 - **query(finance.STK_EMPLOYEE_INFO)**：表示从finance.STK_EMPLOYEE_INFO这张表中查询上市公司员工情况的字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_EMPLOYEE_INFO**：代表上市公司员工情况表，收录了上市公司在公告中公布的员工情况，表结构和字段信息如下：
-    
 
 | 字段名称 | 中文名称 | 字段类型 | 备注/示例 |
 | --- | --- | --- | --- |
@@ -1599,12 +1579,12 @@ finance.run_query(query(finance.STK_EMPLOYEE_INFO).filter(finance.STK_EMPLOYEE_I
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回3000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回3000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 # 指定查询对象为恒瑞医药（600276.XSHG)的员工信息且公告日期大于2015年1月1日，限定返回条数为10
 q=query(finance.STK_EMPLOYEE_INFO).filter(finance.STK_EMPLOYEE_INFO.code=='600276.XSHG',finance.STK_EMPLOYEE_INFO.pub_date>='2015-01-01').limit(10)
 df=finance.run_query(q)
@@ -1625,7 +1605,7 @@ print(df)
 
 ### 十大股东
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_SHAREHOLDER_TOP10).filter(finance.STK_SHAREHOLDER_TOP10.code==code).limit(n))
 ```
@@ -1635,9 +1615,9 @@ finance.run_query(query(finance.STK_SHAREHOLDER_TOP10).filter(finance.STK_SHAREH
 **参数：**
 
 - **query(finance.STK_SHAREHOLDER_TOP10)**：表示从finance.STK_SHAREHOLDER_TOP10这张表中查询上市公司前十大股东的持股情况，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_SHAREHOLDER_TOP10**：代表上市公司十大股东表，收录了上市公司前十大股东的持股情况，包括持股数量，所持股份性质，变动原因等。表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 备注/示例 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -1660,11 +1640,10 @@ finance.run_query(query(finance.STK_SHAREHOLDER_TOP10).filter(finance.STK_SHAREH
     | share_pledge_freeze | 股份质押冻结数量 | decimal(10,4) | 如果股份质押数量和股份冻结数量任意一个字段有值，则等于后两者之和 |
     | share_pledge | 股份质押数量 | decimal(10,4) | 股 |
     | share_freeze | 股份冻结数量 | decimal(10,4) | 股 |
-    
+
 - **filter(finance.STK_SHAREHOLDER_TOP10.code==code)**：指定筛选条件，通过finance.STK_SHAREHOLDER_TOP10.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_SHAREHOLDER_TOP10.pub_date>='2015-01-01'，表示筛选公告日期大于等于2015年1月1日之后的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -1672,12 +1651,12 @@ finance.run_query(query(finance.STK_SHAREHOLDER_TOP10).filter(finance.STK_SHAREH
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #指定查询对象为恒瑞医药（600276.XSHG)的十大股东情况，限定返回条数为10条
 q=query(finance.STK_SHAREHOLDER_TOP10).filter(finance.STK_SHAREHOLDER_TOP10.code=='600276.XSHG',finance.STK_SHAREHOLDER_TOP10.pub_date>'2015-01-01').limit(10)
 df=finance.run_query(q)
@@ -1746,7 +1725,7 @@ print(df)
 
 ### 十大流通股东
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_SHAREHOLDER_FLOATING_TOP10).filter(finance.STK_SHAREHOLDER_FLOATING_TOP10.code==code).limit(n))
 ```
@@ -1756,9 +1735,9 @@ finance.run_query(query(finance.STK_SHAREHOLDER_FLOATING_TOP10).filter(finance.S
 **参数：**
 
 - **query(finance.STK_SHAREHOLDER_FLOATING_TOP10)**：表示从finance.STK_SHAREHOLDER_FLOATING_TOP10这张表中查询上市公司前十大流通股东的持股情况，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_SHAREHOLDER_FLOATING_TOP10**：代表上市公司十大流通股东表，收录了上市公司前十大流通股东的持股情况，包括持股数量，所持股份性质，变动原因等。表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 备注/示例 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -1778,11 +1757,10 @@ finance.run_query(query(finance.STK_SHAREHOLDER_FLOATING_TOP10).filter(finance.S
     | share_ratio | 持股比例 | decimal(10,4) | % |
     | sharesnature_id | 股份性质编码 | int |  |
     | sharesnature | 股份性质 | varchar(120) |  |
-    
+
 - **filter(finance.STK_SHAREHOLDER_FLOATING_TOP10.code==code)**：指定筛选条件，通过finance.STK_SHAREHOLDER_FLOATING_TOP10.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_SHAREHOLDER_FLOATING_TOP10.pub_date>='2015-01-01'，表示筛选公告日期大于等于2015年1月1日之后的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -1790,12 +1768,12 @@ finance.run_query(query(finance.STK_SHAREHOLDER_FLOATING_TOP10).filter(finance.S
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #指定查询对象为恒瑞医药（600276.XSHG)的十大流通股东情况，返回条数为10条
 q=query(finance.STK_SHAREHOLDER_FLOATING_TOP10).filter(finance.STK_SHAREHOLDER_FLOATING_TOP10.code=='600276.XSHG',finance.STK_SHAREHOLDER_FLOATING_TOP10.pub_date>'2015-01-01').limit(10)
 df=finance.run_query(q)
@@ -1852,7 +1830,7 @@ print(df)
 
 ### 股东股份质押
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_SHARES_PLEDGE).filter(finance.STK_SHARES_PLEDGE.code==code).limit(n))
 ```
@@ -1862,9 +1840,9 @@ finance.run_query(query(finance.STK_SHARES_PLEDGE).filter(finance.STK_SHARES_PLE
 **参数：**
 
 - **query(finance.STK_SHARES_PLEDGE)**：表示从finance.STK_SHARES_PLEDGE这张表中查询上市公司股东股份的质押情况，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_SHARES_PLEDGE**：代表上市公司股东股份质押表，收录了上市公司股东股份的质押情况。表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 备注/示例 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -1885,11 +1863,10 @@ finance.run_query(query(finance.STK_SHARES_PLEDGE).filter(finance.STK_SHARES_PLE
     | unpledged_number | 质押解除数量 | int | 股 |
     | unpledged _detail | 解除质押说明 | varchar(1000) |  |
     | is_buy_back | 是否质押式回购交易 | char(1) |  |
-    
+
 - **filter(finance.STK_SHARES_PLEDGE.code==code)**：指定筛选条件，通过finance.STK_SHARES_PLEDGE.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_SHARES_PLEDGE.pub_date>='2015-01-01'，表示筛选公告日期大于等于2015年1月1日之后的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -1897,12 +1874,12 @@ finance.run_query(query(finance.STK_SHARES_PLEDGE).filter(finance.STK_SHARES_PLE
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #指定查询对象为万科（000002.XSHE)的股东股份质押情况，返回条数为10条
 q=query(finance.STK_SHARES_PLEDGE).filter(finance.STK_SHARES_PLEDGE.code=='000002.XSHE',finance.STK_SHARES_PLEDGE.pub_date>'2015-01-01').limit(10)
 df=finance.run_query(q)
@@ -1971,7 +1948,7 @@ print(df)
 
 ### 股东股份冻结
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_SHARES_FROZEN).filter(finance.STK_SHARES_FROZEN.code==code).limit(n))
 ```
@@ -1981,9 +1958,9 @@ finance.run_query(query(finance.STK_SHARES_FROZEN).filter(finance.STK_SHARES_FRO
 **参数：**
 
 - **query(finance.STK_SHARES_FROZEN)**：表示从finance.STK_SHARES_FROZEN这张表中查询股东股份的冻结情况，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_SHARES_FROZEN**：代表上市公司股东股份冻结表，收录了上市公司股东股份的冻结情况，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -2004,11 +1981,10 @@ finance.run_query(query(finance.STK_SHARES_FROZEN).filter(finance.STK_SHARES_FRO
     | unfrozen_date | 解冻日期 | date | 分批解冻的为最近一次解冻日期 |
     | unfrozen_number | 累计解冻数量 | int | 原解冻数量(股) |
     | unfrozen_detail | 解冻处理说明 | varchar(1000) | 冻结过程及结束后的处理结果 |
-    
+
 - **filter(finance.STK_SHARES_FROZEN.code==code)**：指定筛选条件，通过finance.STK_SHARES_FROZEN.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_SHARES_FROZEN.pub_date>='2015-01-01'，表示筛选公告日期大于等于2015年1月1日之后的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -2016,12 +1992,12 @@ finance.run_query(query(finance.STK_SHARES_FROZEN).filter(finance.STK_SHARES_FRO
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #指定查询对象为文一科技（600520.XSHG)的股东股份冻结情况，返回条数为10条
 q=query(finance.STK_SHARES_FROZEN).filter(finance.STK_SHARES_FROZEN.code=='600520.XSHG',finance.STK_SHARES_FROZEN.pub_date>'2015-01-01').limit(10)
 df=finance.run_query(q)
@@ -2092,7 +2068,7 @@ print(df)
 
 ### 股东户数
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_HOLDER_NUM).filter(finance.STK_HOLDER_NUM.code==code).limit(n))
 ```
@@ -2102,9 +2078,9 @@ finance.run_query(query(finance.STK_HOLDER_NUM).filter(finance.STK_HOLDER_NUM.co
 **参数：**
 
 - **query(finance.STK_HOLDER_NUM)**：表示从finance.STK_HOLDER_NUM这张表中查询上市公司的股东户数，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_HOLDER_NUM**：代表上市公司股东户数表，收录了上市公司全部股东户数，A股股东、B股股东、H股股东的持股户数情况，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 备注/示例 |
     | --- | --- | --- | --- |
     | code | 股票代码 | varchar(12) |  |
@@ -2114,11 +2090,10 @@ finance.run_query(query(finance.STK_HOLDER_NUM).filter(finance.STK_HOLDER_NUM.co
     | a_share_holders | A股股东总户数 | int |  |
     | b_share_holders | B股股东总户数 | int |  |
     | h_share_holders | H股股东总户数 | int |  |
-    
+
 - **filter(finance.STK_HOLDER_NUM.code==code)**：指定筛选条件，通过finance.STK_HOLDER_NUM.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_HOLDER_NUM.pub_date>='2015-01-01'，表示筛选公布日期大于等于2015年1月1日之后的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -2126,12 +2101,12 @@ finance.run_query(query(finance.STK_HOLDER_NUM).filter(finance.STK_HOLDER_NUM.co
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #指定查询对象为万科（000002.XSHE)的股东户数情况，返回条数为10条
 q=query(finance.STK_HOLDER_NUM).filter(finance.STK_HOLDER_NUM.code=='000002.XSHE',finance.STK_HOLDER_NUM.pub_date>'2015-01-01').limit(10)
 df=finance.run_query(q)
@@ -2164,7 +2139,7 @@ print(df)
 
 ### 大股东增减持
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_SHAREHOLDERS_SHARE_CHANGE).filter(finance.STK_SHAREHOLDERS_SHARE_CHANGE.code==code).limit(n))
 ```
@@ -2174,9 +2149,9 @@ finance.run_query(query(finance.STK_SHAREHOLDERS_SHARE_CHANGE).filter(finance.ST
 **参数：**
 
 - **query(finance.STK_SHAREHOLDERS_SHARE_CHANGE)**：表示从finance.STK_SHAREHOLDERS_SHARE_CHANGE这张表中查询上市公司大股东的增减持情况，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_SHAREHOLDERS_SHARE_CHANGE**：代表上市公司大股东增减持情况表，收录了大股东的增减持情况，表结构和字段信息如下：
-    
+
     | 段名称 | 中文名称 | 字段类型 | 备注/示例 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -2191,11 +2166,10 @@ finance.run_query(query(finance.STK_SHAREHOLDERS_SHARE_CHANGE).filter(finance.ST
     | change_ratio | 变动数量占总股本比例 | decimal(10,4) | 录入变动数量后，系统自动计算变动比例，持股比例可以用持股数量除以股本情况表中的总股本 |
     | price_ceiling | 增（减）持价格上限 | varchar(100) | 公告里面一般会给一个增持或者减持的价格区间，上限就是增持价格或减持价格的最高价。如果公告中只披露了平均价，那price_ceiling即为成交均价 |
     | after_change_ratio | 变动后占比 | decimal(10,4) | %，变动后持股数量占总股本比例 |
-    
+
 - **filter(finance.STK_SHAREHOLDERS_SHARE_CHANGE.code==code)**：指定筛选条件，通过finance.STK_SHAREHOLDERS_SHARE_CHANGE.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_SHAREHOLDERS_SHARE_CHANGE.pub_date>='2015-01-01'，表示筛选公布日期大于等于2015年1月1日之后的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -2203,12 +2177,12 @@ finance.run_query(query(finance.STK_SHAREHOLDERS_SHARE_CHANGE).filter(finance.ST
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #指定查询对象为万科（000002.XSHE)的大股东增减持情况，返回条数为10条
 q=query(finance.STK_SHAREHOLDERS_SHARE_CHANGE).filter(finance.STK_SHAREHOLDERS_SHARE_CHANGE.code=='000002.XSHE',finance.STK_SHAREHOLDERS_SHARE_CHANGE.pub_date>'2015-01-01').limit(10)
 df=finance.run_query(q)
@@ -2226,7 +2200,7 @@ print(df)
 
 ### 受限股份上市公告日期
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_LIMITED_SHARES_LIST).filter(finance.STK_LIMITED_SHARES_LIST.code==code).limit(n))
 ```
@@ -2236,9 +2210,9 @@ finance.run_query(query(finance.STK_LIMITED_SHARES_LIST).filter(finance.STK_LIMI
 **参数：**
 
 - **query(finance.STK_LIMITED_SHARES_LIST)**：表示从finance.STK_LIMITED_SHARES_LIST这张表中查询上市公司受限股份上市公告和预计解禁的日期，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[query简单教程](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376)
-    
+
 - **finance.STK_LIMITED_SHARES_LIST**：代表受限股份上市公告日期表，收录了上市公司受限股份上市公告和预计解禁的日期，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -2255,11 +2229,10 @@ finance.run_query(query(finance.STK_LIMITED_SHARES_LIST).filter(finance.STK_LIMI
     | limited_reason_id | 限售原因编码 | int | 如下 限售原因编码 |
     | limited_reason | 限售原因 | varchar(60) | 用户选择：股改限售；发行限售 |
     | trade_condition | 上市交易条件 | varchar(500) | 股份上市交易的条件限制 |
-    
+
 - **filter(finance.STK_LIMITED_SHARES_LIST.code==code)**：指定筛选条件，通过finance.STK_LIMITED_SHARES_LIST.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_LIMITED_SHARES_LIST.pub_date>='2015-01-01'，表示筛选公布日期大于等于2015年1月1日之后的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -2267,12 +2240,12 @@ finance.run_query(query(finance.STK_LIMITED_SHARES_LIST).filter(finance.STK_LIMI
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #指定查询对象为华泰证券（600276.XSHG)的受限股份上市公告日期，返回条数为10条
 q=query(finance.STK_LIMITED_SHARES_LIST).filter(finance.STK_LIMITED_SHARES_LIST.code=='601688.XSHG',finance.STK_LIMITED_SHARES_LIST.pub_date>'2018-01-01').limit(10)
 df=finance.run_query(q)
@@ -2293,7 +2266,7 @@ print(df)
 
 ### 受限股份实际解禁日期
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_LIMITED_SHARES_UNLIMIT).filter(finance.STK_LIMITED_SHARES_UNLIMIT.code==code).limit(n))
 ```
@@ -2303,9 +2276,9 @@ finance.run_query(query(finance.STK_LIMITED_SHARES_UNLIMIT).filter(finance.STK_L
 **参数：**
 
 - **query(finance.STK_LIMITED_SHARES_UNLIMIT)**：表示从finance.STK_LIMITED_SHARES_UNLIMIT这张表中查询上市公司受限股份实际解禁的日期，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_LIMITED_SHARES_UNLIMIT**：代表上市公司受限股份实际解禁表，收录了上市公司受限股份实际解禁的日期信息，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -2319,11 +2292,10 @@ finance.run_query(query(finance.STK_LIMITED_SHARES_UNLIMIT).filter(finance.STK_L
     | limited_reason_id | 限售原因编码 | int |  |
     | limited_reason | 限售原因 | varchar(60) |  |
     | actual_trade_number | 实际可流通数量 | int | 股 |
-    
+
 - **filter(finance.STK_LIMITED_SHARES_UNLIMIT.code==code)**：指定筛选条件，通过finance.STK_LIMITED_SHARES_UNLIMIT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_LIMITED_SHARES_UNLIMIT.pub_date>='2015-01-01'，表示筛选公布日期大于等于2015年1月1日之后的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -2331,12 +2303,12 @@ finance.run_query(query(finance.STK_LIMITED_SHARES_UNLIMIT).filter(finance.STK_L
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #指定查询对象为恒瑞医药（600276.XSHG)的受限股份实际解禁日期，返回条数为10条
 q=query(finance.STK_LIMITED_SHARES_UNLIMIT).filter(finance.STK_LIMITED_SHARES_UNLIMIT.code=='600276.XSHG',finance.STK_LIMITED_SHARES_UNLIMIT.pub_date>'2015-01-01').limit(10)
 df=finance.run_query(q)
@@ -2369,7 +2341,7 @@ print(df)
 
 ### 上市公司股本变动
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_CAPITAL_CHANGE).filter(finance.STK_CAPITAL_CHANGE.code==code).limit(n))
 ```
@@ -2379,9 +2351,9 @@ finance.run_query(query(finance.STK_CAPITAL_CHANGE).filter(finance.STK_CAPITAL_C
 **参数：**
 
 - **query(finance.STK_CAPITAL_CHANGE)**：表示从finance.STK_CAPITAL_CHANGE这张表中查询股票简称的变更情况，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2)，多个字段用英文逗号进行分隔；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
     **finance.STK_CAPITAL_CHANGE**：代表上市公司的股本变动表，收录了上市公司发生上市、增发、配股，转增等时间带来的股本变动情况。表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -2432,11 +2404,10 @@ finance.run_query(query(finance.STK_CAPITAL_CHANGE).filter(finance.STK_CAPITAL_C
     | individual_fund_limited | 个人或基金(受限) | decimal(20,4) | 单位：万股 |
     | other_legal_limited | 其他法人(受限) | decimal(20,4) | 单位：万股 |
     | other_limited | 其他(受限) | decimal(20,4) | 单位：万股 |
-    
+
 - **filter(finance.STK_CAPITAL_CHANGE.code==code)**：指定筛选条件，通过finance.STK_CAPITAL_CHANGE.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_CAPITAL_CHANGE.pub_date>='2015-01-01'，表示筛选公布日期大于等于2015年1月1日之后的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -2444,12 +2415,12 @@ finance.run_query(query(finance.STK_CAPITAL_CHANGE).filter(finance.STK_CAPITAL_C
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #指定查询对象为恒瑞医药（600276.XSHG)的股本变动情况，返回条数为10条
 q=query(finance.STK_CAPITAL_CHANGE).filter(finance.STK_CAPITAL_CHANGE.code=='600276.XSHG',finance.STK_CAPITAL_CHANGE.pub_date>'2015-01-01').limit(10)
 df=finance.run_query(q)
@@ -2521,13 +2492,43 @@ print(df)
 
 get_fundamentals 查询财务数据
 
-```python
+```py
 get_fundamentals(query_object, date=None, statDate=None)
 ```
 
-查询财务数据，详细的财务数据表及字段描述请点击[财务数据文档](https://www.joinquant.com/help/api/help?name=Stock#%E8%8E%B7%E5%8F%96%E5%8D%95%E5%AD%A3%E5%BA%A6%E5%B9%B4%E5%BA%A6%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE)查看，Query 对象的使用方法请参考[Query的简单教程](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376) date和statDate参数只能传入一个: - 传入date时, 查询**指定日期date收盘后所能看到的最近(对市值表来说, 最近一天, 对其他表来说, 最近一个季度)的数据**, 默认我们会查找上市公司在当前日期之前发布的数据, 不会有未来函数.不要传递当天的日期取获取估值表,pe/市值等依赖收盘价的指标是盘后更新的。 - 传入statDate时, 查询 **statDate 指定的季度或者年份的财务数据**. 注意: 1. 由于公司发布财报不及时, 一般是看不到当季度或年份的财务报表的, 回测中使用这个数据可能会有未来函数, 请注意规避. 2. 由于估值表每天更新, 当按季度或者年份查询时, 返回季度或者年份最后一天的数据 3. 由于“资产负债数据”这个表是存量性质的， 查询年度数据是返回第四季度的数据。 4. 银行业、券商、保险专项数据只有年报数据，需传入statDate参数，当传入 date 参数 或 statDate 传入季度时返回空，请自行避免未来函数。 当 date 和 statDate 都不传入时, 相当于使用 date 参数, date 的默认值下面会描述. **参数** - query_object: 一个[sqlalchemy.orm.query.Query对象](https://docs.sqlalchemy.org/en/rel_1_0/orm/query.html), 可以通过全局的 query 函数获取 Query 对象,[Query对象的简单使用教程](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376) - date: 查询日期, 一个字符串(格式类似'2015-10-15')或者[datetime.date]/[datetime.datetime]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别: 1. 回测模块: 默认值会随着回测日期变化而变化, 等于 context.current_dt 的前一天(实际生活中我们只能看到前一天的财报和市值数据, 所以要用前一天) 2. 研究模块: 使用平台财务数据的最新日期, 一般是昨天. - statDate: 财报统计的季度或者年份, 一个字符串, 有两种格式: 1. 季度: 格式是: **年 + 'q' + 季度序号**, 例如: '2015q1', '2013q4'. 2. 年份: 格式就是年份的数字, 例如: '2015', '2016'. **返回** 返回一个 [pandas.DataFrame], 每一行对应数据库返回的每一行(可能是几个表的联合查询结果的一行), 列索引是你查询的所有字段 注意： 1. 为了防止返回数据量过大, 我们每次最多返回5000行 2. 当相关股票上市前、退市后，财务数据返回各字段为空 **示例**
+查询财务数据，详细的财务数据表及字段描述请点击[财务数据文档](https://www.joinquant.com/help/api/help?name=Stock#%E8%8E%B7%E5%8F%96%E5%8D%95%E5%AD%A3%E5%BA%A6%E5%B9%B4%E5%BA%A6%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE)查看，Query 对象的使用方法请参考[Query的简单教程](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376)
 
-```python
+date和statDate参数只能传入一个:
+
+- 传入date时, 查询**指定日期date收盘后所能看到的最近(对市值表来说, 最近一天, 对其他表来说, 最近一个季度)的数据**, 默认我们会查找上市公司在当前日期之前发布的数据, 不会有未来函数.不要传递当天的日期取获取估值表,pe/市值等依赖收盘价的指标是盘后更新的。
+- 传入statDate时, 查询 **statDate 指定的季度或者年份的财务数据**. 注意:
+1. 由于公司发布财报不及时, 一般是看不到当季度或年份的财务报表的, 回测中使用这个数据可能会有未来函数, 请注意规避.
+2. 由于估值表每天更新, 当按季度或者年份查询时, 返回季度或者年份最后一天的数据
+3. 由于“资产负债数据”这个表是存量性质的， 查询年度数据是返回第四季度的数据。
+4. 银行业、券商、保险专项数据只有年报数据，需传入statDate参数，当传入 date 参数 或 statDate 传入季度时返回空，请自行避免未来函数。
+
+当 date 和 statDate 都不传入时, 相当于使用 date 参数, date 的默认值下面会描述.
+
+**参数**
+
+- query_object: 一个[sqlalchemy.orm.query.Query对象](https://docs.sqlalchemy.org/en/rel_1_0/orm/query.html), 可以通过全局的 query 函数获取 Query 对象,[Query对象的简单使用教程](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376)
+- date: 查询日期, 一个字符串(格式类似'2015-10-15')或者[datetime.date]/[datetime.datetime]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别:
+1. 回测模块: 默认值会随着回测日期变化而变化, 等于 context.current_dt 的前一天(实际生活中我们只能看到前一天的财报和市值数据, 所以要用前一天)
+2. 研究模块: 使用平台财务数据的最新日期, 一般是昨天.
+
+- statDate: 财报统计的季度或者年份, 一个字符串, 有两种格式:
+1. 季度: 格式是: **年 + 'q' + 季度序号**, 例如: '2015q1', '2013q4'.
+2. 年份: 格式就是年份的数字, 例如: '2015', '2016'.
+
+**返回**
+返回一个 [pandas.DataFrame], 每一行对应数据库返回的每一行(可能是几个表的联合查询结果的一行), 列索引是你查询的所有字段
+注意：
+1. 为了防止返回数据量过大, 我们每次最多返回5000行
+2. 当相关股票上市前、退市后，财务数据返回各字段为空
+
+**示例**
+
+```py
 # 查询'000001.XSHE'的所有市值数据, 时间是2015-10-15
 q = query(
     valuation
@@ -2539,7 +2540,7 @@ df = get_fundamentals(q, '2015-10-15')
 log.info(df['market_cap'][0])
 ```
 
-```python
+```py
 # 获取多只股票在某一日期的市值, 利润
 df = get_fundamentals(query(
         valuation, income
@@ -2549,7 +2550,7 @@ df = get_fundamentals(query(
     ), date='2015-10-15')
 ```
 
-```python
+```py
 # 选出所有的总市值大于1000亿元, 市盈率小于10, 营业总收入大于200亿元的股票
 df = get_fundamentals(query(
         valuation.code, valuation.market_cap, valuation.pe_ratio, income.total_operating_revenue
@@ -2566,7 +2567,7 @@ df = get_fundamentals(query(
     ), date='2015-10-15')
 ```
 
-```python
+```py
 # 使用 or_ 函数: 查询总市值大于1000亿元 **或者** 市盈率小于10的股票
 from sqlalchemy.sql.expression import or_
 get_fundamentals(query(
@@ -2579,7 +2580,7 @@ get_fundamentals(query(
     ))
 ```
 
-```python
+```py
 # 查询平安银行2014年四个季度的季报, 放到数组中
 q = query(
         income.statDate,
@@ -2594,7 +2595,7 @@ q = query(
 rets = [get_fundamentals(q, statDate='2014q'+str(i)) for i in range(1, 5)]
 ```
 
-```python
+```py
 # 查询平安银行2014年的年报
 q = query(
         income.statDate,
@@ -2610,13 +2611,31 @@ ret = get_fundamentals(q, statDate='2014')
 
 get_fundamentals_continuously 查询多日的财务数据
 
-```python
+```py
 get_fundamentals_continuously(query_object, end_date=None,count=None, panel=True)
 ```
 
-查询多日财务数据，详细的财务数据表及字段描述请点击[财务数据文档](https://www.joinquant.com/help/api/help?name=Stock#%E8%8E%B7%E5%8F%96%E5%8D%95%E5%AD%A3%E5%BA%A6%E5%B9%B4%E5%BA%A6%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE)查看，Query 对象的使用方法请参考[Query的简单教程](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376) **参数** - query_object: 一个[sqlalchemy.orm.query.Query对象](https://docs.sqlalchemy.org/en/rel_1_0/orm/query.html), 可以通过全局的 query 函数获取 Query 对象,[Query对象的简单使用教程](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376) - end_date: 查询日期, 一个字符串(格式类似'2015-10-15')或者[datetime.date]/[datetime.datetime]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别: 1. 回测模块: 默认值会随着回测日期变化而变化, 等于 context.current_dt 的前一天(实际生活中我们只能看到前一天的财报和市值数据, 所以要用前一天) 2. 研究模块: 使用平台财务数据的最新日期, 一般是昨天. - count: 获取 end_date 前 count 个日期的数据 - panel：在pandas 0.24版后，panel被彻底移除。获取多标的数据时建议设置panel为False，返回等效的dataframe **返回** - 默认panel=True，返回一个 pandas.Panel； - 建议设置panel为False，返回等效的dataframe； **出于性能方面考虑，我们做出了返回总条数不超过5000条的限制。 也就是说：查询的股票数量\*count 要小于5000。 否则，返回的数据会不完整。** **示例**
+查询多日财务数据，详细的财务数据表及字段描述请点击[财务数据文档](https://www.joinquant.com/help/api/help?name=Stock#%E8%8E%B7%E5%8F%96%E5%8D%95%E5%AD%A3%E5%BA%A6%E5%B9%B4%E5%BA%A6%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE)查看，Query 对象的使用方法请参考[Query的简单教程](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376)
 
-```python
+**参数**
+
+- query_object: 一个[sqlalchemy.orm.query.Query对象](https://docs.sqlalchemy.org/en/rel_1_0/orm/query.html), 可以通过全局的 query 函数获取 Query 对象,[Query对象的简单使用教程](https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376)
+- end_date: 查询日期, 一个字符串(格式类似'2015-10-15')或者[datetime.date]/[datetime.datetime]对象, 可以是None, 使用默认日期. 这个默认日期在回测和研究模块上有点差别:
+1. 回测模块: 默认值会随着回测日期变化而变化, 等于 context.current_dt 的前一天(实际生活中我们只能看到前一天的财报和市值数据, 所以要用前一天)
+2. 研究模块: 使用平台财务数据的最新日期, 一般是昨天.
+
+- count: 获取 end_date 前 count 个日期的数据
+- panel：在pandas 0.24版后，panel被彻底移除。获取多标的数据时建议设置panel为False，返回等效的dataframe
+
+**返回**
+- 默认panel=True，返回一个 pandas.Panel；
+- 建议设置panel为False，返回等效的dataframe；
+
+**出于性能方面考虑，我们做出了返回总条数不超过5000条的限制。 也就是说：查询的股票数量\*count 要小于5000。 否则，返回的数据会不完整。**
+
+**示例**
+
+```py
 >>> q = query(valuation.turnover_ratio,
               valuation.market_cap,
               indicator.eps
@@ -2666,11 +2685,37 @@ get_history_fundamentals 获取多个季度/年度的历史财务数据
 
 获取多个季度/年度的三大财务报表和财务指标数据. 可指定单季度数据, 也可以指定年度数据。可以指定观察日期, 也可以指定最后一个报告期的结束日期
 
-```python
+```py
 get_history_fundamentals(security, fields, watch_date=None, stat_date=None, count=1, interval='1q', stat_by_year=False)
 ```
 
-##### **参数** - security：股票代码或者股票代码列表。 - fields：要查询的财务数据的列表, 季度数据和年度数据可选择的列不同。示例： [balance.cash_equivalents, cash_flow.net_deposit_increase, income.total_operating_revenue] - watch_date：观察日期, 如果指定, 将返回 watch_date 日期前(包含该日期)发布的报表数据 - stat_date：统计日期, 可以是 '2019'/'2019q1'/'2018q4' 格式, 如果指定, 将返回 stat_date 对应报告期及之前的历史报告期的报表数据 - watch_date 和 stat_date 只能指定一个, 而且必须指定一个 - 如果没有 stat_date 指定报告期的数据, 则该数据会缺失一行. - count：查询历史的多个报告期时, 指定的报告期数量. 如果股票历史报告期的数量小于 count, 则该股票返回的数据行数将小于 count - interval：查询多个报告期数据时, 指定报告期间隔, 可选值: '1q'/'1y', 表示间隔一季度或者一年, 举例说明: - stat_date='2019q1', interval='1q', count=4, 将返回 2018q2,2018q3,2018q4,2019q1 的数据 - stat_date='2019q1', interval='1y', count=4, 将返回 2016q1,2017q1,2018q1,2019q1 的数据 - stat_by_year=True, stat_date='2018', interval='1y', count=4 将返回 2015/2016/2017/2018 年度的年报数据 - stat_by_year：bool, 是否返回年度数据. 默认返回的按季度统计的数据(比如income表中只有单个季度的利润). - 如果是True： - interval必须是 '1y' - 如果指定了 stat_date 的话, stat_date 必须是一个代表年份整数、字符串, 表明统计的年份，比如2019, "2019"。但不能是"20191q"这种格式。 - fields 可以选择 balance/income/cash_flow/indicator/bank_indicator/security_indicator/insurance_indicator 表中的列 - 如果是False： fields只能选择balance/income/cash_flow/indicator 表中的列 ##### **返回值** pandas.DataFrame, 数据库查询结果. 数据格式同 get_fundamentals. 每个股票每个报告期(一季度或者一年)的数据占用一行. ##### **注意** - 不支持valuation市值表 - 推荐用户对结果使用pandas的[groupby](https://pandas.pydata.org/pandas-docs/version/0.22/generated/pandas.DataFrame.groupby.html)方法来进行分组分析数据 - 每次最多返回50000条数据，更多数据需要根据标的或者时间分多次获取 ##### **示例**
+##### **参数**
+- security：股票代码或者股票代码列表。
+- fields：要查询的财务数据的列表, 季度数据和年度数据可选择的列不同。示例：
+[balance.cash_equivalents, cash_flow.net_deposit_increase, income.total_operating_revenue]
+- watch_date：观察日期, 如果指定, 将返回 watch_date 日期前(包含该日期)发布的报表数据
+- stat_date：统计日期, 可以是 '2019'/'2019q1'/'2018q4' 格式, 如果指定, 将返回 stat_date 对应报告期及之前的历史报告期的报表数据
+    - watch_date 和 stat_date 只能指定一个, 而且必须指定一个
+    - 如果没有 stat_date 指定报告期的数据, 则该数据会缺失一行.
+- count：查询历史的多个报告期时, 指定的报告期数量. 如果股票历史报告期的数量小于 count, 则该股票返回的数据行数将小于 count
+- interval：查询多个报告期数据时, 指定报告期间隔, 可选值: '1q'/'1y', 表示间隔一季度或者一年, 举例说明:
+    - stat_date='2019q1', interval='1q', count=4, 将返回 2018q2,2018q3,2018q4,2019q1 的数据
+    - stat_date='2019q1', interval='1y', count=4, 将返回 2016q1,2017q1,2018q1,2019q1 的数据
+    - stat_by_year=True, stat_date='2018', interval='1y', count=4 将返回 2015/2016/2017/2018 年度的年报数据
+- stat_by_year：bool, 是否返回年度数据. 默认返回的按季度统计的数据(比如income表中只有单个季度的利润).
+    - 如果是True：
+        - interval必须是 '1y'
+        - 如果指定了 stat_date 的话, stat_date 必须是一个代表年份整数、字符串, 表明统计的年份，比如2019, "2019"。但不能是"20191q"这种格式。
+        - fields 可以选择 balance/income/cash_flow/indicator/bank_indicator/security_indicator/insurance_indicator 表中的列
+    - 如果是False：
+        fields只能选择balance/income/cash_flow/indicator 表中的列
+##### **返回值**
+pandas.DataFrame, 数据库查询结果. 数据格式同 get_fundamentals. 每个股票每个报告期(一季度或者一年)的数据占用一行.
+##### **注意**
+- 不支持valuation市值表
+- 推荐用户对结果使用pandas的[groupby](https://pandas.pydata.org/pandas-docs/version/0.22/generated/pandas.DataFrame.groupby.html)方法来进行分组分析数据
+- 每次最多返回50000条数据，更多数据需要根据标的或者时间分多次获取
+##### **示例**
 
 ```
 from jqdata import *
@@ -2684,14 +2729,40 @@ print(df.groupby('code').mean())
 
 get_valuation 获取多个标的在指定交易日范围内的市值表数据
 
-```python
+```py
 from jqdata import *
 get_valuation(security, start_date=None, end_date=None, fields=None, count=None)
 ```
 
-获取多个标的在指定交易日范围内的市值表数据 ##### **参数** - security: 标的code字符串列表或者单个标的字符串 - end_date: 查询结束时间 - start_date: 查询开始时间，不能与count共用 - count: 表示往前查询每一个标的count个交易日的数据，如果期间标的停牌，则该标的返回的市值数据数量小于count - fields: 财务数据中市值表的字段，返回结果中总会包含code、day字段，可用字段如下： |code| 股票代码 带后缀.XSHE/.XSHG| |day |日期 取数据的日期| | capitalization |总股本(万股)| |circulating_cap| 流通股本(万股)| |market_cap |总市值(亿元)| |circulating_market_cap| 流通市值(亿元)| |turnover_ratio |换手率(%)| |pe_ratio |市盈率(PE, TTM)| |pe_ratio_lyr |市盈率(PE)| |pb_ratio |市净率(PB)| | ps_ratio| 市销率(PS, TTM)| |pcf_ratio| 市现率(PCF, 现金净流量TTM)| ##### **返回值** - 返回一个dataframe，索引默认是pandas的整数索引，返回的结果中总会包含code、day字段。 #### **注意** - 每次最多返回5000条数据，更多数据需要根据标的或者时间分多次获取 - 不要获取当天的估值数据,pe/市值等依赖收盘价的指标是盘后更新的。 ##### **示例**
+获取多个标的在指定交易日范围内的市值表数据
 
-```python
+##### **参数**
+- security: 标的code字符串列表或者单个标的字符串
+- end_date: 查询结束时间
+- start_date: 查询开始时间，不能与count共用
+- count: 表示往前查询每一个标的count个交易日的数据，如果期间标的停牌，则该标的返回的市值数据数量小于count
+- fields: 财务数据中市值表的字段，返回结果中总会包含code、day字段，可用字段如下：
+|code| 股票代码 带后缀.XSHE/.XSHG|
+|day |日期 取数据的日期|
+| capitalization |总股本(万股)|
+|circulating_cap| 流通股本(万股)|
+|market_cap |总市值(亿元)|
+|circulating_market_cap| 流通市值(亿元)|
+|turnover_ratio |换手率(%)|
+|pe_ratio |市盈率(PE, TTM)|
+|pe_ratio_lyr |市盈率(PE)|
+|pb_ratio |市净率(PB)|
+| ps_ratio| 市销率(PS, TTM)|
+|pcf_ratio| 市现率(PCF, 现金净流量TTM)|
+
+##### **返回值**
+- 返回一个dataframe，索引默认是pandas的整数索引，返回的结果中总会包含code、day字段。
+#### **注意**
+- 每次最多返回5000条数据，更多数据需要根据标的或者时间分多次获取
+- 不要获取当天的估值数据,pe/市值等依赖收盘价的指标是盘后更新的。
+##### **示例**
+
+```py
 from jqdata import *
 # 传入单个标的
 df1 = get_valuation('000001.XSHE', end_date="2019-11-18", count=3, fields=['capitalization', 'market_cap'])
@@ -2988,7 +3059,7 @@ print(df2)
 
 ### 审计意见(新上线数据)
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_AUDIT_OPINION).filter(finance.STK_AUDIT_OPINION.code==code).limit(n))
 ```
@@ -2998,9 +3069,8 @@ finance.run_query(query(finance.STK_AUDIT_OPINION).filter(finance.STK_AUDIT_OPIN
 **参数：**
 
 - **query(finance.STK_AUDIT_OPINION)**：表示从finance.STK_AUDIT_OPINION这张表中查询上市公司审计意见的所有字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - 表结构和字段信息如下：
-    
 
 | 字段 | 名称 | 类型 | 注释 |
 | --- | --- | --- | --- |
@@ -3027,9 +3097,8 @@ finance.run_query(query(finance.STK_AUDIT_OPINION).filter(finance.STK_AUDIT_OPIN
 | 11 | 无保留带持续经营重大不确定性 |
 
 - **filter(finance.STK_AUDIT_OPINION.code==code)**：指定筛选条件，通过finance.STK_AUDIT_OPINION.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_AUDIT_OPINION.pub_date>='2015-01-01'，表示公告日期在2015年1月1日之后发布的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -3037,12 +3106,12 @@ finance.run_query(query(finance.STK_AUDIT_OPINION).filter(finance.STK_AUDIT_OPIN
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询贵州茅台2015年之后公布的审计意见信息，限定返回条数为10条
 from jqdata import finance
 q=query(finance.STK_AUDIT_OPINION).filter(finance.STK_AUDIT_OPINION.code=='600519.XSHG',finance.STK_AUDIT_OPINION.pub_date>='2015-01-01').limit(10)
@@ -3076,7 +3145,7 @@ print(df)
 
 ### 定期报告预约披露时间表(新上线数据)
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_REPORT_DISCLOSURE).filter(finance.STK_REPORT_DISCLOSURE.code==code).limit(n))
 ```
@@ -3086,9 +3155,8 @@ finance.run_query(query(finance.STK_REPORT_DISCLOSURE).filter(finance.STK_REPORT
 **参数：**
 
 - **query(finance.STK_REPORT_DISCLOSURE)**：表示从finance.STK_REPORT_DISCLOSURE这张表中查询所有字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - 表结构和字段信息如下：
-    
 
 | 字段 | 名称 | 类型 | 注释 |
 | --- | --- | --- | --- |
@@ -3101,9 +3169,8 @@ finance.run_query(query(finance.STK_REPORT_DISCLOSURE).filter(finance.STK_REPORT
 | pub_date | 实际披露日 | DATE |  |
 
 - **filter(finance.STK_REPORT_DISCLOSURE.code==code)**：指定筛选条件，通过finance.STK_REPORT_DISCLOSURE.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_REPORT_DISCLOSURE.pub_date>='2015-01-01'，表示公告日期在2015年1月1日之后发布的数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -3111,12 +3178,12 @@ finance.run_query(query(finance.STK_REPORT_DISCLOSURE).filter(finance.STK_REPORT
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询贵州茅台2019年之后的数据，限定返回条数为10条
 from jqdata import finance
 q=query(finance.STK_REPORT_DISCLOSURE).filter(finance.STK_REPORT_DISCLOSURE.code=='600519.XSHG',
@@ -3151,7 +3218,7 @@ print(df)
 
 ### 业绩预告
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_FIN_FORCAST).filter(finance.STK_FIN_FORCAST.code==code).limit(n))
 ```
@@ -3161,11 +3228,11 @@ finance.run_query(query(finance.STK_FIN_FORCAST).filter(finance.STK_FIN_FORCAST.
 **参数：**
 
 - **query(finance.STK_FIN_FORCAST)**：表示从finance.STK_FIN_FORCAST这张表中查询上市公司业绩报告的字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - 以下"净利润" 一般披露为归母净利润
-    
+
 - **finance.STK_FIN_FORCAST**：代表上市公司业绩预告表，收录了上市公司的业绩预告信息，表结构和字段信息如下：
-    
+
     | 字段 | 名称 | 类型 | 注释 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -3183,18 +3250,18 @@ finance.run_query(query(finance.STK_FIN_FORCAST).filter(finance.STK_FIN_FORCAST.
     | profit_ratio_min | 预告净利润变动幅度(下限) | decimal(10,4) | 单位：% |
     | profit_ratio_max | 预告净利润变动幅度(上限) | decimal(10,4) | 单位：% |
     | content | 预告内容 | varchar(2048) |  |
-    
+
     **预告期类型编码**
-    
+
     | 预告期编码 | 预告期类型 |
     | --- | --- |
     | 304001 | 一季度预告 |
     | 304002 | 中报预告 |
     | 304003 | 三季度预告 |
     | 304004 | 四季度预告 |
-    
+
     **业绩类型编码**
-    
+
     | 业绩类型编码 | 业绩类型 |
     | --- | --- |
     | 305001 | 业绩大幅上升(50%以上) |
@@ -3210,11 +3277,10 @@ finance.run_query(query(finance.STK_FIN_FORCAST).filter(finance.STK_FIN_FORCAST.
     | 305011 | 预计减亏 |
     | 305012 | 不确定 |
     | 305013 | 取消预测 |
-    
+
 - **filter(finance.STK_FIN_FORCAST.code==code)**：指定筛选条件，通过finance.STK_FIN_FORCAST.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_FIN_FORCAST.pub_date>='2015-01-01'，表示公告日期在2015年1月1日之后发布的业绩预告；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -3222,12 +3288,12 @@ finance.run_query(query(finance.STK_FIN_FORCAST).filter(finance.STK_FIN_FORCAST.
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询贵州茅台2015年之后公布的业绩预告信息，限定返回条数为10条
 from jqdata import finance
 q=query(finance.STK_FIN_FORCAST).filter(finance.STK_FIN_FORCAST.code=='600519.XSHG',finance.STK_FIN_FORCAST.pub_date>='2015-01-01').limit(10)
@@ -3249,7 +3315,7 @@ print(df)
 
 ### 业绩快报(新上线数据)
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_PERFORMANCE_LETTERS).filter(finance.STK_PERFORMANCE_LETTERS.code==code).limit(n))
 ```
@@ -3259,9 +3325,8 @@ finance.run_query(query(finance.STK_PERFORMANCE_LETTERS).filter(finance.STK_PERF
 **参数：**
 
 - **query(finance.STK_PERFORMANCE_LETTERS)**：表示从finance.STK_PERFORMANCE_LETTERS这张表中查询上市公司业绩报告的字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.STK_PERFORMANCE_LETTERS**：代表上市公司业绩预告表，收录了上市公司的业绩预告信息，表结构和字段信息如下：
-    
 
 | 字段 | 名称 | 类型 | 注释 |
 | --- | --- | --- | --- |
@@ -3285,9 +3350,8 @@ finance.run_query(query(finance.STK_PERFORMANCE_LETTERS).filter(finance.STK_PERF
 | weight_roe | 净资产收益(加权) | DECIMAL(20, 4) | 披露值 |
 
 - **filter(finance.STK_PERFORMANCE_LETTERS.code==code)**：指定筛选条件，通过finance.STK_PERFORMANCE_LETTERS.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_PERFORMANCE_LETTERS.pub_date>='2015-01-01'，表示公告日期在2015年1月1日之后发布的业绩快报；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -3295,12 +3359,12 @@ finance.run_query(query(finance.STK_PERFORMANCE_LETTERS).filter(finance.STK_PERF
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 from jqdata import *
 a=finance.run_query(query(finance.STK_PERFORMANCE_LETTERS).filter(finance.STK_PERFORMANCE_LETTERS.code=='000001.XSHE').limit(3))
 print(a)
@@ -3343,9 +3407,9 @@ finance.run_query(query(finance.STK_INCOME_STATEMENT).filter(finance.STK_INCOME_
 **参数：**
 
 - **query(finance.STK_INCOME_STATEMENT)**：表示从finance.STK_INCOME_STATEMENT这张表中查询上市公司定期公告中公布的合并利润表信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.STK_INCOME_STATEMENT**：代表上市公司合并利润表，收录了上市公司定期公告中公布的合并利润表数据，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -3415,9 +3479,9 @@ finance.run_query(query(finance.STK_INCOME_STATEMENT).filter(finance.STK_INCOME_
     | interest_cost_fin | 财务费用-利息费用 | decimal(20,4) |  |
     | interest_income_fin | 财务费用-利息收入 | decimal(20,4) |  |
     | rd_expenses | 研发费用 | decimal(20,4) |  |
-    
+
     **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -3426,11 +3490,10 @@ finance.run_query(query(finance.STK_INCOME_STATEMENT).filter(finance.STK_INCOME_
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - **filter(finance.STK_INCOME_STATEMENT.code==code)**：指定筛选条件，通过finance.STK_INCOME_STATEMENT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_INCOME_STATEMENT.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日上市公司公布的合并利润表信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -3438,12 +3501,12 @@ finance.run_query(query(finance.STK_INCOME_STATEMENT).filter(finance.STK_INCOME_
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询贵州茅台2015年之后公告的合并利润表数据，取出合并利润表中本期的营业总收入，归属于母公司的净利润
 from jqdata import finance
 q=query(finance.STK_INCOME_STATEMENT.company_name,
@@ -3505,9 +3568,9 @@ finance.run_query(query(finance.STK_INCOME_STATEMENT_PARENT).filter(finance.STK_
 **参数：**
 
 - **query(finance.STK_INCOME_STATEMENT_PARENT)**：表示从finance.STK_INCOME_STATEMENT_PARENT这张表中查询上市公司母公司利润表的字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.STK_INCOME_STATEMENT_PARENT**：代表上市公司母公司利润表，收录了上市公司母公司的利润信息，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -3577,9 +3640,9 @@ finance.run_query(query(finance.STK_INCOME_STATEMENT_PARENT).filter(finance.STK_
     | interest_cost_fin | 财务费用-利息费用 | decimal(20,4) |  |
     | interest_income_fin | 财务费用-利息收入 | decimal(20,4) |  |
     | rd_expenses | 研发费用 | decimal(20,4) |  |
-    
+
     **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -3588,11 +3651,10 @@ finance.run_query(query(finance.STK_INCOME_STATEMENT_PARENT).filter(finance.STK_
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - **filter(finance.STK_INCOME_STATEMENT_PARENT.code==code)**：指定筛选条件，通过finance.STK_INCOME_STATEMENT_PARENT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_INCOME_STATEMENT_PARENT.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日上市公司公布的母公司利润表信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -3600,12 +3662,12 @@ finance.run_query(query(finance.STK_INCOME_STATEMENT_PARENT).filter(finance.STK_
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询贵州茅台2015年之后公告的母公司利润表数据，取出母公司利润表中本期的营业总收入，归属于母公司所有者的净利润
 from jqdata import finance
 q=query(finance.STK_INCOME_STATEMENT_PARENT.company_name,
@@ -3655,7 +3717,7 @@ print(df)
 
 ### 合并现金流量表
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.STK_CASHFLOW_STATEMENT).filter(finance.STK_CASHFLOW_STATEMENT.code==code).limit(n))
 ```
@@ -3665,9 +3727,9 @@ finance.run_query(query(finance.STK_CASHFLOW_STATEMENT).filter(finance.STK_CASHF
 **参数：**
 
 - **query(finance.STK_CASHFLOW_STATEMENT)**：表示从finance.STK_CASHFLOW_STATEMENT这张表中查询上市公司定期公告中公布的合并现金流量表信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.STK_CASHFLOW_STATEMENT**：代表上市公司合并现金流量表，收录了上市公司定期公告中公布的合并现金流量表数据，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -3760,9 +3822,9 @@ finance.run_query(query(finance.STK_CASHFLOW_STATEMENT).filter(finance.STK_CASHF
     | proceeds_from_sub_to_mino_s | 子公司支付给少数股东的股利、利润 | decimal(20,4) |  |
     | investment_property_depreciation | 投资性房地产的折旧及摊销 | decimal(20,4) |  |
     | credit_impairment_loss | 信用减值损失(现金流量表补充科目) | decimal(20,4) |  |
-    
+
     **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -3771,11 +3833,10 @@ finance.run_query(query(finance.STK_CASHFLOW_STATEMENT).filter(finance.STK_CASHF
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - **filter(finance.STK_CASHFLOW_STATEMENT.code==code)**：指定筛选条件，通过finance.STK_CASHFLOW_STATEMENT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_CASHFLOW_STATEMENT.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日上市公司合并现金流量表数据；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -3783,12 +3844,12 @@ finance.run_query(query(finance.STK_CASHFLOW_STATEMENT).filter(finance.STK_CASHF
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询贵州茅台2015年之后公告的合并现金流量表数据，取出本期的经营活动现金流量净额，投资活动现金流量净额，以及筹资活动现金流量净额
 from jqdata import *
 q=query(finance.STK_CASHFLOW_STATEMENT.company_name,
@@ -3849,9 +3910,9 @@ finance.run_query(query(finance.STK_CASHFLOW_STATEMENT_PARENT).filter(finance.ST
 **参数：**
 
 - **query(finance.STK_CASHFLOW_STATEMENT_PARENT)**：表示从finance.STK_CASHFLOW_STATEMENT_PARENT这张表中查询上市公司定期公告中公布的母公司现金流量表信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.STK_CASHFLOW_STATEMENT_PARENT**：代表上市公司母公司现金流量表，收录了上市公司定期公告中公布的母公司现金流量表数据，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -3944,9 +4005,9 @@ finance.run_query(query(finance.STK_CASHFLOW_STATEMENT_PARENT).filter(finance.ST
     | proceeds_from_sub_to_mino_s | 子公司支付给少数股东的股利、利润 | decimal(20,4) |  |
     | investment_property_depreciation | 投资性房地产的折旧及摊销 | decimal(20,4) |  |
     | credit_impairment_loss | 信用减值损失(现金流量表补充科目) | decimal(20,4) |  |
-    
+
     **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -3955,11 +4016,10 @@ finance.run_query(query(finance.STK_CASHFLOW_STATEMENT_PARENT).filter(finance.ST
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - filter(finance.STK_CASHFLOW_STATEMENT_PARENT.code==code)**：指定筛选条件，通过finance.STK_CASHFLOW_STATEMENT_PARENT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_CASHFLOW_STATEMENT_PARENT.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日上市公司公布的母公司现金流量表信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -3967,12 +4027,12 @@ finance.run_query(query(finance.STK_CASHFLOW_STATEMENT_PARENT).filter(finance.ST
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询贵州茅台2015年之后公告的母公司现金流量表数据，取出本期的经营活动现金流量净额，投资活动现金流量净额，以及筹资活动现金流量净额
 from jqdata import *
 q=query(finance.STK_CASHFLOW_STATEMENT_PARENT.company_name,
@@ -4033,9 +4093,9 @@ finance.run_query(query(finance.STK_BALANCE_SHEET).filter(finance.STK_BALANCE_SH
 **参数：**
 
 - **query(finance.STK_BALANCE_SHEET)**：表示从finance.STK_BALANCE_SHEET这张表中查询上市公司定期公告中公布的合并资产负债表信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.STK_BALANCE_SHEET**：代表上市公司合并资产负债表信息，收录了上市公司定期公告中公布的合并资产负债表数据，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -4162,9 +4222,9 @@ finance.run_query(query(finance.STK_BALANCE_SHEET).filter(finance.STK_BALANCE_SH
     | bill_and_account_payable | 应付票据及应付账款 | decimal(20,4) |  |
     | bill_and_account_receivable | 应收票据及应收账款 | decimal(20,4) |  |
     | lease_liability | 租赁负债 | decimal(20,4) |  |
-    
+
 - **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -4173,11 +4233,10 @@ finance.run_query(query(finance.STK_BALANCE_SHEET).filter(finance.STK_BALANCE_SH
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - **filter(finance.STK_BALANCE_SHEET.code==code)**：指定筛选条件，通过finance.STK_BALANCE_SHEET.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_BALANCE_SHEET.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日上市公司公布的合并资产负债表信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -4185,12 +4244,12 @@ finance.run_query(query(finance.STK_BALANCE_SHEET).filter(finance.STK_BALANCE_SH
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询贵州茅台2015年之后公告的合并资产负债表数据，取出本期的货币资金，总资产和总负债
 from jqdata import *
 q=query(finance.STK_BALANCE_SHEET.company_name,
@@ -4252,9 +4311,9 @@ finance.run_query(query(finance.STK_BALANCE_SHEET_PARENT).filter(finance.STK_BAL
 **参数：**
 
 - **query(finance.STK_BALANCE_SHEET_PARENT)**：表示从finance.STK_BALANCE_SHEET_PARENT这张表中查询上市公司定期公告中公布的母公司资产负债表信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.STK_BALANCE_SHEET_PARENT**：代表上市公司母公司资产负债表信息，收录了上市公司定期公告中公布的母公司资产负债表数据，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -4380,9 +4439,9 @@ finance.run_query(query(finance.STK_BALANCE_SHEET_PARENT).filter(finance.STK_BAL
     | bill_and_account_payable | 应付票据及应付账款 | decimal(20,4) |  |
     | bill_and_account_receivable | 应收票据及应收账款 | decimal(20,4) |  |
     | lease_liability | 租赁负债 | decimal(20,4) |  |
-    
+
 - **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -4391,11 +4450,10 @@ finance.run_query(query(finance.STK_BALANCE_SHEET_PARENT).filter(finance.STK_BAL
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - **filter(finance.STK_BALANCE_SHEET_PARENT.code==code)**：指定筛选条件，通过finance.STK_BALANCE_SHEET_PARENT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.STK_BALANCE_SHEET_PARENT.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日上市公司公布的母公司资产负债表信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -4403,12 +4461,12 @@ finance.run_query(query(finance.STK_BALANCE_SHEET_PARENT).filter(finance.STK_BAL
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询贵州茅台2015年之后公告的母公司资产负债表数据，取出本期的货币资金，总资产和总负债
 from jqdata import *
 q=query(finance.STK_BALANCE_SHEET_PARENT.company_name,
@@ -4472,9 +4530,9 @@ finance.run_query(query(finance.FINANCE_INCOME_STATEMENT).filter(finance.FINANCE
 **参数：**
 
 - **query(finance.FINANCE_INCOME_STATEMENT)**：表示从finance.FINANCE_INCOME_STATEMENT这张表中查询金融类上市公司合并利润表的字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.FINANCE_INCOME_STATEMENT**：代表金融类上市公司合并利润表，收录了金融类上市公司的合并利润表，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -4547,9 +4605,9 @@ finance.run_query(query(finance.FINANCE_INCOME_STATEMENT).filter(finance.FINANCE
     | sust_operate_net_profit | 持续经营净利润 | decimal(20,4) |  |
     | discon_operate_net_profit | 终止经营净利润 | decimal(20,4) |  |
     | credit_impairment_loss | 信用减值损失 | decimal(20,4) |  |
-    
+
 - **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -4558,11 +4616,10 @@ finance.run_query(query(finance.FINANCE_INCOME_STATEMENT).filter(finance.FINANCE
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - filter(finance.FINANCE_INCOME_STATEMENT.code==code)**：指定筛选条件，通过finance.FINANCE_INCOME_STATEMENT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.FINANCE_INCOME_STATEMENT.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日金融类上市公司公布的合并利润表信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -4570,8 +4627,8 @@ finance.run_query(query(finance.FINANCE_INCOME_STATEMENT).filter(finance.FINANCE
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
@@ -4682,9 +4739,9 @@ finance.run_query(query(finance.FINANCE_INCOME_STATEMENT_PARENT).filter(finance.
 **参数：**
 
 - **query(finance.FINANCE_INCOME_STATEMENT_PARENT)**：表示从finance.FINANCE_INCOME_STATEMENT_PARENT这张表中查询金融类上市公司母公司利润表的字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.FINANCE_INCOME_STATEMENT_PARENT**：代表金融类上市公司母公司利润表，收录了金融类上市公司的母公司利润表，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -4757,9 +4814,9 @@ finance.run_query(query(finance.FINANCE_INCOME_STATEMENT_PARENT).filter(finance.
     | sust_operate_net_profit | 持续经营净利润 | decimal(20,4) |  |
     | discon_operate_net_profit | 终止经营净利润 | decimal(20,4) |  |
     | credit_impairment_loss | 信用减值损失 | decimal(20,4) |  |
-    
+
 - **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -4768,11 +4825,10 @@ finance.run_query(query(finance.FINANCE_INCOME_STATEMENT_PARENT).filter(finance.
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - filter(finance.FINANCE_INCOME_STATEMENT_PARENT.code==code)**：指定筛选条件，通过finance.FINANCE_INCOME_STATEMENT_PARENT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.FINANCE_INCOME_STATEMENT_PARENT.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日金融类上市公司公布的母公司利润表信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -4780,8 +4836,8 @@ finance.run_query(query(finance.FINANCE_INCOME_STATEMENT_PARENT).filter(finance.
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
@@ -4884,7 +4940,7 @@ print(df)
 
 #### 金融类合并现金流量表2007版
 
-```python
+```py
 from jqdata import finance
 finance.run_query(query(finance.FINANCE_CASHFLOW_STATEMENT).filter(finance.FINANCE_CASHFLOW_STATEMENT.code==code).limit(n))
 ```
@@ -4894,9 +4950,9 @@ finance.run_query(query(finance.FINANCE_CASHFLOW_STATEMENT).filter(finance.FINAN
 **参数：**
 
 - **query(finance.FINANCE_CASHFLOW_STATEMENT)**：表示从finance.FINANCE_CASHFLOW_STATEMENT这张表中查询金融类上市公司合并现金流量的字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.FINANCE_CASHFLOW_STATEMENT**：代表金融类上市公司合并现金流量表，收录了金融类上市公司的合并现金流量，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -5005,9 +5061,9 @@ finance.run_query(query(finance.FINANCE_CASHFLOW_STATEMENT).filter(finance.FINAN
     | net_cash_paid_to_proxy_secu | 代理买卖证券支付的现金净额 | decimal(20,4) |  |
     | net_dec_in_placements | 拆入资金净减少额 | decimal(20,4) |  |
     | credit_impairment_loss | 信用减值损失(现金流量表补充科目) | decimal(20,4) |  |
-    
+
 - **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -5016,11 +5072,10 @@ finance.run_query(query(finance.FINANCE_CASHFLOW_STATEMENT).filter(finance.FINAN
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - **filter(finance.FINANCE_CASHFLOW_STATEMENT.code==code)**：指定筛选条件，通过finance.FINANCE_CASHFLOW_STATEMENT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.FINANCE_CASHFLOW_STATEMENT.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日金融类上市公司公布的合并现金流量信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -5028,8 +5083,8 @@ finance.run_query(query(finance.FINANCE_CASHFLOW_STATEMENT).filter(finance.FINAN
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
@@ -5094,9 +5149,9 @@ finance.run_query(query(finance.FINANCE_CASHFLOW_STATEMENT_PARENT).filter(financ
 **参数：**
 
 - **query(finance.FINANCE_CASHFLOW_STATEMENT_PARENT)**：表示从finance.FINANCE_CASHFLOW_STATEMENT_PARENT这张表中查询金融类上市公司母公司现金流量的字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.FINANCE_CASHFLOW_STATEMENT_PARENT**：代表金融类上市公司母公司现金流量表，收录了金融类上市公司的母公司现金流量，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -5205,9 +5260,9 @@ finance.run_query(query(finance.FINANCE_CASHFLOW_STATEMENT_PARENT).filter(financ
     | net_cash_paid_to_proxy_secu | 代理买卖证券支付的现金净额 | decimal(20,4) |  |
     | net_dec_in_placements | 拆入资金净减少额 | decimal(20,4) |  |
     | credit_impairment_loss | 信用减值损失(现金流量表补充科目) | decimal(20,4) |  |
-    
+
 - **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -5216,11 +5271,10 @@ finance.run_query(query(finance.FINANCE_CASHFLOW_STATEMENT_PARENT).filter(financ
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - **filter(finance.FINANCE_CASHFLOW_STATEMENT_PARENT.code==code)**：指定筛选条件，通过finance.FINANCE_CASHFLOW_STATEMENT_PARENT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.FINANCE_CASHFLOW_STATEMENT_PARENT.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日金融类上市公司公布的母公司现金流量信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -5228,12 +5282,12 @@ finance.run_query(query(finance.FINANCE_CASHFLOW_STATEMENT_PARENT).filter(financ
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询中国平安2015年之后公告的母公司现金流量表数据，指定只取出本期经营活动现金流量净额，投资活动现金流量净额，以及筹资活动现金流量净额
 from jqdata import *
 q=query(finance.FINANCE_CASHFLOW_STATEMENT_PARENT.company_name,
@@ -5294,9 +5348,9 @@ finance.run_query(query(finance.FINANCE_BALANCE_SHEET).filter(finance.FINANCE_BA
 **参数：**
 
 - **query(finance.FINANCE_BALANCE_SHEET)**：表示从finance.FINANCE_BALANCE_SHEET这张表中查询金融类上市公司合并资产负债的字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.FINANCE_BALANCE_SHEET**：代表金融类上市公司合并资产负债表，收录了金融类上市公司的合并资产负债，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -5428,9 +5482,9 @@ finance.run_query(query(finance.FINANCE_BALANCE_SHEET).filter(finance.FINANCE_BA
     | usufruct_assets | 使用权资产 | decimal(20,4) |  |
     | liease_liability | 租赁负债 | decimal(20,4) |  |
     | ordinary_risk_reserve_fund | 一般风险准备 | decimal(20,4) |  |
-    
+
 - **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -5439,11 +5493,10 @@ finance.run_query(query(finance.FINANCE_BALANCE_SHEET).filter(finance.FINANCE_BA
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - **filter(finance.FINANCE_BALANCE_SHEET.code==code)**：指定筛选条件，通过finance.FINANCE_BALANCE_SHEET.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.FINANCE_BALANCE_SHEET.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日金融类上市公司公布的合并资产负债信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -5451,12 +5504,12 @@ finance.run_query(query(finance.FINANCE_BALANCE_SHEET).filter(finance.FINANCE_BA
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询中国平安2015年之后公告的合并资产负债表数据，取出本期的货币资金，总资产和总负债
 from jqdata import finance
 q=query(finance.FINANCE_BALANCE_SHEET.company_name,
@@ -5518,9 +5571,9 @@ finance.run_query(query(finance.FINANCE_BALANCE_SHEET_PARENT).filter(finance.FIN
 **参数：**
 
 - **query(finance.FINANCE_BALANCE_SHEET_PARENT)**：表示从finance.FINANCE_BALANCE_SHEET_PARENT这张表中查询金融类上市公司母公司资产负债的字段信息，还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2），多个字段用逗号分隔进行提取；query函数的更多用法详见：[sqlalchemy.orm.query.Query对象](http://docs.sqlalchemy.org/en/rel_1_0/orm/query.html)
-    
+
 - **finance.FINANCE_BALANCE_SHEET_PARENT**：代表金融类上市公司母公司资产负债表，收录了金融类上市公司的母公司资产负债，表结构和字段信息如下：
-    
+
     | 字段名称 | 中文名称 | 字段类型 | 含义 |
     | --- | --- | --- | --- |
     | company_id | 公司ID | int |  |
@@ -5652,9 +5705,9 @@ finance.run_query(query(finance.FINANCE_BALANCE_SHEET_PARENT).filter(finance.FIN
     | usufruct_assets | 使用权资产 | decimal(20,4) |  |
     | liease_liability | 租赁负债 | decimal(20,4) |  |
     | ordinary_risk_reserve_fund | 一般风险准备 | decimal(20,4) |  |
-    
+
 - **报表来源编码**
-    
+
     | 编码 | 名称 |
     | --- | --- |
     | 321001 | 招募说明书 |
@@ -5663,11 +5716,10 @@ finance.run_query(query(finance.FINANCE_BALANCE_SHEET_PARENT).filter(finance.FIN
     | 321004 | 预披露公告 |
     | 321005 | 换股报告书 |
     | 321099 | 其他 |
-    
+
 - **filter(finance.FINANCE_BALANCE_SHEET_PARENT.code==code)**：指定筛选条件，通过finance.FINANCE_BALANCE_SHEET_PARENT.code==code可以指定你想要查询的股票代码；除此之外，还可以对表中其他字段指定筛选条件，如finance.FINANCE_BALANCE_SHEET_PARENT.pub_date>='2015-01-01'，表示公告日期大于2015年1月1日金融类上市公司公布的母公司资产负债信息；多个筛选条件用英文逗号分隔。
-    
+
 - **limit(n)**：限制返回的数据条数，n指定返回条数。
-    
 
 **返回结果：**
 
@@ -5675,12 +5727,12 @@ finance.run_query(query(finance.FINANCE_BALANCE_SHEET_PARENT).filter(finance.FIN
 
 **注意：**
 
-1.  **为了防止返回数据量过大, 我们每次最多返回4000行**
-2.  不能进行连表查询，即同时查询多张表的数据
+1. **为了防止返回数据量过大, 我们每次最多返回4000行**
+2. 不能进行连表查询，即同时查询多张表的数据
 
 **示例：**
 
-```python
+```py
 #查询中国平安2015年之后公告的母公司资产负债表数据，取出本期的货币资金，总资产和总负债
 from jqdata import finance
 q=query(finance.FINANCE_BALANCE_SHEET_PARENT.company_name,
