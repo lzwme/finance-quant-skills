@@ -37,6 +37,14 @@
   * start_date：开始日期，格式XXXX-XX-XX，发布日期在这个范围内，可以为空；
   * end_date：结束日期，格式XXXX-XX-XX，发布日期在这个范围内，可以为空。
 
+**说明：**
+
+* **数据仅更新至2015年**：央行自2015年10月起不再公布存款基准利率（利率市场化后改由 LPR 报价机制形成），本接口无2015年之后的新增数据，查询2016年及以后的日期区间返回空结果集；
+* 各利率字段单位均为**年化百分比（%）**，如 0.350000 表示 0.35%，如需小数形式参与计算应除以100；
+* 数据为每次利率调整后的一条记录，按发布日期（pubDate）升序返回；
+* 某期限品种当次调整未公布时返回空字符串（如示例中 fixedDepositRate5Year、installmentFixedDepositRate5Year），属正常情况，需做空值判断；
+* start_date、end_date 可以为空，为空时不限制该侧日期范围；结果集为分页数据，需用 while 循环逐页读取。
+
 返回示例数据
 
 | pubDate                          | demandDepositRate  | fixedDepositRate3Month  | fixedDepositRate6Month  | fixedDepositRate1Year  | fixedDepositRate2Year  | fixedDepositRate3Year

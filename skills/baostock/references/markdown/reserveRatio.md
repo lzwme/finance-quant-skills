@@ -39,6 +39,13 @@
   * end_date：结束日期，格式XXXX-XX-XX，发布日期在这个范围内，可以为空；
   * yearType:年份类别，默认为0，查询公告日期；1查询生效日期。
 
+**说明：**
+
+* yearType 枚举：0：按公告日期（pubDate）筛选；1：按生效日期（effectiveDate）筛选。start_date、end_date 的过滤对象随 yearType 变化；
+* 各准备金率字段单位均为**百分比（%）**，如 15.5 表示 15.5%；
+* Pre 为调整前、After 为调整后，同一条记录中的调整后值通常等于下一次调整的调整前值，可据此校验数据连续性；
+* start_date、end_date 可以为空，为空时不限制该侧日期范围；
+
 返回示例数据
 
 | pubDate                            | effectiveDate  | bigInstitutionsRatioPre  | bigInstitutionsRatioAfter
@@ -59,7 +66,7 @@
  ------------------------------|---
  pubDate                      | 公告日期
  effectiveDate                | 生效日期
- bigInstitutionsRatioPre      | 人民币存款准备金率：大型存款类金融机构 调整前
- bigInstitutionsRatioAfter    | 人民币存款准备金率：大型存款类金融机构 调整后
- mediumInstitutionsRatioPre   | 人民币存款准备金率：中小型存款类金融机构 调整前
- mediumInstitutionsRatioAfter | 人民币存款准备金率：中小型存款类金融机构 调整后
+ bigInstitutionsRatioPre      | 人民币存款准备金率：大型存款类金融机构 调整前，单位：%
+ bigInstitutionsRatioAfter    | 人民币存款准备金率：大型存款类金融机构 调整后，单位：%
+ mediumInstitutionsRatioPre   | 人民币存款准备金率：中小型存款类金融机构 调整前，单位：%
+ mediumInstitutionsRatioAfter | 人民币存款准备金率：中小型存款类金融机构 调整后，单位：%

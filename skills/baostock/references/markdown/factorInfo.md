@@ -6,7 +6,7 @@
 
 BaoStock提供的是**涨跌幅复权算法** 复权因子，具体介绍见：[媒体文件:BaoStock复权因子简介.pdf](https://www.baostock.com/helpdocs/pdf/BaoStock%E5%A4%8D%E6%9D%83%E5%9B%A0%E5%AD%90%E7%AE%80%E4%BB%8B.pdf "BaoStock复权因子简介.pdf")。
 
-基于BaoStock复权因子与本地BaoStock日K线数据**生成复权行情**，具体介绍见：<a href="localdatafactorInfo.md" style="color:#000; font-weight:bold;">利用本地Baostock日K线数据手动计算复权价格</a>。
+基于BaoStock复权因子与本地BaoStock日K线数据**生成复权行情**，具体介绍见：<a href="localdatafactorInfo.md">利用本地Baostock日K线数据手动计算复权价格</a>。
 
 ```python
     import baostock as bs
@@ -40,6 +40,13 @@ BaoStock提供的是**涨跌幅复权算法** 复权因子，具体介绍见：[
   * start_date：开始日期，为空时默认为2015-01-01，包含此日期；
   * end_date：结束日期，为空时默认当前日期，包含此日期。
 
+**说明：**
+
+* start_date 为空时默认取2015-01-01，只返回该日期之后的复权因子。若需计算2015年之前的前复权/后复权价格，必须显式传入更早的 start_date（如该股票上市日期），否则会丢失早期的复权因子，导致复权价格计算错误；
+* 复权因子**只在除权除息日（dividOperateDate）产生记录**，并非每个交易日一条记录。计算某一交易日的复权价格时，应取“小于等于该交易日”的最近一条复权因子；
+* 查询区间内没有除权除息事件（如新股上市后从未分红送配）时，返回空结果集，error_code 仍为"0"；
+* 复权因子与除权除息信息（query_dividend_data()）一一对应，两者返回的除权除息日期数量应当一致，可据此交叉校验数据完整性。
+
 返回示例数据
 
 | code             | dividOperateDate  | foreAdjustFactor  | backAdjustFactor  | adjustFactor
@@ -54,6 +61,6 @@ BaoStock提供的是**涨跌幅复权算法** 复权因子，具体介绍见：[
  ---              |---|---
  code             | 证券代码  |
  dividOperateDate | 除权除息日期  |
- foreAdjustFactor | 向前复权因子  | 除权除息日前一个交易日的收盘价/除权除息日最近的一个交易日的前收盘价
- backAdjustFactor | 向后复权因子  | 除权除息日最近的一个交易日的前收盘价/除权除息日前一个交易日的收盘价
+ foreAdjustFactor | 向前复权因子  | 当天的前收/前一天的收盘价，最近一次除权除息日后的交易日前复权因子为1
+ backAdjustFactor | 向后复权因子  | 前一天的收盘价/当天的前收，上市首日后复权因子为1
  adjustFactor     | 本次复权因子  |

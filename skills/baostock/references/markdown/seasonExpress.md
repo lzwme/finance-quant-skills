@@ -42,6 +42,13 @@
   * start_date：开始日期，发布日期或更新日期在这个范围内；
   * end_date：结束日期，发布日期或更新日期在这个范围内。
 
+**说明：**
+
+* 业绩快报属于自愿披露信息，除几种特殊情况外交易所未要求必须发布，因此并非每家公司、每个报告期都有记录；
+* performanceExpUpdateDate 为该报告期快报的最新披露日；若快报被更正，可能晚于 performanceExpPubDate，同一报告期应以 performanceExpUpdateDate 最新的记录为准；
+* 当指定区间内公司未发布业绩快报时，返回空结果集，error_code 仍为"0"；
+* performanceExpressTotalAsset、performanceExpressNetAsset 单位为元；performanceExpressROEWa 为加权净资产收益率（%）。
+
 返回示例数据
 
 | code                                | performanceExpPubDate  | performanceExpStatDate  | performanceExpUpdateDate  | performanceExpressTotalAsset  | performanceExpressNetAsset

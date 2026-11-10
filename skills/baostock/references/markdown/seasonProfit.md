@@ -39,6 +39,13 @@
   * year：统计年份，为空时默认当前年；
   * quarter：统计季度，可为空，默认当前季度。不为空时只有4个取值：1，2，3，4。
 
+**说明：**
+
+* quarter 取值为1、2、3、4，分别对应一季报（3月31日）、半年报（6月30日）、三季报（9月30日）、年报（12月31日）。quarter=4 即为**年报**数据，statDate 为当年的12-31；
+* 同一证券同一报告期（year+quarter）在数据库中仅保留一条记录，如财报数据被修正，返回的是最新披露口径的数据；
+* 当指定季度尚未披露、或该证券当年无对应报告时，返回空结果集，error_code 仍为"0"，此时不应视为接口异常；
+* 财务比率类字段（roeAvg、npMargin、gpMargin 等）在分母为0或数据缺失时返回空字符串，使用前需先做空值判断，不能直接转为 float。
+
 返回示例数据
 
 | code         | pubDate  | statDate  | roeAvg  | npMargin  | gpMargin  | netProfit  | epsTTM  | MBRevenue  | totalShare  | liqaShare

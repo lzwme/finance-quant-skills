@@ -6,7 +6,7 @@
 
 返回类型：pandas的DataFrame类型。
 
-能获取1990-12-19至当前时间的数据；
+分钟K线，日、周、月K线支持日期范围请看“平台介绍-数据范围说明”；
 
 可查询不复权、**前复权**、**后复权**数据。
 
@@ -27,8 +27,6 @@
 
     #### 获取沪深A股历史K线数据 ####
     # 详细指标参数，参见“历史行情指标参数”章节；“分钟线”参数与“日线”参数不同。“分钟线”不包含指数。
-    # 分钟线指标：date,time,code,open,high,low,close,volume,amount,adjustflag
-    # 周月线指标：date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg
     rs = bs.query_history_k_data_plus("sh.600000",
         "date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,isST",
         start_date='2024-07-01', end_date='2024-12-31',
@@ -66,9 +64,7 @@
     print('login respond  error_msg:'+lg.error_msg)
 
     #### 获取沪深A股历史K线数据 ####
-    # 详细指标参数，参见“历史行情指标参数”章节；“分钟线”参数与“日线”参数不同。“分钟线”不包含指数。
     # 分钟线指标：date,time,code,open,high,low,close,volume,amount,adjustflag
-    # 周月线指标：date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg
     rs = bs.query_history_k_data_plus("sh.600000",
         "date,time,code,open,high,low,close,volume,amount,adjustflag",
         start_date='2024-07-01', end_date='2024-12-31',
@@ -92,12 +88,88 @@
 
 ```
 
+周线使用示例：
+
+```python
+
+    import baostock as bs
+    import pandas as pd
+
+    #### 登陆系统 ####
+    lg = bs.login()
+    # 显示登陆返回信息
+    print('login respond error_code:'+lg.error_code)
+    print('login respond  error_msg:'+lg.error_msg)
+
+    #### 获取沪深A股历史周K线数据 ####
+    # 周线指标：date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg
+    rs = bs.query_history_k_data_plus("sh.600000",
+        "date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg",
+        start_date='2024-07-01', end_date='2024-12-31',
+        frequency="w", adjustflag="3")
+    print('query_history_k_data_plus respond error_code:'+rs.error_code)
+    print('query_history_k_data_plus respond  error_msg:'+rs.error_msg)
+
+    #### 打印结果集 ####
+    data_list = []
+    while (rs.error_code == '0') & rs.next():
+        # 获取一条记录，将记录合并在一起
+        data_list.append(rs.get_row_data())
+    result = pd.DataFrame(data_list, columns=rs.fields)
+
+    #### 结果集输出到csv文件 ####
+    result.to_csv("D:\\history_A_stock_k_data_week.csv", index=False)
+    print(result)
+
+    #### 登出系统 ####
+    bs.logout()
+
+```
+
+月线使用示例：
+
+```python
+
+    import baostock as bs
+    import pandas as pd
+
+    #### 登陆系统 ####
+    lg = bs.login()
+    # 显示登陆返回信息
+    print('login respond error_code:'+lg.error_code)
+    print('login respond  error_msg:'+lg.error_msg)
+
+    #### 获取沪深A股历史月K线数据 ####
+    # 月线指标：date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg
+    rs = bs.query_history_k_data_plus("sh.600000",
+        "date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg",
+        start_date='2024-07-01', end_date='2024-12-31',
+        frequency="m", adjustflag="3")
+    print('query_history_k_data_plus respond error_code:'+rs.error_code)
+    print('query_history_k_data_plus respond  error_msg:'+rs.error_msg)
+
+    #### 打印结果集 ####
+    data_list = []
+    while (rs.error_code == '0') & rs.next():
+        # 获取一条记录，将记录合并在一起
+        data_list.append(rs.get_row_data())
+    result = pd.DataFrame(data_list, columns=rs.fields)
+
+    #### 结果集输出到csv文件 ####
+    result.to_csv("D:\\history_A_stock_k_data_month.csv", index=False)
+    print(result)
+
+    #### 登出系统 ####
+    bs.logout()
+
+```
+
 参数含义：
 
 * code：股票代码，sh或sz.+6位数字代码，或者指数代码，如：sh.601398。sh：上海；sz：深圳。此参数不可为空；
 * fields：指示简称，支持多指标输入，以半角逗号分隔，填写内容作为返回类型的列。**详细指标列表见历史行情指标参数章节，日线与分钟线参数不同**。此参数不可为空；
-* start：开始日期（包含），格式“YYYY-MM-DD”，为空时取2015-01-01；
-* end：结束日期（包含），格式“YYYY-MM-DD”，为空时取最近一个交易日；
+* start_date：开始日期（包含），格式“YYYY-MM-DD”，为空时取2015-01-01；
+* end_date：结束日期（包含），格式“YYYY-MM-DD”，为空时取最近一个交易日；
 * frequency：数据类型，默认为d，日k线；d=日k线、w=周、m=月、5=5分钟、15=15分钟、30=30分钟、60=60分钟k线数据，不区分大小写；指数没有分钟线数据；周线每周最后一个交易日才可以获取，月线每月最后一个交易日才可以获取。
 * adjustflag：**复权类型，默认不复权：3；1：后复权；2：前复权。已支持分钟线、日线、周线、月线前后复权。** BaoStock提供的是**涨跌幅复权算法**复权因子，具体介绍见[BaoStock复权因子简介](https://www.baostock.com/helpdocs/pdf/BaoStock%E5%A4%8D%E6%9D%83%E5%9B%A0%E5%AD%90%E7%AE%80%E4%BB%8B.pdf "BaoStock复权因子简介.pdf")。
 
@@ -141,7 +213,7 @@ BaoStock使用“涨跌幅复权法”进行复权，详细说明参考上文“
 | adjustflag | 复权状态(1：后复权， 2：前复权，3：不复权） |  |
 | turn | 换手率 | [指定交易日的成交量(股)/指定交易日的股票的流通股总股数(股)]\*100% |
 | tradestatus | 交易状态(1：正常交易 0：停牌） |  |
-| pctChg | 涨跌幅（百分比） | 日涨跌幅=[(指定交易日的收盘价-指定交易日前收盘价)/指定交易日前收盘价]\*100% |
+| pctChg | 涨跌幅，单位：% | 日涨跌幅=[(指定交易日的收盘价-指定交易日前收盘价)/指定交易日前收盘价]\*100% |
 | peTTM | 滚动市盈率 | (指定交易日的股票收盘价/指定交易日的每股盈余TTM)=(指定交易日的股票收盘价\*截至当日公司总股本)/归属母公司股东净利润TTM |
 | pbMRQ | 市净率 | (指定交易日的股票收盘价/指定交易日的每股净资产)=总市值/(最近披露的归属母公司股东的权益-其他权益工具) |
 | psTTM | 滚动市销率 | (指定交易日的股票收盘价/指定交易日的每股销售额)=(指定交易日的股票收盘价\*截至当日公司总股本)/营业总收入TTM |
@@ -185,15 +257,15 @@ BaoStock使用“涨跌幅复权法”进行复权，详细说明参考上文“
 | preclose | 昨日收盘价 | 精度：小数点后4位；单位：人民币元 |
 | volume | 成交数量 | 单位：股 |
 | amount | 成交金额 | 精度：小数点后4位；单位：人民币元 |
-| adjustflag | 复权状态 | 不复权、前复权、后复权 |
-| turn | 换手率 | 精度：小数点后6位；单位：% |
-| tradestatus | 交易状态 | 1：正常交易 0：停牌 |
-| pctChg | 涨跌幅（百分比） | 精度：小数点后6位 |
+| adjustflag | 复权状态 | 1：后复权，2：前复权，3：不复权 |
+| turn | 换手率 | 精度：小数点后6位，单位：% |
+| tradestatus | 交易状态 | 1：正常交易，0：停牌 |
+| pctChg | 涨跌幅，单位：% | 精度：小数点后6位 |
 | peTTM | 滚动市盈率 | 精度：小数点后6位 |
 | psTTM | 滚动市销率 | 精度：小数点后6位 |
 | pcfNcfTTM | 滚动市现率 | 精度：小数点后6位 |
 | pbMRQ | 市净率 | 精度：小数点后6位 |
-| isST | 是否ST | 1是，0否 |
+| isST | 是否ST | 1：是，0：否 |
 
 周、月线指标参数
 
@@ -207,9 +279,9 @@ BaoStock使用“涨跌幅复权法”进行复权，详细说明参考上文“
 | close | 收盘价 | 精度：小数点后4位；单位：人民币元 |  |
 | volume | 成交数量 | 单位：股 |  |
 | amount | 成交金额 | 精度：小数点后4位；单位：人民币元 |  |
-| adjustflag | 复权状态 | 不复权、前复权、后复权 |  |
-| turn | 换手率 | 精度：小数点后6位；单位：% |  |
-| pctChg | 涨跌幅（百分比） | 精度：小数点后6位 | 涨跌幅=[(区间最后交易日收盘价-区间首个交易日前收盘价)/区间首个交易日前收盘价]\*100% |
+| adjustflag | 复权状态 | 1：后复权，2：前复权，3：不复权 |  |
+| turn | 换手率 | 精度：小数点后6位，单位：% |  |
+| pctChg | 涨跌幅，单位：% | 精度：小数点后6位 | 涨跌幅=[(区间最后交易日收盘价-区间首个交易日前收盘价)/区间首个交易日前收盘价]\*100% |
 
 5、15、30、60分钟线指标参数(不包含指数)
 
@@ -219,9 +291,21 @@ BaoStock使用“涨跌幅复权法”进行复权，详细说明参考上文“
 | time | 交易所行情时间 | 格式：YYYYMMDDHHMMSSsss |
 | code | 证券代码 | 格式：sh.600000。sh：上海，sz：深圳 |
 | open | 开盘价格 | 精度：小数点后4位；单位：人民币元 |
-| high | 最高价 | 精度：小数点后4位；单位：人民币元 |
-| low | 最低价 | 精度：小数点后4位；单位：人民币元 |
+| high | 最高价 | 精度：小数点后4位；单位：人民币元；取时间区间内所有最新价中的最大值 |
+| low | 最低价 | 精度：小数点后4位；单位：人民币元；取时间区间内所有最新价中的最小值 |
 | close | 收盘价 | 精度：小数点后4位；单位：人民币元 |
 | volume | 成交数量 | 单位：股； 时间范围内的累计成交数量 |
 | amount | 成交金额 | 精度：小数点后4位；单位：人民币元； 时间范围内的累计成交金额 |
-| adjustflag | 复权状态 | 不复权、前复权、后复权 |
+| adjustflag | 复权状态 | 1：后复权，2：前复权，3：不复权 |
+
+### 频率与可用字段对照表
+
+下表以 frequency 为行、以字段为列，`√` 表示该频率支持在 fields 参数中传入该字段，`×` 表示不支持。传入不支持的字段时，该字段无法返回有效数据。指数仅支持日、周、月线，不支持分钟线，也不提供估值（peTTM、psTTM、pcfNcfTTM、pbMRQ）、换手率（turn）、交易状态（tradestatus）和 isST 字段。
+
+| frequency | date | time | code | open | high | low | close | preclose | volume | amount | adjustflag | turn | tradestatus | pctChg | peTTM | psTTM | pcfNcfTTM | pbMRQ | isST |
+|------------|------------|-------|------------|------------|-------|------------|------------|-------|------------|------------|-------|------------|------------|-------|------------|-------|------------|-------|-------|
+| d（日线） | √ | × | √ | √ | √ | √ | √ | √ | √ | √ | √ | √ | √ | √ | √ | √ | √ | √ | √ |
+| w（周线） | √ | × | √ | √ | √ | √ | √ | × | √ | √ | √ | √ | × | √ | × | × | × | × | × |
+| m（月线） | √ | × | √ | √ | √ | √ | √ | × | √ | √ | √ | √ | × | √ | × | × | × | × | × |
+| 5/15/30/60（分钟线） | √ | √ | √ | √ | √ | √ | √ | × | √ | √ | √ | × | × | × | × | × | × | × | × |
+| 指数（d/w/m） | √ | × | √ | √ | √ | √ | √ | √ | √ | √ | × | × | × | √ | × | × | × | × | × |

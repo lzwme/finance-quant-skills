@@ -48,6 +48,13 @@
   * year：年份，如：2017。此参数不可为空；
   * yearType：年份类别，默认为"report":预案公告年份，可选项"operate":除权除息年份。此参数不可为空。
 
+**说明：**
+
+* yearType 仅支持"report"和"operate"两个取值，区分大小写，必须使用小写字符串；
+* "report"按预案公告年份（dividPlanAnnounceDate 所在年份）筛选；"operate"按除权除息年份（dividOperateDate 所在年份）筛选。两种取值的返回字段完全相同，区别仅在于筛选所依据的日期；
+* dividCashPsAfterTax 中出现的两个数值（如 0.6813 或 0.71915）是按不同税率（10%、5%）计算出的税后每股股利，具体返回哪一个以接口实际返回的字符串为准；
+* 某一年度没有分红方案时，返回空结果集，error_code 仍为"0"；预披露公告日等日期字段在尚未披露时返回空字符串。
+
 返回示例数据
 
 | code  | dividPreNoticeDate  | dividAgmPumDate  | dividPlanAnnounceDate  | dividPlanDate  | dividRegistDate  | dividOperateDate  | dividPayDate

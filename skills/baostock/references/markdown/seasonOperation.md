@@ -39,6 +39,13 @@
   * year：统计年份，为空时默认当前年；
   * quarter：统计季度，为空时默认当前季度。不为空时只有4个取值：1，2，3，4。
 
+**说明：**
+
+* quarter 取值为1、2、3、4，分别对应一季报（3月31日）、半年报（6月30日）、三季报（9月30日）、年报（12月31日）。quarter=4 即为**年报**数据，statDate 为当年的12-31；
+* 周转天数（NRTurnDays、INVTurnDays）按报告期累计天数折算：一季报90天、中报180天、三季报270天、年报360天，并非单季度天数；
+* 同一证券同一报告期（year+quarter）在数据库中仅保留一条记录，如财报数据被修正，返回的是最新披露口径的数据；
+* 当指定季度尚未披露、或该证券当年无对应报告时，返回空结果集，error_code 仍为"0"；周转率/周转天数字段在分母为0或数据缺失时返回空字符串。
+
 返回示例数据
 
 | code           | pubDate  | statDate  | NRTurnRatio  | NRTurnDays  | INVTurnRatio  | INVTurnDays  | CATurnRatio  | AssetTurnRatio

@@ -37,6 +37,11 @@
   * start_date：开始日期，格式XXXX，发布日期在这个范围内，可以为空；
   * end_date：结束日期，格式XXXX，发布日期在这个范围内，可以为空。
 
+**说明：**
+
+* m0Year、m1Year、m2Year 单位为**亿元**，表示年末货币供应量余额；m0YearYOY、m1YearYOY、m2YearYOY 为同比增长率（%）；
+* statYear 为统计年度，start_date、end_date 格式为"YYYY"，按发布日期筛选，可以为空，为空时不限制该侧范围；
+
 返回示例数据
 
 | statYear     | m0Year  | m0YearYOY  | m1Year  | m1YearYOY  | m2Year  | m2YearYOY

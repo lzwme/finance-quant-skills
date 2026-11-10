@@ -41,6 +41,12 @@
   * start_date：开始日期，发布日期或更新日期在这个范围内；
   * end_date：结束日期，发布日期或更新日期在这个范围内。
 
+**说明：**
+
+* profitForcastType 为交易所公告中的业绩预告类型原文，常见取值有：预增、略增、续盈、扭亏、首亏、续亏、预减、略减、不确定等，接口按公告原文返回，不限于上述列举，使用前不宜按固定枚举做强校验；
+* profitForcastChgPctUp、profitForcastChgPctDwn 分别表示预告的净利润增长上限、下限（%）；公告未给出区间时，两者可能相同，或其中一个为 0.000000；
+* 当指定区间内公司未发布业绩预告时，返回空结果集，error_code 仍为"0"。
+
 返回示例数据
 
 | code                          | profitForcastExpPubDate  | profitForcastExpStatDate  | profitForcastType  | profitForcastAbstract

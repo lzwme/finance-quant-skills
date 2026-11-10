@@ -37,6 +37,12 @@
   * start_date：开始日期，格式XXXX-XX，发布日期在这个范围内，可以为空；
   * end_date：结束日期，格式XXXX-XX，发布日期在这个范围内，可以为空。
 
+**说明：**
+
+* m0Month、m1Month、m2Month 单位为**亿元**，表示当月末货币供应量余额；m0YOY、m1YOY、m2YOY 为同比增长率（%），m0ChainRelative、m1ChainRelative、m2ChainRelative 为环比增长率（%）；
+* statMonth 为月份数字字符串（"01"—"12"），需与 statYear 组合才能确定具体月份，不能单独作为日期使用；
+* start_date、end_date 格式为"YYYY-MM"，按发布日期筛选，可以为空，为空时不限制该侧范围；
+
 返回示例数据
 
 | statYear        | statMonth  | m0Month  | m0YOY  | m0ChainRelative  | m1Month  | m1YOY  | m1ChainRelative
@@ -58,11 +64,11 @@
  statYear        | 统计年度
  statMonth       | 统计月份
  m0Month         | 货币供应量M0（月）
- m0YOY           | 货币供应量M0（同比）
- m0ChainRelative | 货币供应量M0（环比）
+ m0YOY           | 货币供应量M0（同比），单位：%
+ m0ChainRelative | 货币供应量M0（环比），单位：%
  m1Month         | 货币供应量M1（月）
- m1YOY           | 货币供应量M1（同比）
- m1ChainRelative | 货币供应量M1（环比）
+ m1YOY           | 货币供应量M1（同比），单位：%
+ m1ChainRelative | 货币供应量M1（环比），单位：%
  m2Month         | 货币供应量M2（月）
- m2YOY           | 货币供应量M2（同比）
- m2ChainRelative | 货币供应量M2（环比）
+ m2YOY           | 货币供应量M2（同比），单位：%
+ m2ChainRelative | 货币供应量M2（环比），单位：%

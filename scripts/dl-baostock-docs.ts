@@ -7,7 +7,7 @@ import { resolve } from 'node:path';
 import fs from 'node:fs';
 
 const rootDir = resolve(__dirname, '../skills/baostock');
-const markdownDir = resolve(rootDir, 'markdown');
+const markdownDir = resolve(rootDir, 'references/markdown');
 
 async function request(url: string, options = {}) {
   options = Object.assign({ method: "POST", "Referer": "https://www.baostock.com/mainContent?file=home.md", }, options);
@@ -45,10 +45,12 @@ async function getMarkdown(fileName: string) {
     .replaceAll('](helpdocs/', '](https://www.baostock.com/helpdocs/')
     .replaceAll('<button>下载</button>', '下载')
     .replace(/<style>[\s\S]*?<\/style>/g, '') // 移除 <style> 标签
+    .replace(/ *style="[^"]+"/g, '')  // 移除html行内 style 样式
     .replace(/([a-z0-9]+)\\_/g, '$1_')  // \_ 不必要的转义符
     .replace(/<a id=[^>]+><\/a>/g, '')   // 锚点
     .split('\n').map(line => line.trimEnd()).join('\n').trim()    // 每一行都 trim  End 一下
     .replace(/\n{3,}/g, '\n\n')         // 连续 3 行及以上换行符替换为 2 个换行符
+    .replaceAll('```\n\nimport ', '```py\nimport ')
   return markdown;
 }
 

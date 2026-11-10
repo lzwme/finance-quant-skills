@@ -3,6 +3,7 @@
 - [平台介绍](home.md)
 - [Python API文档](pythonAPI.md)
 - [A股K线数据](stockKData.md)
+- [每日更新](DailyUpdates.md)
 - [指数数据](indexData.md)
 - [估值指标(日频)](valuationDaily.md)
 - [除权除息信息](dividInfo.md)
@@ -28,3 +29,4 @@
 - [中证500成分股](zz500Stock.md)
 - [证券元信息](StockBasicInfoAPI.md)
 - [公式与数据说明](dataExplain.md)
+- [API错误码](baostock_error_codes.md)
